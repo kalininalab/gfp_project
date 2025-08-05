@@ -11,3 +11,6 @@ dependencies:
   - pandas
   - scikit-learn
   - scipy
+  - biopython
+  - matplotlib
+  - seaborn
