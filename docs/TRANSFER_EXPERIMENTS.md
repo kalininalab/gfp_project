@@ -5,7 +5,7 @@
 All **96 fits** completed successfully; the finalizer verified artifact hashes,
 test record identities and targets, and recomputed prediction metrics.
 [Full results](../results/transfer_cgreGFP_seed42_44/RESULTS.md) include Pearson,
-RMSE and runtime, alongside the two requested figures:
+R², RMSE and runtime, alongside the two requested figures:
 [ortholog mixtures](../results/transfer_cgreGFP_seed42_44/ortholog_mixtures_spearman.png)
 and [artificial-peak transfer](../results/transfer_cgreGFP_seed42_44/artificial_peak_transfer_spearman.png).
 
@@ -167,7 +167,7 @@ Jannis's architecture. GroupNorm does not mix batch statistics between samples.
   They are not confidence intervals, CV uncertainty, or uncertainty over new
   protein backgrounds. Individual run metrics are saved.
 - Report Spearman, Pearson, RMSE, and R² on log10 fluorescence. The two main
-  figures use Spearman; matching Pearson figures are also generated.
+  figures use Spearman; matching Pearson and R² figures are also generated.
 - Constant predictions have undefined correlation. We retain that as undefined,
   rather than plotting it as zero or dropping a failed ranking silently.
 - The natural cgreGFP test partition appeared in earlier model comparisons.
@@ -275,7 +275,7 @@ It produces PNG, PDF, and SVG versions of:
 
 - `ortholog_mixtures_spearman`: the seven mixtures with training-source dots.
 - `artificial_peak_transfer_spearman`: the four transfer directions.
-- Corresponding `*_pearson` figures.
+- Corresponding `*_pearson` and `*_r2` figures.
 
 The palette is blue, orange, purple, and rose; no green. Ratios and sample counts
 are printed directly on the figures. `summary.csv`, `per_run_scores.csv`,
@@ -297,3 +297,9 @@ MPLCONFIGDIR=/tmp/gfp-matplotlib python -m scripts.transfer_benchmark.plot_cgre_
 
 This requires the saved per-fit predictions and prepared sequence table; it does
 not retrain models. The script verifies prediction hashes, test IDs and targets.
+
+R² is included in the result table and scatter annotations. Companion R² plots:
+[ortholog mixtures](../results/transfer_cgreGFP_seed42_44/ortholog_mixtures_r2.png) ·
+[artificial peaks](../results/transfer_cgreGFP_seed42_44/artificial_peak_transfer_r2.png).
+Negative R² means worse squared error than predicting the test-target mean;
+high rank correlation alone does not imply accurate fluorescence calibration.

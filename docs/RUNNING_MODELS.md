@@ -312,3 +312,42 @@ avGFP already supplies log brightness. Artificial-peak brightness is used on its
 provided calibration, synonymous rows are aggregated before log10, and those
 landscapes stay separate. The excluded `cgre12minis` file is still not used.
 See the detailed guide and preparation manifest for exclusions and source hashes.
+
+## Jannis CNN with one-hot input
+
+`CNN_Jannis_OHE` uses the same four-convolution Jannis architecture and the same
+training recipe as the ESM version, but takes **235 native residue positions ×
+20 amino-acid channels**. No alignment, embedding generation, or terminal padding
+is used. Only the first convolution's input width changes (640 → 20), giving
+4,698,881 parameters. This tests the input representation with a matched training
+recipe; it is not a reproduction of every choice in Jannis's original training.
+
+```bash
+python -m scripts.train_jannis_ohe --device cuda
+# One existing CV fold (repeat 00 through 09):
+python -m scripts.train_jannis_ohe --device cuda \
+  --split results/cv10_cgreGFP_seed42/splits/fold_00.csv --split-name 00
+```
+
+On our cluster, submit all 11 fits instead:
+
+```bash
+mkdir -p results/jannis_ohe_cgreGFP/condor
+cp condor/jannis_ohe.dag results/jannis_ohe_cgreGFP/workflow.dag
+ssh lsv-submit 'cd /nethome/akolchina/gfp_project && condor_submit_dag results/jannis_ohe_cgreGFP/workflow.dag'
+```
+
+The DAG runs the 11 fits and then rebuilds the benchmark tables/figures. It
+requires the earlier reference/ESM runs to be complete. To train only, submit
+`condor/jannis_ohe.sub` instead; do not submit both workflows.
+
+The runs use the original seed-42 holdout and ten fold assignments, training-only
+target scaling, and validation-only early stopping. Outputs go to
+`results/jannis_ohe_cgreGFP/SPLIT/CNN_Jannis_OHE/`. After all 11 fits and the
+existing ESM/reference runs finish, `python -m scripts.finalize_esm` validates and
+adds this model to the main comparison table and CNN prediction figures.
+
+R² is calculated as `1 − sum((true − pred)²) / sum((true − mean(true))²)` on the
+held-out targets, not as squared Pearson correlation. It can be negative. CV
+reports mean ± sample SD of the ten fold R² values; annotations on pooled
+out-of-fold plots calculate R² over all held-out predictions together.

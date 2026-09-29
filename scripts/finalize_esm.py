@@ -12,6 +12,8 @@ import numpy as np
 
 from scripts.esm_benchmark.run import MEAN_MODELS, load_data, write_csv
 from scripts.regression_metrics import metrics
+from scripts.esm_benchmark.embed import digest
+from scripts.train_jannis_ohe import source_hashes as ohe_source_hashes
 
 MODELS=MEAN_MODELS+['CNN_old','CNN_new','CNN_Jannis']
 METRICS=['spearman','pearson','r2','rmse']
@@ -30,13 +32,13 @@ def scatter_panels(data,path):
     collections=[]
     for ax,(name,(true,pred)) in zip(axes.flat,data.items()):
         lo,hi=lower,upper
-        collections.append(ax.hexbin(true,pred,gridsize=55,mincnt=1,cmap='viridis',extent=(lo,hi,lo,hi)))
+        collections.append(ax.hexbin(true,pred,gridsize=55,mincnt=1,cmap='magma',extent=(lo,hi,lo,hi)))
         ax.plot([lo,hi],[lo,hi],'k--',lw=1)
         ax.set(xlabel='Measured log10 fluorescence',ylabel='Predicted log10 fluorescence',xlim=(lo,hi),ylim=(lo,hi))
         ax.set_aspect('equal',adjustable='box')
         m=metrics(true,pred)
         f=lambda v:'undefined' if v is None else f'{v:.3f}'
-        ax.set_title(f'{name}\nSpearman {f(m["spearman"])} | Pearson {f(m["pearson"])}\nRMSE {m["rmse"]:.3f}')
+        ax.set_title(f'{name}\nSpearman {f(m["spearman"])} | Pearson {f(m["pearson"])}\nR² {m["r2"]:.3f} | RMSE {m["rmse"]:.3f}')
     for ax in list(axes.flat)[len(data):]:
         ax.set_visible(False)
     norm=LogNorm(vmin=1,vmax=max(2,max(float(c.get_array().max()) for c in collections)))
@@ -52,11 +54,13 @@ def scatter_panels(data,path):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--directory',type=Path,default=Path('results/esm_cgreGFP'))
+    p.add_argument('--ohe-directory',type=Path,default=Path('results/jannis_ohe_cgreGFP'))
     a=p.parse_args(); root=a.directory
     rows,holdout,manifest=load_data('data/processed/baseline_v1/sequences.csv',Path('esm_embeddings/cgreGFP_t30'),'holdout')
     row_map={r['record_id']:r for r in rows}
     timing=json.loads((root/'reference_timing.json').read_text())['results']
-    table=[]
+    table=[]; input_reports={}
+    esm_sources={p.name:digest(p) for p in Path('scripts/esm_benchmark').glob('*.py')}
     old_holdout={r['model']:r for r in read_csv('results/evaluation_cgreGFP_seed42/comparison.csv') if r['split']=='test'}
     old_cv={r['model']:r for r in read_csv('results/cv10_cgreGFP_seed42/summary.csv')}
     for name,h in old_holdout.items():
@@ -69,13 +73,23 @@ def main():
             item[f'cv_{metric}_sd']=float(old_cv[name][metric+'_sd']) if old_cv[name][metric+'_sd'] else None
         table.append(item)
     plot_data={s:{'mean':{},'cnn':{}} for s in ['holdout','cv']}
-    for name in MODELS:
+    for name in MODELS+['CNN_Jannis_OHE']:
         fold_reports=[]; oof={}
         for split_name in ['holdout']+[f'{i:02d}' for i in range(10)]:
-            out=root/split_name/name
+            out=(a.ohe_directory if name=='CNN_Jannis_OHE' else root)/split_name/name
             report=json.loads((out/'metrics.json').read_text())
+            input_reports[str(out/'metrics.json')]=digest(out/'metrics.json')
+            if name!='CNN_Jannis_OHE':
+                assert report['scripts']==esm_sources, 'ESM scientific code changed'
+                assert report['embedding_manifest_sha256']==digest('esm_embeddings/cgreGFP_t30/manifest.json')
             if report['dataset_sha256']!=manifest['dataset_sha256']:
                 raise ValueError('Dataset mismatch')
+            if name=='CNN_Jannis_OHE':
+                assert report['source_hashes']==ohe_source_hashes()
+                assert report['split_sha256']==digest('data/processed/baseline_v1/sequences.csv' if split_name=='holdout' else f'results/cv10_cgreGFP_seed42/splits/fold_{split_name}.csv')
+                assert report['predictions_sha256']==digest(out/'predictions.csv')
+                assert report['model_sha256']==digest(out/'model.pt')
+                assert report['epochs_override'] is None and report['seed']==42
             predictions=read_csv(out/'predictions.csv')
             assignment=({r['record_id']:r['split'] for r in rows} if split_name=='holdout' else
                         {r['record_id']:r['split'] for r in read_csv(f'results/cv10_cgreGFP_seed42/splits/fold_{split_name}.csv')})
@@ -123,16 +137,22 @@ def main():
             item[f'cv_{metric}_sd']=float(np.std(values,ddof=1)) if all(v is not None for v in values) else None
         table.append(item)
     write_csv(root/'comparison.csv',table)
+    ohe=next(r for r in table if r['model']=='CNN_Jannis_OHE')
+    aubin=next(r for r in table if r['model']=='aubin_1_10_1' and r['representation']=='one-hot / Hamming')
     lines=['# cgreGFP benchmark results','',
+           f'Jannis OHE: CV RMSE {ohe["cv_rmse_mean"]:.3f}, R² {ohe["cv_r2_mean"]:.3f}, Spearman {ohe["cv_spearman_mean"]:.3f}; holdout fit {ohe["holdout_fit_seconds"]/60:.1f} GPU-minutes.',
+           f'Aubin OHE: CV RMSE {aubin["cv_rmse_mean"]:.3f}, R² {aubin["cv_r2_mean"]:.3f}; holdout fit {aubin["holdout_fit_seconds"]:.1f} CPU-seconds. Different hardware; no per-sample timing or significance claim.',
+           'Jannis OHE uses native 235-position, 20-channel input, the same CNN training recipe, and the original seed-42 splits. No ESM extraction is needed.',
+           'Holdout train/validation/test: 60/20/20; each CV fold: approximately 72/18/10. OHE Jannis is evaluated here only, not in the transfer experiment.','',
            'CV values are mean ± sample SD across ten held-out folds. RMSE is in log10 fluorescence units.',
            'Fit time includes validation/early stopping and hyperparameter selection; inference time covers validation + test.',
            f'ESM embedding generation: {manifest["elapsed_seconds"]:.1f} s on {manifest["gpu"]} (shared by all ESM models).','',
-           '| Features | Model | Holdout Spearman | Holdout Pearson | CV Spearman | CV Pearson | CV RMSE | Holdout fit (s) | Predict (s) | Including load (s) |',
-           '|---|---|---:|---:|---:|---:|---:|---:|---:|---:|']
+           '| Features | Model | Holdout Spearman | Holdout Pearson | Holdout R² | CV Spearman | CV Pearson | CV R² | CV RMSE | Holdout fit (s) | Predict (s) | Including load (s) |',
+           '|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|']
     fmt=lambda v:'—' if v is None else f'{v:.3f}'
     for r in table:
         cv=lambda m:'—' if r[f'cv_{m}_mean'] is None else f'{r[f"cv_{m}_mean"]:.3f} ± {r[f"cv_{m}_sd"]:.3f}'
-        lines.append(f'| {r["representation"]} | {r["model"]} | {fmt(r["holdout_spearman"])} | {fmt(r["holdout_pearson"])} | {cv("spearman")} | {cv("pearson")} | {cv("rmse")} | {r["holdout_fit_seconds"]:.1f} | {r["holdout_inference_seconds"]:.2f} | {fmt(r["holdout_total_seconds"])} |')
+        lines.append(f'| {r["representation"]} | {r["model"]} | {fmt(r["holdout_spearman"])} | {fmt(r["holdout_pearson"])} | {fmt(r["holdout_r2"])} | {cv("spearman")} | {cv("pearson")} | {cv("r2")} | {cv("rmse")} | {r["holdout_fit_seconds"]:.1f} | {r["holdout_inference_seconds"]:.2f} | {fmt(r["holdout_total_seconds"])} |')
     lines.extend(['','CNNs use GPUs; other regressors use one CPU thread. Hardware is recorded in each metrics.json.',
                   'These are measured runtimes, not hardware-independent algorithm speed rankings.',
                   'Including load adds shared-storage input loading, checksum checks, and output writing; this is not measured for the old one-hot runs.',
@@ -141,16 +161,27 @@ def main():
     for protocol,groups in plot_data.items():
         for group,data in groups.items():
             scatter_panels(data,root/f'{protocol}_{group}_true_vs_predicted')
-    fig,axes=plt.subplots(1,2,figsize=(13,5),layout='constrained')
+    fig,axes=plt.subplots(1,3,figsize=(18,5),layout='constrained')
     for r in table:
         if r['cv_spearman_mean'] is None:
             continue
-        color={'one-hot / Hamming':'tab:blue','ESM mean':'tab:orange','ESM residues':'tab:green'}[r['representation']]
-        for ax,metric in zip(axes,['spearman','rmse']):
+        color={'one-hot / Hamming':'tab:blue','ESM mean':'tab:orange','ESM residues':'#865BA6','one-hot / native residues':'#BE577C'}[r['representation']]
+        for ax,metric in zip(axes,['spearman','rmse','r2']):
             ax.scatter(r['holdout_fit_seconds'],r[f'cv_{metric}_mean'],color=color)
             ax.annotate(r['model'],(r['holdout_fit_seconds'],r[f'cv_{metric}_mean']),fontsize=7,xytext=(3,3),textcoords='offset points')
             ax.set(xscale='log',xlabel='Holdout fit time (s; CPU/GPU differ)',ylabel=f'10-fold mean {metric}')
     fig.savefig(root/'accuracy_vs_runtime.png',dpi=180); plt.close(fig)
+    doc=Path('docs/BENCHMARK_RESULTS.md')
+    old=doc.read_text()
+    start=old.index('| Features |')
+    end=old.index('\n\n',start)
+    rendered='\n'.join(line for line in lines if line.startswith('|'))
+    doc.write_text(old[:start]+rendered+old[end:])
+    report=dict(status='complete',esm_model_fits=121,ohe_cnn_fits=11,folds=10,
+                records_per_oof_model=len(rows),finalizer_sha256=digest(__file__),
+                ohe_source_hashes=ohe_source_hashes(),esm_source_hashes=esm_sources,input_metrics=input_reports,
+                outputs={p.name:digest(p) for p in root.iterdir() if p.is_file() and p.suffix in ['.csv','.png','.pdf']})
+    (root/'finalization.json').write_text(json.dumps(report,indent=2)+'\n')
     print('\n'.join(lines))
 
 

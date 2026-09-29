@@ -1,0 +1,3 @@
+JOB TRAIN /nethome/akolchina/gfp_project/condor/jannis_ohe.sub
+JOB FINALIZE /nethome/akolchina/gfp_project/condor/finalize_benchmark.sub
+PARENT TRAIN CHILD FINALIZE

@@ -17,6 +17,7 @@ LABELS={'aubin_1_10_1':'Aubin 1–10–1','mlp_small':'Small MLP','mlp_deep':'De
 MIX_ORDER=[m for m in MIXES if m!='artificial']
 DIRECTIONS=[('artificial','artificial'),('artificial','natural'),('cgre','artificial'),('cgre','natural')]
 SCORES=['spearman','pearson','rmse','r2']
+METRIC_LABELS={'spearman':'Spearman ρ','pearson':'Pearson r','r2':'R²'}
 
 
 def style_axis(ax):
@@ -50,7 +51,8 @@ def limits(summary,experiment,metric):
     observations=[v for r in vals for v in json.loads(r.get(metric+'_runs_json','[]')) if v is not None]
     if observations:
         lo=min(lo,min(observations))
-    return min(-.10,np.floor((lo-.075)*10)/10),1.03
+    margin = max(.075, (1-lo)*.08) if metric=='r2' else .075
+    return min(-.10,np.floor((lo-margin)*10)/10),1.03
 
 
 def save(fig,directory,name):
@@ -71,7 +73,7 @@ def mixture_plot(summary,protocol,directory,metric='spearman'):
         values=[lookup[m][metric+'_mean'] for m in MIX_ORDER];errors=[lookup[m][metric+'_sd'] for m in MIX_ORDER]
         draw_bars(ax,values,errors,COLORS[model],ylim,[json.loads(lookup[m].get(metric+'_runs_json','[]')) for m in MIX_ORDER])
         ax.set_title(LABELS[model],loc='left',color=COLORS[model],fontweight='bold',pad=12)
-        ax.set_ylabel('Test Spearman ρ' if metric=='spearman' else 'Test Pearson r')
+        ax.set_ylabel('Test '+METRIC_LABELS[metric])
         ax.tick_params(axis='x',bottom=False,labelbottom=False)
         for row,gene in enumerate(NATURAL):
             for col,mix in enumerate(MIX_ORDER):
@@ -101,7 +103,7 @@ def peaks_plot(summary,protocol,directory,metric='spearman'):
         draw_bars(ax,[lookup[n][metric+'_mean'] for n in names],[lookup[n][metric+'_sd'] for n in names],COLORS[model],ylim,
                   [json.loads(lookup[n].get(metric+'_runs_json','[]')) for n in names])
         ax.set_title(LABELS[model],loc='left',color=COLORS[model],fontweight='bold',pad=10)
-        ax.set_ylabel('Pooled test Spearman ρ' if metric=='spearman' else 'Pooled test Pearson r')
+        ax.set_ylabel('Pooled test '+METRIC_LABELS[metric])
         ax.set_xticks(range(4),labels,fontsize=10)
     fig.suptitle('Transfer between natural cgreGFP and artificial peaks',fontsize=21,x=.09,ha='left',y=.966,color='#202C3C')
     fig.text(.09,.922,'Natural = the original cgreGFP landscape (including mutants). Artificial = the four approved peaks pooled.',fontsize=11,color='#596779')
@@ -194,18 +196,18 @@ def collect(directory):
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--directory',type=Path,default=DEFAULT)
     a=p.parse_args();protocol,summary,inputs=collect(a.directory)
-    for metric in ['spearman','pearson']:
+    for metric in ['spearman','pearson','r2']:
         mixture_plot(summary,protocol,a.directory,metric);peaks_plot(summary,protocol,a.directory,metric)
     lines=['# GFP transfer experiment results','',
         'Three seeds (42, 43, 44), with fixed held-out targets. Values are mean ± run SD, not confidence intervals.',
         f'Each fit uses {protocol["n_train"]:,} training and {protocol["n_validation"]:,} source-validation records.',
         f'Natural target: {protocol["test_counts"]["natural"]:,} test sequences; artificial target: {protocol["test_counts"]["artificial"]:,}. Each is 20% of its target landscape.',
         'Natural mixtures have equal source contributions; artificial training is proportional across the four peak datasets.','',
-        '| Experiment | Training / direction | Model | Test n | Spearman | Pearson | RMSE | Mean fit (min) |',
-        '|---|---|---|---:|---:|---:|---:|---:|']
+        '| Experiment | Training / direction | Model | Test n | Spearman | Pearson | R² | RMSE | Mean fit (min) |',
+        '|---|---|---|---:|---:|---:|---:|---:|---:|']
     for r in summary:
         fmt=lambda metric:'undefined' if r[metric+'_mean'] is None else f'{r[metric+"_mean"]:.3f} ± {r[metric+"_sd"]:.3f}'
-        lines.append(f'| {r["experiment"]} | {r["condition"]} | {LABELS[r["model"]]} | {r["n_test"]} | {fmt("spearman")} | {fmt("pearson")} | {fmt("rmse")} | {r["fit_seconds_mean"]/60:.2f} |')
+        lines.append(f'| {r["experiment"]} | {r["condition"]} | {LABELS[r["model"]]} | {r["n_test"]} | {fmt("spearman")} | {fmt("pearson")} | {fmt("r2")} | {fmt("rmse")} | {r["fit_seconds_mean"]/60:.2f} |')
     lines.extend(['','See per_peak_scores.csv and artificial_macro_scores.csv to distinguish within-peak prediction from pooled rank effects.',
                   'A correlation is marked undefined if any repeated fit predicts a constant; individual runs and defined-run counts remain in the CSVs.',
                   'Artificial→Artificial is within represented peaks, not leave-one-peak-out generalization.',

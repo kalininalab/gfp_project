@@ -55,7 +55,7 @@ def main():
             ax.set(xlim=limits, ylim=limits, xlabel='Measured log10 fluorescence', ylabel='Predicted log10 fluorescence')
             ax.set_aspect('equal', adjustable='box')
             ax.set_title(name, color=color, fontweight='bold', loc='left')
-            ax.text(.04, .96, f"Spearman ρ = {score['spearman']:.3f}\nPearson r = {score['pearson']:.3f}\nRMSE = {score['rmse']:.3f}",
+            ax.text(.04, .96, f"Spearman ρ = {score['spearman']:.3f}\nPearson r = {score['pearson']:.3f}\nR² = {score['r2']:.3f}\nRMSE = {score['rmse']:.3f}",
                     transform=ax.transAxes, va='top', fontsize=10,
                     bbox=dict(facecolor='white', edgecolor='none', alpha=.85))
         fig.suptitle(f'Natural cgreGFP: measured vs predicted · seed {seed}', fontsize=17, y=.98)

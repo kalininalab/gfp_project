@@ -2,13 +2,14 @@
 
 Reproducible prediction of **log10 fluorescence from protein sequence**.
 We compared one-hot baselines, mean-pooled ESM-2 regressors, and three CNNs on
-full residue embeddings, then tested transfer between GFP landscapes.
+full residue embeddings, added Jannis CNN on native one-hot inputs, and tested
+transfer between GFP landscapes.
 
 ## Results and figures
 
 | Experiment | What was done | Tables | Main figures |
 |---|---|---|---|
-| cgreGFP benchmark | Fixed 60/20/20 holdout and 10-fold CV; 24,516 sequences; 121 ESM fits plus sequence baselines | [Report](docs/BENCHMARK_RESULTS.md) · [CSV](results/esm_cgreGFP/comparison.csv) | [CNN predictions](results/esm_cgreGFP/cv_cnn_true_vs_predicted.png) · [Mean-ESM predictions](results/esm_cgreGFP/cv_mean_true_vs_predicted.png) · [Accuracy/runtime](results/esm_cgreGFP/accuracy_vs_runtime.png) |
+| cgreGFP benchmark | Fixed 60/20/20 holdout and 10-fold CV; 24,516 sequences; 121 ESM fits + 11 Jannis OHE fits + sequence baselines | [Report](docs/BENCHMARK_RESULTS.md) · [CSV](results/esm_cgreGFP/comparison.csv) | [CNN predictions](results/esm_cgreGFP/cv_cnn_true_vs_predicted.png) · [Mean-ESM predictions](results/esm_cgreGFP/cv_mean_true_vs_predicted.png) · [Accuracy/runtime](results/esm_cgreGFP/accuracy_vs_runtime.png) |
 | Transfer | Aubin 1–10–1, small/deep MLP, CNN Jannis; seven ortholog mixtures and four natural/artificial directions; 96 fits, three seeds | [Report](results/transfer_cgreGFP_seed42_44/RESULTS.md) · [CSV](results/transfer_cgreGFP_seed42_44/summary.csv) | [Training mixtures](results/transfer_cgreGFP_seed42_44/ortholog_mixtures_spearman.png) · [Artificial peaks](results/transfer_cgreGFP_seed42_44/artificial_peak_transfer_spearman.png) |
 
 [Selected models: cgre test scatter plots](results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/cgre_test_seed42.png)
@@ -17,13 +18,17 @@ show individual saved predictions from the cgre-only transfer controls (seed 42)
 [All seeds and formats](results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/) ·
 [Metrics](results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/metrics.csv).
 
-**Main findings:** Aubin 1–10–1 is the efficient default (CV RMSE 0.234;
-Spearman 0.895); deep MLP has the highest mean CV Spearman (0.899).
-CNN Jannis is the strongest CNN but costs more to train. At a fixed training
-budget, replacing cgre examples with amac/pplu examples reduced natural-cgre
-performance. Artificial → natural ranking transferred best with Aubin
-(Spearman 0.843), but absolute fluorescence calibration remained poor.
-Small score differences are descriptive, not claims of statistical significance.
+**Best measured accuracy: Jannis CNN on OHE** (CV RMSE 0.227, R² 0.912,
+Spearman 0.900). **Efficient default: Aubin 1–10–1 on OHE** (RMSE 0.234,
+R² 0.908): its holdout fit takes 65 seconds on CPU versus 20.7 minutes on GPU
+for Jannis OHE. Deep MLP has nearly the same ranking score (0.899) at lower cost.
+Small differences are descriptive, not claims of statistical significance.
+
+In the separate transfer experiment, replacing cgre examples with amac/pplu
+examples reduced natural-cgre performance at a fixed training budget.
+Artificial → natural ranking transferred best with Aubin (Spearman 0.843),
+but R² was −1.734: absolute fluorescence prediction remained poor.
+Transfer CNN results use **ESM Jannis**, not the new OHE variant.
 
 ![Training mixtures evaluated on natural cgreGFP](results/transfer_cgreGFP_seed42_44/ortholog_mixtures_spearman.png)
 
@@ -35,6 +40,11 @@ contribute equally in ortholog mixtures. Error bars show SD across three seeds;
 validation uses training sources only. Artificial → artificial tests within the
 four represented peaks, not an unseen peak. The natural test was used in earlier
 comparisons, so these transfer results are exploratory.
+
+R² is reported alongside correlations: 1 is perfect, 0 matches the test-mean
+predictor, and negative values indicate worse squared error. Transfer R² plots:
+[ortholog mixtures](results/transfer_cgreGFP_seed42_44/ortholog_mixtures_r2.png) ·
+[artificial peaks](results/transfer_cgreGFP_seed42_44/artificial_peak_transfer_r2.png).
 
 ## Quick start
 
