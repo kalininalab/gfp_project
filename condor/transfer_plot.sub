@@ -1,0 +1,13 @@
+universe = vanilla
+initialdir = /nethome/akolchina/gfp_project
+executable = /nethome/akolchina/gfp_project/condor/run_transfer_plot.sh
+should_transfer_files = NO
+request_cpus = 1
+request_memory = 3GB
+request_disk = 1GB
+request_gpus = 0
+requirements = (TARGET.UidDomain == "lsv.uni-saarland.de")
+output = results/transfer_cgreGFP_seed42_44/condor/plot.$(ClusterId).out
+error = results/transfer_cgreGFP_seed42_44/condor/plot.$(ClusterId).err
+log = results/transfer_cgreGFP_seed42_44/condor/plot.$(ClusterId).log
+queue 1

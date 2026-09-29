@@ -1,16 +1,18 @@
-name: gfp_env
+name: gfp-benchmark
 channels:
-  - defaults
   - conda-forge
-  - pytorch
 dependencies:
-  - python=3.10
-  - pytorch
-  - torchvision
-  - numpy
-  - pandas
-  - scikit-learn
-  - scipy
-  - biopython
-  - matplotlib
-  - seaborn
+  - python=3.11.14
+  - pip
+  - pip:
+      - numpy==2.4.2
+      - scipy==1.17.1
+      - scikit-learn==1.8.0
+      - torch==2.5.1
+      - matplotlib==3.10.8
+      - transformers==5.2.0
+      - huggingface-hub==1.5.0
+      - safetensors==0.7.0
+      - tokenizers==0.22.2
+      - threadpoolctl==3.6.0
+      - biopython==1.86

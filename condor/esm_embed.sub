@@ -1,0 +1,13 @@
+universe = vanilla
+initialdir = /nethome/akolchina/gfp_project
+executable = /nethome/akolchina/gfp_project/condor/run_esm_embed.sh
+should_transfer_files = NO
+request_cpus = 2
+request_memory = 8GB
+request_disk = 10GB
+request_gpus = 1
+requirements = (TARGET.UidDomain == "lsv.uni-saarland.de") && (TARGET.GPUs_GlobalMemoryMb >= 30000)
+output = results/esm_cgreGFP/condor/embed.$(ClusterId).out
+error = results/esm_cgreGFP/condor/embed.$(ClusterId).err
+log = results/esm_cgreGFP/condor/embed.$(ClusterId).log
+queue 1

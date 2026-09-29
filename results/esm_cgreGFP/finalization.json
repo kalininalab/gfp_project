@@ -1,0 +1,41 @@
+{
+  "status": "complete",
+  "esm_model_fits": 121,
+  "original_cv_model_fits": 80,
+  "folds": 10,
+  "records_per_oof_model": 24516,
+  "model_source_hashes_match": true,
+  "legacy_CNN_preserved_verbatim": true,
+  "source_hashes": {
+    "models.py": "ca73a9d82558c30c83be9fdf58e99b1d4a06a2535c6fdaa58ac3e4151675da5f",
+    "embed.py": "007bfa56095067928573929839714b24c795c32d8fbb53139c92180dc14d5284",
+    "run.py": "04e95b080bf6e6d6dfb316036177e52c284b50a6114f8023333d406b6e60365a",
+    "__init__.py": "912b8d2ab8e79723378d0308d2223c86a5691449d7f1928373ee0ad3a52b3081",
+    "predict.py": "c1352c491ca42e3ce1a4aea0612b7a15ec85d9c4c730802ce7806a9cb13de688"
+  },
+  "finalizer_sha256": "1d7b8c158b16a95be3c0d10c7c117018f039ac9d3a0dabe46aa3a255710a2aec",
+  "outputs": {
+    "aubin_1_10_1_oof_predictions.csv": "ca246b3ec935bd359e280a5b7c859e7a5406334778636e0b73a26a95390b4f9e",
+    "cv_mean_true_vs_predicted.png": "a41ec2087007c7e843bc1b3e4854504e1d3e122bc8b1125a4023767df89e3782",
+    "holdout_mean_true_vs_predicted.png": "382d7123805682c1b8ca5f5f259561dbb1196686188bce9e1e985317f8f514d1",
+    "comparison.csv": "e581b313b0ff381c001732136ef5b635d1b2e7c54cd5cb274d09478a9e555458",
+    "accuracy_vs_runtime.png": "86eb9eb2302df262c69c2dfb4d3c9d6d8c169e1de29d9e7ac8b19782ab24fe50",
+    "cv_cnn_true_vs_predicted.pdf": "3396668f790e2204f0f7da89888bb06d88ab802a596d309a719b0850d0afe487",
+    "holdout_cnn_true_vs_predicted.pdf": "733eca1b16ee0fd8f0578bcbf7e618583f5b4d62baa1ed79b4adc21ec8c6639b",
+    "mlp_small_oof_predictions.csv": "0ad40aed0b588c1b94b4aab2c3dad68cdedb8f45e08e5df18a6ac9f4542cb21f",
+    "CNN_new_oof_predictions.csv": "d1fb64faed814810a47ed9091f173d597a78d082c08eac557b85bc5930bd356f",
+    "CNN_Jannis_oof_predictions.csv": "1fc5afa5023f48cf721071199b099e3125319265f9bbd4c8e9e99779a17dcf16",
+    "RESULTS.md": "e6100c50da19d1d3b4115c187cefb325cd94837e8a76209634908f5a4c1c3834",
+    "cv_mean_true_vs_predicted.pdf": "50b45aae3180322202860a5be2016624d1762c2e0416f0903f61472f117780e8",
+    "knn_oof_predictions.csv": "0b633606c31e8caee5d6d05e8b4930229c38e9ed163d2045f38b35f32a30210e",
+    "linear_regression_oof_predictions.csv": "588b9feeaf5bae08bb84c0772e9d0caad5dedce2176f11d413b9e480a9c91a5c",
+    "holdout_cnn_true_vs_predicted.png": "815a0e23eaff63659cf12e58d8646aefb4daef6b550d635912dc99e5ff19da45",
+    "aubin_linear_oof_predictions.csv": "02ee5a7434df777e1f03da1dbd0b2a13d6806517a3c4506a27e7795788ce3a7f",
+    "mlp_deep_oof_predictions.csv": "bdb2b9143874350a90599363ff0fc7c7facfe46f128c377afd826a5c85862f43",
+    "holdout_mean_true_vs_predicted.pdf": "ed1d4a9458069b8503dbe96ec1d48df2979b3fc8084ae9543237df81dd973f93",
+    "CNN_old_oof_predictions.csv": "e8c4db7429a74838cf4c0d165496e36a2c9ed41c8219d2decf6e71af18646dc4",
+    "ridge_oof_predictions.csv": "202dda3c03c7b5138c0fec6079cc7952765f1521eea7eab7e8a8984aa23d437a",
+    "mean_oof_predictions.csv": "190574910465c880a509fb1a749b71531b5d2ac90cc7a404771e8f35ea410d1e",
+    "cv_cnn_true_vs_predicted.png": "c5a3e879ae4b5263cb0ed3bc57c7bf1f95bd23b7970f74228f2ed35e7966685e"
+  }
+}

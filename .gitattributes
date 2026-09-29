@@ -1,0 +1,4 @@
+# Preserve experimental CSV bytes: provenance uses SHA-256 of original files.
+*.csv -text whitespace=cr-at-eol
+# Matplotlib-generated SVG paths contain intentional trailing spaces.
+results/**/*.svg -whitespace

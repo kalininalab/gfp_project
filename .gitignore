@@ -1,1 +1,12 @@
 esm_embeddings/
+__pycache__/
+data/processed/baseline_v1/
+results/
+
+# External reference repositories (never vendor these).
+/master_thesis_jaca00001/
+/Orthologous_GFP_Fitness_Peaks/
+
+# Local tooling and caches.
+.pytest_cache/
+*.pyc

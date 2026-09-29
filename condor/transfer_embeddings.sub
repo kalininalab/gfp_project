@@ -1,0 +1,14 @@
+universe = vanilla
+initialdir = /nethome/akolchina/gfp_project
+executable = /nethome/akolchina/gfp_project/condor/run_transfer_embed.sh
+arguments = $(gene)
+should_transfer_files = NO
+request_cpus = 2
+request_memory = 8GB
+request_disk = 12GB
+request_gpus = 1
+requirements = (TARGET.UidDomain == "lsv.uni-saarland.de") && (TARGET.GPUs_GlobalMemoryMb >= 30000)
+output = results/transfer_cgreGFP_seed42_44/condor/embed_$(gene).$(ClusterId).out
+error = results/transfer_cgreGFP_seed42_44/condor/embed_$(gene).$(ClusterId).err
+log = results/transfer_cgreGFP_seed42_44/condor/embeddings.$(ClusterId).log
+queue gene in amacGFP,ppluGFP,cgre132,cgre1338,cgre4111,cgre9708

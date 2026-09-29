@@ -1,0 +1,5 @@
+JOB AUDIT /nethome/akolchina/gfp_project/condor/transfer_feature_audit.sub
+JOB CNN /nethome/akolchina/gfp_project/condor/transfer_cnn.sub
+JOB PLOT /nethome/akolchina/gfp_project/condor/transfer_plot.sub
+PARENT AUDIT CHILD CNN
+PARENT CNN CHILD PLOT
