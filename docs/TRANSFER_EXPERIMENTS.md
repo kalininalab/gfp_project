@@ -281,3 +281,19 @@ The palette is blue, orange, purple, and rose; no green. Ratios and sample count
 are printed directly on the figures. `summary.csv`, `per_run_scores.csv`,
 `per_peak_scores.csv`, `artificial_macro_scores.csv`, `runtimes.csv`, and
 `RESULTS.md` hold the numerical results. `finalization.json` records final checks.
+
+## True versus predicted fluorescence on cgreGFP
+
+[Four-model test scatter plot (seed 42)](../results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/cgre_test_seed42.png)
+uses saved predictions from the **cgre-only transfer controls**: aligned one-hot
+Aubin/MLPs and native full ESM embeddings for CNN Jannis. Every panel contains
+the same 4,904 held-out cgre sequences. Training/validation/test is 60/20/20.
+Seeds 43 and 44 have separate figures in the same folder; predictions are not
+averaged into an ensemble. PNG, PDF, SVG and a metrics CSV are generated with:
+
+```bash
+MPLCONFIGDIR=/tmp/gfp-matplotlib python -m scripts.transfer_benchmark.plot_cgre_predictions
+```
+
+This requires the saved per-fit predictions and prepared sequence table; it does
+not retrain models. The script verifies prediction hashes, test IDs and targets.
