@@ -9,6 +9,11 @@ R², RMSE and runtime, alongside the two requested figures:
 [ortholog mixtures](../results/transfer_cgreGFP_seed42_44/ortholog_mixtures_spearman.png)
 and [artificial-peak transfer](../results/transfer_cgreGFP_seed42_44/artificial_peak_transfer_spearman.png).
 
+[amacGFP + ppluGFP → cgreGFP measured-vs-predicted panel](../results/transfer_cgreGFP_seed42_44/amac_pplu_to_cgre_true_vs_predicted/amac_pplu_to_cgre_all_seeds.png)
+shows all four selected models and all three independent fits. It uses the same
+4,904 held-out cgreGFP sequences in every subplot. The plotted predictions are
+saved outputs; the plotting step does not refit any model.
+
 Natural-only training gives the highest mean natural-test Spearman for every
 model. Deep MLP leads this comparison (0.893 ± 0.001; RMSE 0.248), followed by
 small MLP (0.889), Aubin (0.887), and CNN Jannis (0.884). Mean fitting times for
@@ -293,6 +298,7 @@ averaged into an ensemble. PNG, PDF, SVG and a metrics CSV are generated with:
 
 ```bash
 MPLCONFIGDIR=/tmp/gfp-matplotlib python -m scripts.transfer_benchmark.plot_cgre_predictions
+MPLCONFIGDIR=/tmp/gfp-matplotlib python -m scripts.transfer_benchmark.plot_ortholog_predictions
 ```
 
 This requires the saved per-fit predictions and prepared sequence table; it does

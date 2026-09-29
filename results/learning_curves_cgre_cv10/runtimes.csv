@@ -1,0 +1,561 @@
+source,model,training_size,fold,fit_seconds,inference_seconds,gpu,host,epochs_run,best_epoch
+natural,aubin_1_10_1,500,0,21.721617477945983,0.2635171376168728,,cl11lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,500,1,23.228220503777266,0.3379376046359539,,cl16lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,500,2,21.494509553536773,0.25884784013032913,,cl13lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,500,3,23.590831389650702,0.4362508375197649,,cl12lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,500,4,19.706805505789816,0.15440941136330366,,cl17lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,500,5,35.91733601782471,0.11666377913206816,,cl18lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,500,6,22.57722848560661,0.3290799353271723,,cl14lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,500,7,23.201664486899972,0.32479400280863047,,cl16lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,500,8,24.371455484069884,0.4236056553199887,,cl13lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,500,9,23.188334859907627,0.3141606682911515,,cl16lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,1000,0,11.169548687525094,0.4001971082761884,,cl11lx.lsv.uni-saarland.de,30,29
+natural,aubin_1_10_1,1000,1,8.118547505699098,0.30739603005349636,,cl16lx.lsv.uni-saarland.de,30,29
+natural,aubin_1_10_1,1000,2,6.729890358634293,0.2016257420182228,,cl13lx.lsv.uni-saarland.de,30,29
+natural,aubin_1_10_1,1000,3,11.267429894767702,0.4270001919940114,,cl12lx.lsv.uni-saarland.de,29,19
+natural,aubin_1_10_1,1000,4,4.023023468442261,0.1469312021508813,,cl17lx.lsv.uni-saarland.de,30,21
+natural,aubin_1_10_1,1000,5,3.2922822684049606,0.11096138600260019,,cl18lx.lsv.uni-saarland.de,30,20
+natural,aubin_1_10_1,1000,6,7.180834709666669,0.28055292926728725,,cl14lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,1000,7,8.689098766073585,0.3135603116825223,,cl16lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,1000,8,9.586956901475787,0.4222000176087022,,cl13lx.lsv.uni-saarland.de,30,28
+natural,aubin_1_10_1,1000,9,8.569676164537668,0.3137784078717232,,cl16lx.lsv.uni-saarland.de,30,23
+natural,aubin_1_10_1,2500,0,9.293745771981776,0.38881365675479174,,cl11lx.lsv.uni-saarland.de,19,9
+natural,aubin_1_10_1,2500,1,13.187545680440962,0.3181010661646724,,cl16lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,2500,2,9.767640167847276,0.20511259697377682,,cl13lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,2500,3,12.882069086655974,0.5861364733427763,,cl12lx.lsv.uni-saarland.de,19,9
+natural,aubin_1_10_1,2500,4,6.590501689352095,0.15062166657298803,,cl17lx.lsv.uni-saarland.de,30,29
+natural,aubin_1_10_1,2500,5,5.312793440185487,0.1122704641893506,,cl18lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,2500,6,10.860792718827724,0.2516379803419113,,cl14lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,2500,7,13.652891760692,0.33007593639194965,,cl16lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,2500,8,14.754861678928137,0.38937209732830524,,cl13lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,2500,9,13.767479306086898,0.321010859683156,,cl16lx.lsv.uni-saarland.de,30,29
+natural,aubin_1_10_1,5000,0,20.49162917584181,0.31155416928231716,,cl11lx.lsv.uni-saarland.de,30,28
+natural,aubin_1_10_1,5000,1,21.233585564419627,0.30697465408593416,,cl16lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,5000,2,16.70851071085781,0.2168116793036461,,cl13lx.lsv.uni-saarland.de,30,29
+natural,aubin_1_10_1,5000,3,32.63246381189674,0.5143758598715067,,cl12lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,5000,4,10.696192055940628,0.14518192503601313,,cl17lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,5000,5,8.838244006969035,0.11288695316761732,,cl18lx.lsv.uni-saarland.de,30,29
+natural,aubin_1_10_1,5000,6,17.33626067545265,0.22477281093597412,,cl14lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,5000,7,23.811598799191415,0.32994080893695354,,cl16lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,5000,8,20.933887009508908,0.32277958653867245,,cl13lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,5000,9,22.269084746949375,0.32080479245632887,,cl16lx.lsv.uni-saarland.de,30,29
+natural,aubin_1_10_1,10000,0,34.41243035160005,0.29365104530006647,,cl11lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,10000,1,38.51973307877779,0.2907093307003379,,cl16lx.lsv.uni-saarland.de,30,29
+natural,aubin_1_10_1,10000,2,30.477122051641345,0.21199208218604326,,cl13lx.lsv.uni-saarland.de,30,29
+natural,aubin_1_10_1,10000,3,54.196928303688765,0.4949675900861621,,cl12lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,10000,4,19.22811697702855,0.14825646672397852,,cl17lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,10000,5,15.631455415859818,0.11180150508880615,,cl18lx.lsv.uni-saarland.de,30,29
+natural,aubin_1_10_1,10000,6,30.522199927829206,0.2536411648616195,,cl14lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,10000,7,38.767824959009886,0.3229526598006487,,cl16lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,10000,8,35.32285995781422,0.3209126777946949,,cl13lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,10000,9,40.37349542602897,0.3322392450645566,,cl16lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,15000,0,47.74803384114057,0.3195259300991893,,cl11lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,15000,1,54.683263638056815,0.3103407798334956,,cl16lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,15000,2,44.56870068050921,0.22534820809960365,,cl13lx.lsv.uni-saarland.de,30,29
+natural,aubin_1_10_1,15000,3,79.66139270924032,0.4669114211574197,,cl12lx.lsv.uni-saarland.de,30,29
+natural,aubin_1_10_1,15000,4,27.69061859510839,0.1501656360924244,,cl17lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,15000,5,22.37006230186671,0.11895628459751606,,cl18lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,15000,6,43.48809240851551,0.2443810012191534,,cl14lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,15000,7,54.49584434181452,0.30929551366716623,,cl16lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,15000,8,48.886061693541706,0.3160515045747161,,cl13lx.lsv.uni-saarland.de,30,28
+natural,aubin_1_10_1,15000,9,56.94517715834081,0.32129016891121864,,cl16lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,17500,0,56.37060225754976,0.35652719624340534,,cl11lx.lsv.uni-saarland.de,30,29
+natural,aubin_1_10_1,17500,1,62.92313691135496,0.266605862416327,,cl16lx.lsv.uni-saarland.de,30,29
+natural,aubin_1_10_1,17500,2,51.16432388033718,0.22648114059120417,,cl13lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,17500,3,85.86003446299583,0.5878733694553375,,cl12lx.lsv.uni-saarland.de,30,29
+natural,aubin_1_10_1,17500,4,31.967930532060564,0.145040575414896,,cl17lx.lsv.uni-saarland.de,30,29
+natural,aubin_1_10_1,17500,5,25.758610676974058,0.11699080746620893,,cl18lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,17500,6,53.101217293180525,0.24955034907907248,,cl14lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,17500,7,62.223081096075475,0.257585259154439,,cl16lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,17500,8,54.71819159761071,0.2251525642350316,,cl13lx.lsv.uni-saarland.de,30,30
+natural,aubin_1_10_1,17500,9,70.81486426200718,0.2455852935090661,,cl16lx.lsv.uni-saarland.de,30,29
+natural,mlp_small,500,0,29.22419181186706,0.7508965395390987,,cl12lx.lsv.uni-saarland.de,30,26
+natural,mlp_small,500,1,22.1213894514367,0.2141758780926466,,cl17lx.lsv.uni-saarland.de,30,25
+natural,mlp_small,500,2,38.39383753668517,0.19585155881941319,,cl18lx.lsv.uni-saarland.de,30,27
+natural,mlp_small,500,3,32.82823811750859,0.6317356433719397,,cl15lx.lsv.uni-saarland.de,30,22
+natural,mlp_small,500,4,27.562872448936105,0.49066660180687904,,cl14lx.lsv.uni-saarland.de,30,25
+natural,mlp_small,500,5,27.07654353696853,0.4913025377318263,,cl11lx.lsv.uni-saarland.de,30,25
+natural,mlp_small,500,6,29.083611006848514,0.47930203285068274,,cl13lx.lsv.uni-saarland.de,30,24
+natural,mlp_small,500,7,38.40911507606506,0.20491468627005816,,cl18lx.lsv.uni-saarland.de,30,25
+natural,mlp_small,500,8,29.618115197867155,1.033257920295,,cl12lx.lsv.uni-saarland.de,30,25
+natural,mlp_small,500,9,26.80083729699254,0.5101198963820934,,cl14lx.lsv.uni-saarland.de,30,21
+natural,mlp_small,1000,0,16.27048136200756,0.6522950809448957,,cl12lx.lsv.uni-saarland.de,30,21
+natural,mlp_small,1000,1,8.155181053094566,0.2135553453117609,,cl17lx.lsv.uni-saarland.de,30,20
+natural,mlp_small,1000,2,5.95319156255573,0.19876708462834358,,cl18lx.lsv.uni-saarland.de,27,17
+natural,mlp_small,1000,3,21.084549576044083,0.6514078183099627,,cl15lx.lsv.uni-saarland.de,27,17
+natural,mlp_small,1000,4,15.291735594160855,0.48085408844053745,,cl14lx.lsv.uni-saarland.de,30,23
+natural,mlp_small,1000,5,14.82472666632384,0.5018351087346673,,cl11lx.lsv.uni-saarland.de,30,25
+natural,mlp_small,1000,6,16.477975918911397,0.48095591738820076,,cl13lx.lsv.uni-saarland.de,30,20
+natural,mlp_small,1000,7,6.645447594113648,0.20077918283641338,,cl18lx.lsv.uni-saarland.de,30,22
+natural,mlp_small,1000,8,20.380652868188918,0.6718645663931966,,cl12lx.lsv.uni-saarland.de,30,21
+natural,mlp_small,1000,9,14.458886454813182,0.4649322396144271,,cl14lx.lsv.uni-saarland.de,29,19
+natural,mlp_small,2500,0,29.128184548579156,0.6347116669639945,,cl12lx.lsv.uni-saarland.de,30,28
+natural,mlp_small,2500,1,16.369999770075083,0.21369433030486107,,cl17lx.lsv.uni-saarland.de,30,21
+natural,mlp_small,2500,2,12.09611644409597,0.19755825586616993,,cl18lx.lsv.uni-saarland.de,30,30
+natural,mlp_small,2500,3,43.88519111182541,0.7728811698034406,,cl15lx.lsv.uni-saarland.de,30,28
+natural,mlp_small,2500,4,26.377132155932486,0.523528041318059,,cl14lx.lsv.uni-saarland.de,30,30
+natural,mlp_small,2500,5,24.971488593146205,0.43958115205168724,,cl11lx.lsv.uni-saarland.de,30,29
+natural,mlp_small,2500,6,25.113127413205802,0.3363804370164871,,cl13lx.lsv.uni-saarland.de,30,29
+natural,mlp_small,2500,7,12.199598409235477,0.2002990124747157,,cl18lx.lsv.uni-saarland.de,30,30
+natural,mlp_small,2500,8,30.26327729318291,0.5826596897095442,,cl12lx.lsv.uni-saarland.de,30,30
+natural,mlp_small,2500,9,25.82914321217686,0.44016399048268795,,cl14lx.lsv.uni-saarland.de,30,28
+natural,mlp_small,5000,0,51.66888558771461,0.6880111210048199,,cl12lx.lsv.uni-saarland.de,30,29
+natural,mlp_small,5000,1,30.15762271359563,0.21624571084976196,,cl17lx.lsv.uni-saarland.de,30,28
+natural,mlp_small,5000,2,21.152797367423773,0.18810677900910378,,cl18lx.lsv.uni-saarland.de,30,29
+natural,mlp_small,5000,3,62.40629010461271,0.7454568101093173,,cl15lx.lsv.uni-saarland.de,30,28
+natural,mlp_small,5000,4,46.643809482455254,0.47295459546148777,,cl14lx.lsv.uni-saarland.de,30,30
+natural,mlp_small,5000,5,43.62853227183223,0.45101563073694706,,cl11lx.lsv.uni-saarland.de,30,30
+natural,mlp_small,5000,6,40.24379873368889,0.3071091389283538,,cl13lx.lsv.uni-saarland.de,30,26
+natural,mlp_small,5000,7,21.358072012662888,0.20054611284285784,,cl18lx.lsv.uni-saarland.de,30,28
+natural,mlp_small,5000,8,51.129925671964884,1.0205491362139583,,cl12lx.lsv.uni-saarland.de,30,29
+natural,mlp_small,5000,9,45.59655147790909,0.4070735517889261,,cl14lx.lsv.uni-saarland.de,30,28
+natural,mlp_small,10000,0,126.83421723823994,0.7935755178332329,,cl12lx.lsv.uni-saarland.de,30,20
+natural,mlp_small,10000,1,56.504227137193084,0.20394944585859776,,cl17lx.lsv.uni-saarland.de,30,29
+natural,mlp_small,10000,2,39.49605638720095,0.1933512920513749,,cl18lx.lsv.uni-saarland.de,30,21
+natural,mlp_small,10000,3,114.48098850715905,0.5792952300980687,,cl15lx.lsv.uni-saarland.de,30,26
+natural,mlp_small,10000,4,86.82133574225008,0.39844006951898336,,cl14lx.lsv.uni-saarland.de,30,24
+natural,mlp_small,10000,5,80.34137135185301,0.39679286163300276,,cl11lx.lsv.uni-saarland.de,30,30
+natural,mlp_small,10000,6,75.77937272097915,0.3086443981155753,,cl13lx.lsv.uni-saarland.de,30,30
+natural,mlp_small,10000,7,39.271897717379034,0.1948681902140379,,cl18lx.lsv.uni-saarland.de,30,27
+natural,mlp_small,10000,8,101.27607327513397,1.239752558991313,,cl12lx.lsv.uni-saarland.de,30,28
+natural,mlp_small,10000,9,84.75369400624186,0.4167419793084264,,cl14lx.lsv.uni-saarland.de,30,30
+natural,mlp_small,15000,0,142.03814444318414,0.4577451990917325,,cl12lx.lsv.uni-saarland.de,30,30
+natural,mlp_small,15000,1,84.4202924920246,0.24136749934405088,,cl17lx.lsv.uni-saarland.de,30,22
+natural,mlp_small,15000,2,47.62794601172209,0.19369709212332964,,cl18lx.lsv.uni-saarland.de,25,15
+natural,mlp_small,15000,3,167.14160710480064,0.560494676232338,,cl15lx.lsv.uni-saarland.de,30,27
+natural,mlp_small,15000,4,120.45836267992854,0.3666108828037977,,cl14lx.lsv.uni-saarland.de,30,29
+natural,mlp_small,15000,5,113.75968016497791,0.33055160846561193,,cl11lx.lsv.uni-saarland.de,30,30
+natural,mlp_small,15000,6,105.77941201720387,0.30922900419682264,,cl13lx.lsv.uni-saarland.de,30,27
+natural,mlp_small,15000,7,57.61459129862487,0.1927586728706956,,cl18lx.lsv.uni-saarland.de,30,27
+natural,mlp_small,15000,8,155.2902779597789,0.49441015161573887,,cl12lx.lsv.uni-saarland.de,30,26
+natural,mlp_small,15000,9,118.24731219746172,0.35671356692910194,,cl14lx.lsv.uni-saarland.de,30,22
+natural,mlp_small,17500,0,143.57440169341862,0.470603640191257,,cl12lx.lsv.uni-saarland.de,30,23
+natural,mlp_small,17500,1,98.12604469247162,0.22886017337441444,,cl17lx.lsv.uni-saarland.de,30,28
+natural,mlp_small,17500,2,66.56992073729634,0.2010835250839591,,cl18lx.lsv.uni-saarland.de,30,28
+natural,mlp_small,17500,3,194.92739800643176,0.5103136412799358,,cl15lx.lsv.uni-saarland.de,30,30
+natural,mlp_small,17500,4,100.1312097646296,0.3616258669644594,,cl14lx.lsv.uni-saarland.de,21,11
+natural,mlp_small,17500,5,132.14682505466044,0.37675293162465096,,cl11lx.lsv.uni-saarland.de,30,30
+natural,mlp_small,17500,6,122.25943420641124,0.3072172673419118,,cl13lx.lsv.uni-saarland.de,30,28
+natural,mlp_small,17500,7,66.88155538775027,0.19361274410039186,,cl18lx.lsv.uni-saarland.de,30,29
+natural,mlp_small,17500,8,153.3011958533898,0.47876507975161076,,cl12lx.lsv.uni-saarland.de,30,28
+natural,mlp_small,17500,9,139.45375526044518,0.3535398580133915,,cl14lx.lsv.uni-saarland.de,30,27
+natural,mlp_deep,500,0,30.256926633417606,0.9724281458184123,,cl15lx.lsv.uni-saarland.de,26,16
+natural,mlp_deep,500,1,28.875351333990693,0.6110843941569328,,cl14lx.lsv.uni-saarland.de,26,16
+natural,mlp_deep,500,2,30.573592327535152,0.6965303458273411,,cl11lx.lsv.uni-saarland.de,30,21
+natural,mlp_deep,500,3,31.859999029897153,0.6540084537118673,,cl16lx.lsv.uni-saarland.de,26,16
+natural,mlp_deep,500,4,33.283906172961,0.6888222470879555,,cl13lx.lsv.uni-saarland.de,30,21
+natural,mlp_deep,500,5,31.868455327115953,0.8748969472944736,,cl12lx.lsv.uni-saarland.de,25,15
+natural,mlp_deep,500,6,32.41711961571127,0.9245957303792238,,cl15lx.lsv.uni-saarland.de,26,16
+natural,mlp_deep,500,7,30.499069734476507,0.5802498934790492,,cl11lx.lsv.uni-saarland.de,30,20
+natural,mlp_deep,500,8,32.3397158998996,0.6303365612402558,,cl15lx.lsv.uni-saarland.de,28,18
+natural,mlp_deep,500,9,41.68701841495931,0.31120829936116934,,cl18lx.lsv.uni-saarland.de,30,21
+natural,mlp_deep,1000,0,21.68732195906341,0.8000006573274732,,cl15lx.lsv.uni-saarland.de,30,28
+natural,mlp_deep,1000,1,18.69795770943165,0.5436684088781476,,cl14lx.lsv.uni-saarland.de,26,16
+natural,mlp_deep,1000,2,18.14786894619465,0.516092692501843,,cl11lx.lsv.uni-saarland.de,30,23
+natural,mlp_deep,1000,3,18.116048076190054,0.6431652279570699,,cl16lx.lsv.uni-saarland.de,21,11
+natural,mlp_deep,1000,4,18.692543355748057,0.6223471127450466,,cl13lx.lsv.uni-saarland.de,25,15
+natural,mlp_deep,1000,5,23.61346419993788,1.01949577126652,,cl12lx.lsv.uni-saarland.de,28,18
+natural,mlp_deep,1000,6,25.94881676789373,0.9921256033703685,,cl15lx.lsv.uni-saarland.de,28,18
+natural,mlp_deep,1000,7,21.570344200357795,0.5725433845072985,,cl11lx.lsv.uni-saarland.de,30,26
+natural,mlp_deep,1000,8,26.55025137308985,0.8758766278624535,,cl15lx.lsv.uni-saarland.de,30,22
+natural,mlp_deep,1000,9,12.277683401480317,0.32113769464194775,,cl18lx.lsv.uni-saarland.de,30,26
+natural,mlp_deep,2500,0,51.80090450681746,0.8782286010682583,,cl15lx.lsv.uni-saarland.de,30,25
+natural,mlp_deep,2500,1,41.43393360171467,0.4770649475976825,,cl14lx.lsv.uni-saarland.de,30,29
+natural,mlp_deep,2500,2,37.41549696493894,0.5202079126611352,,cl11lx.lsv.uni-saarland.de,29,19
+natural,mlp_deep,2500,3,52.065906316041946,0.6455080229789019,,cl16lx.lsv.uni-saarland.de,30,26
+natural,mlp_deep,2500,4,41.042767562903464,0.49406091310083866,,cl13lx.lsv.uni-saarland.de,30,27
+natural,mlp_deep,2500,5,41.07908125128597,0.8511855453252792,,cl12lx.lsv.uni-saarland.de,30,24
+natural,mlp_deep,2500,6,63.8160652872175,0.8751009004190564,,cl15lx.lsv.uni-saarland.de,30,27
+natural,mlp_deep,2500,7,41.0110189775005,0.5573950484395027,,cl11lx.lsv.uni-saarland.de,30,30
+natural,mlp_deep,2500,8,50.179824250750244,0.6464200671762228,,cl15lx.lsv.uni-saarland.de,30,22
+natural,mlp_deep,2500,9,23.920140403322875,0.3165444200858474,,cl18lx.lsv.uni-saarland.de,30,24
+natural,mlp_deep,5000,0,71.96679554786533,1.0701475413516164,,cl15lx.lsv.uni-saarland.de,26,16
+natural,mlp_deep,5000,1,75.66270409151912,0.5473801800981164,,cl14lx.lsv.uni-saarland.de,30,20
+natural,mlp_deep,5000,2,58.45855872146785,0.5481723723933101,,cl11lx.lsv.uni-saarland.de,25,15
+natural,mlp_deep,5000,3,72.85826088115573,0.654362054541707,,cl16lx.lsv.uni-saarland.de,23,13
+natural,mlp_deep,5000,4,69.09721774607897,0.5079499734565616,,cl13lx.lsv.uni-saarland.de,28,18
+natural,mlp_deep,5000,5,84.08362581580877,0.8454874660819769,,cl12lx.lsv.uni-saarland.de,30,29
+natural,mlp_deep,5000,6,75.84526142384857,0.9360992005094886,,cl15lx.lsv.uni-saarland.de,26,16
+natural,mlp_deep,5000,7,71.43078246340156,0.5319285430014133,,cl11lx.lsv.uni-saarland.de,30,22
+natural,mlp_deep,5000,8,86.80802200734615,0.7800952335819602,,cl15lx.lsv.uni-saarland.de,30,27
+natural,mlp_deep,5000,9,42.58727958519012,0.30577168613672256,,cl18lx.lsv.uni-saarland.de,30,27
+natural,mlp_deep,10000,0,168.33076645992696,0.9383855164051056,,cl15lx.lsv.uni-saarland.de,30,23
+natural,mlp_deep,10000,1,141.460828226991,0.45796329248696566,,cl14lx.lsv.uni-saarland.de,30,21
+natural,mlp_deep,10000,2,109.70308284647763,0.5195638434961438,,cl11lx.lsv.uni-saarland.de,24,14
+natural,mlp_deep,10000,3,121.75953470170498,0.6434268215671182,,cl16lx.lsv.uni-saarland.de,20,10
+natural,mlp_deep,10000,4,133.59837667271495,0.4126311456784606,,cl13lx.lsv.uni-saarland.de,30,23
+natural,mlp_deep,10000,5,175.99148823320866,0.5431284140795469,,cl12lx.lsv.uni-saarland.de,30,26
+natural,mlp_deep,10000,6,164.81941905338317,0.7922783568501472,,cl15lx.lsv.uni-saarland.de,26,16
+natural,mlp_deep,10000,7,107.42097863089293,0.4581780433654785,,cl11lx.lsv.uni-saarland.de,24,14
+natural,mlp_deep,10000,8,171.65477439388633,0.6738134799525142,,cl15lx.lsv.uni-saarland.de,29,19
+natural,mlp_deep,10000,9,80.29285086225718,0.3063033865764737,,cl18lx.lsv.uni-saarland.de,30,24
+natural,mlp_deep,15000,0,208.82898147776723,0.8568708449602127,,cl15lx.lsv.uni-saarland.de,25,15
+natural,mlp_deep,15000,1,206.9702043440193,0.4124763533473015,,cl14lx.lsv.uni-saarland.de,30,29
+natural,mlp_deep,15000,2,159.65717400517315,0.5023974264040589,,cl11lx.lsv.uni-saarland.de,24,14
+natural,mlp_deep,15000,3,195.9810551488772,0.6314879795536399,,cl16lx.lsv.uni-saarland.de,22,12
+natural,mlp_deep,15000,4,197.84372132830322,0.37683222629129887,,cl13lx.lsv.uni-saarland.de,30,27
+natural,mlp_deep,15000,5,179.91531146131456,0.5814306978136301,,cl12lx.lsv.uni-saarland.de,26,16
+natural,mlp_deep,15000,6,259.5680110072717,0.5952275600284338,,cl15lx.lsv.uni-saarland.de,30,30
+natural,mlp_deep,15000,7,205.27586156409234,0.5028246846050024,,cl11lx.lsv.uni-saarland.de,30,29
+natural,mlp_deep,15000,8,236.15754711069167,0.8537784088402987,,cl15lx.lsv.uni-saarland.de,27,17
+natural,mlp_deep,15000,9,111.92632282152772,0.28570252377539873,,cl18lx.lsv.uni-saarland.de,30,21
+natural,mlp_deep,17500,0,221.9748773658648,0.608617227524519,,cl15lx.lsv.uni-saarland.de,24,14
+natural,mlp_deep,17500,1,238.07955319341272,0.40292074996978045,,cl14lx.lsv.uni-saarland.de,30,23
+natural,mlp_deep,17500,2,184.7791878376156,0.5329861445352435,,cl11lx.lsv.uni-saarland.de,24,14
+natural,mlp_deep,17500,3,266.619873075746,0.6055133827030659,,cl16lx.lsv.uni-saarland.de,25,15
+natural,mlp_deep,17500,4,169.32419916056097,0.3674700614064932,,cl13lx.lsv.uni-saarland.de,24,14
+natural,mlp_deep,17500,5,236.8590524410829,0.44005920458585024,,cl12lx.lsv.uni-saarland.de,30,24
+natural,mlp_deep,17500,6,161.61681815050542,0.564300193451345,,cl15lx.lsv.uni-saarland.de,18,8
+natural,mlp_deep,17500,7,235.55475920811296,0.40984038170427084,,cl11lx.lsv.uni-saarland.de,30,26
+natural,mlp_deep,17500,8,275.37465174961835,0.44580089021474123,,cl15lx.lsv.uni-saarland.de,30,26
+natural,mlp_deep,17500,9,81.2793667530641,0.2882106890901923,,cl18lx.lsv.uni-saarland.de,19,9
+natural,CNN_Jannis_OHE,500,0,184.7842201180756,4.55417406372726,Tesla V100-PCIE-32GB,cl16lx.lsv.uni-saarland.de,60,58
+natural,CNN_Jannis_OHE,500,1,315.0175608471036,9.178744590841234,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,60,60
+natural,CNN_Jannis_OHE,500,2,174.674312424846,4.228884865529835,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,60,60
+natural,CNN_Jannis_OHE,500,3,85.78732158243656,3.6202053846791387,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,24,14
+natural,CNN_Jannis_OHE,500,4,57.4872759450227,4.099631268531084,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,16,6
+natural,CNN_Jannis_OHE,500,5,74.67481652460992,4.239853860810399,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,22,12
+natural,CNN_Jannis_OHE,500,6,70.21229976508766,4.515597176738083,Tesla V100-PCIE-32GB,cl16lx.lsv.uni-saarland.de,19,9
+natural,CNN_Jannis_OHE,500,7,287.37571745179594,8.860777968540788,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,60,54
+natural,CNN_Jannis_OHE,500,8,57.788875848054886,3.7495037065818906,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,11,1
+natural,CNN_Jannis_OHE,500,9,108.18072057608515,4.19567977078259,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,35,25
+natural,CNN_Jannis_OHE,1000,0,180.696835600771,4.020638666115701,Tesla V100-PCIE-32GB,cl16lx.lsv.uni-saarland.de,56,46
+natural,CNN_Jannis_OHE,1000,1,334.3527484284714,4.768023283220828,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,60,57
+natural,CNN_Jannis_OHE,1000,2,182.45883888751268,4.12614949978888,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,56,46
+natural,CNN_Jannis_OHE,1000,3,65.6944742044434,3.619412476196885,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,23,13
+natural,CNN_Jannis_OHE,1000,4,193.1059382027015,4.0224607065320015,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,60,53
+natural,CNN_Jannis_OHE,1000,5,165.90372818429023,4.14990867394954,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,50,40
+natural,CNN_Jannis_OHE,1000,6,205.1234222818166,4.033323021605611,Tesla V100-PCIE-32GB,cl16lx.lsv.uni-saarland.de,60,55
+natural,CNN_Jannis_OHE,1000,7,336.69445434212685,4.607522714883089,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,60,55
+natural,CNN_Jannis_OHE,1000,8,176.97271766327322,3.7770126136019826,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,60,56
+natural,CNN_Jannis_OHE,1000,9,196.12751230504364,4.114804404787719,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,60,60
+natural,CNN_Jannis_OHE,2500,0,264.6712993066758,4.237551840022206,Tesla V100-PCIE-32GB,cl16lx.lsv.uni-saarland.de,52,42
+natural,CNN_Jannis_OHE,2500,1,356.55310238618404,4.556924796663225,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,60,54
+natural,CNN_Jannis_OHE,2500,2,301.42715416289866,4.005792981944978,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,58,48
+natural,CNN_Jannis_OHE,2500,3,253.25021731387824,3.596893890760839,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,56,46
+natural,CNN_Jannis_OHE,2500,4,306.69052565749735,4.000676133669913,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,60,55
+natural,CNN_Jannis_OHE,2500,5,300.096883113496,4.131867801770568,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,57,47
+natural,CNN_Jannis_OHE,2500,6,209.2422353019938,3.9984442610293627,Tesla V100-PCIE-32GB,cl16lx.lsv.uni-saarland.de,41,31
+natural,CNN_Jannis_OHE,2500,7,282.41393735818565,4.559565011411905,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,44,34
+natural,CNN_Jannis_OHE,2500,8,283.16263537388295,3.775260340422392,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,60,60
+natural,CNN_Jannis_OHE,2500,9,273.35547189228237,4.155324975028634,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,52,42
+natural,CNN_Jannis_OHE,5000,0,381.57479884848,4.371192094869912,Tesla V100-PCIE-32GB,cl16lx.lsv.uni-saarland.de,47,37
+natural,CNN_Jannis_OHE,5000,1,569.9197400631383,4.565023822709918,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,60,56
+natural,CNN_Jannis_OHE,5000,2,317.9060066603124,4.02458553109318,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,38,28
+natural,CNN_Jannis_OHE,5000,3,434.78379657305777,3.597313681617379,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,59,49
+natural,CNN_Jannis_OHE,5000,4,348.353364771232,4.019045332446694,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,42,32
+natural,CNN_Jannis_OHE,5000,5,340.06915387138724,4.106188274919987,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,40,30
+natural,CNN_Jannis_OHE,5000,6,431.45987002085894,4.222296304069459,Tesla V100-PCIE-32GB,cl16lx.lsv.uni-saarland.de,51,41
+natural,CNN_Jannis_OHE,5000,7,413.3794728992507,4.510645062662661,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,43,33
+natural,CNN_Jannis_OHE,5000,8,462.2770624952391,3.7666273526847363,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,60,58
+natural,CNN_Jannis_OHE,5000,9,507.30337104108185,4.07877032738179,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,60,52
+natural,CNN_Jannis_OHE,10000,0,559.1103496477008,3.8619399964809418,Tesla V100-PCIE-32GB,cl16lx.lsv.uni-saarland.de,39,29
+natural,CNN_Jannis_OHE,10000,1,957.813504980877,4.53242465108633,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,57,47
+natural,CNN_Jannis_OHE,10000,2,491.6263793017715,4.073967726901174,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,33,23
+natural,CNN_Jannis_OHE,10000,3,535.0838794885203,3.602344718761742,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,41,31
+natural,CNN_Jannis_OHE,10000,4,544.3596705729142,4.002591553144157,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,37,27
+natural,CNN_Jannis_OHE,10000,5,906.5829251836985,4.082180040888488,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,60,60
+natural,CNN_Jannis_OHE,10000,6,731.4503495227545,3.8941507590934634,Tesla V100-PCIE-32GB,cl16lx.lsv.uni-saarland.de,51,41
+natural,CNN_Jannis_OHE,10000,7,824.6692637056112,4.50571696087718,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,49,39
+natural,CNN_Jannis_OHE,10000,8,647.998169186525,3.7800493789836764,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,48,38
+natural,CNN_Jannis_OHE,10000,9,449.9795445818454,4.07277647126466,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,30,20
+natural,CNN_Jannis_OHE,15000,0,780.0105644827709,3.8630046378821135,Tesla V100-PCIE-32GB,cl16lx.lsv.uni-saarland.de,38,28
+natural,CNN_Jannis_OHE,15000,1,1082.6814249437302,4.547741492278874,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,45,35
+natural,CNN_Jannis_OHE,15000,2,792.7952101863921,4.029199154116213,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,37,27
+natural,CNN_Jannis_OHE,15000,3,786.4823546465486,3.6164027620106936,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,42,32
+natural,CNN_Jannis_OHE,15000,4,1270.9612781200558,4.002655171789229,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,60,60
+natural,CNN_Jannis_OHE,15000,5,1300.1866702418774,4.100083405151963,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,60,59
+natural,CNN_Jannis_OHE,15000,6,962.9798007784411,4.737963607534766,Tesla V100-PCIE-32GB,cl16lx.lsv.uni-saarland.de,47,37
+natural,CNN_Jannis_OHE,15000,7,1323.0714868288487,4.473949819803238,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,55,45
+natural,CNN_Jannis_OHE,15000,8,1169.8666033605114,3.7681831400841475,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,60,58
+natural,CNN_Jannis_OHE,15000,9,1294.4332176269963,4.0723899425938725,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,60,59
+natural,CNN_Jannis_OHE,17500,0,1205.8309847209603,3.8545350152999163,Tesla V100-PCIE-32GB,cl16lx.lsv.uni-saarland.de,51,41
+natural,CNN_Jannis_OHE,17500,1,1177.2490494232625,4.5535141332075,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,42,32
+natural,CNN_Jannis_OHE,17500,2,1478.6401512194425,4.025745935738087,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,60,51
+natural,CNN_Jannis_OHE,17500,3,1296.3988117408007,3.6006726920604706,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,60,55
+natural,CNN_Jannis_OHE,17500,4,1241.5258022239432,3.9906397499144077,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,51,41
+natural,CNN_Jannis_OHE,17500,5,1495.4722719211131,4.104652172885835,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,60,60
+natural,CNN_Jannis_OHE,17500,6,1459.8470761673525,4.735507304780185,Tesla V100-PCIE-32GB,cl16lx.lsv.uni-saarland.de,60,56
+natural,CNN_Jannis_OHE,17500,7,1215.9116750769317,4.5010035671293736,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,44,34
+natural,CNN_Jannis_OHE,17500,8,1193.435416413471,3.7559231063351035,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,53,43
+natural,CNN_Jannis_OHE,17500,9,1486.1939018880948,4.070304540917277,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,60,54
+artificial,aubin_1_10_1,500,0,24.866608110256493,0.5297643002122641,,cl12lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,500,1,23.669584655202925,0.38081068079918623,,cl14lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,500,2,24.473208229988813,0.43565385788679123,,cl13lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,500,3,22.892772999592125,0.2665102668106556,,cl14lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,500,4,23.253808309324086,0.2882511764764786,,cl14lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,500,5,27.016336096450686,0.4343475690111518,,cl12lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,500,6,21.519036900252104,0.2612112099304795,,cl13lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,500,7,23.749116769060493,0.24405504204332829,,cl16lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,500,8,21.532191725447774,0.25736510660499334,,cl13lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,500,9,22.290105643682182,0.33899118658155203,,cl14lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,1000,0,10.962468041107059,0.5504227969795465,,cl12lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,1000,1,8.60741195268929,0.3291376819834113,,cl14lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,1000,2,9.527824831195176,0.4266709787771106,,cl13lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,1000,3,7.8243442857638,0.2415421810001135,,cl14lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,1000,4,7.616857443936169,0.30842175986617804,,cl14lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,1000,5,11.12553318683058,0.6919840769842267,,cl12lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,1000,6,6.350466773845255,0.23014077451080084,,cl13lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,1000,7,8.888554515317082,0.2749293567612767,,cl16lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,1000,8,6.427462630905211,0.22133585903793573,,cl13lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,1000,9,8.131568635813892,0.3603618433699012,,cl14lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,2500,0,20.43586857523769,0.4431684175506234,,cl12lx.lsv.uni-saarland.de,30,25
+artificial,aubin_1_10_1,2500,1,13.04702979233116,0.30797293689101934,,cl14lx.lsv.uni-saarland.de,30,24
+artificial,aubin_1_10_1,2500,2,14.792858594097197,0.39890899322927,,cl13lx.lsv.uni-saarland.de,30,24
+artificial,aubin_1_10_1,2500,3,11.511665561236441,0.2541258754208684,,cl14lx.lsv.uni-saarland.de,30,23
+artificial,aubin_1_10_1,2500,4,11.26485534477979,0.2607040796428919,,cl14lx.lsv.uni-saarland.de,30,24
+artificial,aubin_1_10_1,2500,5,21.706955621019006,0.565260024741292,,cl12lx.lsv.uni-saarland.de,30,25
+artificial,aubin_1_10_1,2500,6,9.749372363090515,0.24863397516310215,,cl13lx.lsv.uni-saarland.de,30,26
+artificial,aubin_1_10_1,2500,7,13.432796930894256,0.2980675492435694,,cl16lx.lsv.uni-saarland.de,30,24
+artificial,aubin_1_10_1,2500,8,9.667916165664792,0.24306727945804596,,cl13lx.lsv.uni-saarland.de,30,23
+artificial,aubin_1_10_1,2500,9,12.922934468835592,0.34083964489400387,,cl14lx.lsv.uni-saarland.de,30,24
+artificial,aubin_1_10_1,5000,0,30.518144213594496,0.5538719110190868,,cl12lx.lsv.uni-saarland.de,26,16
+artificial,aubin_1_10_1,5000,1,20.256768411956728,0.2754417834803462,,cl14lx.lsv.uni-saarland.de,30,29
+artificial,aubin_1_10_1,5000,2,18.442914708517492,0.29219386633485556,,cl13lx.lsv.uni-saarland.de,26,16
+artificial,aubin_1_10_1,5000,3,16.38567747734487,0.24617499206215143,,cl14lx.lsv.uni-saarland.de,27,17
+artificial,aubin_1_10_1,5000,4,14.832492829300463,0.25419273506850004,,cl14lx.lsv.uni-saarland.de,25,15
+artificial,aubin_1_10_1,5000,5,26.772368794307113,0.5695272162556648,,cl12lx.lsv.uni-saarland.de,26,16
+artificial,aubin_1_10_1,5000,6,14.589544414542615,0.22311512846499681,,cl13lx.lsv.uni-saarland.de,26,16
+artificial,aubin_1_10_1,5000,7,18.082888489589095,0.31030123215168715,,cl16lx.lsv.uni-saarland.de,25,15
+artificial,aubin_1_10_1,5000,8,16.6111049503088,0.22600947599858046,,cl13lx.lsv.uni-saarland.de,30,25
+artificial,aubin_1_10_1,5000,9,16.796019344590604,0.2643214426934719,,cl14lx.lsv.uni-saarland.de,25,15
+artificial,aubin_1_10_1,10000,0,61.524922443553805,0.5759402560070157,,cl12lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,10000,1,35.873161079362035,0.26505450066179037,,cl14lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,10000,2,35.74247141648084,0.27160768397152424,,cl13lx.lsv.uni-saarland.de,30,29
+artificial,aubin_1_10_1,10000,3,32.4592433096841,0.27776725962758064,,cl14lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,10000,4,31.66983153577894,0.2505746753886342,,cl14lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,10000,5,53.830538055859506,0.5387285063043237,,cl12lx.lsv.uni-saarland.de,30,27
+artificial,aubin_1_10_1,10000,6,29.805552564561367,0.24306524451822042,,cl13lx.lsv.uni-saarland.de,30,29
+artificial,aubin_1_10_1,10000,7,38.67423243355006,0.32256554439663887,,cl16lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,10000,8,30.304353118874133,0.23465057276189327,,cl13lx.lsv.uni-saarland.de,30,27
+artificial,aubin_1_10_1,10000,9,35.13037381879985,0.28191700764000416,,cl14lx.lsv.uni-saarland.de,30,29
+artificial,aubin_1_10_1,15000,0,73.81152280699462,0.4658384583890438,,cl12lx.lsv.uni-saarland.de,30,26
+artificial,aubin_1_10_1,15000,1,50.716386455111206,0.28670731373131275,,cl14lx.lsv.uni-saarland.de,30,28
+artificial,aubin_1_10_1,15000,2,48.82404288928956,0.3328313296660781,,cl13lx.lsv.uni-saarland.de,30,29
+artificial,aubin_1_10_1,15000,3,46.2134525263682,0.3003179542720318,,cl14lx.lsv.uni-saarland.de,30,28
+artificial,aubin_1_10_1,15000,4,45.08584821689874,0.29705638624727726,,cl14lx.lsv.uni-saarland.de,30,27
+artificial,aubin_1_10_1,15000,5,77.6089818738401,0.46193884033709764,,cl12lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,15000,6,44.083516591228545,0.2619741288945079,,cl13lx.lsv.uni-saarland.de,30,28
+artificial,aubin_1_10_1,15000,7,55.072457808069885,0.2867582617327571,,cl16lx.lsv.uni-saarland.de,30,28
+artificial,aubin_1_10_1,15000,8,46.315031602047384,0.2088835658505559,,cl13lx.lsv.uni-saarland.de,30,28
+artificial,aubin_1_10_1,15000,9,48.414394561201334,0.2667423374950886,,cl14lx.lsv.uni-saarland.de,30,27
+artificial,aubin_1_10_1,17500,0,96.90821528993547,0.41357058100402355,,cl12lx.lsv.uni-saarland.de,30,28
+artificial,aubin_1_10_1,17500,1,57.802367037162185,0.28385475650429726,,cl14lx.lsv.uni-saarland.de,30,28
+artificial,aubin_1_10_1,17500,2,55.24693469516933,0.27278696559369564,,cl13lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,17500,3,52.784104253165424,0.2159587536007166,,cl14lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,17500,4,52.23636839073151,0.2333335019648075,,cl14lx.lsv.uni-saarland.de,30,28
+artificial,aubin_1_10_1,17500,5,85.13443364482373,0.623002010397613,,cl12lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,17500,6,51.12656926456839,0.23745473194867373,,cl13lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,17500,7,62.76292936503887,0.29949849750846624,,cl16lx.lsv.uni-saarland.de,30,30
+artificial,aubin_1_10_1,17500,8,50.06322286091745,0.20356477238237858,,cl13lx.lsv.uni-saarland.de,30,28
+artificial,aubin_1_10_1,17500,9,55.45943710207939,0.2569069629535079,,cl14lx.lsv.uni-saarland.de,30,30
+artificial,mlp_small,500,0,24.56379778776318,0.5020420178771019,,cl15lx.lsv.uni-saarland.de,23,13
+artificial,mlp_small,500,1,28.74316002521664,0.5620101653039455,,cl13lx.lsv.uni-saarland.de,28,18
+artificial,mlp_small,500,2,27.022527834400535,0.6069950256496668,,cl15lx.lsv.uni-saarland.de,27,17
+artificial,mlp_small,500,3,28.425292000174522,0.5296534057706594,,cl12lx.lsv.uni-saarland.de,23,13
+artificial,mlp_small,500,4,28.595096895471215,0.577057484537363,,cl13lx.lsv.uni-saarland.de,27,17
+artificial,mlp_small,500,5,28.621500201523304,0.7144046062603593,,cl15lx.lsv.uni-saarland.de,23,13
+artificial,mlp_small,500,6,37.86725295614451,0.19582103937864304,,cl18lx.lsv.uni-saarland.de,27,17
+artificial,mlp_small,500,7,31.83293629810214,0.7265932923182845,,cl15lx.lsv.uni-saarland.de,27,17
+artificial,mlp_small,500,8,26.358118719421327,0.4790194882079959,,cl16lx.lsv.uni-saarland.de,25,15
+artificial,mlp_small,500,9,25.55004474055022,0.5844243345782161,,cl13lx.lsv.uni-saarland.de,21,11
+artificial,mlp_small,1000,0,11.657538622617722,0.614995208568871,,cl15lx.lsv.uni-saarland.de,22,12
+artificial,mlp_small,1000,1,12.982452692463994,0.561485581099987,,cl13lx.lsv.uni-saarland.de,23,13
+artificial,mlp_small,1000,2,12.815553834661841,0.7331173634156585,,cl15lx.lsv.uni-saarland.de,20,10
+artificial,mlp_small,1000,3,13.764343897812068,0.7203141245990992,,cl12lx.lsv.uni-saarland.de,18,8
+artificial,mlp_small,1000,4,11.758468640036881,0.5947633748874068,,cl13lx.lsv.uni-saarland.de,20,10
+artificial,mlp_small,1000,5,14.646978661417961,0.8362927306443453,,cl15lx.lsv.uni-saarland.de,23,13
+artificial,mlp_small,1000,6,4.187576269730926,0.2565037338063121,,cl18lx.lsv.uni-saarland.de,17,7
+artificial,mlp_small,1000,7,15.028029164299369,0.755055389367044,,cl15lx.lsv.uni-saarland.de,21,11
+artificial,mlp_small,1000,8,10.515941938385367,0.4710547812283039,,cl16lx.lsv.uni-saarland.de,19,9
+artificial,mlp_small,1000,9,10.546127256937325,0.5744728622958064,,cl13lx.lsv.uni-saarland.de,19,9
+artificial,mlp_small,2500,0,19.51236690580845,0.6707904292270541,,cl15lx.lsv.uni-saarland.de,20,10
+artificial,mlp_small,2500,1,25.66453098319471,0.4676931696012616,,cl13lx.lsv.uni-saarland.de,27,17
+artificial,mlp_small,2500,2,29.659604094922543,0.855272950604558,,cl15lx.lsv.uni-saarland.de,23,13
+artificial,mlp_small,2500,3,19.123480607755482,0.6603629617020488,,cl12lx.lsv.uni-saarland.de,19,9
+artificial,mlp_small,2500,4,19.327403431758285,0.4818865032866597,,cl13lx.lsv.uni-saarland.de,19,9
+artificial,mlp_small,2500,5,34.20497976709157,0.7848966075107455,,cl15lx.lsv.uni-saarland.de,24,14
+artificial,mlp_small,2500,6,8.419369757175446,0.25216396152973175,,cl18lx.lsv.uni-saarland.de,19,9
+artificial,mlp_small,2500,7,23.536102728918195,0.6844497034326196,,cl15lx.lsv.uni-saarland.de,19,9
+artificial,mlp_small,2500,8,19.202748558484018,0.4697008905932307,,cl16lx.lsv.uni-saarland.de,18,8
+artificial,mlp_small,2500,9,22.13228203728795,0.5162722896784544,,cl13lx.lsv.uni-saarland.de,23,13
+artificial,mlp_small,5000,0,49.5119240032509,0.7717064991593361,,cl15lx.lsv.uni-saarland.de,30,29
+artificial,mlp_small,5000,1,47.65047740191221,0.44936055038124323,,cl13lx.lsv.uni-saarland.de,30,30
+artificial,mlp_small,5000,2,60.26339538022876,0.8161622155457735,,cl15lx.lsv.uni-saarland.de,30,23
+artificial,mlp_small,5000,3,49.04210552107543,0.8278088718652725,,cl12lx.lsv.uni-saarland.de,23,13
+artificial,mlp_small,5000,4,50.733053741045296,0.5889324611052871,,cl13lx.lsv.uni-saarland.de,30,30
+artificial,mlp_small,5000,5,60.93368588760495,0.7626363122835755,,cl15lx.lsv.uni-saarland.de,30,28
+artificial,mlp_small,5000,6,22.687432791106403,0.2634899951517582,,cl18lx.lsv.uni-saarland.de,30,28
+artificial,mlp_small,5000,7,57.17100931145251,0.5691949371248484,,cl15lx.lsv.uni-saarland.de,30,25
+artificial,mlp_small,5000,8,58.076725888065994,0.45907128881663084,,cl16lx.lsv.uni-saarland.de,30,29
+artificial,mlp_small,5000,9,46.644181235693395,0.3997620511800051,,cl13lx.lsv.uni-saarland.de,30,29
+artificial,mlp_small,10000,0,116.29823841247708,0.6373832793906331,,cl15lx.lsv.uni-saarland.de,30,25
+artificial,mlp_small,10000,1,88.09340124484152,0.3822823781520128,,cl13lx.lsv.uni-saarland.de,30,25
+artificial,mlp_small,10000,2,111.42902257665992,0.5963501706719398,,cl15lx.lsv.uni-saarland.de,30,30
+artificial,mlp_small,10000,3,105.99552517849952,0.6990246903151274,,cl12lx.lsv.uni-saarland.de,30,28
+artificial,mlp_small,10000,4,90.0257588783279,0.3192148106172681,,cl13lx.lsv.uni-saarland.de,30,29
+artificial,mlp_small,10000,5,107.713174440898,0.7717451490461826,,cl15lx.lsv.uni-saarland.de,30,25
+artificial,mlp_small,10000,6,41.632948466576636,0.22617455665022135,,cl18lx.lsv.uni-saarland.de,30,26
+artificial,mlp_small,10000,7,105.70608217362314,0.545469619333744,,cl15lx.lsv.uni-saarland.de,30,25
+artificial,mlp_small,10000,8,112.23834615945816,0.4599438402801752,,cl16lx.lsv.uni-saarland.de,30,26
+artificial,mlp_small,10000,9,87.12324686534703,0.41778193786740303,,cl13lx.lsv.uni-saarland.de,30,26
+artificial,mlp_small,15000,0,151.661438039504,0.5028036665171385,,cl15lx.lsv.uni-saarland.de,30,29
+artificial,mlp_small,15000,1,120.61897392757237,0.3525755750015378,,cl13lx.lsv.uni-saarland.de,30,28
+artificial,mlp_small,15000,2,151.11358047276735,0.43959394935518503,,cl15lx.lsv.uni-saarland.de,30,28
+artificial,mlp_small,15000,3,143.44514490570873,0.5030689584091306,,cl12lx.lsv.uni-saarland.de,30,26
+artificial,mlp_small,15000,4,109.39851227309555,0.30849416740238667,,cl13lx.lsv.uni-saarland.de,30,25
+artificial,mlp_small,15000,5,193.22300479654223,0.8305913917720318,,cl15lx.lsv.uni-saarland.de,30,27
+artificial,mlp_small,15000,6,59.19224456232041,0.19763765670359135,,cl18lx.lsv.uni-saarland.de,30,26
+artificial,mlp_small,15000,7,150.9274011803791,0.5675965938717127,,cl15lx.lsv.uni-saarland.de,30,27
+artificial,mlp_small,15000,8,150.59764335118234,0.4249873626977205,,cl16lx.lsv.uni-saarland.de,28,18
+artificial,mlp_small,15000,9,116.86790388263762,0.32787036895751953,,cl13lx.lsv.uni-saarland.de,30,26
+artificial,mlp_small,17500,0,184.0296843815595,0.5300498306751251,,cl15lx.lsv.uni-saarland.de,30,28
+artificial,mlp_small,17500,1,137.32271313667297,0.31209610030055046,,cl13lx.lsv.uni-saarland.de,30,28
+artificial,mlp_small,17500,2,156.57363016810268,0.646852801553905,,cl15lx.lsv.uni-saarland.de,26,16
+artificial,mlp_small,17500,3,159.5789429899305,0.513467326760292,,cl12lx.lsv.uni-saarland.de,30,29
+artificial,mlp_small,17500,4,128.4750531660393,0.3038416998460889,,cl13lx.lsv.uni-saarland.de,30,30
+artificial,mlp_small,17500,5,176.6537966132164,0.5304976021870971,,cl15lx.lsv.uni-saarland.de,30,28
+artificial,mlp_small,17500,6,67.89514734968543,0.19823634903877974,,cl18lx.lsv.uni-saarland.de,30,30
+artificial,mlp_small,17500,7,173.7088807625696,0.7235450856387615,,cl15lx.lsv.uni-saarland.de,30,25
+artificial,mlp_small,17500,8,186.91521227359772,0.4399664783850312,,cl16lx.lsv.uni-saarland.de,30,22
+artificial,mlp_small,17500,9,136.6219009226188,0.3365653147920966,,cl13lx.lsv.uni-saarland.de,30,27
+artificial,mlp_deep,500,0,29.39626785647124,0.6573638981208205,,cl16lx.lsv.uni-saarland.de,21,11
+artificial,mlp_deep,500,1,32.182408802211285,0.7710282364860177,,cl12lx.lsv.uni-saarland.de,25,15
+artificial,mlp_deep,500,2,30.64625014550984,0.6731201997026801,,cl16lx.lsv.uni-saarland.de,23,13
+artificial,mlp_deep,500,3,26.431387696415186,0.9579056883230805,,cl15lx.lsv.uni-saarland.de,16,6
+artificial,mlp_deep,500,4,28.910049309022725,0.6713338550180197,,cl16lx.lsv.uni-saarland.de,19,9
+artificial,mlp_deep,500,5,24.869194036349654,0.5049782935529947,,cl14lx.lsv.uni-saarland.de,19,9
+artificial,mlp_deep,500,6,31.649820362217724,0.866245687007904,,cl12lx.lsv.uni-saarland.de,22,12
+artificial,mlp_deep,500,7,27.90264135133475,0.5265429066494107,,cl14lx.lsv.uni-saarland.de,24,14
+artificial,mlp_deep,500,8,27.833830487914383,0.714552397839725,,cl15lx.lsv.uni-saarland.de,19,9
+artificial,mlp_deep,500,9,27.96316958218813,0.6533719450235367,,cl13lx.lsv.uni-saarland.de,20,10
+artificial,mlp_deep,1000,0,17.310654412023723,0.6516941823065281,,cl16lx.lsv.uni-saarland.de,20,10
+artificial,mlp_deep,1000,1,16.805739135481417,0.888618802651763,,cl12lx.lsv.uni-saarland.de,21,11
+artificial,mlp_deep,1000,2,17.485463629476726,0.6482414938509464,,cl16lx.lsv.uni-saarland.de,20,10
+artificial,mlp_deep,1000,3,21.507896927185357,1.0451960805803537,,cl15lx.lsv.uni-saarland.de,18,8
+artificial,mlp_deep,1000,4,18.553434355184436,0.6531828539445996,,cl16lx.lsv.uni-saarland.de,20,10
+artificial,mlp_deep,1000,5,12.541400676593184,0.4800421316176653,,cl14lx.lsv.uni-saarland.de,20,10
+artificial,mlp_deep,1000,6,20.85954985115677,0.934182733297348,,cl12lx.lsv.uni-saarland.de,20,10
+artificial,mlp_deep,1000,7,14.30535777285695,0.5924242408946157,,cl14lx.lsv.uni-saarland.de,20,10
+artificial,mlp_deep,1000,8,16.603482453152537,0.9696931531652808,,cl15lx.lsv.uni-saarland.de,19,9
+artificial,mlp_deep,1000,9,16.796750718727708,0.6634867619723082,,cl13lx.lsv.uni-saarland.de,22,12
+artificial,mlp_deep,2500,0,48.60099365748465,0.6512560555711389,,cl16lx.lsv.uni-saarland.de,28,18
+artificial,mlp_deep,2500,1,40.684398024342954,0.9440730400383472,,cl12lx.lsv.uni-saarland.de,27,17
+artificial,mlp_deep,2500,2,52.46088263485581,0.6469261888414621,,cl16lx.lsv.uni-saarland.de,30,26
+artificial,mlp_deep,2500,3,55.35212780814618,0.7348246108740568,,cl15lx.lsv.uni-saarland.de,27,17
+artificial,mlp_deep,2500,4,39.556771603412926,0.6584793524816632,,cl16lx.lsv.uni-saarland.de,21,11
+artificial,mlp_deep,2500,5,37.3717953376472,0.4608636638149619,,cl14lx.lsv.uni-saarland.de,30,20
+artificial,mlp_deep,2500,6,26.09302601404488,0.9035030035302043,,cl12lx.lsv.uni-saarland.de,17,7
+artificial,mlp_deep,2500,7,24.32666672486812,0.524894468486309,,cl14lx.lsv.uni-saarland.de,18,8
+artificial,mlp_deep,2500,8,53.8663846263662,0.8406734699383378,,cl15lx.lsv.uni-saarland.de,30,20
+artificial,mlp_deep,2500,9,39.50216482859105,0.5649088658392429,,cl13lx.lsv.uni-saarland.de,28,18
+artificial,mlp_deep,5000,0,84.39039614703506,0.6543491343036294,,cl16lx.lsv.uni-saarland.de,26,16
+artificial,mlp_deep,5000,1,64.64193695317954,0.815744424238801,,cl12lx.lsv.uni-saarland.de,23,13
+artificial,mlp_deep,5000,2,74.3967327605933,0.6518781315535307,,cl16lx.lsv.uni-saarland.de,23,13
+artificial,mlp_deep,5000,3,80.58294347394258,0.6651580082252622,,cl15lx.lsv.uni-saarland.de,23,13
+artificial,mlp_deep,5000,4,73.5484748436138,0.6487092925235629,,cl16lx.lsv.uni-saarland.de,21,11
+artificial,mlp_deep,5000,5,64.84676146041602,0.4318391093984246,,cl14lx.lsv.uni-saarland.de,28,18
+artificial,mlp_deep,5000,6,84.40399619936943,0.8872488681226969,,cl12lx.lsv.uni-saarland.de,23,13
+artificial,mlp_deep,5000,7,75.3433785289526,0.5389913534745574,,cl14lx.lsv.uni-saarland.de,30,25
+artificial,mlp_deep,5000,8,87.3465872015804,0.9446418583393097,,cl15lx.lsv.uni-saarland.de,25,15
+artificial,mlp_deep,5000,9,63.67776701040566,0.4808571459725499,,cl13lx.lsv.uni-saarland.de,25,15
+artificial,mlp_deep,10000,0,187.61861130874604,0.6373907243832946,,cl16lx.lsv.uni-saarland.de,30,25
+artificial,mlp_deep,10000,1,126.23634532094002,0.855771248228848,,cl12lx.lsv.uni-saarland.de,24,14
+artificial,mlp_deep,10000,2,137.3901217840612,0.6389492740854621,,cl16lx.lsv.uni-saarland.de,22,12
+artificial,mlp_deep,10000,3,208.1012149360031,0.9311257135123014,,cl15lx.lsv.uni-saarland.de,30,28
+artificial,mlp_deep,10000,4,145.3353619519621,0.6017946191132069,,cl16lx.lsv.uni-saarland.de,23,13
+artificial,mlp_deep,10000,5,116.88263621646911,0.3763262266293168,,cl14lx.lsv.uni-saarland.de,27,17
+artificial,mlp_deep,10000,6,134.05353027116507,0.890555839985609,,cl12lx.lsv.uni-saarland.de,24,14
+artificial,mlp_deep,10000,7,120.8275222107768,0.4366619009524584,,cl14lx.lsv.uni-saarland.de,26,16
+artificial,mlp_deep,10000,8,149.0551854595542,0.9355125240981579,,cl15lx.lsv.uni-saarland.de,25,15
+artificial,mlp_deep,10000,9,106.21850379463285,0.45965148974210024,,cl13lx.lsv.uni-saarland.de,23,13
+artificial,mlp_deep,15000,0,287.74797157384455,0.6308781327679753,,cl16lx.lsv.uni-saarland.de,30,27
+artificial,mlp_deep,15000,1,231.12973192427307,0.5941838240250945,,cl12lx.lsv.uni-saarland.de,30,29
+artificial,mlp_deep,15000,2,256.95347804017365,0.6247770274057984,,cl16lx.lsv.uni-saarland.de,27,17
+artificial,mlp_deep,15000,3,239.39988166093826,0.5751135209575295,,cl15lx.lsv.uni-saarland.de,26,16
+artificial,mlp_deep,15000,4,221.13369727041572,0.5600884882733226,,cl16lx.lsv.uni-saarland.de,25,15
+artificial,mlp_deep,15000,5,165.2387399682775,0.3831272106617689,,cl14lx.lsv.uni-saarland.de,26,16
+artificial,mlp_deep,15000,6,215.8377469405532,0.5745619209483266,,cl12lx.lsv.uni-saarland.de,29,19
+artificial,mlp_deep,15000,7,179.3312774449587,0.4232572177425027,,cl14lx.lsv.uni-saarland.de,26,16
+artificial,mlp_deep,15000,8,281.3493995545432,0.834614971652627,,cl15lx.lsv.uni-saarland.de,30,22
+artificial,mlp_deep,15000,9,206.0291234422475,0.38965665828436613,,cl13lx.lsv.uni-saarland.de,30,23
+artificial,mlp_deep,17500,0,261.30847414862365,0.5916875069960952,,cl16lx.lsv.uni-saarland.de,25,15
+artificial,mlp_deep,17500,1,216.52381913363934,0.45150445494800806,,cl12lx.lsv.uni-saarland.de,27,17
+artificial,mlp_deep,17500,2,216.493014710024,0.5942589640617371,,cl16lx.lsv.uni-saarland.de,20,10
+artificial,mlp_deep,17500,3,262.39386338274926,0.4460948910564184,,cl15lx.lsv.uni-saarland.de,30,22
+artificial,mlp_deep,17500,4,271.28002747613937,0.5830166302621365,,cl16lx.lsv.uni-saarland.de,26,16
+artificial,mlp_deep,17500,5,173.95534832309932,0.3713651252910495,,cl14lx.lsv.uni-saarland.de,24,14
+artificial,mlp_deep,17500,6,200.479028317146,0.4966679457575083,,cl12lx.lsv.uni-saarland.de,25,15
+artificial,mlp_deep,17500,7,217.6879288777709,0.43873834796249866,,cl14lx.lsv.uni-saarland.de,28,18
+artificial,mlp_deep,17500,8,261.88910555746406,0.5077902395278215,,cl15lx.lsv.uni-saarland.de,29,19
+artificial,mlp_deep,17500,9,186.09734398406,0.3893827637657523,,cl13lx.lsv.uni-saarland.de,25,15
+artificial,CNN_Jannis_OHE,500,0,201.2255679415539,5.015401582233608,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,36,26
+artificial,CNN_Jannis_OHE,500,1,61.01474344544113,4.162606174126267,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,17,7
+artificial,CNN_Jannis_OHE,500,2,71.19142295047641,4.320877176709473,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,20,10
+artificial,CNN_Jannis_OHE,500,3,162.6819720417261,3.6925476137548685,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,57,47
+artificial,CNN_Jannis_OHE,500,4,95.56818049959838,8.248322270810604,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,23,13
+artificial,CNN_Jannis_OHE,500,5,97.30608440563083,4.172441688366234,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,31,21
+artificial,CNN_Jannis_OHE,500,6,60.50061275996268,4.152259824797511,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,17,7
+artificial,CNN_Jannis_OHE,500,7,64.45719841122627,3.6655835416167974,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,14,4
+artificial,CNN_Jannis_OHE,500,8,166.1603712439537,3.966429755091667,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,55,45
+artificial,CNN_Jannis_OHE,500,9,106.26682853233069,3.766150953248143,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,32,22
+artificial,CNN_Jannis_OHE,1000,0,204.87027258146554,8.726103163324296,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,31,21
+artificial,CNN_Jannis_OHE,1000,1,194.3143166108057,4.067652015015483,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,60,58
+artificial,CNN_Jannis_OHE,1000,2,64.64758682996035,4.313006306067109,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,19,9
+artificial,CNN_Jannis_OHE,1000,3,172.03217900265008,3.6747865676879883,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,60,60
+artificial,CNN_Jannis_OHE,1000,4,337.99271292146295,8.78087660111487,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,60,51
+artificial,CNN_Jannis_OHE,1000,5,205.45698420051485,4.742242562584579,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,60,58
+artificial,CNN_Jannis_OHE,1000,6,62.7270978782326,4.137505663558841,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,19,9
+artificial,CNN_Jannis_OHE,1000,7,132.37545657437295,3.663335814140737,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,46,36
+artificial,CNN_Jannis_OHE,1000,8,164.2148451860994,3.9253059569746256,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,53,43
+artificial,CNN_Jannis_OHE,1000,9,176.99128704611212,3.7630993025377393,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,60,52
+artificial,CNN_Jannis_OHE,2500,0,474.58460282627493,4.607542511075735,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,60,58
+artificial,CNN_Jannis_OHE,2500,1,309.52675148658454,4.050626882351935,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,60,51
+artificial,CNN_Jannis_OHE,2500,2,267.0609007263556,4.173194125294685,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,50,40
+artificial,CNN_Jannis_OHE,2500,3,276.76077759917825,3.6740577863529325,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,60,54
+artificial,CNN_Jannis_OHE,2500,4,435.6270262217149,4.600554523058236,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,60,53
+artificial,CNN_Jannis_OHE,2500,5,326.20039417687804,4.112090279348195,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,60,54
+artificial,CNN_Jannis_OHE,2500,6,313.93207952193916,4.1183936428278685,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,60,60
+artificial,CNN_Jannis_OHE,2500,7,275.12042165361345,3.632615893147886,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,60,54
+artificial,CNN_Jannis_OHE,2500,8,265.37875692453235,3.974642224609852,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,53,43
+artificial,CNN_Jannis_OHE,2500,9,270.44010719656944,3.7668829495087266,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,57,47
+artificial,CNN_Jannis_OHE,5000,0,504.9742663614452,4.610465583391488,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,52,42
+artificial,CNN_Jannis_OHE,5000,1,503.414980083704,4.041417413391173,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,60,56
+artificial,CNN_Jannis_OHE,5000,2,491.2092359531671,4.16378524992615,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,57,47
+artificial,CNN_Jannis_OHE,5000,3,362.5692330254242,3.6280405838042498,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,49,39
+artificial,CNN_Jannis_OHE,5000,4,574.7904193801805,4.531305590644479,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,60,52
+artificial,CNN_Jannis_OHE,5000,5,411.5660428432748,4.06031165458262,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,49,39
+artificial,CNN_Jannis_OHE,5000,6,507.5870436364785,4.124257544986904,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,60,52
+artificial,CNN_Jannis_OHE,5000,7,450.02284434996545,3.64419589843601,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,60,51
+artificial,CNN_Jannis_OHE,5000,8,391.88756269868463,3.965380124747753,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,48,38
+artificial,CNN_Jannis_OHE,5000,9,340.30205444805324,3.792080801911652,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,44,34
+artificial,CNN_Jannis_OHE,10000,0,1010.1346460096538,4.5276639219373465,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,60,60
+artificial,CNN_Jannis_OHE,10000,1,889.9506318671629,4.030681294389069,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,60,53
+artificial,CNN_Jannis_OHE,10000,2,912.3839167794213,4.169299400411546,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,60,57
+artificial,CNN_Jannis_OHE,10000,3,692.4382486632094,3.6383719611912966,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,53,43
+artificial,CNN_Jannis_OHE,10000,4,1022.5754201533273,4.962649085558951,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,60,52
+artificial,CNN_Jannis_OHE,10000,5,893.8685001078993,4.056108141317964,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,60,52
+artificial,CNN_Jannis_OHE,10000,6,794.6591825131327,4.045495300553739,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,53,43
+artificial,CNN_Jannis_OHE,10000,7,598.0919129773974,3.645964520983398,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,45,35
+artificial,CNN_Jannis_OHE,10000,8,689.6703063817695,3.91602863650769,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,48,38
+artificial,CNN_Jannis_OHE,10000,9,766.3209851747379,3.7911491077393293,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,56,46
+artificial,CNN_Jannis_OHE,15000,0,1108.8348201662302,4.557425746694207,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,46,36
+artificial,CNN_Jannis_OHE,15000,1,1155.6690002372488,4.042366284877062,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,54,44
+artificial,CNN_Jannis_OHE,15000,2,1311.9206578936428,4.09902064781636,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,60,53
+artificial,CNN_Jannis_OHE,15000,3,1127.7168927937746,3.620299897156656,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,60,51
+artificial,CNN_Jannis_OHE,15000,4,899.1552620856091,4.535122104920447,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,37,27
+artificial,CNN_Jannis_OHE,15000,5,1076.7134551545605,4.064975722692907,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,50,40
+artificial,CNN_Jannis_OHE,15000,6,1032.160828893073,4.116031317971647,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,48,38
+artificial,CNN_Jannis_OHE,15000,7,896.7996800523251,3.627913140691817,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,47,37
+artificial,CNN_Jannis_OHE,15000,8,1156.4274709923193,3.923035013489425,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,56,46
+artificial,CNN_Jannis_OHE,15000,9,902.2218691529706,3.7675777645781636,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,46,36
+artificial,CNN_Jannis_OHE,17500,0,1429.5759189818054,4.590403130277991,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,51,41
+artificial,CNN_Jannis_OHE,17500,1,1297.1121747642756,4.035780377686024,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,53,43
+artificial,CNN_Jannis_OHE,17500,2,1132.726236557588,4.1552236415445805,NVIDIA GeForce RTX 2080 Ti,cl14lx.lsv.uni-saarland.de,45,35
+artificial,CNN_Jannis_OHE,17500,3,1078.5273238271475,3.635437097400427,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,50,40
+artificial,CNN_Jannis_OHE,17500,4,1157.44501212053,4.537660461850464,NVIDIA GeForce RTX 2080 Ti,cl15lx.lsv.uni-saarland.de,41,31
+artificial,CNN_Jannis_OHE,17500,5,1481.9376380648464,4.044137907214463,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,60,51
+artificial,CNN_Jannis_OHE,17500,6,1420.959200937301,4.115737961605191,NVIDIA GeForce RTX 2080 Ti,cl13lx.lsv.uni-saarland.de,57,47
+artificial,CNN_Jannis_OHE,17500,7,1095.131102764979,3.626145912334323,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,50,40
+artificial,CNN_Jannis_OHE,17500,8,1429.1683359090239,3.9267024556174874,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,60,53
+artificial,CNN_Jannis_OHE,17500,9,1173.7315980419517,3.7680167201906443,NVIDIA A100-PCIE-40GB,cl18lx.lsv.uni-saarland.de,52,42

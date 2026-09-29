@@ -11,12 +11,17 @@ transfer between GFP landscapes.
 |---|---|---|---|
 | cgreGFP benchmark | Fixed 60/20/20 holdout and 10-fold CV; 24,516 sequences; 121 ESM fits + 11 Jannis OHE fits + sequence baselines | [Report](docs/BENCHMARK_RESULTS.md) · [CSV](results/esm_cgreGFP/comparison.csv) | [CNN predictions](results/esm_cgreGFP/cv_cnn_true_vs_predicted.png) · [Mean-ESM predictions](results/esm_cgreGFP/cv_mean_true_vs_predicted.png) · [Accuracy/runtime](results/esm_cgreGFP/accuracy_vs_runtime.png) |
 | Transfer | Aubin 1–10–1, small/deep MLP, CNN Jannis; seven ortholog mixtures and four natural/artificial directions; 96 fits, three seeds | [Report](results/transfer_cgreGFP_seed42_44/RESULTS.md) · [CSV](results/transfer_cgreGFP_seed42_44/summary.csv) | [Training mixtures](results/transfer_cgreGFP_seed42_44/ortholog_mixtures_spearman.png) · [Artificial peaks](results/transfer_cgreGFP_seed42_44/artificial_peak_transfer_spearman.png) |
+| Training size | Four OHE models; seven nested sizes; 10-fold CV on natural cgre and all natural/artificial directions; 560 fits | [Report](results/learning_curves_cgre_cv10/RESULTS.md) · [CSV](results/learning_curves_cgre_cv10/summary.csv) | [Natural cgre](results/learning_curves_cgre_cv10/cgre_learning_curve_spearman.png) · [Four transfer directions](results/learning_curves_cgre_cv10/peak_learning_curves_spearman.png) |
 
 [Selected models: cgre test scatter plots](results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/cgre_test_seed42.png)
 show individual saved predictions from the cgre-only transfer controls (seed 42).
 [PDF](results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/cgre_test_seed42.pdf) ·
 [All seeds and formats](results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/) ·
 [Metrics](results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/metrics.csv).
+
+[amacGFP + ppluGFP → cgreGFP scatter panel](results/transfer_cgreGFP_seed42_44/amac_pplu_to_cgre_true_vs_predicted/amac_pplu_to_cgre_all_seeds.png)
+shows the four selected models across all three seeds on the same 4,904 held-out
+cgreGFP sequences ([metrics](results/transfer_cgreGFP_seed42_44/amac_pplu_to_cgre_true_vs_predicted/metrics.csv)).
 
 **Best measured accuracy: Jannis CNN on OHE** (CV RMSE 0.227, R² 0.912,
 Spearman 0.900). **Efficient default: Aubin 1–10–1 on OHE** (RMSE 0.234,
@@ -45,6 +50,11 @@ R² is reported alongside correlations: 1 is perfect, 0 matches the test-mean
 predictor, and negative values indicate worse squared error. Transfer R² plots:
 [ortholog mixtures](results/transfer_cgreGFP_seed42_44/ortholog_mixtures_r2.png) ·
 [artificial peaks](results/transfer_cgreGFP_seed42_44/artificial_peak_transfer_r2.png).
+
+The [training-size experiment](docs/LEARNING_CURVES.md) uses these four models
+with **Jannis OHE**, seven nested training sizes and ten folds for natural cgre
+and all four natural/artificial directions. All 560 fits completed; the report
+includes exact sample counts, fold variation, runtime, and Pearson/R²/RMSE tables.
 
 ## Quick start
 

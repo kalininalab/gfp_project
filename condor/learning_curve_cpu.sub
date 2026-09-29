@@ -1,0 +1,14 @@
+universe = vanilla
+initialdir = /nethome/akolchina/gfp_project
+executable = /nethome/akolchina/gfp_project/condor/run_learning_curve.sh
+arguments = $(source) $(fold) $(model) cpu
+should_transfer_files = NO
+request_cpus = 1
+request_memory = 3GB
+request_disk = 1GB
+request_gpus = 0
+requirements = (TARGET.UidDomain == "lsv.uni-saarland.de")
+output = results/learning_curves_cgre_cv10/condor/$(source)_$(fold)_$(model).$(ClusterId).$(ProcId).out
+error = results/learning_curves_cgre_cv10/condor/$(source)_$(fold)_$(model).$(ClusterId).$(ProcId).err
+log = results/learning_curves_cgre_cv10/condor/cpu.$(ClusterId).log
+queue source,fold,model from results/learning_curves_cgre_cv10/cpu_jobs.txt

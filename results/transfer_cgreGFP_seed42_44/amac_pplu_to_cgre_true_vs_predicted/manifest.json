@@ -1,0 +1,36 @@
+{
+  "prediction_hashes": {
+    "/nethome/akolchina/gfp_project/results/transfer_cgreGFP_seed42_44/fits/amac_pplu/seed42/aubin_1_10_1/predictions.csv": "f5392e5a81ce1db047157185d64a725cdd56bc27d74a83ce87a64889a08e027d",
+    "/nethome/akolchina/gfp_project/results/transfer_cgreGFP_seed42_44/fits/amac_pplu/seed42/mlp_small/predictions.csv": "4002186db01229938dabf9ba8de290af7e15bfca48d7fdc4554880765f6bc9e2",
+    "/nethome/akolchina/gfp_project/results/transfer_cgreGFP_seed42_44/fits/amac_pplu/seed42/mlp_deep/predictions.csv": "58bc42d345ed0c7b7bfc2f62e2c267798764b5c687bc0ab0d112868bd5931c76",
+    "/nethome/akolchina/gfp_project/results/transfer_cgreGFP_seed42_44/fits/amac_pplu/seed42/CNN_Jannis/predictions.csv": "325af4f1e7cf413d40742b3d07d88088b78f9af2b873bdbb39ff7d82486e2489",
+    "/nethome/akolchina/gfp_project/results/transfer_cgreGFP_seed42_44/fits/amac_pplu/seed43/aubin_1_10_1/predictions.csv": "54883c33c40ee887ed5474a7d1785fcf6c62dcdb376b913352a5f4f0b20a114f",
+    "/nethome/akolchina/gfp_project/results/transfer_cgreGFP_seed42_44/fits/amac_pplu/seed43/mlp_small/predictions.csv": "0698a1b4e97a8a622179f39f0f6e478fc3a1dfb34d5c2ac54c9c2950451bd1a8",
+    "/nethome/akolchina/gfp_project/results/transfer_cgreGFP_seed42_44/fits/amac_pplu/seed43/mlp_deep/predictions.csv": "add4eb70b808d78cbe42f0df98ec7c57accda4bb71feba4a135f1a79c2e2ad7e",
+    "/nethome/akolchina/gfp_project/results/transfer_cgreGFP_seed42_44/fits/amac_pplu/seed43/CNN_Jannis/predictions.csv": "5b7f2e10104f2b3aa0bf3943853a065d18dedf5e649137897cb1204ea8f88ca5",
+    "/nethome/akolchina/gfp_project/results/transfer_cgreGFP_seed42_44/fits/amac_pplu/seed44/aubin_1_10_1/predictions.csv": "7c237ac3572a7e3aa6c943f6b24f3d5833b0a05902737208e8692711f8949202",
+    "/nethome/akolchina/gfp_project/results/transfer_cgreGFP_seed42_44/fits/amac_pplu/seed44/mlp_small/predictions.csv": "d1d9915990c940883202e21a4652490091918cdf2ed89062ac436b67c65b8182",
+    "/nethome/akolchina/gfp_project/results/transfer_cgreGFP_seed42_44/fits/amac_pplu/seed44/mlp_deep/predictions.csv": "d9f7c88598210a32c815a8fd6bb87c9a89ceb0bec702a509e9c2c582d57a9c4b",
+    "/nethome/akolchina/gfp_project/results/transfer_cgreGFP_seed42_44/fits/amac_pplu/seed44/CNN_Jannis/predictions.csv": "1afc9ea63764b3cd18b0578e86221d624f93a0a8f5456a2640855bb73e94ac81"
+  },
+  "data_sha256": "1add5e456287d39909954b2af9bbda3e2cd83ff9476e1b5c9a7804cd60cd980a",
+  "script_sha256": "8061e827aad6e61af67e65ac3221b4f330df3e24c9df8e6bba06b1e0b30fcea6",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "training_source": "amac_pplu",
+  "test_partition": "natural",
+  "train_counts": {
+    "amacGFP": 7355,
+    "ppluGFP": 7354
+  },
+  "validation_counts": {
+    "amacGFP": 2452,
+    "ppluGFP": 2451
+  },
+  "test_counts": {
+    "cgreGFP": 4904
+  }
+}

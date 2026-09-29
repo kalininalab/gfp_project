@@ -1,0 +1,4 @@
+JOB CPU /nethome/akolchina/gfp_project/condor/learning_curve_cpu.sub
+JOB GPU /nethome/akolchina/gfp_project/condor/learning_curve_gpu.sub
+JOB PLOT /nethome/akolchina/gfp_project/condor/learning_curve_plot.sub
+PARENT CPU GPU CHILD PLOT
