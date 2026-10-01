@@ -67,6 +67,48 @@ def main():
         for extension in ['png', 'pdf', 'svg']:
             fig.savefig(out / f'cgre_test_seed{seed}.{extension}', dpi=220)
         plt.close(fig)
+
+    # Directly comparable to the amac+pplu -> cgre figure: models are columns
+    # and independent training seeds are rows, all on one common axis scale.
+    fig, axes = plt.subplots(3, 4, figsize=(15.5, 11.5), sharex=True, sharey=True)
+    for row, seed in enumerate([42, 43, 44]):
+        for col, (model, name, color) in enumerate(zip(MODELS, NAMES, COLORS)):
+            ax = axes[row, col]
+            y, pred = records[seed, model]
+            score = metrics(y, pred)
+            ax.scatter(y, pred, s=6, alpha=.20, color=color, linewidths=0,
+                       rasterized=True)
+            ax.plot(limits, limits, '--', color='#626B78', linewidth=1, zorder=0)
+            ax.set(xlim=limits, ylim=limits)
+            ax.set_aspect('equal', adjustable='box')
+            if row == 0:
+                ax.set_title(name, color=color, fontweight='bold', fontsize=12)
+            if col == 0:
+                ax.set_ylabel(f'Seed {seed}\nPredicted log10 fluorescence')
+            if row == 2:
+                ax.set_xlabel('Measured log10 fluorescence')
+            ax.text(.04, .96,
+                    f"ρ = {score['spearman']:.3f}\n"
+                    f"r = {score['pearson']:.3f}\n"
+                    f"R² = {score['r2']:.3f}\n"
+                    f"RMSE = {score['rmse']:.3f}",
+                    transform=ax.transAxes, va='top', fontsize=8.5,
+                    bbox=dict(facecolor='white', edgecolor='none', alpha=.86))
+    fig.suptitle('Natural cgreGFP → natural cgreGFP', fontsize=17, y=.985)
+    fig.text(.06, .025,
+             f'Each dot is one held-out natural cgreGFP sequence (n = {len(expected):,}); '
+             'the dashed line is perfect prediction.\n'
+             'Training / validation / test: 14,709 / 4,903 / 4,904 ≈ 60% / 20% / 20%. '
+             'The split and test sequences are identical across rows.\n'
+             'Aubin/MLPs: aligned one-hot inputs. CNN Jannis: full residue-level ESM-2 embeddings. '
+             'Rows are independent fits and are not averaged.',
+             fontsize=9, linespacing=1.45)
+    fig.subplots_adjust(left=.06, right=.99, bottom=.105, top=.945,
+                        hspace=.17, wspace=.12)
+    for extension in ['png', 'pdf', 'svg']:
+        fig.savefig(out / f'cgre_test_all_seeds.{extension}', dpi=220)
+    plt.close(fig)
+
     write_csv(out / 'metrics.csv', scores)
     (out / 'manifest.json').write_text(json.dumps(dict(prediction_hashes=inputs, data_sha256=digest(args.data),
         script_sha256=digest(Path(__file__)), seeds=[42,43,44], training_source='cgre', test_partition='natural'), indent=2)+'\n')

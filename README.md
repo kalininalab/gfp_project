@@ -13,8 +13,8 @@ transfer between GFP landscapes.
 | Transfer | Aubin 1–10–1, small/deep MLP, CNN Jannis; seven ortholog mixtures and four natural/artificial directions; 96 fits, three seeds | [Report](results/transfer_cgreGFP_seed42_44/RESULTS.md) · [CSV](results/transfer_cgreGFP_seed42_44/summary.csv) | [Training mixtures](results/transfer_cgreGFP_seed42_44/ortholog_mixtures_spearman.png) · [Artificial peaks](results/transfer_cgreGFP_seed42_44/artificial_peak_transfer_spearman.png) |
 | Training size | Four OHE models; seven nested sizes; 10-fold CV on natural cgre and all natural/artificial directions; 560 fits | [Report](results/learning_curves_cgre_cv10/RESULTS.md) · [CSV](results/learning_curves_cgre_cv10/summary.csv) | [Natural cgre](results/learning_curves_cgre_cv10/cgre_learning_curve_spearman.png) · [Four transfer directions](results/learning_curves_cgre_cv10/peak_learning_curves_spearman.png) |
 
-[Selected models: cgre test scatter plots](results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/cgre_test_seed42.png)
-show individual saved predictions from the cgre-only transfer controls (seed 42).
+[Selected models: cgre → cgre scatter panel](results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/cgre_test_all_seeds.png)
+shows individual saved predictions from all three cgre-only control fits.
 [PDF](results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/cgre_test_seed42.pdf) ·
 [All seeds and formats](results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/) ·
 [Metrics](results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/metrics.csv).
