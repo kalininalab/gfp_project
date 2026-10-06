@@ -13,6 +13,7 @@ transfer between GFP landscapes.
 | Transfer before AL | Aubin, Linear, MLP and CNN on OHE; seven ortholog mixtures and four natural/artificial directions; 5 seeds | [Report](results/transfer_cgreGFP_seed42_46/RESULTS.md) · [CSV](results/transfer_cgreGFP_seed42_46/summary.csv) | [GFP proteins](results/transfer_cgreGFP_seed42_46/ortholog_mixtures_spearman.png) · [Artificial peaks](results/transfer_cgreGFP_seed42_46/artificial_peak_transfer_spearman.png) |
 | Transfer with AL | Same models, seeds, budgets and frozen tests; 10 acquisition rounds | [Protocol](docs/TRANSFER_ACTIVE_LEARNING.md) | AL-only and paired figures are generated after all 160 trajectories pass validation |
 | Random vs acquisition score ("Fancy") transfer | CNN on OHE; matched initial sets, budgets, seeds and frozen tests | [Live status and exact method](results/transfer_random_cgreGFP_seed42_46/STATUS.md) · [Frozen protocol](results/transfer_random_cgreGFP_seed42_46/protocol.json) | [GFP proteins — available after completion](results/transfer_random_cgreGFP_seed42_46/sampling_ortholog_transfer.png) · [Natural/artificial peaks — available after completion](results/transfer_random_cgreGFP_seed42_46/sampling_peak_transfer.png) |
+| Target-protein adaptation (running) | Add 96 target sequences per round × 10, or 960 once; fancy/random; 6 directed protein pairs; 3 CPU models; 5 seeds | [Protocol and design](docs/TARGET_ADAPTATION.md) · [Frozen parameters](results/target_adaptation_seed42_46/protocol.json) | Aggregate figure generated after all 90 jobs pass validation |
 
 [Selected models: cgre → cgre scatter panel](results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/cgre_test_all_seeds.png)
 shows individual saved predictions from all three cgre-only control fits.
@@ -147,6 +148,7 @@ and skips when that repository is absent.
 | One-hot baselines, 10-fold splits, ESM embeddings, CNNs, tables and prediction plots | [Running models](docs/RUNNING_MODELS.md) |
 | Training mixtures and natural/artificial transfer figures | [Transfer procedure and commands](docs/TRANSFER_EXPERIMENTS.md) |
 | Transfer with active learning, round diagnostics and paired figures | [Transfer active-learning protocol](docs/TRANSFER_ACTIVE_LEARNING.md) |
+| Iterative and one-shot target-protein adaptation | [Target-adaptation protocol](docs/TARGET_ADAPTATION.md) |
 | Mutation indexing, target scaling, exclusions and Aubin reference audit | [Data and baselines](docs/DATA_AND_BASELINES.md) |
 | CNN architectures and fixes to the original training code | [CNN differences and bug fixes](docs/RUNNING_MODELS.md#what-are-the-three-cnns) |
 

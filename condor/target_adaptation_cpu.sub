@@ -1,0 +1,12 @@
+universe = vanilla
+initialdir = /nethome/akolchina/gfp_project
+executable = /bin/bash
+arguments = condor/run_target_adaptation_cpu.sh $(Process)
+should_transfer_files = NO
+request_cpus = 1
+request_memory = 8GB
+request_disk = 3GB
+output = results/target_adaptation_seed42_46/condor/cpu.$(ClusterId).$(Process).out
+error = results/target_adaptation_seed42_46/condor/cpu.$(ClusterId).$(Process).err
+log = results/target_adaptation_seed42_46/condor/cpu.$(ClusterId).log
+queue 90
