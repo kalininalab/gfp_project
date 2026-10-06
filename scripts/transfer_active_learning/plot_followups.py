@@ -8,6 +8,7 @@ from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
 import numpy as np
 
 from scripts.transfer_benchmark.common import MIXES, digest, read_csv, write_csv
@@ -15,6 +16,10 @@ from scripts.transfer_benchmark.plot import COLORS, LABELS, MIX_ORDER, DIRECTION
 
 MODEL_ORDER = ["aubin_1_10_1", "aubin_linear", "mlp_small", "CNN_Jannis_OHE"]
 METRICS = [("pearson", "Pearson r"), ("spearman", "Spearman ρ"), ("r2", "R²")]
+
+
+def dark(color):
+    return mcolors.to_hex(np.asarray(mcolors.to_rgb(color)) * 0.68)
 
 
 def save(fig, directory, stem):
@@ -41,6 +46,9 @@ def completed_rows(directory, models):
 
 def plot_al_model_selection(fancy_directory):
     protocol, rows = completed_rows(fancy_directory, MODEL_ORDER)
+    non_al_rows = read_csv(Path("results/transfer_cgreGFP_seed42_46/summary.csv"))
+    non_al = {row["model"]: row for row in non_al_rows
+              if row["experiment"] == "ortholog_mixtures" and row["condition"] == "cgre"}
     final_round = protocol["rounds"]
     chosen = [
         row for row in rows
@@ -49,19 +57,26 @@ def plot_al_model_selection(fancy_directory):
         and int(row["round"]) == final_round
     ]
     fig, axes = plt.subplots(1, 3, figsize=(13.2, 4.7), sharey=True)
-    x = np.arange(len(MODEL_ORDER))
+    x = np.arange(len(MODEL_ORDER)); width = .36
     for axis, (metric, title) in zip(axes, METRICS):
         groups = [[float(row[metric]) for row in chosen if row["model"] == model] for model in MODEL_ORDER]
-        axis.bar(x, [np.mean(values) for values in groups],
+        light = [COLORS[model] for model in MODEL_ORDER]
+        darker = [dark(color) for color in light]
+        axis.bar(x-width/2, [float(non_al[model][metric+"_mean"]) for model in MODEL_ORDER], width,
+                 yerr=[float(non_al[model][metric+"_sd"]) for model in MODEL_ORDER],
+                 color=light, capsize=4, label="Non-AL")
+        axis.bar(x+width/2, [np.mean(values) for values in groups], width,
                  yerr=[np.std(values, ddof=1) for values in groups],
-                 color=[COLORS[model] for model in MODEL_ORDER], capsize=4)
+                 color=darker, capsize=4, label="AL")
         axis.set_xticks(x, [LABELS[model] for model in MODEL_ORDER], rotation=25, ha="right")
         axis.set_title(title, loc="center", fontsize=17)
-        axis.set_ylim(0.75, 1.01)
+        axis.set_ylim(0.5, 1.01)
         style_axis(axis)
     axes[0].set_ylabel("Frozen cgreGFP test score")
-    fig.suptitle("Base-model comparison with active learning", fontsize=22, y=1.01)
-    fig.tight_layout(w_pad=1.2)
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, labels, frameon=False, ncol=2, loc="upper center", bbox_to_anchor=(.5,.90))
+    fig.suptitle("Base-model comparison — non-AL vs AL", fontsize=22, y=.99)
+    fig.tight_layout(rect=(0,0,1,.87),w_pad=1.2)
     save(fig, fancy_directory, "model_comparison_al")
 
 

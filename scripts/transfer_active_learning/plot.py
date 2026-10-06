@@ -29,10 +29,10 @@ def collect(directory):
  for r in rows:
   if int(r['round'])!=protocol['rounds']:continue
   mix=r['mix'];target=r['target']
-  if mix!='artificial' and target=='natural':key=('ortholog_mixtures',mix,r['model'])
-  elif mix in ('cgre','artificial'):key=('peak_transfer',f'{mix}_to_{target}',r['model'])
-  else:continue
-  grouped[key].append(r)
+  if mix!='artificial' and target=='natural':
+   grouped[('ortholog_mixtures',mix,r['model'])].append(r)
+  if mix in ('cgre','artificial'):
+   grouped[('peak_transfer',f'{mix}_to_{target}',r['model'])].append(r)
  for (experiment,condition,model),records in grouped.items():
   if len(records)!=len(protocol['seeds']):raise ValueError('Missing seed in final AL summary')
   item={'experiment':experiment,'condition':condition,'model':model,'n_runs':len(records),'n_train':int(records[0]['n_train']),'n_validation':protocol['validation_count'],'n_test':int(records[0]['n'])}
@@ -42,7 +42,7 @@ def collect(directory):
  write_csv(directory/'summary.csv',summary);return protocol,summary,inputs
 
 def paired(summary_non,summary_al,experiment,directory,metric):
- fig=plt.figure(figsize=(13,9.5 if experiment=='ortholog_mixtures' else 8.8));grid=fig.add_gridspec(2,2,left=.09,right=.985,top=.89,bottom=.08,hspace=.24,wspace=.18)
+ fig=plt.figure(figsize=(13,11.8 if experiment=='ortholog_mixtures' else 10.8));grid=fig.add_gridspec(2,2,left=.09,right=.985,top=.89,bottom=.14,hspace=.48,wspace=.18)
  conditions=MIX_ORDER if experiment=='ortholog_mixtures' else [f'{a}_to_{b}' for a,b in DIRECTIONS]
  labels=None if experiment=='ortholog_mixtures' else ['Artificial\n→ Artificial','Artificial\n→ Natural','Natural\n→ Artificial','Natural\n→ Natural']
  for panel,model in enumerate(MODELS):

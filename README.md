@@ -11,11 +11,11 @@ transfer between GFP landscapes.
 |---|---|---|---|
 | cgreGFP benchmark | Fixed 60/20/20 holdout and 10-fold CV; 24,516 sequences; 121 ESM fits + 11 Jannis OHE fits + sequence baselines | [Report](docs/BENCHMARK_RESULTS.md) · [CSV](results/esm_cgreGFP/comparison.csv) | [CNN predictions](results/esm_cgreGFP/cv_cnn_true_vs_predicted.png) · [Mean-ESM predictions](results/esm_cgreGFP/cv_mean_true_vs_predicted.png) · [Accuracy/runtime](results/esm_cgreGFP/accuracy_vs_runtime.png) |
 | Transfer before AL | Aubin, Linear, MLP and CNN on OHE; seven ortholog mixtures and four natural/artificial directions; 5 seeds | [Report](results/transfer_cgreGFP_seed42_46/RESULTS.md) · [CSV](results/transfer_cgreGFP_seed42_46/summary.csv) | [GFP proteins](results/transfer_cgreGFP_seed42_46/ortholog_mixtures_spearman.png) · [Artificial peaks](results/transfer_cgreGFP_seed42_46/artificial_peak_transfer_spearman.png) |
-| Transfer with AL | Same models, seeds, budgets and frozen tests; 10 acquisition rounds | [Protocol](docs/TRANSFER_ACTIVE_LEARNING.md) | AL-only and paired figures are generated after all 160 trajectories pass validation |
+| Transfer with AL | Same models, seeds, budgets and frozen tests; 10 acquisition rounds; 160/160 trajectories | [Results](results/transfer_al_cgreGFP_seed42_46/RESULTS.md) · [CSV](results/transfer_al_cgreGFP_seed42_46/summary.csv) · [Protocol](docs/TRANSFER_ACTIVE_LEARNING.md) | [GFP proteins](results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman.png) · [Non-AL vs AL](results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman_non_al_vs_al.png) · [Artificial peaks](results/transfer_al_cgreGFP_seed42_46/artificial_peak_transfer_spearman.png) |
 | Random vs acquisition score ("Fancy") transfer | CNN on OHE; matched initial sets, budgets, seeds and frozen tests | [Live status and exact method](results/transfer_random_cgreGFP_seed42_46/STATUS.md) · [Frozen protocol](results/transfer_random_cgreGFP_seed42_46/protocol.json) | [GFP proteins — available after completion](results/transfer_random_cgreGFP_seed42_46/sampling_ortholog_transfer.png) · [Natural/artificial peaks — available after completion](results/transfer_random_cgreGFP_seed42_46/sampling_peak_transfer.png) |
 | Random vs acquisition score transfer — Linear | 40 acquisition-score and 40 matched random CPU trajectories; 5 seeds | [Status](results/transfer_random_linear_cgreGFP_seed42_46/STATUS.md) · [Frozen protocol](results/transfer_random_linear_cgreGFP_seed42_46/protocol.json) | [GFP proteins](results/transfer_random_linear_cgreGFP_seed42_46/sampling_ortholog_transfer.png) · [Natural/artificial peaks](results/transfer_random_linear_cgreGFP_seed42_46/sampling_peak_transfer.png) |
-| Target-protein adaptation (running) | Add 96 target sequences per round × 10, or 960 once; fancy/random; 6 directed protein pairs; 3 CPU models; 5 seeds | [Protocol and design](docs/TARGET_ADAPTATION.md) · [Frozen parameters](results/target_adaptation_seed42_46/protocol.json) | Aggregate figure generated after all 90 jobs pass validation |
-| Natural cgreGFP/artificial-peak adaptation (running) | Same 96 × 10 versus 960-once design in both directions; 3 CPU models; 5 seeds | [Protocol and design](docs/TARGET_ADAPTATION.md) · [Frozen parameters](results/target_adaptation_peaks_seed42_46/protocol.json) | Aggregate figure generated after all 30 jobs pass validation |
+| Target-protein adaptation | 96 target sequences × 10 or 960 once; fancy/random; 6 directed protein pairs; 3 CPU models; 5 seeds; 90/90 jobs | [Results](results/target_adaptation_seed42_46/RESULTS.md) · [CSV](results/target_adaptation_seed42_46/summary.csv) · [Design](docs/TARGET_ADAPTATION.md) | [Four-arm comparison](results/target_adaptation_seed42_46/target_adaptation_comparison.png) |
+| Natural cgreGFP/artificial-peak adaptation | Same 96 × 10 versus 960-once design in both directions; 3 CPU models; 5 seeds; 30/30 jobs | [Results](results/target_adaptation_peaks_seed42_46/RESULTS.md) · [CSV](results/target_adaptation_peaks_seed42_46/summary.csv) · [Design](docs/TARGET_ADAPTATION.md) | [Four-arm comparison](results/target_adaptation_peaks_seed42_46/target_adaptation_comparison.png) |
 
 [Selected models: cgre → cgre scatter panel](results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/cgre_test_all_seeds.png)
 shows individual saved predictions from all three cgre-only control fits.
@@ -47,41 +47,43 @@ validation uses training sources only. Artificial → artificial tests within th
 four represented peaks, not an unseen peak. The natural test was used in earlier
 comparisons, so these transfer results are exploratory.
 
-### Active-learning transfer: provisional CPU-model results
+### Active-learning transfer
 
-These figures use the **completed five-seed trajectories for Aubin, Linear and
-MLP**. Each trajectory has an initial fit plus ten acquisition rounds and ends
+All **160 five-seed trajectories** for Aubin, Linear, MLP and CNN on OHE are
+complete. Each trajectory has an initial fit plus ten acquisition rounds and ends
 at the same 14,709-label budget as the non-AL transfer benchmark. AL and non-AL
 use the exact same frozen test records. Bars show the mean and error bars show
 sample SD across seeds 42–46.
 
-CNN on OHE is still running and is deliberately absent from these provisional
-panels. The final four-model figures will replace these previews after every CNN
-trajectory passes the round and checksum validation.
+**Matched model selection without and with AL on frozen natural cgreGFP test:**
 
-**Model selection with AL on the frozen natural cgreGFP test:**
-
-![Provisional active-learning model comparison](results/transfer_al_cgreGFP_seed42_46/model_comparison_al_cpu_preview.png)
+![Non-AL versus AL model comparison](results/transfer_al_cgreGFP_seed42_46/model_comparison_al.png)
 
 **Transfer between GFP proteins after AL:**
 
-![Provisional AL transfer between GFP proteins](results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman_al_cpu_preview.png)
+![AL transfer between GFP proteins](results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman.png)
 
 **Matched non-AL and AL transfer between GFP proteins:**
 
-![Provisional non-AL versus AL transfer between GFP proteins](results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman_non_al_vs_al_cpu_preview.png)
+![Non-AL versus AL transfer between GFP proteins](results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman_non_al_vs_al.png)
 
 **Transfer between natural cgreGFP and artificial peaks after AL:**
 
-![Provisional AL transfer between natural cgreGFP and artificial peaks](results/transfer_al_cgreGFP_seed42_46/artificial_peak_transfer_spearman_al_cpu_preview.png)
+![AL transfer between natural cgreGFP and artificial peaks](results/transfer_al_cgreGFP_seed42_46/artificial_peak_transfer_spearman.png)
 
 **Matched non-AL and AL transfer between natural cgreGFP and artificial peaks:**
 
-![Provisional non-AL versus AL peak transfer](results/transfer_al_cgreGFP_seed42_46/artificial_peak_transfer_spearman_non_al_vs_al_cpu_preview.png)
+![Non-AL versus AL peak transfer](results/transfer_al_cgreGFP_seed42_46/artificial_peak_transfer_spearman_non_al_vs_al.png)
 
-The Random/Fancy transfer comparison is not included in this CPU preview:
-that ablation uses the selected CNN on OHE model, and its random arm is still
-running. Its matched five-seed figures will be added after completion.
+### Target-protein adaptation
+
+The next experiment adds 96 labelled target sequences over ten iterative rounds
+or adds 960 sequences once. It compares random and acquisition-score selection
+for all six directed natural-protein pairs and both natural/artificial directions.
+
+![Natural-protein target adaptation](results/target_adaptation_seed42_46/target_adaptation_comparison.png)
+
+![Natural/artificial target adaptation](results/target_adaptation_peaks_seed42_46/target_adaptation_comparison.png)
 
 ### Random versus acquisition score ("Fancy") transfer
 

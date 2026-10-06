@@ -60,7 +60,7 @@ def main():
         axis.set_title(LABELS[model], loc="center", color=COLORS[model], fontweight="bold", fontsize=18)
         axis.set_ylabel("Target-test Spearman ρ")
         style_axis(axis)
-    labels = [pair.replace("GFP_to_", " → ").replace("GFP", "") for pair in protocol["pairs"]]
+    labels = [pair.replace("_to_", " → ").replace("GFP", "") for pair in protocol["pairs"]]
     axes[-1].set_xticks(x, labels, rotation=25, ha="right")
     handles, labels = axes[0].get_legend_handles_labels()
     fig.legend(handles, labels, loc="upper center", ncol=4, frameon=False, bbox_to_anchor=(0.5, 0.965))
