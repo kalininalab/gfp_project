@@ -1,11 +1,46 @@
 esm_embeddings/
 __pycache__/
 data/processed/baseline_v1/
-results/
+# Keep compact, publication-facing summaries and figures in Git. Model weights,
+# predictions, logs, split files, and per-run artifacts remain local.
+results/*
+!results/paper_reproduction_cgre_80_20/
+results/paper_reproduction_cgre_80_20/*
+!results/paper_reproduction_cgre_80_20/RESULTS.md
+!results/paper_reproduction_cgre_80_20/summary.csv
+!results/paper_reproduction_cgre_80_20/model_comparison.png
+!results/paper_reproduction_cgre_80_20/model_comparison.pdf
+!results/paper_reproduction_cgre_80_20/model_comparison.svg
+!results/transfer_cgreGFP_seed42_46/
+results/transfer_cgreGFP_seed42_46/*
+!results/transfer_cgreGFP_seed42_46/RESULTS.md
+!results/transfer_cgreGFP_seed42_46/summary.csv
+!results/transfer_cgreGFP_seed42_46/per_run_scores.csv
+!results/transfer_cgreGFP_seed42_46/per_peak_scores.csv
+!results/transfer_cgreGFP_seed42_46/artificial_macro_scores.csv
+!results/transfer_cgreGFP_seed42_46/test_records.csv
+!results/transfer_cgreGFP_seed42_46/finalization.json
+!results/transfer_cgreGFP_seed42_46/ortholog_mixtures_spearman.png
+!results/transfer_cgreGFP_seed42_46/ortholog_mixtures_spearman.pdf
+!results/transfer_cgreGFP_seed42_46/ortholog_mixtures_spearman.svg
+!results/transfer_cgreGFP_seed42_46/artificial_peak_transfer_spearman.png
+!results/transfer_cgreGFP_seed42_46/artificial_peak_transfer_spearman.pdf
+!results/transfer_cgreGFP_seed42_46/artificial_peak_transfer_spearman.svg
+!results/experiment_2_sampling/
+results/experiment_2_sampling/*
+!results/experiment_2_sampling/RESULTS.md
+!results/experiment_2_sampling/summary.csv
+!results/experiment_2_sampling/sampling_comparison.png
+!results/experiment_2_sampling/sampling_comparison.pdf
+!results/experiment_2_sampling/sampling_comparison.svg
 
 # External reference repositories (never vendor these).
 /master_thesis_jaca00001/
 /Orthologous_GFP_Fitness_Peaks/
+
+# Local manuscript drafts used to audit the reported protocol.
+/GFP Shotgun-2.docx
+/GFP Shotgun.pdf
 
 # Local tooling and caches.
 .pytest_cache/

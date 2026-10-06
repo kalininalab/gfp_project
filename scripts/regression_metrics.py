@@ -1,7 +1,7 @@
 """Metrics on log10 fluorescence; correlations are undefined for constants."""
 
 import numpy as np
-from scipy.stats import pearsonr, spearmanr
+from scipy.stats import kendalltau, pearsonr, spearmanr
 from sklearn.metrics import mean_squared_error, r2_score
 
 
@@ -15,4 +15,5 @@ def metrics(y, prediction):
     constant = np.ptp(prediction) == 0 or np.ptp(y) == 0
     return dict(n=len(y), mse=mse, rmse=mse**0.5, r2=float(r2_score(y, prediction)),
                 spearman=None if constant else float(spearmanr(y, prediction).statistic),
+                kendall_tau=None if constant else float(kendalltau(y, prediction).statistic),
                 pearson=None if constant else float(pearsonr(y, prediction).statistic))

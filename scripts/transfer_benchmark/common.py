@@ -3,12 +3,12 @@ import hashlib
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[2]
-DEFAULT=ROOT/'results/transfer_cgreGFP_seed42_44'
+DEFAULT=ROOT/'results/transfer_cgreGFP_seed42_46_runs'
 DATA=ROOT/'data/processed/baseline_v1/sequences.csv'
 PEAKS=['cgre132','cgre1338','cgre4111','cgre9708']
 NATURAL=['cgreGFP','amacGFP','ppluGFP']
 GENES=NATURAL+PEAKS
-MODELS=['aubin_1_10_1','mlp_small','mlp_deep','CNN_Jannis']
+MODELS=['aubin_1_10_1','aubin_linear','mlp_small','CNN_Jannis_OHE']
 MIXES={
     'cgre':['cgreGFP'], 'amac':['amacGFP'], 'pplu':['ppluGFP'],
     'cgre_amac':['cgreGFP','amacGFP'], 'cgre_pplu':['cgreGFP','ppluGFP'],

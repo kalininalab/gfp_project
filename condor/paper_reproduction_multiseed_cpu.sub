@@ -1,0 +1,25 @@
+universe = vanilla
+initialdir = /nethome/akolchina/gfp_project
+executable = /bin/bash
+arguments = condor/run_paper_reproduction.sh $(model) cpu $(seed)
+should_transfer_files = NO
+request_cpus = 1
+request_memory = 4GB
+request_disk = 1GB
+output = results/paper_reproduction_cgre_80_20/condor/$(model).seed$(seed).$(ClusterId).$(ProcId).out
+error = results/paper_reproduction_cgre_80_20/condor/$(model).seed$(seed).$(ClusterId).$(ProcId).err
+log = results/paper_reproduction_cgre_80_20/condor/multiseed_cpu.$(ClusterId).log
+queue model,seed from (
+aubin_1_10_1 43
+mlp_small 43
+mlp_deep 43
+aubin_1_10_1 44
+mlp_small 44
+mlp_deep 44
+aubin_1_10_1 45
+mlp_small 45
+mlp_deep 45
+aubin_1_10_1 46
+mlp_small 46
+mlp_deep 46
+)

@@ -1,0 +1,14 @@
+universe = vanilla
+initialdir = /nethome/akolchina/gfp_project
+executable = /bin/bash
+arguments = condor/run_paper_reproduction.sh $(model) cuda
+should_transfer_files = NO
+request_cpus = 1
+request_memory = 10GB
+request_disk = 1GB
+request_gpus = 1
+requirements = (TARGET.UidDomain == "lsv.uni-saarland.de") && (TARGET.GPUs_GlobalMemoryMb >= 16000)
+output = results/paper_reproduction_cgre_80_20/condor/$(model).$(ClusterId).$(ProcId).out
+error = results/paper_reproduction_cgre_80_20/condor/$(model).$(ClusterId).$(ProcId).err
+log = results/paper_reproduction_cgre_80_20/condor/gpu.$(ClusterId).log
+queue model in CNN_Jannis_OHE, CNN_Jannis_ESM

@@ -84,7 +84,7 @@ def allocate(total,weights):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--output',type=Path,default=DEFAULT)
-    p.add_argument('--seeds',type=int,nargs='+',default=[42,43,44])
+    p.add_argument('--seeds',type=int,nargs='+',default=list(range(42,47)))
     a=p.parse_args();out=a.output;out.mkdir(parents=True,exist_ok=True)
     if (out/'protocol.json').exists():
         raise FileExistsError('Frozen protocol already exists; use a new directory')

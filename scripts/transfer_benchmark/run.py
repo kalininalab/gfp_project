@@ -15,11 +15,10 @@ import numpy as np
 import torch
 from threadpoolctl import threadpool_limits
 
-from scripts.esm_benchmark.models import CNN_Jannis
 from scripts.train_aubin import train,predict_encoded
 from scripts.regression_metrics import metrics
 from .common import ROOT,DEFAULT,DATA,GENES,PEAKS,MODELS,MIXES,digest,read_csv,write_csv,scientific_sources
-from .models import AlignedModel,encode_aligned
+from .models import AlignedModel,AlignedOHECNN,encode_aligned
 
 
 def get_rows(directory,mix,seed,protocol):
@@ -104,8 +103,7 @@ def predict_cnn(model,features,ids,device,center,scale,batch=64):
                            for i in range(0,len(ids),batch)])
 
 
-def train_cnn(features,y,ids,seed,device,out,settings):
-    model=CNN_Jannis().to(device)
+def train_cnn(model,features,y,ids,seed,device,out,settings):
     center=float(y[ids['train']].mean());scale=max(float(y[ids['train']].std()),1e-8)
     targets=(y-center)/scale
     optimizer=torch.optim.AdamW(model.parameters(),lr=settings['lr'],weight_decay=settings['weight_decay'])
@@ -164,18 +162,20 @@ def run(a):
         alignment=json.loads((directory/'alignment.json').read_text())
         if digest(directory/'alignment.json')!=protocol['alignment_sha256']:
             raise ValueError('Changed alignment')
-        cnn=a.model=='CNN_Jannis'
+        cnn=a.model=='CNN_Jannis_OHE'
+        x=encode_aligned(rows,alignment)
         if cnn:
             if a.device!='cuda':
-                raise ValueError('Full CNN benchmark requires a GPU')
-            features=ResidueFeatures(rows,directory)
+                raise ValueError('Jannis OHE benchmark requires a GPU')
+            class TokenFeatures:
+                def forward(self,model,index,device):return model(x[index].to(device))
+            features=TokenFeatures()
             torch.cuda.synchronize()
-        else:
-            x=encode_aligned(rows,alignment)
         fit_start=time.perf_counter()
         with threadpool_limits(limits=1):
             if cnn:
-                model,history,best,center,scale=train_cnn(features,y,ids,a.seed,a.device,out,protocol['cnn_settings'])
+                model=AlignedOHECNN(alignment['length']).to(a.device)
+                model,history,best,center,scale=train_cnn(model,features,y,ids,a.seed,a.device,out,protocol['cnn_settings'])
                 fn=lambda index:predict_cnn(model,features,index,a.device,center,scale)
             else:
                 model=AlignedModel(alignment['length'],a.model)
@@ -188,7 +188,7 @@ def run(a):
                           alignment=alignment,center=center,scale=scale,seed=a.seed,mix=a.mix,best_epoch=best,protocol_sha256=protocol_hash)
             torch.save(artifact,out/'model.pt');write_csv(out/'history.csv',history)
             # A separate model verifies that the reusable checkpoint restores the same predictor.
-            restored=CNN_Jannis().to(a.device) if cnn else AlignedModel(alignment['length'],a.model)
+            restored=AlignedOHECNN(alignment['length']).to(a.device) if cnn else AlignedModel(alignment['length'],a.model)
             restored.load_state_dict(torch.load(out/'model.pt',map_location='cpu',weights_only=True)['state_dict'])
             check=ids['validation'][:32]
             saved=(predict_cnn(restored,features,check,a.device,center,scale) if cnn else predict_encoded(restored,x[check]).numpy())
@@ -217,7 +217,7 @@ def run(a):
             elapsed_seconds=time.perf_counter()-start,device=a.device if cnn else 'cpu',
             gpu=torch.cuda.get_device_name() if cnn else None,host=platform.node(),parameters=sum(p.numel() for p in model.parameters()),
             target_center=center,target_scale=scale,protocol_sha256=protocol_hash,
-            features_audit_sha256=digest(directory/'features_audit.json') if cnn else None,
+            features_audit_sha256=None,
             predictions_sha256=digest(out/'predictions.csv'),model_sha256=digest(out/'model.pt'),source_hashes=code,
             versions={n:importlib.metadata.version(n) for n in ['torch','numpy','scipy','scikit-learn']})
         temp=out/'metrics.json.tmp';temp.write_text(json.dumps(report,indent=2,allow_nan=False)+'\n');temp.replace(out/'metrics.json')

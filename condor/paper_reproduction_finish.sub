@@ -1,0 +1,12 @@
+universe = vanilla
+initialdir = /nethome/akolchina/gfp_project
+executable = /nethome/akolchina/miniconda3/envs/combi/bin/python
+arguments = -m scripts.paper_reproduction.finish
+should_transfer_files = NO
+request_cpus = 1
+request_memory = 1GB
+request_disk = 1GB
+output = results/paper_reproduction_cgre_80_20/condor/finish.$(ClusterId).out
+error = results/paper_reproduction_cgre_80_20/condor/finish.$(ClusterId).err
+log = results/paper_reproduction_cgre_80_20/condor/finish.$(ClusterId).log
+queue 1
