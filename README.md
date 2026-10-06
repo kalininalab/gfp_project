@@ -104,29 +104,34 @@ random trajectories finish and the finalizer validates both arms:
 - [Random vs acquisition score between GFP proteins](results/transfer_random_cgreGFP_seed42_46/sampling_ortholog_transfer.png)
 - [Random vs acquisition score between natural cgreGFP and artificial peaks](results/transfer_random_cgreGFP_seed42_46/sampling_peak_transfer.png)
 
-### Random versus acquisition score transfer — Linear
+### Random versus acquisition score transfer — CPU models
 
-This completed five-seed CPU experiment repeats the same comparison with the
-Linear model for GFP-protein transfer and natural cgreGFP/artificial-peak
-transfer. All **40 random trajectories and 40 matched acquisition-score
-trajectories are complete**. The two arms share initial labelled records, label
-budgets, validation sets and frozen tests. See the
-[completed status](results/transfer_random_linear_cgreGFP_seed42_46/STATUS.md)
-and [frozen protocol](results/transfer_random_linear_cgreGFP_seed42_46/protocol.json).
+This five-seed CPU experiment repeats the same comparison for **Aubin, Linear
+and MLP** for GFP-protein transfer and natural cgreGFP/artificial-peak transfer.
+The acquisition-score trajectories are complete for all three models. Linear's
+40 matched random trajectories are complete; Aubin and MLP random trajectories
+are running. Every arm shares initial labelled records, label budgets,
+validation sets and frozen tests.
 
-Linear contains no dropout, so its uncertainty term is zero. Its acquisition
-score is therefore the scaled distance from the labelled training set in the
-model's projected hidden representation. As in the CNN experiment, selection
-uses global descending scores and does not run the dense
+Aubin, Linear and MLP contain no dropout, so their uncertainty term is zero.
+Their acquisition score is therefore the scaled distance from the labelled
+training set in each model's projected hidden representation. As in the CNN
+experiment, selection uses global descending scores and does not run the dense
 SpectralClustering/3-mer stage.
 
-**Random versus acquisition-score sampling between GFP proteins:**
+The current Linear-only figures remain available while the combined
+three-model finalizer waits for Aubin and MLP:
 
 ![Linear Random versus acquisition score between GFP proteins](results/transfer_random_linear_cgreGFP_seed42_46/sampling_ortholog_transfer.png)
 
 **Random versus acquisition-score sampling between natural cgreGFP and artificial peaks:**
 
 ![Linear Random versus acquisition score between natural cgreGFP and artificial peaks](results/transfer_random_linear_cgreGFP_seed42_46/sampling_peak_transfer.png)
+
+Final three-model figure paths:
+
+- [Aubin, Linear and MLP between GFP proteins — available after completion](results/transfer_random_cpu_models_cgreGFP_seed42_46/sampling_ortholog_transfer_cpu_models.png)
+- [Aubin, Linear and MLP between natural cgreGFP and artificial peaks — available after completion](results/transfer_random_cpu_models_cgreGFP_seed42_46/sampling_peak_transfer_cpu_models.png)
 
 R² is reported in the result tables alongside correlations: 1 is perfect, 0
 matches the test-mean predictor, and negative values indicate worse squared error.

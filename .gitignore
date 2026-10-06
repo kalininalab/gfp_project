@@ -82,6 +82,20 @@ results/transfer_random_linear_cgreGFP_seed42_46/*
 !results/transfer_random_linear_cgreGFP_seed42_46/sampling_peak_transfer.png
 !results/transfer_random_linear_cgreGFP_seed42_46/sampling_peak_transfer.pdf
 !results/transfer_random_linear_cgreGFP_seed42_46/sampling_peak_transfer.svg
+!results/transfer_random_aubin_cgreGFP_seed42_46/
+results/transfer_random_aubin_cgreGFP_seed42_46/*
+!results/transfer_random_aubin_cgreGFP_seed42_46/protocol.json
+!results/transfer_random_aubin_cgreGFP_seed42_46/test_records.csv
+!results/transfer_random_mlp_cgreGFP_seed42_46/
+results/transfer_random_mlp_cgreGFP_seed42_46/*
+!results/transfer_random_mlp_cgreGFP_seed42_46/protocol.json
+!results/transfer_random_mlp_cgreGFP_seed42_46/test_records.csv
+!results/transfer_random_cpu_models_cgreGFP_seed42_46/
+results/transfer_random_cpu_models_cgreGFP_seed42_46/*
+!results/transfer_random_cpu_models_cgreGFP_seed42_46/RESULTS.md
+!results/transfer_random_cpu_models_cgreGFP_seed42_46/*.png
+!results/transfer_random_cpu_models_cgreGFP_seed42_46/*.pdf
+!results/transfer_random_cpu_models_cgreGFP_seed42_46/*.svg
 !results/target_adaptation_seed42_46/
 results/target_adaptation_seed42_46/*
 !results/target_adaptation_seed42_46/protocol.json
@@ -110,6 +124,7 @@ results/target_adaptation_peaks_seed42_46/*
 # Local manuscript drafts used to audit the reported protocol.
 /GFP Shotgun-2.docx
 /GFP Shotgun.pdf
+/results/transfer_random_cpu_models_condor/
 
 # Local tooling and caches.
 .pytest_cache/
