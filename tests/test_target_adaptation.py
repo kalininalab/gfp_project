@@ -2,6 +2,7 @@
 
 import csv
 import json
+import ast
 from pathlib import Path
 
 
@@ -44,3 +45,18 @@ def test_source_target_and_test_pool_are_disjoint():
             assert len(source_validation) == protocol["source_validation_count"]
             groups = [source_train, source_validation, target_pool, target_test]
             assert all(groups[i].isdisjoint(groups[j]) for i in range(4) for j in range(i + 1, 4))
+
+
+def test_pair_parsing_is_reachable_after_argument_validation():
+    """Protect the runner from accidentally nesting initialization below raise."""
+    tree = ast.parse(Path("scripts/target_adaptation/run.py").read_text())
+    main = next(node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name == "main")
+    assignments = [node for node in main.body if isinstance(node, ast.Assign)]
+    assigned_names = {
+        item.id
+        for node in assignments
+        for target in node.targets
+        for item in (target.elts if isinstance(target, ast.Tuple) else [target])
+        if isinstance(item, ast.Name)
+    }
+    assert {"source", "domains"} <= assigned_names

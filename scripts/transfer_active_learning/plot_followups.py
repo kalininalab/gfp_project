@@ -72,12 +72,9 @@ def aggregate_final(rows, protocol):
             continue
         mix, target = row["mix"], row["target"]
         if mix != "artificial" and target == "natural":
-            key = ("ortholog_mixtures", mix)
-        elif mix in ("cgre", "artificial"):
-            key = ("peak_transfer", f"{mix}_to_{target}")
-        else:
-            continue
-        grouped[key].append(float(row["spearman"]))
+            grouped[("ortholog_mixtures", mix)].append(float(row["spearman"]))
+        if mix in ("cgre", "artificial"):
+            grouped[("peak_transfer", f"{mix}_to_{target}")].append(float(row["spearman"]))
     return {key: (float(np.mean(values)), float(np.std(values, ddof=1))) for key, values in grouped.items()}
 
 
@@ -86,7 +83,7 @@ def sampling_plot(random_scores, fancy_scores, experiment, directory):
     labels = ([name.replace("_", " + ") for name in conditions] if experiment == "ortholog_mixtures"
               else ["Artificial\n→ Artificial", "Artificial\n→ Natural", "Natural\n→ Artificial", "Natural\n→ Natural"])
     x = np.arange(len(conditions)); width = 0.36
-    fig, axis = plt.subplots(figsize=(12.8, 5.8))
+    fig, axis = plt.subplots(figsize=(15, 6.5))
     r_mean = [random_scores[(experiment, condition)][0] for condition in conditions]
     r_sd = [random_scores[(experiment, condition)][1] for condition in conditions]
     f_mean = [fancy_scores[(experiment, condition)][0] for condition in conditions]
@@ -95,10 +92,12 @@ def sampling_plot(random_scores, fancy_scores, experiment, directory):
     axis.bar(x + width / 2, f_mean, width, yerr=f_sd, capsize=4, color="#0072B2", label='Acquisition score ("Fancy")')
     axis.set_xticks(x, labels, rotation=25 if experiment == "ortholog_mixtures" else 0, ha="right" if experiment == "ortholog_mixtures" else "center")
     axis.set_ylabel("Test Spearman ρ")
-    axis.set_title("Random versus acquisition-score sampling", loc="center", fontsize=21)
-    axis.legend(frameon=False, ncol=2, fontsize=13)
+    handles, legend_labels = axis.get_legend_handles_labels()
+    fig.suptitle("Random versus acquisition-score sampling", fontsize=22, y=.98)
+    fig.legend(handles, legend_labels, frameon=False, ncol=2, fontsize=13,
+               loc="upper center", bbox_to_anchor=(.5, .90))
     style_axis(axis)
-    fig.tight_layout()
+    fig.subplots_adjust(left=.08, right=.985, top=.78, bottom=.25)
     stem = "sampling_ortholog_transfer" if experiment == "ortholog_mixtures" else "sampling_peak_transfer"
     save(fig, directory, stem)
 

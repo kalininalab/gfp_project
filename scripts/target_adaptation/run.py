@@ -45,11 +45,11 @@ def main():
     protocol = json.loads((args.directory / "protocol.json").read_text())
     if args.pair not in protocol["pairs"] or args.seed not in protocol["seeds"] or args.model not in protocol["models"]:
         raise ValueError("Job is absent from frozen protocol")
-        source, target = args.pair.split("_to_")
-        domains = {
-            "cgreGFP": {"cgreGFP"}, "amacGFP": {"amacGFP"}, "ppluGFP": {"ppluGFP"},
-            "artificial": {"cgre132", "cgre1338", "cgre4111", "cgre9708"},
-        }
+    source, target = args.pair.split("_to_")
+    domains = {
+        "cgreGFP": {"cgreGFP"}, "amacGFP": {"amacGFP"}, "ppluGFP": {"ppluGFP"},
+        "artificial": {"cgre132", "cgre1338", "cgre4111", "cgre9708"},
+    }
     out = args.directory / "fits" / args.pair / f"seed{args.seed}" / args.model
     out.mkdir(parents=True, exist_ok=True)
     with (out / "run.lock").open("w") as lock:
