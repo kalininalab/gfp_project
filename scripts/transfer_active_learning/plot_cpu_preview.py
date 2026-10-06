@@ -116,20 +116,35 @@ def paired_panel(scores, experiment, stem, title):
 
 def model_selection(rows):
     chosen = [row for row in rows if row["mix"] == "cgre" and row["target"] == "natural"]
+    non_al_rows = read_csv(NON_AL / "summary.csv")
+    non_al = {
+        row["model"]: row for row in non_al_rows
+        if row["experiment"] == "ortholog_mixtures" and row["condition"] == "cgre"
+    }
     metrics = [("pearson", "Pearson r"), ("spearman", "Spearman ρ"), ("r2", "R²")]
     fig, axes = plt.subplots(1, 3, figsize=(12.5, 4.7), sharey=True)
-    x = np.arange(len(MODELS))
+    x = np.arange(len(MODELS)); width = 0.36
     for axis, (metric, title) in zip(axes, metrics):
-        groups = [[float(row[metric]) for row in chosen if row["model"] == model] for model in MODELS]
-        axis.bar(x, [np.mean(values) for values in groups],
-                 yerr=[np.std(values, ddof=1) for values in groups],
-                 color=[COLORS[model] for model in MODELS], capsize=4)
+        al_groups = [[float(row[metric]) for row in chosen if row["model"] == model] for model in MODELS]
+        non_al_mean = [float(non_al[model][metric + "_mean"]) for model in MODELS]
+        non_al_sd = [float(non_al[model][metric + "_sd"]) for model in MODELS]
+        al_mean = [np.mean(values) for values in al_groups]
+        al_sd = [np.std(values, ddof=1) for values in al_groups]
+        light = [COLORS[model] for model in MODELS]
+        dark = [mcolors.to_hex(np.asarray(mcolors.to_rgb(color)) * 0.68) for color in light]
+        axis.bar(x - width / 2, non_al_mean, width, yerr=non_al_sd,
+                 color=light, capsize=4, label="Non-AL")
+        axis.bar(x + width / 2, al_mean, width, yerr=al_sd,
+                 color=dark, capsize=4, label="AL")
         axis.set_xticks(x, [LABELS[model] for model in MODELS], rotation=22, ha="right")
         axis.set_title(title, loc="center", fontsize=17)
         axis.set_ylim(0.5, 1.01)
         style_axis(axis)
     axes[0].set_ylabel("Frozen cgreGFP test score")
-    fig.suptitle("Base-model comparison with active learning — CPU models", fontsize=22, y=0.98)
+    handles, legend_labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, legend_labels, frameon=False, ncol=2,
+               loc="upper center", bbox_to_anchor=(0.5, 0.88), fontsize=12)
+    fig.suptitle("Base-model comparison — non-AL vs AL, CPU models", fontsize=22, y=0.98)
     fig.tight_layout(rect=(0, 0, 1, 0.90), w_pad=1.1)
     save(fig, "model_comparison_al_cpu_preview")
 
