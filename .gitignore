@@ -56,6 +56,9 @@ results/transfer_al_cgreGFP_seed42_46/*
 !results/transfer_al_cgreGFP_seed42_46/model_comparison_al.png
 !results/transfer_al_cgreGFP_seed42_46/model_comparison_al.pdf
 !results/transfer_al_cgreGFP_seed42_46/model_comparison_al.svg
+!results/transfer_al_cgreGFP_seed42_46/*_cpu_preview.png
+!results/transfer_al_cgreGFP_seed42_46/*_cpu_preview.pdf
+!results/transfer_al_cgreGFP_seed42_46/*_cpu_preview.svg
 !results/transfer_random_cgreGFP_seed42_46/
 results/transfer_random_cgreGFP_seed42_46/*
 !results/transfer_random_cgreGFP_seed42_46/protocol.json

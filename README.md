@@ -43,6 +43,42 @@ validation uses training sources only. Artificial → artificial tests within th
 four represented peaks, not an unseen peak. The natural test was used in earlier
 comparisons, so these transfer results are exploratory.
 
+### Active-learning transfer: provisional CPU-model results
+
+These figures use the **completed five-seed trajectories for Aubin, Linear and
+MLP**. Each trajectory has an initial fit plus ten acquisition rounds and ends
+at the same 14,709-label budget as the non-AL transfer benchmark. AL and non-AL
+use the exact same frozen test records. Bars show the mean and error bars show
+sample SD across seeds 42–46.
+
+CNN on OHE is still running and is deliberately absent from these provisional
+panels. The final four-model figures will replace these previews after every CNN
+trajectory passes the round and checksum validation.
+
+**Model selection with AL on the frozen natural cgreGFP test:**
+
+![Provisional active-learning model comparison](results/transfer_al_cgreGFP_seed42_46/model_comparison_al_cpu_preview.png)
+
+**Transfer between GFP proteins after AL:**
+
+![Provisional AL transfer between GFP proteins](results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman_al_cpu_preview.png)
+
+**Matched non-AL and AL transfer between GFP proteins:**
+
+![Provisional non-AL versus AL transfer between GFP proteins](results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman_non_al_vs_al_cpu_preview.png)
+
+**Transfer between natural cgreGFP and artificial peaks after AL:**
+
+![Provisional AL transfer between natural cgreGFP and artificial peaks](results/transfer_al_cgreGFP_seed42_46/artificial_peak_transfer_spearman_al_cpu_preview.png)
+
+**Matched non-AL and AL transfer between natural cgreGFP and artificial peaks:**
+
+![Provisional non-AL versus AL peak transfer](results/transfer_al_cgreGFP_seed42_46/artificial_peak_transfer_spearman_non_al_vs_al_cpu_preview.png)
+
+The Random/Fancy transfer comparison is not included in this CPU preview:
+that ablation uses the selected CNN on OHE model, and its random arm is still
+running. Its matched five-seed figures will be added after completion.
+
 R² is reported in the result tables alongside correlations: 1 is perfect, 0
 matches the test-mean predictor, and negative values indicate worse squared error.
 

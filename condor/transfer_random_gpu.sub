@@ -7,7 +7,7 @@ request_cpus = 1
 request_memory = 16GB
 request_disk = 2GB
 request_gpus = 1
-requirements = (TARGET.UidDomain == "lsv.uni-saarland.de") && (TARGET.GPUs_GlobalMemoryMb >= 16000)
+requirements = (TARGET.UidDomain == "lsv.uni-saarland.de") && (TARGET.GPUs_GlobalMemoryMb >= 10000)
 output = results/transfer_random_cgreGFP_seed42_46/condor/gpu.$(ClusterId).$(Process).out
 error = results/transfer_random_cgreGFP_seed42_46/condor/gpu.$(ClusterId).$(Process).err
 log = results/transfer_random_cgreGFP_seed42_46/condor/gpu.$(ClusterId).log
