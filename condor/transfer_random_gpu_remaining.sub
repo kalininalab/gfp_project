@@ -1,0 +1,26 @@
+universe = vanilla
+initialdir = /nethome/akolchina/gfp_project
+executable = /bin/bash
+arguments = condor/run_transfer_random_gpu.sh $(index)
+should_transfer_files = NO
+request_cpus = 1
+request_memory = 16GB
+request_disk = 2GB
+request_gpus = 1
+requirements = (TARGET.UidDomain == "lsv.uni-saarland.de") && (TARGET.GPUs_GlobalMemoryMb >= 16000)
+output = results/transfer_random_cgreGFP_seed42_46/condor/gpu.$(ClusterId).$(index).out
+error = results/transfer_random_cgreGFP_seed42_46/condor/gpu.$(ClusterId).$(index).err
+log = results/transfer_random_cgreGFP_seed42_46/condor/gpu.$(ClusterId).log
+queue index from (
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+)

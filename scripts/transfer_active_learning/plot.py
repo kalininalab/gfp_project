@@ -50,7 +50,7 @@ def paired(summary_non,summary_al,experiment,directory,metric):
   nv=[float(non[c][metric+'_mean']) for c in conditions];av=[float(al[c][metric+'_mean']) for c in conditions]
   ax.bar(x-width/2,nv,width,yerr=[float(non[c][metric+'_sd']) for c in conditions],capsize=3,color=COLORS[model],label='Non-AL')
   ax.bar(x+width/2,av,width,yerr=[float(al[c][metric+'_sd']) for c in conditions],capsize=3,color=dark(COLORS[model]),label='AL')
-  ax.set_title(LABELS[model],loc='left',color=COLORS[model],fontweight='bold',fontsize=18);ax.set_ylabel('Test Spearman ρ' if experiment=='ortholog_mixtures' else 'Pooled test Spearman ρ',fontsize=15);ax.set_xticks(x,labels or ['']*len(x),fontsize=12);style_axis(ax)
+  ax.set_title(LABELS[model],loc='center',color=COLORS[model],fontweight='bold',fontsize=18);ax.set_ylabel('Test Spearman ρ' if experiment=='ortholog_mixtures' else 'Pooled test Spearman ρ',fontsize=15);ax.set_xticks(x,labels or ['']*len(x),fontsize=12);style_axis(ax)
   if experiment=='ortholog_mixtures':
    ax.set_xticks(x,[m.replace('_',' + ') for m in conditions],rotation=32,ha='right')
   if panel==0:ax.legend(frameon=False,fontsize=13)

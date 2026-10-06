@@ -72,7 +72,7 @@ def mixture_plot(summary,protocol,directory,metric='spearman',title_suffix=''):
         lookup={r['condition']:r for r in summary if r['experiment']=='ortholog_mixtures' and r['model']==model}
         values=[lookup[m][metric+'_mean'] for m in MIX_ORDER];errors=[lookup[m][metric+'_sd'] for m in MIX_ORDER]
         draw_bars(ax,values,errors,COLORS[model],ylim,[json.loads(lookup[m].get(metric+'_runs_json','[]')) for m in MIX_ORDER])
-        ax.set_title(LABELS[model],loc='left',color=COLORS[model],fontweight='bold',pad=8)
+        ax.set_title(LABELS[model],loc='center',color=COLORS[model],fontweight='bold',pad=8)
         ax.set_ylabel('Test '+METRIC_LABELS[metric])
         ax.tick_params(axis='x',bottom=False,labelbottom=False)
         for row,gene in enumerate(NATURAL):
@@ -98,7 +98,7 @@ def peaks_plot(summary,protocol,directory,metric='spearman',title_suffix=''):
         names=[f'{source}_to_{target}' for source,target in DIRECTIONS]
         draw_bars(ax,[lookup[n][metric+'_mean'] for n in names],[lookup[n][metric+'_sd'] for n in names],COLORS[model],ylim,
                   [json.loads(lookup[n].get(metric+'_runs_json','[]')) for n in names])
-        ax.set_title(LABELS[model],loc='left',color=COLORS[model],fontweight='bold',pad=10)
+        ax.set_title(LABELS[model],loc='center',color=COLORS[model],fontweight='bold',pad=10)
         ax.set_ylabel('Pooled test '+METRIC_LABELS[metric])
         ax.set_xticks(range(4),labels,fontsize=12)
     fig.suptitle('Transferability of models between natural cgreGFP and artificial peaks'+title_suffix,fontsize=23,y=.975,color='#202C3C')

@@ -70,3 +70,21 @@ python -m scripts.transfer_active_learning.plot
 
 The exact experiment parameters and test-manifest SHA-256 are recorded in
 `results/transfer_al_cgreGFP_seed42_46/protocol.json`.
+
+The final cgre-to-natural round also supplies the four-model comparison with
+active learning. This comparison uses the transfer protocol's 14,709 labelled
+training records, 4,903 validation records, and frozen 4,904-record test—not the
+manuscript reproduction's validation-free 80/20 fitting protocol.
+
+For the acquisition ablation, `CNN on OHE` is rerun with nested seeded random
+selection. Random and fancy arms share the initial labelled set, round budgets,
+five seeds, validation sets, and frozen target tests. Run it with:
+
+```bash
+python -m scripts.transfer_active_learning.prepare_random
+condor_submit condor/transfer_random_gpu.sub
+condor_submit condor/transfer_random_finish.sub
+```
+
+The finalizer produces adjacent Random/Fancy bars for the seven protein-source
+mixtures and the four natural/artificial transfer directions.
