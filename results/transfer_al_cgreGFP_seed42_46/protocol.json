@@ -1,0 +1,83 @@
+{
+  "created_utc": "2026-10-06T06:45:16.743399+00:00",
+  "reference_directory": "results/transfer_cgreGFP_seed42_51",
+  "reference_protocol_sha256": "6abfb8d63d8db9332bb79bfcd835cc019abad6e5aa59c3b0ed7eabeb6ba051c9",
+  "dataset_sha256": "1add5e456287d39909954b2af9bbda3e2cd83ff9476e1b5c9a7804cd60cd980a",
+  "test_records_sha256": "a5294e30ebff62e6423d71f07ff88d88fb4a8a8b4aff7167b46f231de8c4d330",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "models": [
+    "aubin_1_10_1",
+    "aubin_linear",
+    "mlp_small",
+    "CNN_Jannis_OHE"
+  ],
+  "mixes": {
+    "cgre": [
+      "cgreGFP"
+    ],
+    "amac": [
+      "amacGFP"
+    ],
+    "pplu": [
+      "ppluGFP"
+    ],
+    "cgre_amac": [
+      "cgreGFP",
+      "amacGFP"
+    ],
+    "cgre_pplu": [
+      "cgreGFP",
+      "ppluGFP"
+    ],
+    "amac_pplu": [
+      "amacGFP",
+      "ppluGFP"
+    ],
+    "cgre_amac_pplu": [
+      "cgreGFP",
+      "amacGFP",
+      "ppluGFP"
+    ],
+    "artificial": [
+      "cgre132",
+      "cgre1338",
+      "cgre4111",
+      "cgre9708"
+    ]
+  },
+  "rounds": 10,
+  "initial_fraction_of_final_budget": 0.1,
+  "final_training_budget": 14709,
+  "validation_count": 4903,
+  "acquisition": "0.62 * scaled projected-penultimate distance + 0.38 * scaled MC-dropout variance",
+  "uncertainty_samples": 25,
+  "projection_dimensions": 32,
+  "distance_anchors": 256,
+  "selection": "global descending acquisition score; no dense spectral clustering at full-pool scale",
+  "round_fitting": "from-scratch model with the same architecture, optimizer, validation checkpointing and maximum epochs as non-AL",
+  "test_policy": "exact frozen test_records.csv; unavailable to training, validation, acquisition and checkpoint selection",
+  "onehot_settings": {
+    "epochs": 30,
+    "patience": 10,
+    "batch_size": 32,
+    "lr": 0.001,
+    "optimizer": "Adam",
+    "loss": "MSE"
+  },
+  "cnn_settings": {
+    "epochs": 60,
+    "patience": 10,
+    "batch_size": 64,
+    "lr": 0.0003,
+    "weight_decay": 0.0001,
+    "optimizer": "AdamW",
+    "loss": "MSE",
+    "target_scaling": "training mean/std"
+  }
+}

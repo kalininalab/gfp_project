@@ -33,6 +33,26 @@ results/experiment_2_sampling/*
 !results/experiment_2_sampling/sampling_comparison.png
 !results/experiment_2_sampling/sampling_comparison.pdf
 !results/experiment_2_sampling/sampling_comparison.svg
+!results/transfer_al_cgreGFP_seed42_46/
+results/transfer_al_cgreGFP_seed42_46/*
+!results/transfer_al_cgreGFP_seed42_46/RESULTS.md
+!results/transfer_al_cgreGFP_seed42_46/protocol.json
+!results/transfer_al_cgreGFP_seed42_46/test_records.csv
+!results/transfer_al_cgreGFP_seed42_46/summary.csv
+!results/transfer_al_cgreGFP_seed42_46/per_round_scores.csv
+!results/transfer_al_cgreGFP_seed42_46/finalization.json
+!results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman.png
+!results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman.pdf
+!results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman.svg
+!results/transfer_al_cgreGFP_seed42_46/artificial_peak_transfer_spearman.png
+!results/transfer_al_cgreGFP_seed42_46/artificial_peak_transfer_spearman.pdf
+!results/transfer_al_cgreGFP_seed42_46/artificial_peak_transfer_spearman.svg
+!results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman_non_al_vs_al.png
+!results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman_non_al_vs_al.pdf
+!results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman_non_al_vs_al.svg
+!results/transfer_al_cgreGFP_seed42_46/artificial_peak_transfer_spearman_non_al_vs_al.png
+!results/transfer_al_cgreGFP_seed42_46/artificial_peak_transfer_spearman_non_al_vs_al.pdf
+!results/transfer_al_cgreGFP_seed42_46/artificial_peak_transfer_spearman_non_al_vs_al.svg
 
 # External reference repositories (never vendor these).
 /master_thesis_jaca00001/

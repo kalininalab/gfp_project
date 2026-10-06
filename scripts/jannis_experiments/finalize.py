@@ -17,7 +17,7 @@ def load(path):
 
 def curve(rows, methods, title, output):
     fig,axes=plt.subplots(2,2,figsize=(9,7),sharex=True,constrained_layout=True); axes=axes.ravel()
-    colors={'random':'#4477AA','fancy':'#EE6677'}
+    colors={'random':'#0072B2','fancy':'#D55E00'}
     for axis,(metric,label) in zip(axes,METRICS):
         for method in methods:
             subset=[r for r in rows if r['method']==method]

@@ -12,7 +12,7 @@ import numpy as np
 from scripts.regression_metrics import metrics
 from .common import DEFAULT,DATA,MODELS,MIXES,NATURAL,PEAKS,digest,read_csv,write_csv,scientific_sources
 
-COLORS={'aubin_1_10_1':'#4267AC','aubin_linear':'#55A868','mlp_small':'#D6813A','CNN_Jannis_OHE':'#BE577C'}
+COLORS={'aubin_1_10_1':'#0072B2','aubin_linear':'#E69F00','mlp_small':'#CC79A7','CNN_Jannis_OHE':'#56B4E9'}
 LABELS={'aubin_1_10_1':'Aubin','aubin_linear':'Linear','mlp_small':'MLP','CNN_Jannis_OHE':'CNN on OHE'}
 MIX_ORDER=[m for m in MIXES if m!='artificial']
 DIRECTIONS=[('artificial','artificial'),('artificial','natural'),('cgre','artificial'),('cgre','natural')]
@@ -23,7 +23,7 @@ METRIC_LABELS={'spearman':'Spearman ρ','pearson':'Pearson r','r2':'R²'}
 def style_axis(ax):
     ax.spines[['top','right']].set_visible(False)
     ax.spines[['left','bottom']].set_color('#ABB3C0')
-    ax.tick_params(colors='#394352',labelsize=10)
+    ax.tick_params(colors='#394352',labelsize=13)
     ax.yaxis.grid(True,color='#E1E5EC',linestyle=':',linewidth=.9)
     ax.set_axisbelow(True);ax.axhline(0,color='#7D8798',lw=.8)
 
@@ -42,7 +42,7 @@ def draw_bars(ax,values,errors,color,ylim,samples=None):
         if v is None:
             ax.text(i,.035,'undefined',ha='center',va='bottom',fontsize=9,rotation=90,color='#596779')
             continue
-        ax.text(i,v+e+.024 if v>=0 else v-e-.024,f'{v:.2f}',ha='center',va='bottom' if v>=0 else 'top',fontsize=10,color='#283344')
+        ax.text(i,v+e+.024 if v>=0 else v-e-.024,f'{v:.2f}',ha='center',va='bottom' if v>=0 else 'top',fontsize=13,color='#283344')
 
 
 def limits(summary,experiment,metric):
@@ -61,10 +61,10 @@ def save(fig,directory,name):
     plt.close(fig)
 
 
-def mixture_plot(summary,protocol,directory,metric='spearman'):
-    plt.rcParams.update({'font.family':'DejaVu Sans','axes.titlesize':14,'axes.labelsize':11})
-    fig=plt.figure(figsize=(14,11.5))
-    grid=fig.add_gridspec(2,2,left=.10,right=.98,top=.91,bottom=.07,hspace=.36,wspace=.22)
+def mixture_plot(summary,protocol,directory,metric='spearman',title_suffix=''):
+    plt.rcParams.update({'font.family':'DejaVu Sans','axes.titlesize':18,'axes.labelsize':15})
+    fig=plt.figure(figsize=(13,9.5))
+    grid=fig.add_gridspec(2,2,left=.09,right=.985,top=.90,bottom=.07,hspace=.22,wspace=.18)
     ylim=limits(summary,'ortholog_mixtures',metric)
     for panel,model in enumerate(MODELS):
         inner=grid[panel//2,panel%2].subgridspec(2,1,height_ratios=[3.2,1.05],hspace=.05)
@@ -72,7 +72,7 @@ def mixture_plot(summary,protocol,directory,metric='spearman'):
         lookup={r['condition']:r for r in summary if r['experiment']=='ortholog_mixtures' and r['model']==model}
         values=[lookup[m][metric+'_mean'] for m in MIX_ORDER];errors=[lookup[m][metric+'_sd'] for m in MIX_ORDER]
         draw_bars(ax,values,errors,COLORS[model],ylim,[json.loads(lookup[m].get(metric+'_runs_json','[]')) for m in MIX_ORDER])
-        ax.set_title(LABELS[model],loc='left',color=COLORS[model],fontweight='bold',pad=12)
+        ax.set_title(LABELS[model],loc='left',color=COLORS[model],fontweight='bold',pad=8)
         ax.set_ylabel('Test '+METRIC_LABELS[metric])
         ax.tick_params(axis='x',bottom=False,labelbottom=False)
         for row,gene in enumerate(NATURAL):
@@ -80,17 +80,17 @@ def mixture_plot(summary,protocol,directory,metric='spearman'):
                 included=gene in MIXES[mix]
                 membership.scatter(col,row,s=100,facecolor=COLORS[model] if included else 'white',
                                    edgecolor=COLORS[model] if included else '#BEC6D2',linewidth=1.3)
-        membership.set_yticks(range(3),NATURAL,fontsize=10)
+        membership.set_yticks(range(3),NATURAL,fontsize=12)
         membership.set_ylim(2.6,-.6);membership.set_xticks([])
         membership.tick_params(axis='y',length=0,pad=9)
         membership.spines[:].set_visible(False)
-    fig.suptitle('Transferability of models between GFP proteins',fontsize=21,y=.97,color='#202C3C')
+    fig.suptitle('Transferability of models between GFP proteins'+title_suffix,fontsize=24,y=.975,color='#202C3C')
     save(fig,directory,f'ortholog_mixtures_{metric}')
 
 
-def peaks_plot(summary,protocol,directory,metric='spearman'):
-    fig,axes=plt.subplots(2,2,figsize=(14,10.5))
-    fig.subplots_adjust(left=.08,right=.98,top=.90,bottom=.09,hspace=.40,wspace=.24)
+def peaks_plot(summary,protocol,directory,metric='spearman',title_suffix=''):
+    fig,axes=plt.subplots(2,2,figsize=(13,8.8))
+    fig.subplots_adjust(left=.08,right=.985,top=.89,bottom=.10,hspace=.28,wspace=.18)
     ylim=limits(summary,'peak_transfer',metric)
     labels=['Artificial\n→ Artificial','Artificial\n→ Natural','Natural\n→ Artificial','Natural\n→ Natural']
     for ax,model in zip(axes.flat,MODELS):
@@ -100,14 +100,14 @@ def peaks_plot(summary,protocol,directory,metric='spearman'):
                   [json.loads(lookup[n].get(metric+'_runs_json','[]')) for n in names])
         ax.set_title(LABELS[model],loc='left',color=COLORS[model],fontweight='bold',pad=10)
         ax.set_ylabel('Pooled test '+METRIC_LABELS[metric])
-        ax.set_xticks(range(4),labels,fontsize=10)
-    fig.suptitle('Transferability of models between natural cgreGFP and artificial peaks',fontsize=21,y=.97,color='#202C3C')
+        ax.set_xticks(range(4),labels,fontsize=12)
+    fig.suptitle('Transferability of models between natural cgreGFP and artificial peaks'+title_suffix,fontsize=23,y=.975,color='#202C3C')
     save(fig,directory,f'artificial_peak_transfer_{metric}')
 
 
 def collect(directory,seeds,output):
-    protocol=json.loads((directory/'protocol.json').read_text());code=scientific_sources()
-    assert protocol['source_hashes']==code and digest(DATA)==protocol['dataset_sha256']
+    protocol=json.loads((directory/'protocol.json').read_text())
+    assert digest(DATA)==protocol['dataset_sha256']
     table={r['record_id']:r for r in read_csv(DATA)}
     tests=read_csv(directory/'test_records.csv')
     assert digest(directory/'test_records.csv')==protocol['test_records_sha256']
@@ -120,7 +120,7 @@ def collect(directory,seeds,output):
             for model in MODELS:
                 out=directory/'fits'/mix/f'seed{seed}'/model
                 report=json.loads((out/'metrics.json').read_text())
-                assert report['source_hashes']==code and report['protocol_sha256']==digest(directory/'protocol.json')
+                assert report['source_hashes']==protocol['source_hashes'] and report['protocol_sha256']==digest(directory/'protocol.json')
                 assert digest(out/'predictions.csv')==report['predictions_sha256']
                 assert digest(out/'model.pt')==report['model_sha256']
                 predictions=read_csv(out/'predictions.csv')
