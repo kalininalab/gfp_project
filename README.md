@@ -12,6 +12,7 @@ transfer between GFP landscapes.
 | cgreGFP benchmark | Fixed 60/20/20 holdout and 10-fold CV; 24,516 sequences; 121 ESM fits + 11 Jannis OHE fits + sequence baselines | [Report](docs/BENCHMARK_RESULTS.md) · [CSV](results/esm_cgreGFP/comparison.csv) | [CNN predictions](results/esm_cgreGFP/cv_cnn_true_vs_predicted.png) · [Mean-ESM predictions](results/esm_cgreGFP/cv_mean_true_vs_predicted.png) · [Accuracy/runtime](results/esm_cgreGFP/accuracy_vs_runtime.png) |
 | Transfer before AL | Aubin, Linear, MLP and CNN on OHE; seven ortholog mixtures and four natural/artificial directions; 5 seeds | [Report](results/transfer_cgreGFP_seed42_46/RESULTS.md) · [CSV](results/transfer_cgreGFP_seed42_46/summary.csv) | [GFP proteins](results/transfer_cgreGFP_seed42_46/ortholog_mixtures_spearman.png) · [Artificial peaks](results/transfer_cgreGFP_seed42_46/artificial_peak_transfer_spearman.png) |
 | Transfer with AL | Same models, seeds, budgets and frozen tests; 10 acquisition rounds | [Protocol](docs/TRANSFER_ACTIVE_LEARNING.md) | AL-only and paired figures are generated after all 160 trajectories pass validation |
+| Random vs acquisition score ("Fancy") transfer | CNN on OHE; matched initial sets, budgets, seeds and frozen tests | [Live status and exact method](results/transfer_random_cgreGFP_seed42_46/STATUS.md) · [Frozen protocol](results/transfer_random_cgreGFP_seed42_46/protocol.json) | [GFP proteins — available after completion](results/transfer_random_cgreGFP_seed42_46/sampling_ortholog_transfer.png) · [Natural/artificial peaks — available after completion](results/transfer_random_cgreGFP_seed42_46/sampling_peak_transfer.png) |
 
 [Selected models: cgre → cgre scatter panel](results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/cgre_test_all_seeds.png)
 shows individual saved predictions from all three cgre-only control fits.
@@ -78,6 +79,25 @@ trajectory passes the round and checksum validation.
 The Random/Fancy transfer comparison is not included in this CPU preview:
 that ablation uses the selected CNN on OHE model, and its random arm is still
 running. Its matched five-seed figures will be added after completion.
+
+### Random versus acquisition score ("Fancy") transfer
+
+This is a separate five-seed CNN-on-OHE experiment for both GFP-protein transfer
+and natural cgreGFP/artificial-peak transfer. Random and acquisition-score arms
+share the initial labelled records, label budgets, validation sets and frozen
+tests. [Current status and exact method](results/transfer_random_cgreGFP_seed42_46/STATUS.md).
+
+The acquisition arm uses `0.62 × scaled hidden-space distance + 0.38 × scaled
+MC-dropout variance`, followed by global descending-score selection. It does not
+run the student's dense SpectralClustering/3-mer stage, whose pool affinity
+matrix is quadratic at this scale. The labels and documentation state this
+explicitly.
+
+The following links will resolve to the final figures immediately after all 40
+random trajectories finish and the finalizer validates both arms:
+
+- [Random vs acquisition score between GFP proteins](results/transfer_random_cgreGFP_seed42_46/sampling_ortholog_transfer.png)
+- [Random vs acquisition score between natural cgreGFP and artificial peaks](results/transfer_random_cgreGFP_seed42_46/sampling_peak_transfer.png)
 
 R² is reported in the result tables alongside correlations: 1 is perfect, 0
 matches the test-mean predictor, and negative values indicate worse squared error.

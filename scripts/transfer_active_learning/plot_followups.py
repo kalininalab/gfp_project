@@ -92,10 +92,10 @@ def sampling_plot(random_scores, fancy_scores, experiment, directory):
     f_mean = [fancy_scores[(experiment, condition)][0] for condition in conditions]
     f_sd = [fancy_scores[(experiment, condition)][1] for condition in conditions]
     axis.bar(x - width / 2, r_mean, width, yerr=r_sd, capsize=4, color="#56B4E9", label="Random")
-    axis.bar(x + width / 2, f_mean, width, yerr=f_sd, capsize=4, color="#0072B2", label="Fancy")
+    axis.bar(x + width / 2, f_mean, width, yerr=f_sd, capsize=4, color="#0072B2", label='Acquisition score ("Fancy")')
     axis.set_xticks(x, labels, rotation=25 if experiment == "ortholog_mixtures" else 0, ha="right" if experiment == "ortholog_mixtures" else "center")
     axis.set_ylabel("Test Spearman ρ")
-    axis.set_title("Random versus fancy acquisition", loc="center", fontsize=21)
+    axis.set_title("Random versus acquisition-score sampling", loc="center", fontsize=21)
     axis.legend(frameon=False, ncol=2, fontsize=13)
     style_axis(axis)
     fig.tight_layout()
