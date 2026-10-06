@@ -1,6 +1,7 @@
 """Validate and plot the completed target-adaptation experiment."""
 
 import json
+import argparse
 from collections import defaultdict
 from pathlib import Path
 
@@ -19,19 +20,23 @@ ARM_COLORS = ["#9AD5F2", "#0072B2", "#F3C46B", "#D55E00"]
 
 
 def main():
-    protocol = json.loads((ROOT / "protocol.json").read_text())
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--directory", type=Path, default=ROOT)
+    args = parser.parse_args()
+    root = args.directory
+    protocol = json.loads((root / "protocol.json").read_text())
     rows = []
     for pair in protocol["pairs"]:
         for seed in protocol["seeds"]:
             for model in protocol["models"]:
-                folder = ROOT / "fits" / pair / f"seed{seed}" / model
+                folder = root / "fits" / pair / f"seed{seed}" / model
                 complete = json.loads((folder / "complete.json").read_text())
-                if complete["protocol_sha256"] != digest(ROOT / "protocol.json") or complete["metrics_sha256"] != digest(folder / "metrics.csv"):
+                if complete["protocol_sha256"] != digest(root / "protocol.json") or complete["metrics_sha256"] != digest(folder / "metrics.csv"):
                     raise ValueError(f"Integrity failure: {folder}")
                 for row in read_csv(folder / "metrics.csv"):
                     row.update(pair=pair, seed=seed, model=model)
                     rows.append(row)
-    write_csv(ROOT / "per_round_scores.csv", rows)
+    write_csv(root / "per_round_scores.csv", rows)
     final = [row for row in rows if row["arm"].startswith("oneshot") or (row["arm"].startswith("iterative") and int(row["round"]) == protocol["rounds"])]
     grouped = defaultdict(list)
     for row in final:
@@ -43,7 +48,7 @@ def main():
         summary.append({"pair": pair, "model": model, "arm": arm, "n_runs": len(values),
                         "spearman_mean": float(np.mean(values)), "spearman_sd": float(np.std(values, ddof=1)),
                         "runs_json": json.dumps(values)})
-    write_csv(ROOT / "summary.csv", summary)
+    write_csv(root / "summary.csv", summary)
     fig, axes = plt.subplots(3, 1, figsize=(14.5, 13), sharex=True, sharey=True)
     x = np.arange(len(protocol["pairs"])); width = 0.19
     for axis, model in zip(axes, protocol["models"]):
@@ -62,9 +67,9 @@ def main():
     fig.suptitle("Target adaptation: 960 labelled target sequences", fontsize=23, y=0.995)
     fig.tight_layout(rect=(0, 0, 1, 0.93), h_pad=1.3)
     for suffix in ("png", "pdf", "svg"):
-        fig.savefig(ROOT / f"target_adaptation_comparison.{suffix}", dpi=240, facecolor="white")
+        fig.savefig(root / f"target_adaptation_comparison.{suffix}", dpi=240, facecolor="white")
     plt.close(fig)
-    (ROOT / "RESULTS.md").write_text(
+    (root / "RESULTS.md").write_text(
         "# Target-protein adaptation\n\n"
         "Five seeds and three CPU models. Iterative arms acquire 96 target sequences in each of ten rounds; one-shot arms add 960 target sequences once. All arms share the same frozen target test.\n\n"
         "![Target adaptation](target_adaptation_comparison.png)\n"

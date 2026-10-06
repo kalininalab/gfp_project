@@ -45,7 +45,11 @@ def main():
     protocol = json.loads((args.directory / "protocol.json").read_text())
     if args.pair not in protocol["pairs"] or args.seed not in protocol["seeds"] or args.model not in protocol["models"]:
         raise ValueError("Job is absent from frozen protocol")
-    source, target = args.pair.split("_to_")
+        source, target = args.pair.split("_to_")
+        domains = {
+            "cgreGFP": {"cgreGFP"}, "amacGFP": {"amacGFP"}, "ppluGFP": {"ppluGFP"},
+            "artificial": {"cgre132", "cgre1338", "cgre4111", "cgre9708"},
+        }
     out = args.directory / "fits" / args.pair / f"seed{args.seed}" / args.model
     out.mkdir(parents=True, exist_ok=True)
     with (out / "run.lock").open("w") as lock:
@@ -53,12 +57,12 @@ def main():
         if (out / "complete.json").exists():
             return
         all_rows = read_csv(DATA); table = {row["record_id"]: row for row in all_rows}
-        source_alias = {"cgreGFP": "cgre", "amacGFP": "amac", "ppluGFP": "pplu"}[source]
+        source_alias = {"cgreGFP": "cgre", "amacGFP": "amac", "ppluGFP": "pplu", "artificial": "artificial"}[source]
         subset = read_csv(Path(protocol["alignment"]).parent / "subsets" / f"{source_alias}_seed{args.seed}.csv")
         source_train_rows = [table[row["record_id"]] for row in subset if row["split"] == "train"]
         source_validation_rows = [table[row["record_id"]] for row in subset if row["split"] == "validation"]
-        target_pool_rows = [row for row in all_rows if row["gene"] == target and row["split"] != "test"]
-        target_test_rows = [row for row in all_rows if row["gene"] == target and row["split"] == "test"]
+        target_pool_rows = [row for row in all_rows if row["gene"] in domains[target] and row["split"] != "test"]
+        target_test_rows = [row for row in all_rows if row["gene"] in domains[target] and row["split"] == "test"]
         counts = tuple(map(len, (source_train_rows, source_validation_rows, target_pool_rows, target_test_rows)))
         expected = (protocol["source_train_count"], protocol["source_validation_count"], protocol["target_pool_counts"][target], protocol["target_test_counts"][target])
         if counts != expected:

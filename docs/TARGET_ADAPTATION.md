@@ -33,3 +33,10 @@ condor_submit condor/target_adaptation_finish.sub
 
 The finalizer requires all 90 jobs and validates their protocol and metrics
 hashes before creating the aggregate comparison.
+
+The identical design is also run for both directions between natural cgreGFP
+and the combined four-peak artificial domain. The artificial target has a fixed
+5,382-record test and a 21,520-record acquisition pool; the natural target has
+4,904 test and 19,612 pool records. These 30 jobs use the separate frozen
+protocol `results/target_adaptation_peaks_seed42_46/protocol.json` so the running
+natural-protein experiment remains immutable.
