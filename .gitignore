@@ -96,6 +96,16 @@ results/transfer_random_cpu_models_cgreGFP_seed42_46/*
 !results/transfer_random_cpu_models_cgreGFP_seed42_46/*.png
 !results/transfer_random_cpu_models_cgreGFP_seed42_46/*.pdf
 !results/transfer_random_cpu_models_cgreGFP_seed42_46/*.svg
+!results/transfer_al_ensemble_cpu_seed42_46/
+results/transfer_al_ensemble_cpu_seed42_46/*
+!results/transfer_al_ensemble_cpu_seed42_46/protocol.json
+!results/transfer_al_ensemble_cpu_seed42_46/test_records.csv
+!results/transfer_ensemble_sampling_cpu_seed42_46/
+results/transfer_ensemble_sampling_cpu_seed42_46/*
+!results/transfer_ensemble_sampling_cpu_seed42_46/RESULTS.md
+!results/transfer_ensemble_sampling_cpu_seed42_46/*.png
+!results/transfer_ensemble_sampling_cpu_seed42_46/*.pdf
+!results/transfer_ensemble_sampling_cpu_seed42_46/*.svg
 !results/target_adaptation_seed42_46/
 results/target_adaptation_seed42_46/*
 !results/target_adaptation_seed42_46/protocol.json
@@ -116,6 +126,22 @@ results/target_adaptation_peaks_seed42_46/*
 !results/target_adaptation_peaks_seed42_46/target_adaptation_comparison.png
 !results/target_adaptation_peaks_seed42_46/target_adaptation_comparison.pdf
 !results/target_adaptation_peaks_seed42_46/target_adaptation_comparison.svg
+!results/target_adaptation_cnn_seed42_46/
+results/target_adaptation_cnn_seed42_46/*
+!results/target_adaptation_cnn_seed42_46/protocol.json
+!results/target_adaptation_cnn_seed42_46/test_records.csv
+!results/target_adaptation_cnn_seed42_46/RESULTS.md
+!results/target_adaptation_cnn_seed42_46/summary.csv
+!results/target_adaptation_cnn_seed42_46/per_round_scores.csv
+!results/target_adaptation_cnn_seed42_46/target_adaptation_comparison.*
+!results/target_adaptation_peaks_cnn_seed42_46/
+results/target_adaptation_peaks_cnn_seed42_46/*
+!results/target_adaptation_peaks_cnn_seed42_46/protocol.json
+!results/target_adaptation_peaks_cnn_seed42_46/test_records.csv
+!results/target_adaptation_peaks_cnn_seed42_46/RESULTS.md
+!results/target_adaptation_peaks_cnn_seed42_46/summary.csv
+!results/target_adaptation_peaks_cnn_seed42_46/per_round_scores.csv
+!results/target_adaptation_peaks_cnn_seed42_46/target_adaptation_comparison.*
 
 # External reference repositories (never vendor these).
 /master_thesis_jaca00001/

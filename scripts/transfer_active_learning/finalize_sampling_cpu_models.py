@@ -1,5 +1,6 @@
 """Plot matched Random/Fancy transfer for Aubin, Linear and MLP."""
 
+import argparse
 import json
 from pathlib import Path
 
@@ -25,7 +26,7 @@ def darker(color):
     return colors.to_hex(np.asarray(colors.to_rgb(color)) * .68)
 
 
-def plot(experiment):
+def plot(experiment, fancy, output):
     conditions = MIX_ORDER if experiment == "ortholog_mixtures" else [f"{a}_to_{b}" for a, b in DIRECTIONS]
     labels = ([name.replace("_", " + ") for name in conditions] if experiment == "ortholog_mixtures"
               else ["Artificial\n→ Artificial", "Artificial\n→ Natural", "Natural\n→ Artificial", "Natural\n→ Natural"])
@@ -33,7 +34,7 @@ def plot(experiment):
     x = np.arange(len(conditions)); width = .36
     for axis, model in zip(axes, RANDOM):
         random_protocol, random_rows = completed_rows(RANDOM[model], [model])
-        fancy_protocol, fancy_rows = completed_rows(FANCY, [model])
+        fancy_protocol, fancy_rows = completed_rows(fancy, [model])
         if random_protocol["test_records_sha256"] != fancy_protocol["test_records_sha256"]:
             raise ValueError(f"Test manifest mismatch for {model}")
         random = aggregate_final(random_rows, random_protocol)
@@ -59,17 +60,24 @@ def plot(experiment):
     fig.tight_layout(rect=(0,0,1,.93), h_pad=1.3)
     stem = "sampling_ortholog_transfer_cpu_models" if experiment == "ortholog_mixtures" else "sampling_peak_transfer_cpu_models"
     for suffix in ("png", "pdf", "svg"):
-        fig.savefig(OUTPUT / f"{stem}.{suffix}", dpi=240, facecolor="white")
+        fig.savefig(output / f"{stem}.{suffix}", dpi=240, facecolor="white")
     plt.close(fig)
 
 
 def main():
-    OUTPUT.mkdir(parents=True, exist_ok=True)
-    plot("ortholog_mixtures")
-    plot("peak_transfer")
-    (OUTPUT / "RESULTS.md").write_text(
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--fancy", type=Path, default=FANCY)
+    parser.add_argument("--output", type=Path, default=OUTPUT)
+    args = parser.parse_args()
+    args.output.mkdir(parents=True, exist_ok=True)
+    plot("ortholog_mixtures", args.fancy, args.output)
+    plot("peak_transfer", args.fancy, args.output)
+    uncertainty = json.loads((args.fancy / "protocol.json").read_text()).get("uncertainty")
+    method = ("Five-member ensemble variance supplies uncertainty for the acquisition score."
+              if uncertainty else "The acquisition score uses projected hidden-space distance only.")
+    (args.output / "RESULTS.md").write_text(
         '# Random versus acquisition-score transfer — CPU models\n\n'
-        'Five matched seeds for Aubin, Linear and MLP.\n\n'
+        'Five matched seeds for Aubin, Linear and MLP. ' + method + '\n\n'
         '![Protein transfer](sampling_ortholog_transfer_cpu_models.png)\n\n'
         '![Peak transfer](sampling_peak_transfer_cpu_models.png)\n'
     )

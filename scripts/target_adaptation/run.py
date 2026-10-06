@@ -9,7 +9,7 @@ import numpy as np
 
 from scripts.active_learning.acquisition import acquisition_scores
 from scripts.regression_metrics import metrics
-from scripts.transfer_active_learning.run import fit, projected, representations, save_plots
+from scripts.transfer_active_learning.run import fit, projected, representations, save_plots, uncertainty
 from scripts.transfer_benchmark.common import DATA, digest, read_csv, write_csv
 from scripts.transfer_benchmark.models import encode_aligned
 
@@ -29,7 +29,7 @@ def select_fancy(model, x, train, pool, seed, round_number, device, protocol, co
     projection_seed = seed * 1000 + round_number
     labeled = projected(hidden_train[anchors], projection_seed, protocol["projection_dimensions"])
     candidates = projected(hidden_pool, projection_seed, protocol["projection_dimensions"])
-    variance = np.zeros(len(pool), dtype=np.float32)
+    variance = uncertainty(model, x, pool, device, protocol.get("uncertainty_samples", 25))
     scores = acquisition_scores(labeled, candidates, variance, alpha=0.62)
     chosen = np.argsort(-scores, kind="stable")[:count]
     return chosen, scores
@@ -41,6 +41,7 @@ def main():
     parser.add_argument("--seed", type=int, required=True)
     parser.add_argument("--model", required=True)
     parser.add_argument("--directory", type=Path, default=Path("results/target_adaptation_seed42_46"))
+    parser.add_argument("--device", default="cpu")
     args = parser.parse_args()
     protocol = json.loads((args.directory / "protocol.json").read_text())
     if args.pair not in protocol["pairs"] or args.seed not in protocol["seeds"] or args.model not in protocol["models"]:
@@ -81,8 +82,10 @@ def main():
 
         result_rows = []; prediction_rows = []; query_rows = []
         settings = {"onehot_settings": protocol["onehot_settings"]}
+        if "cnn_settings" in protocol:
+            settings["cnn_settings"] = protocol["cnn_settings"]
         ids = {"train": source_train, "validation": validation}
-        baseline_model, _, _, _, _, baseline_predict = fit(args.model, x, y, ids, args.seed, "cpu", settings)
+        baseline_model, _, _, _, _, baseline_predict = fit(args.model, x, y, ids, args.seed, args.device, settings)
         baseline_prediction, baseline_score = evaluate(
             baseline_predict, y, test, f"{args.pair} · source only",
             out / "source_only_round_00",
@@ -90,12 +93,12 @@ def main():
         result_rows.append({"arm": "source_only", "round": 0, "n_target": 0, **baseline_score})
         prediction_rows.extend({"arm": "source_only", "round": 0, "record_id": rows[i]["record_id"], "y_true": float(y[i]), "y_pred": float(value)} for i, value in zip(test, baseline_prediction))
 
-        first_fancy, first_scores = select_fancy(baseline_model, x, source_train, pool_base, args.seed, 0, "cpu", protocol, protocol["one_shot_target_count"])
+        first_fancy, first_scores = select_fancy(baseline_model, x, source_train, pool_base, args.seed, 0, args.device, protocol, protocol["one_shot_target_count"])
         random_order = np.random.default_rng(args.seed).permutation(len(pool_base))
         one_shot = {"oneshot_fancy": first_fancy, "oneshot_random": random_order[:protocol["one_shot_target_count"]]}
         for arm, local in one_shot.items():
             selected = pool_base[local]
-            model, _, _, _, _, predict = fit(args.model, x, y, {"train": np.concatenate([source_train, selected]), "validation": validation}, args.seed, "cpu", settings)
+            model, _, _, _, _, predict = fit(args.model, x, y, {"train": np.concatenate([source_train, selected]), "validation": validation}, args.seed, args.device, settings)
             prediction, score = evaluate(predict, y, test, f"{args.pair} · {arm}", out / arm)
             result_rows.append({"arm": arm, "round": 1, "n_target": len(selected), **score})
             prediction_rows.extend({"arm": arm, "round": 1, "record_id": rows[i]["record_id"], "y_true": float(y[i]), "y_pred": float(value)} for i, value in zip(test, prediction))
@@ -109,7 +112,7 @@ def main():
                         chosen = first_fancy[:protocol["target_sequences_per_round"]]
                         scores = first_scores
                     else:
-                        chosen, scores = select_fancy(model, x, train, pool, args.seed, round_number - 1, "cpu", protocol, protocol["target_sequences_per_round"])
+                        chosen, scores = select_fancy(model, x, train, pool, args.seed, round_number - 1, args.device, protocol, protocol["target_sequences_per_round"])
                 else:
                     rng = np.random.default_rng(np.random.SeedSequence([args.seed, round_number - 1, 1]))
                     chosen = rng.choice(len(pool), protocol["target_sequences_per_round"], replace=False)
@@ -117,7 +120,7 @@ def main():
                 selected = pool[chosen]
                 query_rows.extend({"arm": arm, "selected_after_round": round_number - 1, "record_id": rows[i]["record_id"], "score": "" if scores is None else float(scores[j])} for j, i in zip(chosen, selected))
                 train = np.concatenate([train, selected]); pool = np.delete(pool, chosen)
-                model, _, _, _, _, predict = fit(args.model, x, y, {"train": train, "validation": validation}, args.seed, "cpu", settings)
+                model, _, _, _, _, predict = fit(args.model, x, y, {"train": train, "validation": validation}, args.seed, args.device, settings)
                 prediction, score = evaluate(predict, y, test, f"{args.pair} · {arm} · round {round_number}", out / f"{arm}_round_{round_number:02d}")
                 result_rows.append({"arm": arm, "round": round_number, "n_target": round_number * protocol["target_sequences_per_round"], **score})
                 prediction_rows.extend({"arm": arm, "round": round_number, "record_id": rows[i]["record_id"], "y_true": float(y[i]), "y_pred": float(value)} for i, value in zip(test, prediction))

@@ -1,0 +1,67 @@
+{
+  "created_utc": "2026-10-06T14:12:57.384393+00:00",
+  "dataset_sha256": "1add5e456287d39909954b2af9bbda3e2cd83ff9476e1b5c9a7804cd60cd980a",
+  "alignment": "results/transfer_cgreGFP_seed42_51/alignment.json",
+  "alignment_sha256": "50be1117a0abfe9739e9ce6d1793f6c945e25c9c9b5a90a73675a27971b446bd",
+  "test_records_sha256": "a3ca5044821f52759076dc5c02f63848f3b12cc727ab2240bd1f901914b0fafc",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "models": [
+    "CNN_Jannis_OHE"
+  ],
+  "pairs": [
+    "cgreGFP_to_artificial",
+    "artificial_to_cgreGFP"
+  ],
+  "source_train_count": 14709,
+  "source_validation_count": 4903,
+  "target_test_counts": {
+    "cgreGFP": 4904,
+    "artificial": 5382
+  },
+  "target_pool_counts": {
+    "cgreGFP": 19612,
+    "artificial": 21520
+  },
+  "target_sequences_per_round": 96,
+  "rounds": 10,
+  "one_shot_target_count": 960,
+  "arms": [
+    "iterative_fancy",
+    "iterative_random",
+    "oneshot_fancy",
+    "oneshot_random"
+  ],
+  "fancy_score": "0.62 * scaled projected-penultimate distance + 0.38 * scaled MC-dropout variance",
+  "selection_note": "CNN uncertainty is prediction variance from 25 stochastic MC-dropout passes",
+  "fancy_selection": "global descending score; dense SpectralClustering/3-mer stage omitted",
+  "evaluation_policy": "same frozen target test for every arm, model and seed; unavailable to selection",
+  "validation_policy": "fixed source-domain validation records only",
+  "onehot_settings": {
+    "epochs": 30,
+    "patience": 10,
+    "batch_size": 32,
+    "lr": 0.001,
+    "optimizer": "Adam",
+    "loss": "MSE"
+  },
+  "projection_dimensions": 32,
+  "distance_anchors": 256,
+  "cnn_settings": {
+    "epochs": 60,
+    "patience": 10,
+    "batch_size": 64,
+    "lr": 0.0003,
+    "weight_decay": 0.0001,
+    "optimizer": "AdamW",
+    "loss": "MSE",
+    "target_scaling": "training mean/std"
+  },
+  "uncertainty_samples": 25,
+  "matched_cpu_protocol_sha256": "78a1000948cea02671c156e081550e59a1203903d05bf0fb0735b0a612f442d3"
+}

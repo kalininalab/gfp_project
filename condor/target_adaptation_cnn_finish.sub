@@ -1,0 +1,12 @@
+universe = vanilla
+initialdir = /nethome/akolchina/gfp_project
+executable = /bin/bash
+arguments = condor/run_target_adaptation_cnn_finish.sh proteins
+should_transfer_files = NO
+request_cpus = 1
+request_memory = 4GB
+request_disk = 1GB
+output = results/target_adaptation_cnn_seed42_46/condor/finish.$(ClusterId).out
+error = results/target_adaptation_cnn_seed42_46/condor/finish.$(ClusterId).err
+log = results/target_adaptation_cnn_seed42_46/condor/finish.$(ClusterId).log
+queue 1

@@ -22,9 +22,30 @@ The acquisition score reproduces the executable student implementation:
 Distance is the minimum Euclidean distance from a pool sequence to 256
 deterministically sampled labelled anchors in a 32-dimensional projection of the
 model's penultimate representation. Uncertainty is MC-dropout prediction
-variance from 25 passes for CNN on OHE. Models without dropout have zero
-uncertainty, so their ranking is distance-based. Selection is global and stable
-by descending score.
+variance from 25 passes for CNN on OHE. In the original completed protocol,
+models without dropout have zero uncertainty, so their ranking is
+distance-based. Selection is global and stable by descending score.
+
+### Ensemble-uncertainty extension for CPU models
+
+The versioned extension in
+`results/transfer_al_ensemble_cpu_seed42_46` supplies uncertainty for Aubin,
+Linear and MLP with five-member ensembles. Aubin and Linear use the primary fit
+plus four bootstrap-resampled fits of the labelled training set. MLP uses five
+independently initialized fits on the same labelled records. For every pool
+sequence, uncertainty is the sample variance of the five predictions. The
+acquisition score remains exactly:
+
+```text
+0.62 × scaled projected-hidden-space distance
++ 0.38 × scaled ensemble prediction variance
+```
+
+Auxiliary ensemble members affect acquisition only. The primary fit produces
+all frozen-test predictions and metrics. This keeps the reported base model
+unchanged while adding model-specific epistemic uncertainty to selection. The
+extension reuses the same seeds, initial labelled records, budgets, validation
+records and frozen test manifest as the completed distance-only protocol.
 
 Every round refits from scratch with the model seed and the same architecture,
 optimizer, validation checkpointing, and epoch limit as the matched non-AL run.
@@ -70,6 +91,15 @@ python -m scripts.transfer_active_learning.plot
 
 The exact experiment parameters and test-manifest SHA-256 are recorded in
 `results/transfer_al_cgreGFP_seed42_46/protocol.json`.
+
+To reproduce the ensemble-uncertainty extension and its matched Random/Fancy
+figures:
+
+```bash
+python -m scripts.transfer_active_learning.prepare_ensemble_cpu
+condor_submit condor/transfer_al_ensemble_cpu.sub
+condor_submit condor/transfer_al_ensemble_finish.sub
+```
 
 The final cgre-to-natural round also supplies the four-model comparison with
 active learning. This comparison uses the transfer protocol's 14,709 labelled

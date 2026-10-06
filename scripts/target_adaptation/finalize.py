@@ -49,7 +49,9 @@ def main():
                         "spearman_mean": float(np.mean(values)), "spearman_sd": float(np.std(values, ddof=1)),
                         "runs_json": json.dumps(values)})
     write_csv(root / "summary.csv", summary)
-    fig, axes = plt.subplots(3, 1, figsize=(14.5, 13), sharex=True, sharey=True)
+    n_models = len(protocol["models"])
+    fig, axes = plt.subplots(n_models, 1, figsize=(14.5, 4.3 * n_models + 1.2), sharex=True, sharey=True)
+    axes = np.atleast_1d(axes)
     x = np.arange(len(protocol["pairs"])); width = 0.19
     for axis, model in zip(axes, protocol["models"]):
         lookup = {(row["pair"], row["arm"]): row for row in summary if row["model"] == model}
@@ -71,7 +73,7 @@ def main():
     plt.close(fig)
     (root / "RESULTS.md").write_text(
         "# Target-protein adaptation\n\n"
-        "Five seeds and three CPU models. Iterative arms acquire 96 target sequences in each of ten rounds; one-shot arms add 960 target sequences once. All arms share the same frozen target test.\n\n"
+        f"Five seeds and {len(protocol['models'])} model(s). Iterative arms acquire 96 target sequences in each of ten rounds; one-shot arms add 960 target sequences once. All arms share the same frozen target test.\n\n"
         "![Target adaptation](target_adaptation_comparison.png)\n"
     )
 

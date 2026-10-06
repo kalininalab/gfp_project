@@ -51,6 +51,24 @@ def uncertainty(model,x,index,device,samples=25,batch=128):
   values.append(pred.var(0).cpu().numpy())
  model.eval();return np.concatenate(values)
 
+def ensemble_uncertainty(model_name,x,y,ids,seed,device,protocol,index,base_predict,members=5):
+ """Prediction variance from a five-member ensemble for non-CNN models.
+
+ Aubin and Linear auxiliary members use bootstrap-resampled labelled records;
+ MLP members use the same records with independent initialization and batch
+ order. The already fitted primary model is the first ensemble member.
+ """
+ if members < 2:raise ValueError('Ensemble uncertainty requires at least two members')
+ predictions=[np.asarray(base_predict(index),dtype=np.float32)]
+ for member in range(1,members):
+  member_ids={k:np.asarray(v).copy() for k,v in ids.items()}
+  member_seed=seed+100003*member
+  if model_name in ('aubin_1_10_1','aubin_linear'):
+   rng=np.random.default_rng(np.random.SeedSequence([seed,member,7919]));member_ids['train']=rng.choice(member_ids['train'],len(member_ids['train']),replace=True)
+  _,_,_,_,_,member_predict=fit(model_name,x,y,member_ids,member_seed,device,protocol)
+  predictions.append(np.asarray(member_predict(index),dtype=np.float32))
+ return np.var(np.stack(predictions),axis=0,ddof=1).astype(np.float32)
+
 def projected(values,seed,dimensions):
  if values.shape[1]<=dimensions:return values.astype(np.float32)
  rng=np.random.default_rng(seed);matrix=rng.normal(size=(values.shape[1],dimensions)).astype(np.float32)/np.sqrt(dimensions)
@@ -68,7 +86,7 @@ def save_plots(y_true,y_pred,title,stem):
  fig,ax=plt.subplots(figsize=(5,4.6),constrained_layout=True);ax.scatter(y_true,y_pred,s=8,alpha=.22,lw=0,color='#0072B2',rasterized=True);lo,hi=min(y_true.min(),y_pred.min()),max(y_true.max(),y_pred.max());ax.plot([lo,hi],[lo,hi],'--',color='black',lw=1);ax.set(xlabel='True log10 fluorescence',ylabel='Predicted log10 fluorescence',title=title);ax.spines[['top','right']].set_visible(False);fig.savefig(stem.with_name(stem.name+'_scatter.png'),dpi=220);plt.close(fig)
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--directory',type=Path,default=Path('results/transfer_al_cgreGFP_seed42_46'));p.add_argument('--mix',required=True);p.add_argument('--seed',type=int,required=True);p.add_argument('--model',required=True);p.add_argument('--device',default='cpu');p.add_argument('--method',choices=('fancy','random'),default='fancy');a=p.parse_args()
+ p=argparse.ArgumentParser();p.add_argument('--directory',type=Path,default=Path('results/transfer_al_cgreGFP_seed42_46'));p.add_argument('--mix',required=True);p.add_argument('--seed',type=int,required=True);p.add_argument('--model',required=True);p.add_argument('--device',default='cpu');p.add_argument('--method',choices=('fancy','random'),default='fancy');p.add_argument('--ensemble-members',type=int,default=1);a=p.parse_args()
  protocol=json.loads((a.directory/'protocol.json').read_text());reference=Path(protocol['reference_directory'])
  if a.seed not in protocol['seeds'] or a.mix not in protocol['mixes'] or a.model not in protocol['models']:raise ValueError('Unplanned trajectory')
  out=a.directory/'fits'/a.mix/f'seed{a.seed}'/a.model;out.mkdir(parents=True,exist_ok=True)
@@ -99,7 +117,9 @@ def main():
    if a.method=='random':
     chosen=rng.choice(len(pool),need,replace=False);scores=np.full(len(pool),np.nan);variance=np.full(len(pool),np.nan)
    else:
-    hidden_train=representations(model,x,train,a.device);hidden_pool=representations(model,x,pool,a.device);anchors=rng.choice(len(hidden_train),min(protocol['distance_anchors'],len(hidden_train)),replace=False);hp=projected(hidden_pool,a.seed*1000+round_number,protocol['projection_dimensions']);ht=projected(hidden_train[anchors],a.seed*1000+round_number,protocol['projection_dimensions']);variance=uncertainty(model,x,pool,a.device,protocol['uncertainty_samples']);scores=acquisition_scores(ht,hp,variance,alpha=.62);chosen=np.argsort(-scores,kind='stable')[:need]
+    hidden_train=representations(model,x,train,a.device);hidden_pool=representations(model,x,pool,a.device);anchors=rng.choice(len(hidden_train),min(protocol['distance_anchors'],len(hidden_train)),replace=False);hp=projected(hidden_pool,a.seed*1000+round_number,protocol['projection_dimensions']);ht=projected(hidden_train[anchors],a.seed*1000+round_number,protocol['projection_dimensions'])
+    variance=(ensemble_uncertainty(a.model,x,y,ids,a.seed,a.device,protocol,pool,predict,a.ensemble_members) if a.model!='CNN_Jannis_OHE' and a.ensemble_members>1 else uncertainty(model,x,pool,a.device,protocol['uncertainty_samples']))
+    scores=acquisition_scores(ht,hp,variance,alpha=.62);chosen=np.argsort(-scores,kind='stable')[:need]
    selected=pool[chosen];queries.extend({'method':a.method,'selected_after_round':round_number,'first_fit_round':round_number+1,'record_id':rows[i]['record_id'],'score':None if a.method=='random' else float(scores[j]),'variance':None if a.method=='random' else float(variance[j])} for j,i in zip(chosen,selected));train=np.concatenate([train,selected]);pool=np.delete(pool,chosen);write_csv(out/'queries.csv',queries)
   atomic_json(out/'complete.json',{'protocol_sha256':digest(a.directory/'protocol.json'),'metrics_sha256':digest(out/'metrics.csv'),'test_records_sha256':digest(a.directory/'test_records.csv')})
 if __name__=='__main__':main()

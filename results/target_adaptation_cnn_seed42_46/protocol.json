@@ -1,0 +1,73 @@
+{
+  "created_utc": "2026-10-06T14:05:49.044876+00:00",
+  "dataset_sha256": "1add5e456287d39909954b2af9bbda3e2cd83ff9476e1b5c9a7804cd60cd980a",
+  "alignment": "results/transfer_cgreGFP_seed42_51/alignment.json",
+  "alignment_sha256": "50be1117a0abfe9739e9ce6d1793f6c945e25c9c9b5a90a73675a27971b446bd",
+  "test_records_sha256": "a316eacc4a7272ca412df676c71bcc01d2257b175419fc37737e9c55939db8d8",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "models": [
+    "CNN_Jannis_OHE"
+  ],
+  "pairs": [
+    "cgreGFP_to_amacGFP",
+    "cgreGFP_to_ppluGFP",
+    "amacGFP_to_cgreGFP",
+    "amacGFP_to_ppluGFP",
+    "ppluGFP_to_cgreGFP",
+    "ppluGFP_to_amacGFP"
+  ],
+  "source_train_count": 14709,
+  "source_validation_count": 4903,
+  "target_test_counts": {
+    "cgreGFP": 4904,
+    "amacGFP": 6703,
+    "ppluGFP": 6281
+  },
+  "target_pool_counts": {
+    "cgreGFP": 19612,
+    "amacGFP": 26808,
+    "ppluGFP": 25121
+  },
+  "target_sequences_per_round": 96,
+  "rounds": 10,
+  "one_shot_target_count": 960,
+  "arms": [
+    "iterative_fancy",
+    "iterative_random",
+    "oneshot_fancy",
+    "oneshot_random"
+  ],
+  "fancy_score": "0.62 * scaled projected-penultimate distance + 0.38 * scaled MC-dropout variance",
+  "selection_note": "CNN uncertainty is prediction variance from 25 stochastic MC-dropout passes",
+  "fancy_selection": "global descending score; dense SpectralClustering/3-mer stage omitted",
+  "evaluation_policy": "same frozen target test for every arm, model and seed; excluded from source training, target pool, acquisition and checkpoint selection",
+  "validation_policy": "fixed source-protein validation records only",
+  "onehot_settings": {
+    "epochs": 30,
+    "patience": 10,
+    "batch_size": 32,
+    "lr": 0.001,
+    "optimizer": "Adam",
+    "loss": "MSE"
+  },
+  "projection_dimensions": 32,
+  "distance_anchors": 256,
+  "cnn_settings": {
+    "epochs": 60,
+    "patience": 10,
+    "batch_size": 64,
+    "lr": 0.0003,
+    "weight_decay": 0.0001,
+    "optimizer": "AdamW",
+    "loss": "MSE",
+    "target_scaling": "training mean/std"
+  },
+  "uncertainty_samples": 25,
+  "matched_cpu_protocol_sha256": "800b6f6c5d562d6ca9dcb33ee7628733ccdfe19fec5ab0866aaea5cc1903c7d0"
+}

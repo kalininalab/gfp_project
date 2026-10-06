@@ -1,0 +1,12 @@
+universe = vanilla
+initialdir = /nethome/akolchina/gfp_project
+executable = /bin/bash
+arguments = condor/run_transfer_al_ensemble_cpu.sh $(Process)
+should_transfer_files = NO
+request_cpus = 1
+request_memory = 10GB
+request_disk = 3GB
+output = results/transfer_al_ensemble_cpu_seed42_46/condor/cpu.$(ClusterId).$(Process).out
+error = results/transfer_al_ensemble_cpu_seed42_46/condor/cpu.$(ClusterId).$(Process).err
+log = results/transfer_al_ensemble_cpu_seed42_46/condor/cpu.$(ClusterId).log
+queue 120
