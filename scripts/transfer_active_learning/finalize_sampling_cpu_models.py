@@ -37,12 +37,12 @@ def plot(experiment, fancy, output):
         fancy_protocol, fancy_rows = completed_rows(fancy, [model])
         if random_protocol["test_records_sha256"] != fancy_protocol["test_records_sha256"]:
             raise ValueError(f"Test manifest mismatch for {model}")
-        random = aggregate_final(random_rows, random_protocol)
-        fancy = aggregate_final(fancy_rows, fancy_protocol)
-        r_mean = [random[(experiment, condition)][0] for condition in conditions]
-        r_sd = [random[(experiment, condition)][1] for condition in conditions]
-        f_mean = [fancy[(experiment, condition)][0] for condition in conditions]
-        f_sd = [fancy[(experiment, condition)][1] for condition in conditions]
+        random_scores = aggregate_final(random_rows, random_protocol)
+        fancy_scores = aggregate_final(fancy_rows, fancy_protocol)
+        r_mean = [random_scores[(experiment, condition)][0] for condition in conditions]
+        r_sd = [random_scores[(experiment, condition)][1] for condition in conditions]
+        f_mean = [fancy_scores[(experiment, condition)][0] for condition in conditions]
+        f_sd = [fancy_scores[(experiment, condition)][1] for condition in conditions]
         axis.bar(x-width/2, r_mean, width, yerr=r_sd, capsize=3,
                  color=COLORS[model], label="Random")
         axis.bar(x+width/2, f_mean, width, yerr=f_sd, capsize=3,

@@ -16,8 +16,8 @@ transfer between GFP landscapes.
 | Random vs acquisition score transfer — Linear | 40 acquisition-score and 40 matched random CPU trajectories; 5 seeds | [Status](results/transfer_random_linear_cgreGFP_seed42_46/STATUS.md) · [Frozen protocol](results/transfer_random_linear_cgreGFP_seed42_46/protocol.json) | [GFP proteins](results/transfer_random_linear_cgreGFP_seed42_46/sampling_ortholog_transfer.png) · [Natural/artificial peaks](results/transfer_random_linear_cgreGFP_seed42_46/sampling_peak_transfer.png) |
 | Target-protein adaptation | 96 target sequences × 10 or 960 once; fancy/random; 6 directed protein pairs; 3 CPU models; 5 seeds; 90/90 jobs | [Results](results/target_adaptation_seed42_46/RESULTS.md) · [CSV](results/target_adaptation_seed42_46/summary.csv) · [Design](docs/TARGET_ADAPTATION.md) | [Four-arm comparison](results/target_adaptation_seed42_46/target_adaptation_comparison.png) |
 | Natural cgreGFP/artificial-peak adaptation | Same 96 × 10 versus 960-once design in both directions; 3 CPU models; 5 seeds; 30/30 jobs | [Results](results/target_adaptation_peaks_seed42_46/RESULTS.md) · [CSV](results/target_adaptation_peaks_seed42_46/summary.csv) · [Design](docs/TARGET_ADAPTATION.md) | [Four-arm comparison](results/target_adaptation_peaks_seed42_46/target_adaptation_comparison.png) |
-| CNN target-protein adaptation | CNN on OHE; 96 × 10 versus 960 once; fancy/random; 6 directed protein pairs; 5 seeds; running | [Frozen protocol](results/target_adaptation_cnn_seed42_46/protocol.json) | [Figure after completion](results/target_adaptation_cnn_seed42_46/target_adaptation_comparison.png) |
-| CNN natural/artificial adaptation | CNN on OHE; same four arms in both directions; 5 seeds; running | [Frozen protocol](results/target_adaptation_peaks_cnn_seed42_46/protocol.json) | [Figure after completion](results/target_adaptation_peaks_cnn_seed42_46/target_adaptation_comparison.png) |
+| CNN target-protein adaptation | CNN on OHE; 96 × 10 versus 960 once; fancy/random; 6 directed protein pairs; 5 seeds; 18/30 complete | [Frozen protocol](results/target_adaptation_cnn_seed42_46/protocol.json) | [Figure after completion](results/target_adaptation_cnn_seed42_46/target_adaptation_comparison.png) |
+| CNN natural/artificial adaptation | CNN on OHE; same four arms in both directions; 5 seeds; 10/10 complete | [Results](results/target_adaptation_peaks_cnn_seed42_46/RESULTS.md) · [CSV](results/target_adaptation_peaks_cnn_seed42_46/summary.csv) | [Four-arm comparison](results/target_adaptation_peaks_cnn_seed42_46/target_adaptation_comparison.png) |
 
 [Selected models: cgre → cgre scatter panel](results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/cgre_test_all_seeds.png)
 shows individual saved predictions from all three cgre-only control fits.
@@ -110,9 +110,8 @@ random trajectories finish and the finalizer validates both arms:
 
 This five-seed CPU experiment repeats the same comparison for **Aubin, Linear
 and MLP** for GFP-protein transfer and natural cgreGFP/artificial-peak transfer.
-The acquisition-score trajectories are complete for all three models. Linear's
-40 matched random trajectories are complete; Aubin and MLP random trajectories
-are running. Every arm shares initial labelled records, label budgets,
+The acquisition-score and matched random trajectories are complete for all
+three models. Every arm shares initial labelled records, label budgets,
 validation sets and frozen tests.
 
 Aubin, Linear and MLP contain no dropout, so their uncertainty term is zero.
@@ -122,20 +121,20 @@ experiment, selection uses global descending scores and does not run the dense
 SpectralClustering/3-mer stage.
 
 We retain those completed distance-only trajectories as the reproducible first
-version. A versioned five-member ensemble experiment is now recalculating the
+version. A versioned five-member ensemble experiment recalculates the
 three CPU models with uncertainty included. Aubin and Linear use bootstrap
 ensembles; MLP uses independent initializations. In each case the pool score is
 `0.62 × scaled distance + 0.38 × scaled ensemble prediction variance`, while
 the primary model alone evaluates the unchanged frozen test. See the
 [exact method and reproduction commands](docs/TRANSFER_ACTIVE_LEARNING.md#ensemble-uncertainty-extension-for-cpu-models).
 
-Final ensemble-uncertainty comparison paths:
+Final ensemble-uncertainty comparisons:
 
-- [Aubin, Linear and MLP between GFP proteins](results/transfer_ensemble_sampling_cpu_seed42_46/sampling_ortholog_transfer_cpu_models.png)
-- [Aubin, Linear and MLP between natural cgreGFP and artificial peaks](results/transfer_ensemble_sampling_cpu_seed42_46/sampling_peak_transfer_cpu_models.png)
+![Aubin, Linear and MLP between GFP proteins](results/transfer_ensemble_sampling_cpu_seed42_46/sampling_ortholog_transfer_cpu_models.png)
 
-The current Linear-only figures remain available while the combined
-three-model finalizer waits for Aubin and MLP:
+![Aubin, Linear and MLP between natural cgreGFP and artificial peaks](results/transfer_ensemble_sampling_cpu_seed42_46/sampling_peak_transfer_cpu_models.png)
+
+The earlier Linear-only figures remain available for provenance:
 
 ![Linear Random versus acquisition score between GFP proteins](results/transfer_random_linear_cgreGFP_seed42_46/sampling_ortholog_transfer.png)
 
@@ -143,10 +142,10 @@ three-model finalizer waits for Aubin and MLP:
 
 ![Linear Random versus acquisition score between natural cgreGFP and artificial peaks](results/transfer_random_linear_cgreGFP_seed42_46/sampling_peak_transfer.png)
 
-Final three-model figure paths:
+Distance-only three-model figure paths:
 
-- [Aubin, Linear and MLP between GFP proteins — available after completion](results/transfer_random_cpu_models_cgreGFP_seed42_46/sampling_ortholog_transfer_cpu_models.png)
-- [Aubin, Linear and MLP between natural cgreGFP and artificial peaks — available after completion](results/transfer_random_cpu_models_cgreGFP_seed42_46/sampling_peak_transfer_cpu_models.png)
+- [Aubin, Linear and MLP between GFP proteins](results/transfer_random_cpu_models_cgreGFP_seed42_46/sampling_ortholog_transfer_cpu_models.png)
+- [Aubin, Linear and MLP between natural cgreGFP and artificial peaks](results/transfer_random_cpu_models_cgreGFP_seed42_46/sampling_peak_transfer_cpu_models.png)
 
 R² is reported in the result tables alongside correlations: 1 is perfect, 0
 matches the test-mean predictor, and negative values indicate worse squared error.
