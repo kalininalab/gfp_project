@@ -22,14 +22,14 @@ ROOTS = {
 OUTPUT = Path("results/target_adaptation_density_panels")
 
 
-def values(model, round_number):
+def values(model, round_number, arm="iterative_fancy"):
     predictions = []
     correlations = []
     y_true = None
     for seed in range(42, 47):
         path = ROOTS[model] / "fits" / PAIR / f"seed{seed}" / model / "predictions.csv"
         rows = [row for row in read_csv(path)
-                if row["arm"] == "iterative_fancy" and int(row["round"]) == round_number]
+                if row["arm"] == arm and int(row["round"]) == round_number]
         truth = np.asarray([float(row["y_true"]) for row in rows])
         prediction = np.asarray([float(row["y_pred"]) for row in rows])
         if y_true is None:
@@ -41,11 +41,11 @@ def values(model, round_number):
     return y_true, np.concatenate(predictions), np.asarray(correlations)
 
 
-def plot(round_number, target_count):
+def plot(round_number, target_count, arm="iterative_fancy"):
     fig, axes = plt.subplots(2, 2, figsize=(12.2, 8.7), sharex=True, sharey=True)
     bins = np.linspace(0.7, 4.2, 48)
     for axis, model in zip(axes.flat, MODELS):
-        truth, prediction, correlations = values(model, round_number)
+        truth, prediction, correlations = values(model, round_number, arm)
         axis.hist(truth, bins=bins, density=True, histtype="step", linewidth=2.4,
                   color="#0072B2", label="True")
         axis.hist(prediction, bins=bins, density=True, histtype="step", linewidth=2.4,
@@ -65,8 +65,13 @@ def plot(round_number, target_count):
     handles, labels = axes[0, 0].get_legend_handles_labels()
     fig.legend(handles, labels, frameon=False, ncol=2, loc="upper center",
                bbox_to_anchor=(.5, .925), fontsize=12)
-    rounds = "one active-learning round" if round_number == 1 else f"{round_number} active-learning rounds"
-    fig.suptitle(f"cgreGFP → amacGFP after {rounds}",
+    if arm == "oneshot_random":
+        description = "one-shot random target addition (no AL)"
+        stem = f"cgre_to_amac_oneshot_random_{target_count}_target_density"
+    else:
+        description = "one active-learning round" if round_number == 1 else f"{round_number} active-learning rounds"
+        stem = f"cgre_to_amac_round{round_number:02d}_{target_count}_target_density"
+    fig.suptitle(f"cgreGFP → amacGFP after {description}",
                  fontsize=21, fontweight="bold", y=.995)
     fig.text(.5, .948,
              f"{target_count} labelled amacGFP target sequences added · frozen amacGFP test · predictions pooled across 5 seeds",
@@ -74,7 +79,7 @@ def plot(round_number, target_count):
     fig.tight_layout(rect=(0, 0, 1, .89), h_pad=2.0, w_pad=1.6)
     OUTPUT.mkdir(parents=True, exist_ok=True)
     for suffix in ("png", "pdf", "svg"):
-        fig.savefig(OUTPUT / f"cgre_to_amac_round{round_number:02d}_{target_count}_target_density.{suffix}",
+        fig.savefig(OUTPUT / f"{stem}.{suffix}",
                     dpi=300, facecolor="white")
     plt.close(fig)
 
@@ -82,6 +87,7 @@ def plot(round_number, target_count):
 def main():
     plot(1, 96)
     plot(10, 960)
+    plot(1, 960, arm="oneshot_random")
 
 
 if __name__ == "__main__":

@@ -82,6 +82,12 @@ pool five model seeds, while the true test density is shown once.
 
 ![True and predicted densities after adding 960 target sequences](results/target_adaptation_density_panels/cgre_to_amac_round10_960_target_density.png)
 
+For the matched non-AL control, 960 target sequences are sampled randomly and
+added in a single fit. There is no Fancy score and there are no iterative
+refitting/acquisition rounds:
+
+![True and predicted densities after one-shot random addition of 960 target sequences](results/target_adaptation_density_panels/cgre_to_amac_oneshot_random_960_target_density.png)
+
 ## Complete result index
 
 | Experiment | What was done | Tables | Main figures |
