@@ -145,6 +145,11 @@ results/target_adaptation_peaks_cnn_seed42_46/*
 !results/target_adaptation_peaks_cnn_seed42_46/summary.csv
 !results/target_adaptation_peaks_cnn_seed42_46/per_round_scores.csv
 !results/target_adaptation_peaks_cnn_seed42_46/target_adaptation_comparison.*
+!results/target_adaptation_combined_seed42_46/
+results/target_adaptation_combined_seed42_46/*
+!results/target_adaptation_combined_seed42_46/*.png
+!results/target_adaptation_combined_seed42_46/*.pdf
+!results/target_adaptation_combined_seed42_46/*.svg
 
 # External reference repositories (never vendor these).
 /master_thesis_jaca00001/

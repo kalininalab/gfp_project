@@ -63,22 +63,15 @@ one-shot controls add **960 target-pool sequences once** and have no acquisition
 rounds. Random and Fancy use the same initial fit, total target-label budget,
 validation records and frozen target test.
 
-The three CPU models are complete for all natural-protein and
-natural/artificial directions:
+All four models are shown together below. Aubin, Linear and MLP are complete.
+CNN protein-to-protein adaptation is still running, so its row is explicitly
+marked **PROVISIONAL** and reports the available seed count for each direction.
 
-![Target adaptation for CPU models between GFP proteins](results/target_adaptation_seed42_46/target_adaptation_comparison.png)
+![Target adaptation for all four models between GFP proteins](results/target_adaptation_combined_seed42_46/target_adaptation_all_models_provisional.png)
 
-![Target adaptation for CPU models between natural and artificial cgreGFP](results/target_adaptation_peaks_seed42_46/target_adaptation_comparison.png)
+All four models are complete for natural cgreGFP ↔ artificial peaks:
 
-CNN on OHE is complete for natural cgreGFP ↔ artificial peaks:
-
-![CNN target adaptation between natural and artificial cgreGFP](results/target_adaptation_peaks_cnn_seed42_46/target_adaptation_comparison.png)
-
-CNN protein-to-protein adaptation is still running. The following plot is an
-explicitly **provisional 18/30-trajectory snapshot**; every category states how
-many of the planned five seeds are available:
-
-![Provisional CNN target-protein adaptation](results/target_adaptation_cnn_seed42_46/target_adaptation_partial.png)
+![Target adaptation for all four models between natural and artificial cgreGFP](results/target_adaptation_combined_seed42_46/target_adaptation_peaks_all_models.png)
 
 ## Complete result index
 
