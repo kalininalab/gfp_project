@@ -88,6 +88,13 @@ refitting/acquisition rounds:
 
 ![True and predicted densities after one-shot random addition of 960 target sequences](results/target_adaptation_density_panels/cgre_to_amac_oneshot_random_960_target_density.png)
 
+The same one-shot random control for transfer between natural cgreGFP and its
+artificial peaks:
+
+![Natural cgreGFP to artificial peaks after one-shot random addition](results/target_adaptation_density_panels/cgre_to_artificial_oneshot_random_960_target_density.png)
+
+![Artificial peaks to natural cgreGFP after one-shot random addition](results/target_adaptation_density_panels/artificial_to_cgre_oneshot_random_960_target_density.png)
+
 ## Complete result index
 
 | Experiment | What was done | Tables | Main figures |
