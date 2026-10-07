@@ -14,10 +14,31 @@ transfer between GFP landscapes.
 | Transfer with AL | Same models, seeds, budgets and frozen tests; 10 acquisition rounds; 160/160 trajectories | [Results](results/transfer_al_cgreGFP_seed42_46/RESULTS.md) · [CSV](results/transfer_al_cgreGFP_seed42_46/summary.csv) · [Protocol](docs/TRANSFER_ACTIVE_LEARNING.md) | [GFP proteins](results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman.png) · [Non-AL vs AL](results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman_non_al_vs_al.png) · [Artificial peaks](results/transfer_al_cgreGFP_seed42_46/artificial_peak_transfer_spearman.png) |
 | Random vs acquisition score ("Fancy") transfer | CNN on OHE; matched initial sets, budgets, seeds and frozen tests | [Live status and exact method](results/transfer_random_cgreGFP_seed42_46/STATUS.md) · [Frozen protocol](results/transfer_random_cgreGFP_seed42_46/protocol.json) | [GFP proteins — available after completion](results/transfer_random_cgreGFP_seed42_46/sampling_ortholog_transfer.png) · [Natural/artificial peaks — available after completion](results/transfer_random_cgreGFP_seed42_46/sampling_peak_transfer.png) |
 | Random vs acquisition score transfer — Linear | 40 acquisition-score and 40 matched random CPU trajectories; 5 seeds | [Status](results/transfer_random_linear_cgreGFP_seed42_46/STATUS.md) · [Frozen protocol](results/transfer_random_linear_cgreGFP_seed42_46/protocol.json) | [GFP proteins](results/transfer_random_linear_cgreGFP_seed42_46/sampling_ortholog_transfer.png) · [Natural/artificial peaks](results/transfer_random_linear_cgreGFP_seed42_46/sampling_peak_transfer.png) |
+| **Ensemble uncertainty for non-CNN models** | Aubin, Linear and MLP; 5-member ensembles; matched Random/Fancy comparison; 120/120 trajectories | [Results and method](results/transfer_ensemble_sampling_cpu_seed42_46/RESULTS.md) · [Protocol](results/transfer_al_ensemble_cpu_seed42_46/protocol.json) | [GFP proteins](results/transfer_ensemble_sampling_cpu_seed42_46/sampling_ortholog_transfer_cpu_models.png) · [Natural/artificial peaks](results/transfer_ensemble_sampling_cpu_seed42_46/sampling_peak_transfer_cpu_models.png) |
 | Target-protein adaptation | 96 target sequences × 10 or 960 once; fancy/random; 6 directed protein pairs; 3 CPU models; 5 seeds; 90/90 jobs | [Results](results/target_adaptation_seed42_46/RESULTS.md) · [CSV](results/target_adaptation_seed42_46/summary.csv) · [Design](docs/TARGET_ADAPTATION.md) | [Four-arm comparison](results/target_adaptation_seed42_46/target_adaptation_comparison.png) |
 | Natural cgreGFP/artificial-peak adaptation | Same 96 × 10 versus 960-once design in both directions; 3 CPU models; 5 seeds; 30/30 jobs | [Results](results/target_adaptation_peaks_seed42_46/RESULTS.md) · [CSV](results/target_adaptation_peaks_seed42_46/summary.csv) · [Design](docs/TARGET_ADAPTATION.md) | [Four-arm comparison](results/target_adaptation_peaks_seed42_46/target_adaptation_comparison.png) |
-| CNN target-protein adaptation | CNN on OHE; 96 × 10 versus 960 once; fancy/random; 6 directed protein pairs; 5 seeds; 18/30 complete | [Frozen protocol](results/target_adaptation_cnn_seed42_46/protocol.json) | [Figure after completion](results/target_adaptation_cnn_seed42_46/target_adaptation_comparison.png) |
+| CNN target-protein adaptation | CNN on OHE; 96 × 10 versus 960 once; fancy/random; 6 directed protein pairs; 5 seeds; **18/30 complete** | [Provisional status](results/target_adaptation_cnn_seed42_46/STATUS.md) · [Partial CSV](results/target_adaptation_cnn_seed42_46/partial_summary.csv) | [Provisional 18/30 figure](results/target_adaptation_cnn_seed42_46/target_adaptation_partial.png) |
 | CNN natural/artificial adaptation | CNN on OHE; same four arms in both directions; 5 seeds; 10/10 complete | [Results](results/target_adaptation_peaks_cnn_seed42_46/RESULTS.md) · [CSV](results/target_adaptation_peaks_cnn_seed42_46/summary.csv) | [Four-arm comparison](results/target_adaptation_peaks_cnn_seed42_46/target_adaptation_comparison.png) |
+
+## Latest active-learning results
+
+**Non-CNN ensemble uncertainty — complete (120/120):** five-model prediction
+variance is the uncertainty term in the Fancy acquisition score.
+
+![Ensemble uncertainty: Random versus Fancy between GFP proteins](results/transfer_ensemble_sampling_cpu_seed42_46/sampling_ortholog_transfer_cpu_models.png)
+
+![Ensemble uncertainty: Random versus Fancy between natural cgreGFP and artificial peaks](results/transfer_ensemble_sampling_cpu_seed42_46/sampling_peak_transfer_cpu_models.png)
+
+**CNN target adaptation between GFP proteins — provisional (18/30):** this is
+an incomplete snapshot. Each x-axis category states how many of five seeds are
+available; missing categories are blank.
+
+![Provisional CNN target-protein adaptation](results/target_adaptation_cnn_seed42_46/target_adaptation_partial.png)
+
+**CNN target adaptation between natural cgreGFP and artificial peaks — complete
+(10/10):**
+
+![CNN natural/artificial target adaptation](results/target_adaptation_peaks_cnn_seed42_46/target_adaptation_comparison.png)
 
 [Selected models: cgre → cgre scatter panel](results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/cgre_test_all_seeds.png)
 shows individual saved predictions from all three cgre-only control fits.

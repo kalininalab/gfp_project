@@ -134,6 +134,9 @@ results/target_adaptation_cnn_seed42_46/*
 !results/target_adaptation_cnn_seed42_46/summary.csv
 !results/target_adaptation_cnn_seed42_46/per_round_scores.csv
 !results/target_adaptation_cnn_seed42_46/target_adaptation_comparison.*
+!results/target_adaptation_cnn_seed42_46/STATUS.md
+!results/target_adaptation_cnn_seed42_46/partial_summary.csv
+!results/target_adaptation_cnn_seed42_46/target_adaptation_partial.*
 !results/target_adaptation_peaks_cnn_seed42_46/
 results/target_adaptation_peaks_cnn_seed42_46/*
 !results/target_adaptation_peaks_cnn_seed42_46/protocol.json
