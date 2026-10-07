@@ -150,6 +150,11 @@ results/target_adaptation_combined_seed42_46/*
 !results/target_adaptation_combined_seed42_46/*.png
 !results/target_adaptation_combined_seed42_46/*.pdf
 !results/target_adaptation_combined_seed42_46/*.svg
+!results/target_adaptation_density_panels/
+results/target_adaptation_density_panels/*
+!results/target_adaptation_density_panels/*.png
+!results/target_adaptation_density_panels/*.pdf
+!results/target_adaptation_density_panels/*.svg
 
 # External reference repositories (never vendor these).
 /master_thesis_jaca00001/
