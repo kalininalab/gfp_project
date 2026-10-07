@@ -5,7 +5,82 @@ We compared one-hot baselines, mean-pooled ESM-2 regressors, and three CNNs on
 full residue embeddings, added Jannis CNN on native one-hot inputs, and tested
 transfer between GFP landscapes.
 
-## Results and figures
+## Experimental story
+
+The experiments answer four questions in sequence. Throughout, the **target
+test set is frozen**, is shared by all compared methods, and is never available
+for training or acquisition.
+
+| Stage | What enters training after the initial fit? | Target sequences added? |
+|---|---|---|
+| Transfer without AL | Nothing | **No** |
+| Source-pool AL transfer | Sequences selected from the original **source-protein training pool** | **No** |
+| Target adaptation | Sequences selected from a separate labelled pool of the **target protein/domain** | **Yes: 96 per round for 10 rounds** |
+| One-shot target-adaptation control | 960 target-pool sequences added once | **Yes: 960 once, no AL rounds** |
+
+### 1. Establish the base models without active learning
+
+We first compare Aubin, Linear, MLP and CNN on OHE without iterative
+acquisition. These fits establish predictive accuracy on natural cgreGFP and
+the initial transferability between proteins and between natural cgreGFP and
+artificial peaks.
+
+![Transfer without AL between GFP proteins](results/transfer_cgreGFP_seed42_46/ortholog_mixtures_spearman.png)
+
+![Transfer without AL between natural cgreGFP and artificial peaks](results/transfer_cgreGFP_seed42_46/artificial_peak_transfer_spearman.png)
+
+### 2. Ask whether active selection improves source-only transfer
+
+Here AL selects additional records from the **source training pool**. It does
+**not add any sequence from the target protein or target domain**. Each
+trajectory starts at 10% of the 14,709-record source budget and reaches 14,709
+source records over ten rounds. The target test remains untouched.
+
+![Non-AL versus source-pool AL between GFP proteins](results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman_non_al_vs_al.png)
+
+![Non-AL versus source-pool AL between natural and artificial cgreGFP](results/transfer_al_cgreGFP_seed42_46/artificial_peak_transfer_spearman_non_al_vs_al.png)
+
+### 3. Test the acquisition rule and its uncertainty term
+
+Random and Fancy arms use identical initial source records, round budgets and
+frozen tests. Fancy ranks the source pool by
+`0.62 × scaled distance + 0.38 × scaled uncertainty`. For Aubin and Linear,
+uncertainty is variance across a five-member bootstrap ensemble; for MLP it is
+variance across five independently initialized fits. All **120/120**
+ensemble-uncertainty trajectories are complete. This experiment still adds
+**zero target sequences**.
+
+![Ensemble uncertainty between GFP proteins](results/transfer_ensemble_sampling_cpu_seed42_46/sampling_ortholog_transfer_cpu_models.png)
+
+![Ensemble uncertainty between natural cgreGFP and artificial peaks](results/transfer_ensemble_sampling_cpu_seed42_46/sampling_peak_transfer_cpu_models.png)
+
+### 4. Add target sequences: target adaptation
+
+This is the experiment in which target data actually enter training. Starting
+from a source-trained model, the iterative arms add **96 selected target-pool
+sequences after every round for 10 rounds**, for a total of 960. The matched
+one-shot controls add **960 target-pool sequences once** and have no acquisition
+rounds. Random and Fancy use the same initial fit, total target-label budget,
+validation records and frozen target test.
+
+The three CPU models are complete for all natural-protein and
+natural/artificial directions:
+
+![Target adaptation for CPU models between GFP proteins](results/target_adaptation_seed42_46/target_adaptation_comparison.png)
+
+![Target adaptation for CPU models between natural and artificial cgreGFP](results/target_adaptation_peaks_seed42_46/target_adaptation_comparison.png)
+
+CNN on OHE is complete for natural cgreGFP ↔ artificial peaks:
+
+![CNN target adaptation between natural and artificial cgreGFP](results/target_adaptation_peaks_cnn_seed42_46/target_adaptation_comparison.png)
+
+CNN protein-to-protein adaptation is still running. The following plot is an
+explicitly **provisional 18/30-trajectory snapshot**; every category states how
+many of the planned five seeds are available:
+
+![Provisional CNN target-protein adaptation](results/target_adaptation_cnn_seed42_46/target_adaptation_partial.png)
+
+## Complete result index
 
 | Experiment | What was done | Tables | Main figures |
 |---|---|---|---|
@@ -20,25 +95,8 @@ transfer between GFP landscapes.
 | CNN target-protein adaptation | CNN on OHE; 96 × 10 versus 960 once; fancy/random; 6 directed protein pairs; 5 seeds; **18/30 complete** | [Provisional status](results/target_adaptation_cnn_seed42_46/STATUS.md) · [Partial CSV](results/target_adaptation_cnn_seed42_46/partial_summary.csv) | [Provisional 18/30 figure](results/target_adaptation_cnn_seed42_46/target_adaptation_partial.png) |
 | CNN natural/artificial adaptation | CNN on OHE; same four arms in both directions; 5 seeds; 10/10 complete | [Results](results/target_adaptation_peaks_cnn_seed42_46/RESULTS.md) · [CSV](results/target_adaptation_peaks_cnn_seed42_46/summary.csv) | [Four-arm comparison](results/target_adaptation_peaks_cnn_seed42_46/target_adaptation_comparison.png) |
 
-## Latest active-learning results
-
-**Non-CNN ensemble uncertainty — complete (120/120):** five-model prediction
-variance is the uncertainty term in the Fancy acquisition score.
-
-![Ensemble uncertainty: Random versus Fancy between GFP proteins](results/transfer_ensemble_sampling_cpu_seed42_46/sampling_ortholog_transfer_cpu_models.png)
-
-![Ensemble uncertainty: Random versus Fancy between natural cgreGFP and artificial peaks](results/transfer_ensemble_sampling_cpu_seed42_46/sampling_peak_transfer_cpu_models.png)
-
-**CNN target adaptation between GFP proteins — provisional (18/30):** this is
-an incomplete snapshot. Each x-axis category states how many of five seeds are
-available; missing categories are blank.
-
-![Provisional CNN target-protein adaptation](results/target_adaptation_cnn_seed42_46/target_adaptation_partial.png)
-
-**CNN target adaptation between natural cgreGFP and artificial peaks — complete
-(10/10):**
-
-![CNN natural/artificial target adaptation](results/target_adaptation_peaks_cnn_seed42_46/target_adaptation_comparison.png)
+<details>
+<summary>Detailed result notes and archived intermediate figures</summary>
 
 [Selected models: cgre → cgre scatter panel](results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/cgre_test_all_seeds.png)
 shows individual saved predictions from all three cgre-only control fits.
@@ -170,6 +228,8 @@ Distance-only three-model figure paths:
 
 R² is reported in the result tables alongside correlations: 1 is perfect, 0
 matches the test-mean predictor, and negative values indicate worse squared error.
+
+</details>
 
 ## Quick start
 
