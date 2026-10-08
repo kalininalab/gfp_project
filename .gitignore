@@ -162,6 +162,14 @@ results/target_adaptation_diagnostic_atlas/*
 !results/target_adaptation_diagnostic_atlas/distributions/*.png
 !results/target_adaptation_diagnostic_atlas/dotplots/
 !results/target_adaptation_diagnostic_atlas/dotplots/*.png
+!results/target_adaptation_complete_report/
+results/target_adaptation_complete_report/*
+!results/target_adaptation_complete_report/README.md
+!results/target_adaptation_complete_report/*.csv
+!results/target_adaptation_complete_report/barplots/
+!results/target_adaptation_complete_report/barplots/*.png
+!results/target_adaptation_complete_report/barplots/*.pdf
+!results/target_adaptation_complete_report/barplots/*.svg
 
 # External reference repositories (never vendor these).
 /master_thesis_jaca00001/

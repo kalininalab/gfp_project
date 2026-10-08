@@ -20,6 +20,9 @@ for training or acquisition.
 > scenarios, all 4 models and all 5 seeds**. Filenames state the source, target,
 > selection method, round and number of target sequences added.
 
+> **[COMPLETE TARGET-ADAPTATION REPORT: R² AND ALL OTHER METRICS, BAR PLOTS,
+> DISTRIBUTIONS AND DOTPLOTS](results/target_adaptation_complete_report/README.md)**
+
 | Stage | What enters training after the initial fit? | Target sequences added? |
 |---|---|---|
 | Transfer without AL | Nothing | **No** |
