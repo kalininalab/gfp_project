@@ -23,6 +23,15 @@ NATURAL_PAIRS = [
 PEAK_PAIRS = ["cgreGFP_to_artificial", "artificial_to_cgreGFP"]
 METRICS = ["mse", "rmse", "r2", "pearson", "spearman", "kendall_tau"]
 OUTPUT = Path("results/target_adaptation_complete_report")
+ALL_SCENARIOS = [
+    ("source_only", 0, "Source only\n0 target", "#999999"),
+    ("iterative_fancy", 1, "Iter. Fancy\n96", "#E69F00"),
+    ("iterative_fancy", 10, "Iter. Fancy\n960", "#D55E00"),
+    ("iterative_random", 1, "Iter. Random\n96", "#56B4E9"),
+    ("iterative_random", 10, "Iter. Random\n960", "#0072B2"),
+    ("oneshot_fancy", 1, "One-shot Fancy\n960", "#CC79A7"),
+    ("oneshot_random", 1, "One-shot Random\n960", "#009E73"),
+]
 
 
 def root(model, peaks):
@@ -98,6 +107,39 @@ def plot_r2(summary, pairs, stem, title):
     plt.close(fig)
 
 
+def plot_all_scenarios(summary, pairs, metric, stem, title):
+    lookup = {(row["pair"], row["model"], row["arm"], row["round"]): row for row in summary}
+    fig, axes = plt.subplots(4, 1, figsize=(16.5, 18), sharex=True, sharey=True)
+    x = np.arange(len(pairs)); width = .115
+    for axis, model in zip(axes, MODELS):
+        for position, (arm, round_number, label, color) in enumerate(ALL_SCENARIOS):
+            rows = [lookup[(pair, model, arm, round_number)] for pair in pairs]
+            means = [row[f"{metric}_mean"] for row in rows]
+            errors = [0 if row[f"{metric}_sd"] == "" else row[f"{metric}_sd"] for row in rows]
+            axis.bar(x + (position - 3) * width, means, width, yerr=errors,
+                     capsize=2, color=color, label=label)
+        if metric == "r2":
+            axis.axhline(0, color="#333333", linewidth=.9)
+            axis.set_yscale("symlog", linthresh=1, linscale=1)
+        axis.set_title(LABELS[model], color=COLORS[model], fontweight="bold", fontsize=17)
+        axis.set_ylabel("Target-test R² (symlog)" if metric == "r2" else "Target-test Spearman ρ")
+        style_axis(axis)
+    pair_labels = [pair.replace("_to_", " → ").replace("GFP", "") for pair in pairs]
+    axes[-1].set_xticks(x, pair_labels, rotation=22, ha="right")
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, labels, ncol=4, frameon=False, loc="upper center",
+               bbox_to_anchor=(.5, .974), fontsize=10)
+    fig.suptitle(title, fontsize=22, y=.997)
+    if metric == "r2":
+        fig.text(.99, .008, "Symmetric-log y-axis retains extreme negative source-only R² values.",
+                 ha="right", va="bottom", fontsize=9)
+    fig.tight_layout(rect=(0, 0, 1, .93), h_pad=1.3)
+    figures = OUTPUT / "barplots"; figures.mkdir(parents=True, exist_ok=True)
+    for suffix in ("png", "pdf", "svg"):
+        fig.savefig(figures / f"{stem}.{suffix}", dpi=240, facecolor="white")
+    plt.close(fig)
+
+
 def figure_index():
     rows = []
     atlas = Path("results/target_adaptation_diagnostic_atlas")
@@ -119,6 +161,14 @@ def main():
             "Target adaptation between GFP proteins — R²")
     plot_r2(summary, PEAK_PAIRS, "target_adaptation_peaks_r2",
             "Target adaptation between natural cgreGFP and artificial peaks — R²")
+    plot_all_scenarios(summary, NATURAL_PAIRS, "r2", "all_scenarios_proteins_r2",
+                       "All target-adaptation scenarios between GFP proteins — R²")
+    plot_all_scenarios(summary, PEAK_PAIRS, "r2", "all_scenarios_peaks_r2",
+                       "All target-adaptation scenarios: natural cgreGFP and artificial peaks — R²")
+    plot_all_scenarios(summary, NATURAL_PAIRS, "spearman", "all_scenarios_proteins_spearman",
+                       "All target-adaptation scenarios between GFP proteins — Spearman")
+    plot_all_scenarios(summary, PEAK_PAIRS, "spearman", "all_scenarios_peaks_spearman",
+                       "All target-adaptation scenarios: natural cgreGFP and artificial peaks — Spearman")
     (OUTPUT / "README.md").write_text("""# Complete target-adaptation results
 
 This is the canonical entry point for the target-adaptation experiments. It links the complete metric tables and figures without duplicating the underlying predictions or per-round artifacts.
@@ -152,6 +202,24 @@ These compare the four 960-target-sequence arms: one-shot Random, iterative Rand
 ![R² between GFP proteins](barplots/target_adaptation_proteins_r2.png)
 
 ![R² between natural cgreGFP and artificial peaks](barplots/target_adaptation_peaks_r2.png)
+
+## All scenarios, including no AL and 96 target sequences
+
+These figures include source-only models with zero target sequences, both
+iterative methods after the first 96-sequence round and after all ten rounds,
+and both one-shot 960-sequence controls.
+
+### R² — all scenarios
+
+![All scenarios between GFP proteins — R²](barplots/all_scenarios_proteins_r2.png)
+
+![All scenarios between natural cgreGFP and artificial peaks — R²](barplots/all_scenarios_peaks_r2.png)
+
+### Spearman — all scenarios
+
+![All scenarios between GFP proteins — Spearman](barplots/all_scenarios_proteins_spearman.png)
+
+![All scenarios between natural cgreGFP and artificial peaks — Spearman](barplots/all_scenarios_peaks_spearman.png)
 
 ## Prediction diagnostics
 

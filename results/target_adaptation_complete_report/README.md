@@ -32,6 +32,24 @@ These compare the four 960-target-sequence arms: one-shot Random, iterative Rand
 
 ![R² between natural cgreGFP and artificial peaks](barplots/target_adaptation_peaks_r2.png)
 
+## All scenarios, including no AL and 96 target sequences
+
+These figures include source-only models with zero target sequences, both
+iterative methods after the first 96-sequence round and after all ten rounds,
+and both one-shot 960-sequence controls.
+
+### R² — all scenarios
+
+![All scenarios between GFP proteins — R²](barplots/all_scenarios_proteins_r2.png)
+
+![All scenarios between natural cgreGFP and artificial peaks — R²](barplots/all_scenarios_peaks_r2.png)
+
+### Spearman — all scenarios
+
+![All scenarios between GFP proteins — Spearman](barplots/all_scenarios_proteins_spearman.png)
+
+![All scenarios between natural cgreGFP and artificial peaks — Spearman](barplots/all_scenarios_peaks_spearman.png)
+
 ## Prediction diagnostics
 
 - [All 56 true/predicted distribution panels](../target_adaptation_diagnostic_atlas/distributions/)
