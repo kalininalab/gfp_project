@@ -64,10 +64,10 @@ rounds. Random and Fancy use the same initial fit, total target-label budget,
 validation records and frozen target test.
 
 All four models are shown together below. Aubin, Linear and MLP are complete.
-CNN protein-to-protein adaptation is still running, so its row is explicitly
-marked **PROVISIONAL** and reports the available seed count for each direction.
+CNN protein-to-protein adaptation is also complete; every row uses all five
+seeds.
 
-![Target adaptation for all four models between GFP proteins](results/target_adaptation_combined_seed42_46/target_adaptation_all_models_provisional.png)
+![Target adaptation for all four models between GFP proteins](results/target_adaptation_combined_seed42_46/target_adaptation_all_models.png)
 
 All four models are complete for natural cgreGFP ↔ artificial peaks:
 
@@ -95,6 +95,13 @@ artificial peaks:
 
 ![Artificial peaks to natural cgreGFP after one-shot random addition](results/target_adaptation_density_panels/artificial_to_cgre_oneshot_random_960_target_density.png)
 
+The complete diagnostic atlas contains every direction and all seven main
+conditions, with densities and dotplots in separate folders:
+
+- [Browse all 56 distribution panels](results/target_adaptation_diagnostic_atlas/distributions/)
+- [Browse all 56 true-vs-predicted dotplot panels](results/target_adaptation_diagnostic_atlas/dotplots/)
+- [Scenario-by-scenario index](results/target_adaptation_diagnostic_atlas/README.md)
+
 ## Complete result index
 
 | Experiment | What was done | Tables | Main figures |
@@ -107,7 +114,7 @@ artificial peaks:
 | Ensemble uncertainty for non-CNN models | Aubin, Linear and MLP; 5-member ensembles; matched Random/Fancy comparison; 120/120 trajectories | [Results and method](results/transfer_ensemble_sampling_cpu_seed42_46/RESULTS.md) · [Protocol](results/transfer_al_ensemble_cpu_seed42_46/protocol.json) | [GFP proteins](results/transfer_ensemble_sampling_cpu_seed42_46/sampling_ortholog_transfer_cpu_models.png) · [Natural/artificial peaks](results/transfer_ensemble_sampling_cpu_seed42_46/sampling_peak_transfer_cpu_models.png) |
 | Target-protein adaptation | 96 target sequences × 10 or 960 once; fancy/random; 6 directed protein pairs; 3 CPU models; 5 seeds; 90/90 jobs | [Results](results/target_adaptation_seed42_46/RESULTS.md) · [CSV](results/target_adaptation_seed42_46/summary.csv) · [Design](docs/TARGET_ADAPTATION.md) | [Four-arm comparison](results/target_adaptation_seed42_46/target_adaptation_comparison.png) |
 | Natural cgreGFP/artificial-peak adaptation | Same 96 × 10 versus 960-once design in both directions; 3 CPU models; 5 seeds; 30/30 jobs | [Results](results/target_adaptation_peaks_seed42_46/RESULTS.md) · [CSV](results/target_adaptation_peaks_seed42_46/summary.csv) · [Design](docs/TARGET_ADAPTATION.md) | [Four-arm comparison](results/target_adaptation_peaks_seed42_46/target_adaptation_comparison.png) |
-| CNN target-protein adaptation | CNN on OHE; 96 × 10 versus 960 once; fancy/random; 6 directed protein pairs; 5 seeds; **18/30 complete** | [Provisional status](results/target_adaptation_cnn_seed42_46/STATUS.md) · [Partial CSV](results/target_adaptation_cnn_seed42_46/partial_summary.csv) | [Provisional 18/30 figure](results/target_adaptation_cnn_seed42_46/target_adaptation_partial.png) |
+| CNN target-protein adaptation | CNN on OHE; 96 × 10 versus 960 once; fancy/random; 6 directed protein pairs; 5 seeds; 30/30 complete | [Results](results/target_adaptation_cnn_seed42_46/RESULTS.md) · [CSV](results/target_adaptation_cnn_seed42_46/summary.csv) | [Four-arm comparison](results/target_adaptation_cnn_seed42_46/target_adaptation_comparison.png) |
 | CNN natural/artificial adaptation | CNN on OHE; same four arms in both directions; 5 seeds; 10/10 complete | [Results](results/target_adaptation_peaks_cnn_seed42_46/RESULTS.md) · [CSV](results/target_adaptation_peaks_cnn_seed42_46/summary.csv) | [Four-arm comparison](results/target_adaptation_peaks_cnn_seed42_46/target_adaptation_comparison.png) |
 
 <details>

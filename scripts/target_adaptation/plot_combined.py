@@ -78,7 +78,7 @@ def plot(cpu_root, cnn_root, stem, title):
 def main():
     plot(Path("results/target_adaptation_seed42_46"),
          Path("results/target_adaptation_cnn_seed42_46"),
-         "target_adaptation_all_models_provisional",
+         "target_adaptation_all_models",
          "Target adaptation between GFP proteins")
     plot(Path("results/target_adaptation_peaks_seed42_46"),
          Path("results/target_adaptation_peaks_cnn_seed42_46"),
