@@ -11,6 +11,15 @@ The experiments answer four questions in sequence. Throughout, the **target
 test set is frozen**, is shared by all compared methods, and is never available
 for training or acquisition.
 
+> **ALL TARGET-ADAPTATION DIAGNOSTICS:**
+> **[OPEN THE COMPLETE SCENARIO-BY-SCENARIO ATLAS](results/target_adaptation_diagnostic_atlas/README.md)**
+> · **[ALL 56 TRUE/PREDICTED DISTRIBUTION PANELS](results/target_adaptation_diagnostic_atlas/distributions/)**
+> · **[ALL 56 TRUE-VS-PREDICTED DOTPLOT PANELS](results/target_adaptation_diagnostic_atlas/dotplots/)**
+>
+> The atlas covers **all 8 transfer directions, all 7 main training/acquisition
+> scenarios, all 4 models and all 5 seeds**. Filenames state the source, target,
+> selection method, round and number of target sequences added.
+
 | Stage | What enters training after the initial fit? | Target sequences added? |
 |---|---|---|
 | Transfer without AL | Nothing | **No** |
