@@ -24,11 +24,11 @@ PEAK_PAIRS = ["cgreGFP_to_artificial", "artificial_to_cgreGFP"]
 METRICS = ["mse", "rmse", "r2", "pearson", "spearman", "kendall_tau"]
 OUTPUT = Path("results/target_adaptation_complete_report")
 ALL_SCENARIOS = [
-    ("source_only", 0, "Source only\n0 target", "#999999"),
-    ("iterative_fancy", 1, "Iter. Fancy\n96", "#E69F00"),
-    ("iterative_fancy", 10, "Iter. Fancy\n960", "#D55E00"),
-    ("iterative_random", 1, "Iter. Random\n96", "#56B4E9"),
-    ("iterative_random", 10, "Iter. Random\n960", "#0072B2"),
+    ("source_only", 0, "No AL", "#999999"),
+    ("iterative_fancy", 1, "AL Fancy\n96", "#E69F00"),
+    ("iterative_fancy", 10, "AL Fancy\n960", "#D55E00"),
+    ("iterative_random", 1, "AL Random\n96", "#56B4E9"),
+    ("iterative_random", 10, "AL Random\n960", "#0072B2"),
     ("oneshot_fancy", 1, "One-shot Fancy\n960", "#CC79A7"),
     ("oneshot_random", 1, "One-shot Random\n960", "#009E73"),
 ]
