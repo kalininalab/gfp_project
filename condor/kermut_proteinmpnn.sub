@@ -1,0 +1,13 @@
+universe = vanilla
+executable = condor/run_kermut_proteinmpnn.sh
+request_cpus = 2
+request_gpus = 1
+request_memory = 8GB
+request_disk = 2GB
++MaxRuntime = 7200
+getenv = True
+should_transfer_files = NO
+log = /data/users/akolchina/gfp_project_kermut/logs/proteinmpnn.$(Cluster).log
+output = /data/users/akolchina/gfp_project_kermut/logs/proteinmpnn.$(Cluster).out
+error = /data/users/akolchina/gfp_project_kermut/logs/proteinmpnn.$(Cluster).err
+queue 1

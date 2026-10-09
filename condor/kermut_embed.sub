@@ -1,0 +1,20 @@
+universe = vanilla
+executable = condor/run_kermut_embed.sh
+arguments = $(gene)
+request_cpus = 2
+request_gpus = 1
+request_memory = 16GB
+request_disk = 4GB
++MaxRuntime = 43200
+getenv = True
+should_transfer_files = NO
+log = /data/users/akolchina/gfp_project_kermut/logs/embed.$(Cluster).log
+output = /data/users/akolchina/gfp_project_kermut/logs/embed.$(Cluster).$(Process).out
+error = /data/users/akolchina/gfp_project_kermut/logs/embed.$(Cluster).$(Process).err
+queue gene from (
+cgreGFP
+cgre132
+cgre1338
+cgre4111
+cgre9708
+)

@@ -57,6 +57,13 @@ A multi-reference structural kernel for ortholog transfer would be a separate me
 
 ## Provenance
 
+Preprocessing began on 9 October 2026. The full-length structure input is
+AlphaFold DB `AF-D7PM05-F1-model_v6` (235 aa); experimental PDB 2HPW is retained
+as structural provenance but is not passed to ProteinMPNN because its atom
+records omit terminal residues and represent the mature chromophore as a
+modified residue. Current cluster IDs and validation state are recorded in the
+[live status](../results/kermut_cgreGFP/STATUS.md).
+
 - Official implementation: <https://github.com/petergroth/kermut>
 - Paper: <https://proceedings.neurips.cc/paper_files/paper/2024/file/34547650b2ca69d91f3b3c3ae8b21962-Paper-Conference.pdf>
 - Upstream license: MIT

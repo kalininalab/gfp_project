@@ -14,7 +14,7 @@ Moreover, its structure kernel assumes variants of one reference protein, so
 cross-ortholog transfer requires a separately labelled adaptation. The
 [integration audit and experiment plan](docs/KERMUT_INTEGRATION.md) state which
 comparisons can be called Kermut and which must be called ESM-GP
-(Kermut-inspired).
+(Kermut-inspired). [Live preprocessing and run status](results/kermut_cgreGFP/STATUS.md).
 
 ## Experimental story
 

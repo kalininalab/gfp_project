@@ -1,0 +1,13 @@
+universe = vanilla
+executable = condor/run_kermut_zero_shot.sh
+request_cpus = 2
+request_gpus = 1
+request_memory = 16GB
+request_disk = 2GB
++MaxRuntime = 7200
+getenv = True
+should_transfer_files = NO
+log = /data/users/akolchina/gfp_project_kermut/logs/zero_shot.$(Cluster).log
+output = /data/users/akolchina/gfp_project_kermut/logs/zero_shot.$(Cluster).out
+error = /data/users/akolchina/gfp_project_kermut/logs/zero_shot.$(Cluster).err
+queue 1
