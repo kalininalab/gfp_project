@@ -11,17 +11,16 @@ The experiments answer four questions in sequence. Throughout, the **target
 test set is frozen**, is shared by all compared methods, and is never available
 for training or acquisition.
 
-> **ALL TARGET-ADAPTATION DIAGNOSTICS:**
-> **[OPEN THE COMPLETE SCENARIO-BY-SCENARIO ATLAS](results/target_adaptation_diagnostic_atlas/README.md)**
-> · **[ALL 56 TRUE/PREDICTED DISTRIBUTION PANELS](results/target_adaptation_diagnostic_atlas/distributions/)**
-> · **[ALL 56 TRUE-VS-PREDICTED DOTPLOT PANELS](results/target_adaptation_diagnostic_atlas/dotplots/)**
->
-> The atlas covers **all 8 transfer directions, all 7 main training/acquisition
-> scenarios, all 4 models and all 5 seeds**. Filenames state the source, target,
-> selection method, round and number of target sequences added.
+### Results navigation
 
-> **[COMPLETE TARGET-ADAPTATION REPORT: R² AND ALL OTHER METRICS, BAR PLOTS,
-> DISTRIBUTIONS AND DOTPLOTS](results/target_adaptation_complete_report/README.md)**
+- **[Complete target-adaptation report](results/target_adaptation_complete_report/README.md):** R² and other metrics, bar plots and links to prediction diagnostics.
+- [Scenario-by-scenario diagnostic atlas](results/target_adaptation_diagnostic_atlas/README.md)
+- [All 56 true/predicted distribution panels](results/target_adaptation_diagnostic_atlas/distributions/)
+- [All 56 true-vs-predicted dotplot panels](results/target_adaptation_diagnostic_atlas/dotplots/)
+
+The atlas covers all 8 transfer directions, 7 main training/acquisition
+scenarios, 4 models and 5 seeds. Filenames state the source, target, selection
+method, round and number of target sequences added.
 
 | Stage | What enters training after the initial fit? | Target sequences added? |
 |---|---|---|
