@@ -5,6 +5,17 @@ We compared one-hot baselines, mean-pooled ESM-2 regressors, and three CNNs on
 full residue embeddings, added Jannis CNN on native one-hot inputs, and tested
 transfer between GFP landscapes.
 
+### Candidate model: Kermut
+
+Kermut is being evaluated as an uncertainty-aware GP baseline. The published
+model requires ESM-2 650M embeddings, zero-shot scores, ProteinMPNN features and
+one reference structure; our existing ESM caches are 150M/640-dimensional.
+Moreover, its structure kernel assumes variants of one reference protein, so
+cross-ortholog transfer requires a separately labelled adaptation. The
+[integration audit and experiment plan](docs/KERMUT_INTEGRATION.md) state which
+comparisons can be called Kermut and which must be called ESM-GP
+(Kermut-inspired).
+
 ## Experimental story
 
 The experiments answer four questions in sequence. Throughout, the **target
