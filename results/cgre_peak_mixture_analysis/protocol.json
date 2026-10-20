@@ -1,0 +1,34 @@
+{
+  "data": "data/processed/baseline_v1/sequences.csv",
+  "genes": [
+    "cgreGFP",
+    "cgre132",
+    "cgre1338",
+    "cgre4111",
+    "cgre9708"
+  ],
+  "development_splits": [
+    "train",
+    "validation"
+  ],
+  "excluded_split": "test",
+  "components": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "gmm": {
+    "covariance_type": "full",
+    "reg_covar": 1e-06,
+    "full_n_init": 10,
+    "bootstrap_n_init": 5
+  }
+}
