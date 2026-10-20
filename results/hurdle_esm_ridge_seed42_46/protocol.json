@@ -1,0 +1,27 @@
+{
+  "genes": [
+    "cgreGFP",
+    "cgre132",
+    "cgre1338",
+    "cgre4111",
+    "cgre9708"
+  ],
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "frozen_test_split": "test",
+  "development_splits": [
+    "train",
+    "validation"
+  ],
+  "features": "facebook/esm2_t30_150M_UR50D mean embeddings",
+  "direct_regressor": "StandardScaler + Ridge(alpha=10)",
+  "classifier": "StandardScaler + LogisticRegression(C=1)",
+  "conditional_regressor": "StandardScaler + Ridge(alpha=10), fit above the development measurement floor",
+  "soft_prediction": "(1-p_measurable)*floor + p_measurable*max(conditional_prediction,floor)",
+  "hard_prediction": "floor if p_measurable < 0.5 else max(conditional_prediction,floor)"
+}

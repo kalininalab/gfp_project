@@ -25,6 +25,7 @@ for training or acquisition.
 ### Results navigation
 
 - **[Train-only fluorescence distribution analysis for cgreGFP and artificial peaks](results/cgre_peak_mixture_analysis/REPORT.md):** 1–4 component GMM comparison, measurement-floor audit, bootstrap stability and implications for a binary-first predictor.
+- **[Classification–regression predictor pilot](results/hurdle_esm_ridge_seed42_46/REPORT.md):** matched direct versus soft/hard hurdle prediction on all five frozen tests.
 - **[Complete target-adaptation report](results/target_adaptation_complete_report/README.md):** R² and other metrics, bar plots and links to prediction diagnostics.
 - [Scenario-by-scenario diagnostic atlas](results/target_adaptation_diagnostic_atlas/README.md)
 - [All 56 true/predicted distribution panels](results/target_adaptation_diagnostic_atlas/distributions/)
