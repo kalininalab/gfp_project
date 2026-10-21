@@ -1,20 +1,8 @@
 # GFP fluorescence prediction
 
-Reproducible prediction of **log10 fluorescence from protein sequence**.
-We compared one-hot baselines, mean-pooled ESM-2 regressors, and three CNNs on
-full residue embeddings, added Jannis CNN on native one-hot inputs, and tested
-transfer between GFP landscapes.
-
-### Candidate model: Kermut
-
-Kermut is being evaluated as an uncertainty-aware GP baseline. The published
-model requires ESM-2 650M embeddings, zero-shot scores, ProteinMPNN features and
-one reference structure; our existing ESM caches are 150M/640-dimensional.
-Moreover, its structure kernel assumes variants of one reference protein, so
-cross-ortholog transfer requires a separately labelled adaptation. The
-[integration audit and experiment plan](docs/KERMUT_INTEGRATION.md) state which
-comparisons can be called Kermut and which must be called ESM-GP
-(Kermut-inspired). [Live preprocessing and run status](results/kermut_cgreGFP/STATUS.md).
+Reproducible prediction of **log10 fluorescence from protein sequence**. The
+project compares sequence encodings and regression models on frozen test sets,
+then evaluates active selection and target adaptation between GFP landscapes.
 
 ## Experimental story
 
@@ -26,7 +14,7 @@ for training or acquisition.
 
 - **[Train-only fluorescence distribution analysis for cgreGFP and artificial peaks](results/cgre_peak_mixture_analysis/REPORT.md):** 1–4 component GMM comparison, measurement-floor audit, bootstrap stability and implications for a binary-first predictor.
 - **[Classification–regression predictor pilot](results/hurdle_esm_ridge_seed42_46/REPORT.md):** matched direct versus soft/hard hurdle prediction on all five frozen tests.
-- **[Neural classification–regression experiment](results/hurdle_neural_seed42_46/STATUS.md):** five-seed MLP-on-ESM and CNN-on-OHE matched comparisons; live workflow status and final report location.
+- **[Neural classification–regression experiment](results/hurdle_neural_seed42_46/REPORT.md):** five-seed MLP-on-ESM and CNN-on-OHE matched direct-versus-hurdle comparisons.
 - **[cgreGFP distribution and predictor study](results/cgre_predictor_study/REPORT.md):** two-part report covering Gaussian-mixture evidence and matched ProteinBERT/ESM-2/OHE predictor comparisons with R² and distribution metrics.
 - **[Complete target-adaptation report](results/target_adaptation_complete_report/README.md):** R² and other metrics, bar plots and links to prediction diagnostics.
 - [Scenario-by-scenario diagnostic atlas](results/target_adaptation_diagnostic_atlas/README.md)
