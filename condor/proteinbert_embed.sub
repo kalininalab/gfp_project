@@ -1,0 +1,13 @@
+universe = vanilla
+executable = condor/run_proteinbert_embed.sh
+request_cpus = 4
+request_gpus = 1
+request_memory = 20GB
+request_disk = 4GB
++MaxRuntime = 43200
+getenv = True
+should_transfer_files = NO
+log = /data/users/akolchina/logs/combi/proteinbert_embed.$(Cluster).log
+output = /data/users/akolchina/logs/combi/proteinbert_embed.$(Cluster).out
+error = /data/users/akolchina/logs/combi/proteinbert_embed.$(Cluster).err
+queue 1

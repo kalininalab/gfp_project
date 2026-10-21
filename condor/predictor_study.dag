@@ -1,0 +1,357 @@
+JOB PBEMBED condor/proteinbert_embed.sub
+CATEGORY PBEMBED pbembed
+JOB XGB_esm_cgreGFP_42 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgreGFP_42 representation="esm" gene="cgreGFP" seed="42"
+CATEGORY XGB_esm_cgreGFP_42 cpu
+JOB XGB_esm_cgreGFP_43 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgreGFP_43 representation="esm" gene="cgreGFP" seed="43"
+CATEGORY XGB_esm_cgreGFP_43 cpu
+JOB XGB_esm_cgreGFP_44 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgreGFP_44 representation="esm" gene="cgreGFP" seed="44"
+CATEGORY XGB_esm_cgreGFP_44 cpu
+JOB XGB_esm_cgreGFP_45 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgreGFP_45 representation="esm" gene="cgreGFP" seed="45"
+CATEGORY XGB_esm_cgreGFP_45 cpu
+JOB XGB_esm_cgreGFP_46 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgreGFP_46 representation="esm" gene="cgreGFP" seed="46"
+CATEGORY XGB_esm_cgreGFP_46 cpu
+JOB XGB_esm_cgre132_42 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgre132_42 representation="esm" gene="cgre132" seed="42"
+CATEGORY XGB_esm_cgre132_42 cpu
+JOB XGB_esm_cgre132_43 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgre132_43 representation="esm" gene="cgre132" seed="43"
+CATEGORY XGB_esm_cgre132_43 cpu
+JOB XGB_esm_cgre132_44 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgre132_44 representation="esm" gene="cgre132" seed="44"
+CATEGORY XGB_esm_cgre132_44 cpu
+JOB XGB_esm_cgre132_45 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgre132_45 representation="esm" gene="cgre132" seed="45"
+CATEGORY XGB_esm_cgre132_45 cpu
+JOB XGB_esm_cgre132_46 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgre132_46 representation="esm" gene="cgre132" seed="46"
+CATEGORY XGB_esm_cgre132_46 cpu
+JOB XGB_esm_cgre1338_42 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgre1338_42 representation="esm" gene="cgre1338" seed="42"
+CATEGORY XGB_esm_cgre1338_42 cpu
+JOB XGB_esm_cgre1338_43 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgre1338_43 representation="esm" gene="cgre1338" seed="43"
+CATEGORY XGB_esm_cgre1338_43 cpu
+JOB XGB_esm_cgre1338_44 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgre1338_44 representation="esm" gene="cgre1338" seed="44"
+CATEGORY XGB_esm_cgre1338_44 cpu
+JOB XGB_esm_cgre1338_45 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgre1338_45 representation="esm" gene="cgre1338" seed="45"
+CATEGORY XGB_esm_cgre1338_45 cpu
+JOB XGB_esm_cgre1338_46 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgre1338_46 representation="esm" gene="cgre1338" seed="46"
+CATEGORY XGB_esm_cgre1338_46 cpu
+JOB XGB_esm_cgre4111_42 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgre4111_42 representation="esm" gene="cgre4111" seed="42"
+CATEGORY XGB_esm_cgre4111_42 cpu
+JOB XGB_esm_cgre4111_43 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgre4111_43 representation="esm" gene="cgre4111" seed="43"
+CATEGORY XGB_esm_cgre4111_43 cpu
+JOB XGB_esm_cgre4111_44 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgre4111_44 representation="esm" gene="cgre4111" seed="44"
+CATEGORY XGB_esm_cgre4111_44 cpu
+JOB XGB_esm_cgre4111_45 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgre4111_45 representation="esm" gene="cgre4111" seed="45"
+CATEGORY XGB_esm_cgre4111_45 cpu
+JOB XGB_esm_cgre4111_46 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgre4111_46 representation="esm" gene="cgre4111" seed="46"
+CATEGORY XGB_esm_cgre4111_46 cpu
+JOB XGB_esm_cgre9708_42 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgre9708_42 representation="esm" gene="cgre9708" seed="42"
+CATEGORY XGB_esm_cgre9708_42 cpu
+JOB XGB_esm_cgre9708_43 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgre9708_43 representation="esm" gene="cgre9708" seed="43"
+CATEGORY XGB_esm_cgre9708_43 cpu
+JOB XGB_esm_cgre9708_44 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgre9708_44 representation="esm" gene="cgre9708" seed="44"
+CATEGORY XGB_esm_cgre9708_44 cpu
+JOB XGB_esm_cgre9708_45 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgre9708_45 representation="esm" gene="cgre9708" seed="45"
+CATEGORY XGB_esm_cgre9708_45 cpu
+JOB XGB_esm_cgre9708_46 condor/hurdle_xgboost.sub
+VARS XGB_esm_cgre9708_46 representation="esm" gene="cgre9708" seed="46"
+CATEGORY XGB_esm_cgre9708_46 cpu
+JOB XGB_ohe_cgreGFP_42 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgreGFP_42 representation="ohe" gene="cgreGFP" seed="42"
+CATEGORY XGB_ohe_cgreGFP_42 cpu
+JOB XGB_ohe_cgreGFP_43 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgreGFP_43 representation="ohe" gene="cgreGFP" seed="43"
+CATEGORY XGB_ohe_cgreGFP_43 cpu
+JOB XGB_ohe_cgreGFP_44 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgreGFP_44 representation="ohe" gene="cgreGFP" seed="44"
+CATEGORY XGB_ohe_cgreGFP_44 cpu
+JOB XGB_ohe_cgreGFP_45 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgreGFP_45 representation="ohe" gene="cgreGFP" seed="45"
+CATEGORY XGB_ohe_cgreGFP_45 cpu
+JOB XGB_ohe_cgreGFP_46 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgreGFP_46 representation="ohe" gene="cgreGFP" seed="46"
+CATEGORY XGB_ohe_cgreGFP_46 cpu
+JOB XGB_ohe_cgre132_42 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgre132_42 representation="ohe" gene="cgre132" seed="42"
+CATEGORY XGB_ohe_cgre132_42 cpu
+JOB XGB_ohe_cgre132_43 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgre132_43 representation="ohe" gene="cgre132" seed="43"
+CATEGORY XGB_ohe_cgre132_43 cpu
+JOB XGB_ohe_cgre132_44 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgre132_44 representation="ohe" gene="cgre132" seed="44"
+CATEGORY XGB_ohe_cgre132_44 cpu
+JOB XGB_ohe_cgre132_45 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgre132_45 representation="ohe" gene="cgre132" seed="45"
+CATEGORY XGB_ohe_cgre132_45 cpu
+JOB XGB_ohe_cgre132_46 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgre132_46 representation="ohe" gene="cgre132" seed="46"
+CATEGORY XGB_ohe_cgre132_46 cpu
+JOB XGB_ohe_cgre1338_42 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgre1338_42 representation="ohe" gene="cgre1338" seed="42"
+CATEGORY XGB_ohe_cgre1338_42 cpu
+JOB XGB_ohe_cgre1338_43 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgre1338_43 representation="ohe" gene="cgre1338" seed="43"
+CATEGORY XGB_ohe_cgre1338_43 cpu
+JOB XGB_ohe_cgre1338_44 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgre1338_44 representation="ohe" gene="cgre1338" seed="44"
+CATEGORY XGB_ohe_cgre1338_44 cpu
+JOB XGB_ohe_cgre1338_45 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgre1338_45 representation="ohe" gene="cgre1338" seed="45"
+CATEGORY XGB_ohe_cgre1338_45 cpu
+JOB XGB_ohe_cgre1338_46 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgre1338_46 representation="ohe" gene="cgre1338" seed="46"
+CATEGORY XGB_ohe_cgre1338_46 cpu
+JOB XGB_ohe_cgre4111_42 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgre4111_42 representation="ohe" gene="cgre4111" seed="42"
+CATEGORY XGB_ohe_cgre4111_42 cpu
+JOB XGB_ohe_cgre4111_43 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgre4111_43 representation="ohe" gene="cgre4111" seed="43"
+CATEGORY XGB_ohe_cgre4111_43 cpu
+JOB XGB_ohe_cgre4111_44 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgre4111_44 representation="ohe" gene="cgre4111" seed="44"
+CATEGORY XGB_ohe_cgre4111_44 cpu
+JOB XGB_ohe_cgre4111_45 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgre4111_45 representation="ohe" gene="cgre4111" seed="45"
+CATEGORY XGB_ohe_cgre4111_45 cpu
+JOB XGB_ohe_cgre4111_46 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgre4111_46 representation="ohe" gene="cgre4111" seed="46"
+CATEGORY XGB_ohe_cgre4111_46 cpu
+JOB XGB_ohe_cgre9708_42 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgre9708_42 representation="ohe" gene="cgre9708" seed="42"
+CATEGORY XGB_ohe_cgre9708_42 cpu
+JOB XGB_ohe_cgre9708_43 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgre9708_43 representation="ohe" gene="cgre9708" seed="43"
+CATEGORY XGB_ohe_cgre9708_43 cpu
+JOB XGB_ohe_cgre9708_44 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgre9708_44 representation="ohe" gene="cgre9708" seed="44"
+CATEGORY XGB_ohe_cgre9708_44 cpu
+JOB XGB_ohe_cgre9708_45 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgre9708_45 representation="ohe" gene="cgre9708" seed="45"
+CATEGORY XGB_ohe_cgre9708_45 cpu
+JOB XGB_ohe_cgre9708_46 condor/hurdle_xgboost.sub
+VARS XGB_ohe_cgre9708_46 representation="ohe" gene="cgre9708" seed="46"
+CATEGORY XGB_ohe_cgre9708_46 cpu
+JOB PB_xgboost_cgreGFP_42 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgreGFP_42 gene="cgreGFP" seed="42"
+CATEGORY PB_xgboost_cgreGFP_42 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgreGFP_42
+JOB PB_xgboost_cgreGFP_43 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgreGFP_43 gene="cgreGFP" seed="43"
+CATEGORY PB_xgboost_cgreGFP_43 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgreGFP_43
+JOB PB_xgboost_cgreGFP_44 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgreGFP_44 gene="cgreGFP" seed="44"
+CATEGORY PB_xgboost_cgreGFP_44 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgreGFP_44
+JOB PB_xgboost_cgreGFP_45 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgreGFP_45 gene="cgreGFP" seed="45"
+CATEGORY PB_xgboost_cgreGFP_45 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgreGFP_45
+JOB PB_xgboost_cgreGFP_46 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgreGFP_46 gene="cgreGFP" seed="46"
+CATEGORY PB_xgboost_cgreGFP_46 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgreGFP_46
+JOB PB_xgboost_cgre132_42 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgre132_42 gene="cgre132" seed="42"
+CATEGORY PB_xgboost_cgre132_42 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgre132_42
+JOB PB_xgboost_cgre132_43 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgre132_43 gene="cgre132" seed="43"
+CATEGORY PB_xgboost_cgre132_43 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgre132_43
+JOB PB_xgboost_cgre132_44 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgre132_44 gene="cgre132" seed="44"
+CATEGORY PB_xgboost_cgre132_44 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgre132_44
+JOB PB_xgboost_cgre132_45 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgre132_45 gene="cgre132" seed="45"
+CATEGORY PB_xgboost_cgre132_45 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgre132_45
+JOB PB_xgboost_cgre132_46 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgre132_46 gene="cgre132" seed="46"
+CATEGORY PB_xgboost_cgre132_46 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgre132_46
+JOB PB_xgboost_cgre1338_42 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgre1338_42 gene="cgre1338" seed="42"
+CATEGORY PB_xgboost_cgre1338_42 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgre1338_42
+JOB PB_xgboost_cgre1338_43 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgre1338_43 gene="cgre1338" seed="43"
+CATEGORY PB_xgboost_cgre1338_43 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgre1338_43
+JOB PB_xgboost_cgre1338_44 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgre1338_44 gene="cgre1338" seed="44"
+CATEGORY PB_xgboost_cgre1338_44 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgre1338_44
+JOB PB_xgboost_cgre1338_45 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgre1338_45 gene="cgre1338" seed="45"
+CATEGORY PB_xgboost_cgre1338_45 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgre1338_45
+JOB PB_xgboost_cgre1338_46 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgre1338_46 gene="cgre1338" seed="46"
+CATEGORY PB_xgboost_cgre1338_46 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgre1338_46
+JOB PB_xgboost_cgre4111_42 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgre4111_42 gene="cgre4111" seed="42"
+CATEGORY PB_xgboost_cgre4111_42 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgre4111_42
+JOB PB_xgboost_cgre4111_43 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgre4111_43 gene="cgre4111" seed="43"
+CATEGORY PB_xgboost_cgre4111_43 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgre4111_43
+JOB PB_xgboost_cgre4111_44 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgre4111_44 gene="cgre4111" seed="44"
+CATEGORY PB_xgboost_cgre4111_44 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgre4111_44
+JOB PB_xgboost_cgre4111_45 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgre4111_45 gene="cgre4111" seed="45"
+CATEGORY PB_xgboost_cgre4111_45 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgre4111_45
+JOB PB_xgboost_cgre4111_46 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgre4111_46 gene="cgre4111" seed="46"
+CATEGORY PB_xgboost_cgre4111_46 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgre4111_46
+JOB PB_xgboost_cgre9708_42 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgre9708_42 gene="cgre9708" seed="42"
+CATEGORY PB_xgboost_cgre9708_42 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgre9708_42
+JOB PB_xgboost_cgre9708_43 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgre9708_43 gene="cgre9708" seed="43"
+CATEGORY PB_xgboost_cgre9708_43 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgre9708_43
+JOB PB_xgboost_cgre9708_44 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgre9708_44 gene="cgre9708" seed="44"
+CATEGORY PB_xgboost_cgre9708_44 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgre9708_44
+JOB PB_xgboost_cgre9708_45 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgre9708_45 gene="cgre9708" seed="45"
+CATEGORY PB_xgboost_cgre9708_45 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgre9708_45
+JOB PB_xgboost_cgre9708_46 condor/proteinbert_xgboost.sub
+VARS PB_xgboost_cgre9708_46 gene="cgre9708" seed="46"
+CATEGORY PB_xgboost_cgre9708_46 cpu
+PARENT PBEMBED CHILD PB_xgboost_cgre9708_46
+JOB PB_mlp_cgreGFP_42 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgreGFP_42 gene="cgreGFP" seed="42"
+CATEGORY PB_mlp_cgreGFP_42 gpu
+PARENT PBEMBED CHILD PB_mlp_cgreGFP_42
+JOB PB_mlp_cgreGFP_43 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgreGFP_43 gene="cgreGFP" seed="43"
+CATEGORY PB_mlp_cgreGFP_43 gpu
+PARENT PBEMBED CHILD PB_mlp_cgreGFP_43
+JOB PB_mlp_cgreGFP_44 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgreGFP_44 gene="cgreGFP" seed="44"
+CATEGORY PB_mlp_cgreGFP_44 gpu
+PARENT PBEMBED CHILD PB_mlp_cgreGFP_44
+JOB PB_mlp_cgreGFP_45 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgreGFP_45 gene="cgreGFP" seed="45"
+CATEGORY PB_mlp_cgreGFP_45 gpu
+PARENT PBEMBED CHILD PB_mlp_cgreGFP_45
+JOB PB_mlp_cgreGFP_46 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgreGFP_46 gene="cgreGFP" seed="46"
+CATEGORY PB_mlp_cgreGFP_46 gpu
+PARENT PBEMBED CHILD PB_mlp_cgreGFP_46
+JOB PB_mlp_cgre132_42 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgre132_42 gene="cgre132" seed="42"
+CATEGORY PB_mlp_cgre132_42 gpu
+PARENT PBEMBED CHILD PB_mlp_cgre132_42
+JOB PB_mlp_cgre132_43 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgre132_43 gene="cgre132" seed="43"
+CATEGORY PB_mlp_cgre132_43 gpu
+PARENT PBEMBED CHILD PB_mlp_cgre132_43
+JOB PB_mlp_cgre132_44 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgre132_44 gene="cgre132" seed="44"
+CATEGORY PB_mlp_cgre132_44 gpu
+PARENT PBEMBED CHILD PB_mlp_cgre132_44
+JOB PB_mlp_cgre132_45 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgre132_45 gene="cgre132" seed="45"
+CATEGORY PB_mlp_cgre132_45 gpu
+PARENT PBEMBED CHILD PB_mlp_cgre132_45
+JOB PB_mlp_cgre132_46 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgre132_46 gene="cgre132" seed="46"
+CATEGORY PB_mlp_cgre132_46 gpu
+PARENT PBEMBED CHILD PB_mlp_cgre132_46
+JOB PB_mlp_cgre1338_42 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgre1338_42 gene="cgre1338" seed="42"
+CATEGORY PB_mlp_cgre1338_42 gpu
+PARENT PBEMBED CHILD PB_mlp_cgre1338_42
+JOB PB_mlp_cgre1338_43 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgre1338_43 gene="cgre1338" seed="43"
+CATEGORY PB_mlp_cgre1338_43 gpu
+PARENT PBEMBED CHILD PB_mlp_cgre1338_43
+JOB PB_mlp_cgre1338_44 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgre1338_44 gene="cgre1338" seed="44"
+CATEGORY PB_mlp_cgre1338_44 gpu
+PARENT PBEMBED CHILD PB_mlp_cgre1338_44
+JOB PB_mlp_cgre1338_45 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgre1338_45 gene="cgre1338" seed="45"
+CATEGORY PB_mlp_cgre1338_45 gpu
+PARENT PBEMBED CHILD PB_mlp_cgre1338_45
+JOB PB_mlp_cgre1338_46 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgre1338_46 gene="cgre1338" seed="46"
+CATEGORY PB_mlp_cgre1338_46 gpu
+PARENT PBEMBED CHILD PB_mlp_cgre1338_46
+JOB PB_mlp_cgre4111_42 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgre4111_42 gene="cgre4111" seed="42"
+CATEGORY PB_mlp_cgre4111_42 gpu
+PARENT PBEMBED CHILD PB_mlp_cgre4111_42
+JOB PB_mlp_cgre4111_43 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgre4111_43 gene="cgre4111" seed="43"
+CATEGORY PB_mlp_cgre4111_43 gpu
+PARENT PBEMBED CHILD PB_mlp_cgre4111_43
+JOB PB_mlp_cgre4111_44 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgre4111_44 gene="cgre4111" seed="44"
+CATEGORY PB_mlp_cgre4111_44 gpu
+PARENT PBEMBED CHILD PB_mlp_cgre4111_44
+JOB PB_mlp_cgre4111_45 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgre4111_45 gene="cgre4111" seed="45"
+CATEGORY PB_mlp_cgre4111_45 gpu
+PARENT PBEMBED CHILD PB_mlp_cgre4111_45
+JOB PB_mlp_cgre4111_46 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgre4111_46 gene="cgre4111" seed="46"
+CATEGORY PB_mlp_cgre4111_46 gpu
+PARENT PBEMBED CHILD PB_mlp_cgre4111_46
+JOB PB_mlp_cgre9708_42 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgre9708_42 gene="cgre9708" seed="42"
+CATEGORY PB_mlp_cgre9708_42 gpu
+PARENT PBEMBED CHILD PB_mlp_cgre9708_42
+JOB PB_mlp_cgre9708_43 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgre9708_43 gene="cgre9708" seed="43"
+CATEGORY PB_mlp_cgre9708_43 gpu
+PARENT PBEMBED CHILD PB_mlp_cgre9708_43
+JOB PB_mlp_cgre9708_44 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgre9708_44 gene="cgre9708" seed="44"
+CATEGORY PB_mlp_cgre9708_44 gpu
+PARENT PBEMBED CHILD PB_mlp_cgre9708_44
+JOB PB_mlp_cgre9708_45 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgre9708_45 gene="cgre9708" seed="45"
+CATEGORY PB_mlp_cgre9708_45 gpu
+PARENT PBEMBED CHILD PB_mlp_cgre9708_45
+JOB PB_mlp_cgre9708_46 condor/proteinbert_mlp.sub
+VARS PB_mlp_cgre9708_46 gene="cgre9708" seed="46"
+CATEGORY PB_mlp_cgre9708_46 gpu
+PARENT PBEMBED CHILD PB_mlp_cgre9708_46
+JOB FINAL condor/predictor_study_finish.sub
+PARENT XGB_esm_cgreGFP_42 XGB_esm_cgreGFP_43 XGB_esm_cgreGFP_44 XGB_esm_cgreGFP_45 XGB_esm_cgreGFP_46 XGB_esm_cgre132_42 XGB_esm_cgre132_43 XGB_esm_cgre132_44 XGB_esm_cgre132_45 XGB_esm_cgre132_46 XGB_esm_cgre1338_42 XGB_esm_cgre1338_43 XGB_esm_cgre1338_44 XGB_esm_cgre1338_45 XGB_esm_cgre1338_46 XGB_esm_cgre4111_42 XGB_esm_cgre4111_43 XGB_esm_cgre4111_44 XGB_esm_cgre4111_45 XGB_esm_cgre4111_46 XGB_esm_cgre9708_42 XGB_esm_cgre9708_43 XGB_esm_cgre9708_44 XGB_esm_cgre9708_45 XGB_esm_cgre9708_46 XGB_ohe_cgreGFP_42 XGB_ohe_cgreGFP_43 XGB_ohe_cgreGFP_44 XGB_ohe_cgreGFP_45 XGB_ohe_cgreGFP_46 XGB_ohe_cgre132_42 XGB_ohe_cgre132_43 XGB_ohe_cgre132_44 XGB_ohe_cgre132_45 XGB_ohe_cgre132_46 XGB_ohe_cgre1338_42 XGB_ohe_cgre1338_43 XGB_ohe_cgre1338_44 XGB_ohe_cgre1338_45 XGB_ohe_cgre1338_46 XGB_ohe_cgre4111_42 XGB_ohe_cgre4111_43 XGB_ohe_cgre4111_44 XGB_ohe_cgre4111_45 XGB_ohe_cgre4111_46 XGB_ohe_cgre9708_42 XGB_ohe_cgre9708_43 XGB_ohe_cgre9708_44 XGB_ohe_cgre9708_45 XGB_ohe_cgre9708_46 PB_xgboost_cgreGFP_42 PB_xgboost_cgreGFP_43 PB_xgboost_cgreGFP_44 PB_xgboost_cgreGFP_45 PB_xgboost_cgreGFP_46 PB_xgboost_cgre132_42 PB_xgboost_cgre132_43 PB_xgboost_cgre132_44 PB_xgboost_cgre132_45 PB_xgboost_cgre132_46 PB_xgboost_cgre1338_42 PB_xgboost_cgre1338_43 PB_xgboost_cgre1338_44 PB_xgboost_cgre1338_45 PB_xgboost_cgre1338_46 PB_xgboost_cgre4111_42 PB_xgboost_cgre4111_43 PB_xgboost_cgre4111_44 PB_xgboost_cgre4111_45 PB_xgboost_cgre4111_46 PB_xgboost_cgre9708_42 PB_xgboost_cgre9708_43 PB_xgboost_cgre9708_44 PB_xgboost_cgre9708_45 PB_xgboost_cgre9708_46 PB_mlp_cgreGFP_42 PB_mlp_cgreGFP_43 PB_mlp_cgreGFP_44 PB_mlp_cgreGFP_45 PB_mlp_cgreGFP_46 PB_mlp_cgre132_42 PB_mlp_cgre132_43 PB_mlp_cgre132_44 PB_mlp_cgre132_45 PB_mlp_cgre132_46 PB_mlp_cgre1338_42 PB_mlp_cgre1338_43 PB_mlp_cgre1338_44 PB_mlp_cgre1338_45 PB_mlp_cgre1338_46 PB_mlp_cgre4111_42 PB_mlp_cgre4111_43 PB_mlp_cgre4111_44 PB_mlp_cgre4111_45 PB_mlp_cgre4111_46 PB_mlp_cgre9708_42 PB_mlp_cgre9708_43 PB_mlp_cgre9708_44 PB_mlp_cgre9708_45 PB_mlp_cgre9708_46 CHILD FINAL
+MAXJOBS cpu 50
+MAXJOBS gpu 25
+MAXJOBS pbembed 1

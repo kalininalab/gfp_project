@@ -1,0 +1,12 @@
+universe = vanilla
+executable = condor/run_predictor_study_finish.sh
+request_cpus = 1
+request_memory = 8GB
+request_disk = 2GB
++MaxRuntime = 3600
+getenv = True
+should_transfer_files = NO
+log = /data/users/akolchina/logs/combi/predictor_study_finish.$(Cluster).log
+output = /data/users/akolchina/logs/combi/predictor_study_finish.$(Cluster).out
+error = /data/users/akolchina/logs/combi/predictor_study_finish.$(Cluster).err
+queue 1

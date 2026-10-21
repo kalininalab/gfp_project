@@ -1,0 +1,14 @@
+universe = vanilla
+executable = condor/run_proteinbert_model.sh
+arguments = mlp $(gene) $(seed)
+request_cpus = 2
+request_gpus = 1
+request_memory = 10GB
+request_disk = 2GB
++MaxRuntime = 43200
+getenv = True
+should_transfer_files = NO
+log = /data/users/akolchina/logs/combi/proteinbert_mlp.$(Cluster).log
+output = /data/users/akolchina/logs/combi/proteinbert_mlp.$(Cluster).$(Process).out
+error = /data/users/akolchina/logs/combi/proteinbert_mlp.$(Cluster).$(Process).err
+queue 1
