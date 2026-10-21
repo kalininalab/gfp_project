@@ -18,3 +18,7 @@ ProteinBERT uses the official pretrained checkpoint and its 512-dimensional fina
 - Initial queue check: no held jobs.
 
 The completed current-model reference is already available in the [neural direct-versus-hurdle report](../hurdle_neural_seed42_46/REPORT.md). CNN on OHE remains strongest there (natural cgreGFP direct R² 0.910 ± 0.004); the new workflow tests whether ProteinBERT or XGBoost improves on that reference.
+
+## Completed
+
+All **102/102 DAG nodes completed successfully** on 21 October 2026; no node failed or remained held. Read the [final report](REPORT.md).
