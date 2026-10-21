@@ -1,0 +1,14 @@
+universe = vanilla
+executable = condor/run_hurdle_neural.sh
+arguments = $(architecture) $(gene) $(seed)
+request_cpus = 2
+request_gpus = 1
+request_memory = 12GB
+request_disk = 4GB
++MaxRuntime = 43200
+getenv = True
+should_transfer_files = NO
+log = /data/users/akolchina/logs/combi/hurdle_neural.$(Cluster).log
+output = /data/users/akolchina/logs/combi/hurdle_neural.$(Cluster).$(Process).out
+error = /data/users/akolchina/logs/combi/hurdle_neural.$(Cluster).$(Process).err
+queue 1

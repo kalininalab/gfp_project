@@ -1,0 +1,104 @@
+# Fifty matched neural jobs followed by an aggregate report.
+JOB mlp_esm_cgreGFP_42 condor/hurdle_neural.sub
+VARS mlp_esm_cgreGFP_42 architecture="mlp_esm" gene="cgreGFP" seed="42"
+JOB mlp_esm_cgreGFP_43 condor/hurdle_neural.sub
+VARS mlp_esm_cgreGFP_43 architecture="mlp_esm" gene="cgreGFP" seed="43"
+JOB mlp_esm_cgreGFP_44 condor/hurdle_neural.sub
+VARS mlp_esm_cgreGFP_44 architecture="mlp_esm" gene="cgreGFP" seed="44"
+JOB mlp_esm_cgreGFP_45 condor/hurdle_neural.sub
+VARS mlp_esm_cgreGFP_45 architecture="mlp_esm" gene="cgreGFP" seed="45"
+JOB mlp_esm_cgreGFP_46 condor/hurdle_neural.sub
+VARS mlp_esm_cgreGFP_46 architecture="mlp_esm" gene="cgreGFP" seed="46"
+JOB mlp_esm_cgre132_42 condor/hurdle_neural.sub
+VARS mlp_esm_cgre132_42 architecture="mlp_esm" gene="cgre132" seed="42"
+JOB mlp_esm_cgre132_43 condor/hurdle_neural.sub
+VARS mlp_esm_cgre132_43 architecture="mlp_esm" gene="cgre132" seed="43"
+JOB mlp_esm_cgre132_44 condor/hurdle_neural.sub
+VARS mlp_esm_cgre132_44 architecture="mlp_esm" gene="cgre132" seed="44"
+JOB mlp_esm_cgre132_45 condor/hurdle_neural.sub
+VARS mlp_esm_cgre132_45 architecture="mlp_esm" gene="cgre132" seed="45"
+JOB mlp_esm_cgre132_46 condor/hurdle_neural.sub
+VARS mlp_esm_cgre132_46 architecture="mlp_esm" gene="cgre132" seed="46"
+JOB mlp_esm_cgre1338_42 condor/hurdle_neural.sub
+VARS mlp_esm_cgre1338_42 architecture="mlp_esm" gene="cgre1338" seed="42"
+JOB mlp_esm_cgre1338_43 condor/hurdle_neural.sub
+VARS mlp_esm_cgre1338_43 architecture="mlp_esm" gene="cgre1338" seed="43"
+JOB mlp_esm_cgre1338_44 condor/hurdle_neural.sub
+VARS mlp_esm_cgre1338_44 architecture="mlp_esm" gene="cgre1338" seed="44"
+JOB mlp_esm_cgre1338_45 condor/hurdle_neural.sub
+VARS mlp_esm_cgre1338_45 architecture="mlp_esm" gene="cgre1338" seed="45"
+JOB mlp_esm_cgre1338_46 condor/hurdle_neural.sub
+VARS mlp_esm_cgre1338_46 architecture="mlp_esm" gene="cgre1338" seed="46"
+JOB mlp_esm_cgre4111_42 condor/hurdle_neural.sub
+VARS mlp_esm_cgre4111_42 architecture="mlp_esm" gene="cgre4111" seed="42"
+JOB mlp_esm_cgre4111_43 condor/hurdle_neural.sub
+VARS mlp_esm_cgre4111_43 architecture="mlp_esm" gene="cgre4111" seed="43"
+JOB mlp_esm_cgre4111_44 condor/hurdle_neural.sub
+VARS mlp_esm_cgre4111_44 architecture="mlp_esm" gene="cgre4111" seed="44"
+JOB mlp_esm_cgre4111_45 condor/hurdle_neural.sub
+VARS mlp_esm_cgre4111_45 architecture="mlp_esm" gene="cgre4111" seed="45"
+JOB mlp_esm_cgre4111_46 condor/hurdle_neural.sub
+VARS mlp_esm_cgre4111_46 architecture="mlp_esm" gene="cgre4111" seed="46"
+JOB mlp_esm_cgre9708_42 condor/hurdle_neural.sub
+VARS mlp_esm_cgre9708_42 architecture="mlp_esm" gene="cgre9708" seed="42"
+JOB mlp_esm_cgre9708_43 condor/hurdle_neural.sub
+VARS mlp_esm_cgre9708_43 architecture="mlp_esm" gene="cgre9708" seed="43"
+JOB mlp_esm_cgre9708_44 condor/hurdle_neural.sub
+VARS mlp_esm_cgre9708_44 architecture="mlp_esm" gene="cgre9708" seed="44"
+JOB mlp_esm_cgre9708_45 condor/hurdle_neural.sub
+VARS mlp_esm_cgre9708_45 architecture="mlp_esm" gene="cgre9708" seed="45"
+JOB mlp_esm_cgre9708_46 condor/hurdle_neural.sub
+VARS mlp_esm_cgre9708_46 architecture="mlp_esm" gene="cgre9708" seed="46"
+JOB cnn_ohe_cgreGFP_42 condor/hurdle_neural.sub
+VARS cnn_ohe_cgreGFP_42 architecture="cnn_ohe" gene="cgreGFP" seed="42"
+JOB cnn_ohe_cgreGFP_43 condor/hurdle_neural.sub
+VARS cnn_ohe_cgreGFP_43 architecture="cnn_ohe" gene="cgreGFP" seed="43"
+JOB cnn_ohe_cgreGFP_44 condor/hurdle_neural.sub
+VARS cnn_ohe_cgreGFP_44 architecture="cnn_ohe" gene="cgreGFP" seed="44"
+JOB cnn_ohe_cgreGFP_45 condor/hurdle_neural.sub
+VARS cnn_ohe_cgreGFP_45 architecture="cnn_ohe" gene="cgreGFP" seed="45"
+JOB cnn_ohe_cgreGFP_46 condor/hurdle_neural.sub
+VARS cnn_ohe_cgreGFP_46 architecture="cnn_ohe" gene="cgreGFP" seed="46"
+JOB cnn_ohe_cgre132_42 condor/hurdle_neural.sub
+VARS cnn_ohe_cgre132_42 architecture="cnn_ohe" gene="cgre132" seed="42"
+JOB cnn_ohe_cgre132_43 condor/hurdle_neural.sub
+VARS cnn_ohe_cgre132_43 architecture="cnn_ohe" gene="cgre132" seed="43"
+JOB cnn_ohe_cgre132_44 condor/hurdle_neural.sub
+VARS cnn_ohe_cgre132_44 architecture="cnn_ohe" gene="cgre132" seed="44"
+JOB cnn_ohe_cgre132_45 condor/hurdle_neural.sub
+VARS cnn_ohe_cgre132_45 architecture="cnn_ohe" gene="cgre132" seed="45"
+JOB cnn_ohe_cgre132_46 condor/hurdle_neural.sub
+VARS cnn_ohe_cgre132_46 architecture="cnn_ohe" gene="cgre132" seed="46"
+JOB cnn_ohe_cgre1338_42 condor/hurdle_neural.sub
+VARS cnn_ohe_cgre1338_42 architecture="cnn_ohe" gene="cgre1338" seed="42"
+JOB cnn_ohe_cgre1338_43 condor/hurdle_neural.sub
+VARS cnn_ohe_cgre1338_43 architecture="cnn_ohe" gene="cgre1338" seed="43"
+JOB cnn_ohe_cgre1338_44 condor/hurdle_neural.sub
+VARS cnn_ohe_cgre1338_44 architecture="cnn_ohe" gene="cgre1338" seed="44"
+JOB cnn_ohe_cgre1338_45 condor/hurdle_neural.sub
+VARS cnn_ohe_cgre1338_45 architecture="cnn_ohe" gene="cgre1338" seed="45"
+JOB cnn_ohe_cgre1338_46 condor/hurdle_neural.sub
+VARS cnn_ohe_cgre1338_46 architecture="cnn_ohe" gene="cgre1338" seed="46"
+JOB cnn_ohe_cgre4111_42 condor/hurdle_neural.sub
+VARS cnn_ohe_cgre4111_42 architecture="cnn_ohe" gene="cgre4111" seed="42"
+JOB cnn_ohe_cgre4111_43 condor/hurdle_neural.sub
+VARS cnn_ohe_cgre4111_43 architecture="cnn_ohe" gene="cgre4111" seed="43"
+JOB cnn_ohe_cgre4111_44 condor/hurdle_neural.sub
+VARS cnn_ohe_cgre4111_44 architecture="cnn_ohe" gene="cgre4111" seed="44"
+JOB cnn_ohe_cgre4111_45 condor/hurdle_neural.sub
+VARS cnn_ohe_cgre4111_45 architecture="cnn_ohe" gene="cgre4111" seed="45"
+JOB cnn_ohe_cgre4111_46 condor/hurdle_neural.sub
+VARS cnn_ohe_cgre4111_46 architecture="cnn_ohe" gene="cgre4111" seed="46"
+JOB cnn_ohe_cgre9708_42 condor/hurdle_neural.sub
+VARS cnn_ohe_cgre9708_42 architecture="cnn_ohe" gene="cgre9708" seed="42"
+JOB cnn_ohe_cgre9708_43 condor/hurdle_neural.sub
+VARS cnn_ohe_cgre9708_43 architecture="cnn_ohe" gene="cgre9708" seed="43"
+JOB cnn_ohe_cgre9708_44 condor/hurdle_neural.sub
+VARS cnn_ohe_cgre9708_44 architecture="cnn_ohe" gene="cgre9708" seed="44"
+JOB cnn_ohe_cgre9708_45 condor/hurdle_neural.sub
+VARS cnn_ohe_cgre9708_45 architecture="cnn_ohe" gene="cgre9708" seed="45"
+JOB cnn_ohe_cgre9708_46 condor/hurdle_neural.sub
+VARS cnn_ohe_cgre9708_46 architecture="cnn_ohe" gene="cgre9708" seed="46"
+JOB finalize condor/hurdle_neural_finish.sub
+PARENT mlp_esm_cgreGFP_42 mlp_esm_cgreGFP_43 mlp_esm_cgreGFP_44 mlp_esm_cgreGFP_45 mlp_esm_cgreGFP_46 mlp_esm_cgre132_42 mlp_esm_cgre132_43 mlp_esm_cgre132_44 mlp_esm_cgre132_45 mlp_esm_cgre132_46 mlp_esm_cgre1338_42 mlp_esm_cgre1338_43 mlp_esm_cgre1338_44 mlp_esm_cgre1338_45 mlp_esm_cgre1338_46 mlp_esm_cgre4111_42 mlp_esm_cgre4111_43 mlp_esm_cgre4111_44 mlp_esm_cgre4111_45 mlp_esm_cgre4111_46 mlp_esm_cgre9708_42 mlp_esm_cgre9708_43 mlp_esm_cgre9708_44 mlp_esm_cgre9708_45 mlp_esm_cgre9708_46 cnn_ohe_cgreGFP_42 cnn_ohe_cgreGFP_43 cnn_ohe_cgreGFP_44 cnn_ohe_cgreGFP_45 cnn_ohe_cgreGFP_46 cnn_ohe_cgre132_42 cnn_ohe_cgre132_43 cnn_ohe_cgre132_44 cnn_ohe_cgre132_45 cnn_ohe_cgre132_46 cnn_ohe_cgre1338_42 cnn_ohe_cgre1338_43 cnn_ohe_cgre1338_44 cnn_ohe_cgre1338_45 cnn_ohe_cgre1338_46 cnn_ohe_cgre4111_42 cnn_ohe_cgre4111_43 cnn_ohe_cgre4111_44 cnn_ohe_cgre4111_45 cnn_ohe_cgre4111_46 cnn_ohe_cgre9708_42 cnn_ohe_cgre9708_43 cnn_ohe_cgre9708_44 cnn_ohe_cgre9708_45 cnn_ohe_cgre9708_46 CHILD finalize
+
