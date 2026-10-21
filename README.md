@@ -4,6 +4,8 @@ Reproducible prediction of **log10 fluorescence from protein sequence**. The
 project compares sequence encodings and regression models on frozen test sets,
 then evaluates active selection and target adaptation between GFP landscapes.
 
+**Latest predictor study:** [Gaussian distribution analysis and matched ProteinBERT, ESM-2 and OHE model comparison](results/cgre_predictor_study/REPORT.md). It includes direct and soft-hurdle MLP, XGBoost and CNN results across five seeds, with R², correlation, error and distribution-match metrics.
+
 ## Experimental story
 
 The experiments answer four questions in sequence. Throughout, the **target
@@ -120,6 +122,7 @@ conditions, with densities and dotplots in separate folders:
 
 | Experiment | What was done | Tables | Main figures |
 |---|---|---|---|
+| cgreGFP distribution and predictor study | Gaussian-mixture analysis followed by matched ProteinBERT, ESM-2 and OHE comparisons using MLP, XGBoost and CNN; direct and soft-hurdle prediction; 5 seeds | [Report](results/cgre_predictor_study/REPORT.md) · [Summary CSV](results/cgre_predictor_study/summary.csv) · [All seeded metrics](results/cgre_predictor_study/all_metrics.csv) | [Model comparison](results/cgre_predictor_study/model_comparison.png) · [Distributions and dot plots](results/cgre_predictor_study/best_model_diagnostics.png) |
 | cgreGFP benchmark | Fixed 60/20/20 holdout and 10-fold CV; 24,516 sequences; 121 ESM fits + 11 Jannis OHE fits + sequence baselines | [Report](docs/BENCHMARK_RESULTS.md) · [CSV](results/esm_cgreGFP/comparison.csv) | [CNN predictions](results/esm_cgreGFP/cv_cnn_true_vs_predicted.png) · [Mean-ESM predictions](results/esm_cgreGFP/cv_mean_true_vs_predicted.png) · [Accuracy/runtime](results/esm_cgreGFP/accuracy_vs_runtime.png) |
 | Transfer before AL | Aubin, Linear, MLP and CNN on OHE; seven ortholog mixtures and four natural/artificial directions; 5 seeds | [Report](results/transfer_cgreGFP_seed42_46/RESULTS.md) · [CSV](results/transfer_cgreGFP_seed42_46/summary.csv) | [GFP proteins](results/transfer_cgreGFP_seed42_46/ortholog_mixtures_spearman.png) · [Artificial peaks](results/transfer_cgreGFP_seed42_46/artificial_peak_transfer_spearman.png) |
 | Transfer with AL | Same models, seeds, budgets and frozen tests; 10 acquisition rounds; 160/160 trajectories | [Results](results/transfer_al_cgreGFP_seed42_46/RESULTS.md) · [CSV](results/transfer_al_cgreGFP_seed42_46/summary.csv) · [Protocol](docs/TRANSFER_ACTIVE_LEARNING.md) | [GFP proteins](results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman.png) · [Non-AL vs AL](results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman_non_al_vs_al.png) · [Artificial peaks](results/transfer_al_cgreGFP_seed42_46/artificial_peak_transfer_spearman.png) |
