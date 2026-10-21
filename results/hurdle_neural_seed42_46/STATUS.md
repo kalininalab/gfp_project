@@ -11,4 +11,4 @@ This experiment asks whether a soft measurement-floor classifier plus a conditio
 - Fixed 60% train, 20% validation and 20% test records.
 - The frozen test is not used for fitting or checkpoint selection.
 
-The workflow contains 50 GPU jobs followed by one automatic finalizer. Final results will appear in this directory after every run passes validation.
+The workflow contains 50 GPU jobs followed by one automatic finalizer. It was submitted on 21 October 2026 as DAG `66478`; worker clusters are `66479`–`66528`. At submission all workers were queued without holds. Final results will appear in this directory after every run passes validation.
