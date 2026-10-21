@@ -8,7 +8,9 @@ This study first asks whether the fluorescence values form two clean Gaussian gr
 
 The [distribution analysis](../cgre_peak_mixture_analysis/REPORT.md) fits one to four Gaussian components. AIC and BIC reward fit but penalize unnecessary components; lower values are better. Both prefer four components over two for every tested landscape. This means that two Gaussians are too simple as a statistical description. It does not prove four biological states, because the assay floor creates a spike that is not Gaussian.
 
-That result motivates the **soft hurdle** predictor: estimate the probability that a variant is above the measurement floor, predict fluorescence conditional on being above it, and combine the two predictions. Every soft-hurdle result below is compared with a direct regressor using the same encoding, split and seed.
+A **hurdle model** treats the spike at the measurement floor and the continuous fluorescence above it as two linked prediction tasks. A classifier estimates `p`, the probability that a sequence is above the floor. A regressor estimates `bright_prediction`, its fluorescence conditional on being above the floor. The soft-hurdle output is `prediction = (1 - p) × floor + p × bright_prediction`. For example, if the floor is 2, the conditional prediction is 5 and `p = 0.8`, the final prediction is 4.4. This probability weighting avoids forcing uncertain sequences into a hard dark/bright class.
+
+Every soft-hurdle result below is compared with a direct regressor using the same encoding, split and seed. The hurdle construction is expected to help most when many observations are at the floor; it may add little where the floor fraction is close to zero.
 
 ## Part 2 — Do ProteinBERT encodings improve prediction?
 
