@@ -18,6 +18,7 @@ for training or acquisition.
 - **[Classification–regression predictor pilot](results/hurdle_esm_ridge_seed42_46/REPORT.md):** matched direct versus soft/hard hurdle prediction on all five frozen tests.
 - **[Neural classification–regression experiment](results/hurdle_neural_seed42_46/REPORT.md):** five-seed MLP-on-ESM and CNN-on-OHE matched direct-versus-hurdle comparisons.
 - **[cgreGFP distribution and predictor study](results/cgre_predictor_study/REPORT.md):** two-part report covering Gaussian-mixture evidence and matched ProteinBERT/ESM-2/OHE predictor comparisons with R² and distribution metrics.
+- **[Two-GMM-gated CNN experiment](results/gmm_gated_cnn_seed42_46/STATUS.md):** train-only low/high Gaussian boundary with two regression experts, compared against direct and measurement-floor-hurdle CNNs on identical frozen tests.
 - **[Complete target-adaptation report](results/target_adaptation_complete_report/README.md):** R² and other metrics, bar plots and links to prediction diagnostics.
 - [Scenario-by-scenario diagnostic atlas](results/target_adaptation_diagnostic_atlas/README.md)
 - [All 56 true/predicted distribution panels](results/target_adaptation_diagnostic_atlas/distributions/)

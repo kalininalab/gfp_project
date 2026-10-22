@@ -1,0 +1,14 @@
+universe = vanilla
+executable = condor/run_gmm_gate_cnn.sh
+arguments = $(gene) $(seed)
+request_cpus = 2
+request_gpus = 1
+request_memory = 12GB
+request_disk = 4GB
++MaxRuntime = 43200
+getenv = True
+should_transfer_files = NO
+log = /data/users/akolchina/logs/combi/gmm_gate_cnn.$(Cluster).log
+output = /data/users/akolchina/logs/combi/gmm_gate_cnn.$(Cluster).$(Process).out
+error = /data/users/akolchina/logs/combi/gmm_gate_cnn.$(Cluster).$(Process).err
+queue 1

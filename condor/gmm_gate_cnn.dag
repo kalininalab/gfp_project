@@ -1,0 +1,78 @@
+JOB GATE_cgreGFP_42 condor/gmm_gate_cnn.sub
+VARS GATE_cgreGFP_42 gene="cgreGFP" seed="42"
+CATEGORY GATE_cgreGFP_42 gpu
+JOB GATE_cgreGFP_43 condor/gmm_gate_cnn.sub
+VARS GATE_cgreGFP_43 gene="cgreGFP" seed="43"
+CATEGORY GATE_cgreGFP_43 gpu
+JOB GATE_cgreGFP_44 condor/gmm_gate_cnn.sub
+VARS GATE_cgreGFP_44 gene="cgreGFP" seed="44"
+CATEGORY GATE_cgreGFP_44 gpu
+JOB GATE_cgreGFP_45 condor/gmm_gate_cnn.sub
+VARS GATE_cgreGFP_45 gene="cgreGFP" seed="45"
+CATEGORY GATE_cgreGFP_45 gpu
+JOB GATE_cgreGFP_46 condor/gmm_gate_cnn.sub
+VARS GATE_cgreGFP_46 gene="cgreGFP" seed="46"
+CATEGORY GATE_cgreGFP_46 gpu
+JOB GATE_cgre132_42 condor/gmm_gate_cnn.sub
+VARS GATE_cgre132_42 gene="cgre132" seed="42"
+CATEGORY GATE_cgre132_42 gpu
+JOB GATE_cgre132_43 condor/gmm_gate_cnn.sub
+VARS GATE_cgre132_43 gene="cgre132" seed="43"
+CATEGORY GATE_cgre132_43 gpu
+JOB GATE_cgre132_44 condor/gmm_gate_cnn.sub
+VARS GATE_cgre132_44 gene="cgre132" seed="44"
+CATEGORY GATE_cgre132_44 gpu
+JOB GATE_cgre132_45 condor/gmm_gate_cnn.sub
+VARS GATE_cgre132_45 gene="cgre132" seed="45"
+CATEGORY GATE_cgre132_45 gpu
+JOB GATE_cgre132_46 condor/gmm_gate_cnn.sub
+VARS GATE_cgre132_46 gene="cgre132" seed="46"
+CATEGORY GATE_cgre132_46 gpu
+JOB GATE_cgre1338_42 condor/gmm_gate_cnn.sub
+VARS GATE_cgre1338_42 gene="cgre1338" seed="42"
+CATEGORY GATE_cgre1338_42 gpu
+JOB GATE_cgre1338_43 condor/gmm_gate_cnn.sub
+VARS GATE_cgre1338_43 gene="cgre1338" seed="43"
+CATEGORY GATE_cgre1338_43 gpu
+JOB GATE_cgre1338_44 condor/gmm_gate_cnn.sub
+VARS GATE_cgre1338_44 gene="cgre1338" seed="44"
+CATEGORY GATE_cgre1338_44 gpu
+JOB GATE_cgre1338_45 condor/gmm_gate_cnn.sub
+VARS GATE_cgre1338_45 gene="cgre1338" seed="45"
+CATEGORY GATE_cgre1338_45 gpu
+JOB GATE_cgre1338_46 condor/gmm_gate_cnn.sub
+VARS GATE_cgre1338_46 gene="cgre1338" seed="46"
+CATEGORY GATE_cgre1338_46 gpu
+JOB GATE_cgre4111_42 condor/gmm_gate_cnn.sub
+VARS GATE_cgre4111_42 gene="cgre4111" seed="42"
+CATEGORY GATE_cgre4111_42 gpu
+JOB GATE_cgre4111_43 condor/gmm_gate_cnn.sub
+VARS GATE_cgre4111_43 gene="cgre4111" seed="43"
+CATEGORY GATE_cgre4111_43 gpu
+JOB GATE_cgre4111_44 condor/gmm_gate_cnn.sub
+VARS GATE_cgre4111_44 gene="cgre4111" seed="44"
+CATEGORY GATE_cgre4111_44 gpu
+JOB GATE_cgre4111_45 condor/gmm_gate_cnn.sub
+VARS GATE_cgre4111_45 gene="cgre4111" seed="45"
+CATEGORY GATE_cgre4111_45 gpu
+JOB GATE_cgre4111_46 condor/gmm_gate_cnn.sub
+VARS GATE_cgre4111_46 gene="cgre4111" seed="46"
+CATEGORY GATE_cgre4111_46 gpu
+JOB GATE_cgre9708_42 condor/gmm_gate_cnn.sub
+VARS GATE_cgre9708_42 gene="cgre9708" seed="42"
+CATEGORY GATE_cgre9708_42 gpu
+JOB GATE_cgre9708_43 condor/gmm_gate_cnn.sub
+VARS GATE_cgre9708_43 gene="cgre9708" seed="43"
+CATEGORY GATE_cgre9708_43 gpu
+JOB GATE_cgre9708_44 condor/gmm_gate_cnn.sub
+VARS GATE_cgre9708_44 gene="cgre9708" seed="44"
+CATEGORY GATE_cgre9708_44 gpu
+JOB GATE_cgre9708_45 condor/gmm_gate_cnn.sub
+VARS GATE_cgre9708_45 gene="cgre9708" seed="45"
+CATEGORY GATE_cgre9708_45 gpu
+JOB GATE_cgre9708_46 condor/gmm_gate_cnn.sub
+VARS GATE_cgre9708_46 gene="cgre9708" seed="46"
+CATEGORY GATE_cgre9708_46 gpu
+JOB FINAL condor/gmm_gate_finish.sub
+PARENT GATE_cgreGFP_42 GATE_cgreGFP_43 GATE_cgreGFP_44 GATE_cgreGFP_45 GATE_cgreGFP_46 GATE_cgre132_42 GATE_cgre132_43 GATE_cgre132_44 GATE_cgre132_45 GATE_cgre132_46 GATE_cgre1338_42 GATE_cgre1338_43 GATE_cgre1338_44 GATE_cgre1338_45 GATE_cgre1338_46 GATE_cgre4111_42 GATE_cgre4111_43 GATE_cgre4111_44 GATE_cgre4111_45 GATE_cgre4111_46 GATE_cgre9708_42 GATE_cgre9708_43 GATE_cgre9708_44 GATE_cgre9708_45 GATE_cgre9708_46 CHILD FINAL
+MAXJOBS gpu 25
