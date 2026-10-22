@@ -8,3 +8,9 @@ This five-seed experiment tests whether a low/high fluorescence division inferre
 - R², Pearson, Spearman, RMSE, Wasserstein distance and Jensen–Shannon divergence are reported.
 
 The final report will appear at [REPORT.md](REPORT.md) after all 25 trajectories finish and the finalizer validates them.
+
+## Live workflow
+
+- Submitted 22 October 2026 as DAG **66803**.
+- CNN trajectories: clusters **66804–66828**.
+- Initial queue check: all 25 jobs entered the queue with no holds.
