@@ -70,3 +70,21 @@ The direct CNN, exact-floor-hurdle CNN and GMM-gated CNN use the same frozen spl
 The broader low-fluorescence class is statistically easier to populate, but it does not make the sequence predictor better in general. It matches the direct CNN on cgreGFP and gives a small R² increase on cgre1338, but it loses accuracy on cgre132 and cgre9708 and is highly unstable on cgre4111. This shows that a visually plausible division of the marginal fluorescence distribution is not necessarily a useful decision boundary in sequence space. The direct CNN remains the recommended default; the GMM gate is retained as a documented negative result rather than selected as the production predictor.
 
 Full outputs: [experiment report](../gmm_gated_cnn_seed42_46/REPORT.md), [five-seed summary](../gmm_gated_cnn_seed42_46/summary.csv), [all seeded metrics](../gmm_gated_cnn_seed42_46/all_metrics.csv), [train-only thresholds](../gmm_gated_cnn_seed42_46/thresholds.csv), and [gate-classifier metrics](../gmm_gated_cnn_seed42_46/classifier_metrics.csv).
+
+## Part 4 — Does the same GMM gate help a linear sequence model?
+
+We repeated the comparison using sparse positional OHE features and linear models only. Logistic regression predicts `p_high`; separate Ridge regressors predict the low and high values. This makes the final soft mixture nonlinear as a whole, while every learned component remains linear. The GMM boundary and predictors use training records only, and the frozen test is identical across methods.
+
+![Direct, floor-hurdle and two-GMM-gated linear comparison](../gmm_gated_linear_seed42_46/comparison.png)
+
+| Landscape | Direct linear R² | Floor-hurdle linear R² | 2-GMM-gated linear R² | Direct CNN R² |
+|---|---:|---:|---:|---:|
+| cgreGFP | 0.596 | 0.731 | **0.776** | 0.910 |
+| cgre132 | **0.569** | 0.563 | 0.562 | 0.676 |
+| cgre1338 | 0.235 | 0.249 | **0.256** | 0.444 |
+| cgre4111 | 0.427 | 0.481 | **0.519** | 0.728 |
+| cgre9708 | **0.579** | 0.572 | 0.568 | 0.625 |
+
+The GMM gate helps the linear predictor strongly on cgreGFP and cgre4111 and slightly on cgre1338, but not on cgre132 or cgre9708. This model-dependent result explains the CNN result: the gate can supply useful nonlinear structure to a linear sequence model, while the CNN can already learn nonlinear sequence effects directly. Even where gating helps, the linear model remains less accurate than the direct CNN. We therefore retain the GMM-gated linear model as an interpretable baseline and keep the direct CNN as the recommended predictor.
+
+The five reported seeds repeat GMM initialization; the downstream linear fits are deterministic. Near-zero seed variation is expected and is not evidence from five independent linear training runs. Full outputs: [linear experiment report](../gmm_gated_linear_seed42_46/REPORT.md), [summary](../gmm_gated_linear_seed42_46/summary.csv), [all metrics](../gmm_gated_linear_seed42_46/all_metrics.csv), [thresholds](../gmm_gated_linear_seed42_46/thresholds.csv), and [classifier metrics](../gmm_gated_linear_seed42_46/classifier_metrics.csv).
