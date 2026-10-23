@@ -7,10 +7,10 @@ This five-seed experiment tests whether a low/high fluorescence division inferre
 - Direct CNN, floor-hurdle CNN and two-GMM-gated CNN are evaluated on the same frozen test records.
 - R², Pearson, Spearman, RMSE, Wasserstein distance and Jensen–Shannon divergence are reported.
 
-The final report will appear at [REPORT.md](REPORT.md) after all 25 trajectories finish and the finalizer validates them.
+All **25/25 trajectories** and the finalizer completed successfully. See the [final report](REPORT.md), [summary table](summary.csv), and [comparison figure](comparison.png).
 
 ## Live workflow
 
 - Submitted 22 October 2026 as DAG **66803**.
 - CNN trajectories: clusters **66804–66828**.
-- Initial queue check: all 25 jobs entered the queue with no holds.
+- Completed 22 October 2026: 26/26 DAG nodes succeeded, including the finalizer; no failed jobs.
