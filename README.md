@@ -43,6 +43,24 @@ acquisition. These fits establish predictive accuracy on natural cgreGFP and
 the initial transferability between proteins and between natural cgreGFP and
 artificial peaks.
 
+Every fit uses the same fixed budget: **14,709 source-training sequences** and
+**4,903 source-validation sequences**. The frozen evaluation sets contain
+**4,904 natural cgreGFP sequences** and, where applicable, **5,382 sequences
+from the four artificial peaks combined**. No target-test sequence enters
+training or validation. Source composition is:
+
+| Source training condition | Training composition | Validation composition |
+|---|---:|---:|
+| cgreGFP, amacGFP or ppluGFP alone | 14,709 from that protein | 4,903 from that protein |
+| Any two natural proteins | 7,355 + 7,354 | 2,452 + 2,451 |
+| cgreGFP + amacGFP + ppluGFP | 4,903 each | 1,635 cgreGFP + 1,634 amacGFP + 1,634 ppluGFP |
+| Four artificial peaks | 2,333 cgre132 + 5,599 cgre1338 + 4,491 cgre4111 + 2,286 cgre9708 | 777 + 1,867 + 1,497 + 762, respectively |
+
+The exact per-run sizes are retained in the
+[summary CSV](results/transfer_cgreGFP_seed42_46/summary.csv), and the full
+results and sampling explanation are in the
+[transfer report](results/transfer_cgreGFP_seed42_46/RESULTS.md).
+
 ![Transfer without AL between GFP proteins](results/transfer_cgreGFP_seed42_46/ortholog_mixtures_spearman.png)
 
 ![Transfer without AL between natural cgreGFP and artificial peaks](results/transfer_cgreGFP_seed42_46/artificial_peak_transfer_spearman.png)

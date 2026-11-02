@@ -5,6 +5,23 @@ Each fit uses 14,709 training and 4,903 source-validation records.
 Natural target: 4,904 test sequences; artificial target: 5,382. Each is 20% of its target landscape.
 Natural mixtures have equal source contributions; artificial training is proportional across the four peak datasets.
 
+## Exact sample budgets
+
+All model architectures and all five seeds use the same total sample budget. The seed changes which eligible source records are sampled and changes model initialization; it does not change the counts. Test membership is frozen across seeds and models.
+
+| Source training condition | Training composition | Validation composition | Evaluated frozen test |
+|---|---:|---:|---:|
+| cgreGFP | 14,709 cgreGFP | 4,903 cgreGFP | 4,904 cgreGFP; also 5,382 artificial when testing transfer |
+| amacGFP | 14,709 amacGFP | 4,903 amacGFP | 4,904 cgreGFP |
+| ppluGFP | 14,709 ppluGFP | 4,903 ppluGFP | 4,904 cgreGFP |
+| cgreGFP + amacGFP | 7,355 + 7,354 | 2,452 + 2,451 | 4,904 cgreGFP |
+| cgreGFP + ppluGFP | 7,355 + 7,354 | 2,452 + 2,451 | 4,904 cgreGFP |
+| amacGFP + ppluGFP | 7,355 + 7,354 | 2,452 + 2,451 | 4,904 cgreGFP |
+| cgreGFP + amacGFP + ppluGFP | 4,903 each | 1,635 + 1,634 + 1,634 | 4,904 cgreGFP |
+| cgre132 + cgre1338 + cgre4111 + cgre9708 | 2,333 + 5,599 + 4,491 + 2,286 | 777 + 1,867 + 1,497 + 762 | 5,382 artificial combined; also 4,904 cgreGFP when testing transfer |
+
+For natural mixtures, the source contributions are equal apart from one-record rounding. Artificial-peak contributions are proportional to the number of eligible records in each peak. Validation records select checkpoints using source-domain validation MSE. Neither validation nor training contains records from the frozen target test.
+
 | Experiment | Training / direction | Model | Test n | Spearman | Pearson | R² | RMSE | Mean fit (min) |
 |---|---|---|---:|---:|---:|---:|---:|---:|
 | ortholog_mixtures | cgre | Aubin | 4904 | 0.887 ± 0.001 | 0.943 ± 0.008 | 0.888 ± 0.015 | 0.258 ± 0.017 | 2.44 |
