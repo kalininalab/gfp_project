@@ -6,3 +6,11 @@ This is supervised random pool-size addition, not active learning. The final fol
 
 Final figures: [`figures/`](figures/)
 Final report after completion: [`REPORT.md`](REPORT.md)
+
+## Live workflow
+
+- Submitted 6 November 2026 as DAG **69490**.
+- Unique fits: **2,410 MLP + 2,410 CNN**. Identical cumulative target sizes shared by different plate schedules are fitted once and reused.
+- Seeds: 42–46; targets: ppluGFP and amacGFP; frozen tests also include the original cgreGFP base protein.
+- Concurrency caps: 50 CPU and 50 GPU jobs. Initial release reached both caps with no held experiment jobs.
+- Raw checkpoints, predictions, manifests and Condor logs are stored under `/data/users/akolchina/gfp_project/cross_protein_pool_size_seed42_46_runs`.
