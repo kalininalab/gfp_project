@@ -1,0 +1,12 @@
+universe = vanilla
+initialdir = /nethome/akolchina/gfp_project
+executable = /nethome/akolchina/gfp_project/condor/run_pool_mixing_finalize.sh
+should_transfer_files = NO
+request_cpus = 1
+request_memory = 4GB
+request_disk = 2GB
+requirements = (TARGET.UidDomain == "lsv.uni-saarland.de")
+output = /data/users/akolchina/gfp_project/cross_protein_pool_size_seed42_46_runs/condor/finalize.$(ClusterId).out
+error = /data/users/akolchina/gfp_project/cross_protein_pool_size_seed42_46_runs/condor/finalize.$(ClusterId).err
+log = /data/users/akolchina/gfp_project/cross_protein_pool_size_seed42_46_runs/condor/finalize.$(ClusterId).log
+queue
