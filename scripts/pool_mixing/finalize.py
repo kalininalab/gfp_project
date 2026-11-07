@@ -34,6 +34,69 @@ def kl_divergence(y_true, y_pred, edges):
     return float(np.sum(p * np.log2(p / q)))
 
 
+def distribution_values(target, n_target, model):
+    """Return frozen-test truth and predictions pooled across the five seeds."""
+    by_gene = {"cgreGFP": {"truth": None, "predicted": []},
+               target: {"truth": None, "predicted": []}}
+    for seed in SEEDS:
+        path = RAW / "runs" / target / f"n{n_target:04d}" / f"seed{seed}" / model / "predictions.csv"
+        groups = {gene: ([], []) for gene in by_gene}
+        for row in read(path):
+            truth, predicted = groups[row["evaluation_gene"]]
+            truth.append(float(row["y_true"]))
+            predicted.append(float(row["y_pred"]))
+        for gene, (truth, predicted) in groups.items():
+            truth = np.asarray(truth)
+            if by_gene[gene]["truth"] is None:
+                by_gene[gene]["truth"] = truth
+            else:
+                np.testing.assert_allclose(by_gene[gene]["truth"], truth)
+            by_gene[gene]["predicted"].append(np.asarray(predicted))
+    for values in by_gene.values():
+        values["predicted"] = np.concatenate(values["predicted"])
+    return by_gene
+
+
+def plot_distributions(target, model):
+    """Plot true and predicted frozen-test distributions before/after target addition."""
+    budgets = (0, 1920)
+    data = {budget: distribution_values(target, budget, model) for budget in budgets}
+    all_values = [values[k] for budget in budgets for values in data[budget].values()
+                  for k in ("truth", "predicted")]
+    lower = min(float(values.min()) for values in all_values)
+    upper = max(float(values.max()) for values in all_values)
+    bins = np.linspace(lower, upper, 51)
+    fig, axes = plt.subplots(2, 2, figsize=(12.5, 8.3), sharex=True, sharey=True,
+                             constrained_layout=True)
+    for row_index, gene in enumerate(("cgreGFP", target)):
+        for column_index, budget in enumerate(budgets):
+            axis = axes[row_index, column_index]
+            values = data[budget][gene]
+            axis.hist(values["truth"], bins=bins, density=True, histtype="step",
+                      linewidth=2.5, color="#0072B2", label="True")
+            axis.hist(values["predicted"], bins=bins, density=True, histtype="step",
+                      linewidth=2.5, color="#D55E00", label="Predicted")
+            axis.set_title("No target sequences" if budget == 0 else "1,920 target sequences added")
+            axis.text(.03, .94, f"Frozen {gene} test", transform=axis.transAxes,
+                      ha="left", va="top", fontsize=12, fontweight="bold")
+            axis.grid(axis="y", alpha=.22, linestyle=":")
+            axis.spines[["top", "right"]].set_visible(False)
+    for axis in axes[:, 0]:
+        axis.set_ylabel("Density")
+    for axis in axes[-1, :]:
+        axis.set_xlabel("log10 fluorescence")
+    handles, legend_labels = axes[0, 0].get_legend_handles_labels()
+    fig.legend(handles, legend_labels, frameon=False, ncol=2, loc="lower center",
+               bbox_to_anchor=(.5, -.02))
+    fig.suptitle(f"True and predicted distributions: cgreGFP + {target} ({LABELS[model]})", fontsize=17)
+    short = target.replace("GFP", "").lower()
+    model_short = LABELS[model].lower().replace(" ", "_")
+    for suffix in ("png", "pdf", "svg"):
+        fig.savefig(OUTPUT / "figures" / f"cgre_plus_{short}_{model_short}_true_vs_pred_distributions.{suffix}",
+                    dpi=300, bbox_inches="tight", facecolor="white")
+    plt.close(fig)
+
+
 def parse_args():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--models", nargs="+", choices=MODELS, default=MODELS)
@@ -99,7 +162,7 @@ def main():
     write_csv(OUTPUT / "all_metrics.csv", records); write_csv(OUTPUT / "summary.csv", summary)
 
     metric_info = {
-        "r2": ("R² (symmetric-log scale)", "r2"),
+        "r2": ("R²", "r2"),
         "spearman": ("Spearman correlation", "spearman"),
         "kl_divergence": ("KL divergence, true || predicted (bits) ↓", "kl_true_to_pred_bits"),
     }
@@ -123,8 +186,6 @@ def main():
                 axis.set_title(f"Plate size: {plate_size} sequences/round")
                 axis.grid(alpha=.22)
                 if metric == "r2":
-                    axis.set_yscale("symlog", linthresh=.25, linscale=1)
-                    axis.set_yticks([-50, -10, -1, -.25, 0, .25, .5, 1])
                     axis.axhline(0, color="#555555", lw=.8)
                 handles, labels = axis.get_legend_handles_labels()
             for axis in axes.flat[len(PLATE_SIZES):]:
@@ -135,6 +196,8 @@ def main():
             for suffix in ("png", "pdf", "svg"):
                 fig.savefig(OUTPUT / "figures" / f"cgre_plus_{short}_{filename_metric}.{suffix}", dpi=300, bbox_inches="tight")
             plt.close(fig)
+        for model in selected_models:
+            plot_distributions(target, model)
 
     lines = ["# Cross-protein labelled-pool size experiment", "", "## Question", "",
              "When a model is trained on the complete cgreGFP source pool, how does gradually adding an equally sized labelled pool from ppluGFP or amacGFP change prediction on the new protein and on the original cgreGFP protein? This is a supervised pool-size experiment, not active learning: target records are added by a frozen random order, without an acquisition score.", "", "## Design", "",
@@ -146,7 +209,7 @@ def main():
              "- Target validation grows proportionally in the original 60/20 train/validation ratio and is used only for early stopping.",
              f"- Models included in this completed result: {', '.join(LABELS[model] for model in selected_models)}; seeds 42–46.",
              "- Both protein-specific test sets remain frozen and never enter training, validation, early stopping or sampling.",
-             "- R² uses a symmetric-log display so the strongly negative source-only target score and the later 0–1 range remain visible on the same panel; the underlying values are unchanged.",
+             "- R² is displayed on an ordinary linear scale. The strongly negative source-only target score therefore compresses the later 0–1 range in the R² panels.",
              "- KL is D_KL(true || predicted) in bits, using 50 fixed bins over each protein's frozen-test range and a 0.5 pseudocount per bin; lower is better.", "", "## Figures", ""]
     for target in TARGETS:
         short = target.replace("GFP", "").lower()
@@ -155,6 +218,8 @@ def main():
                   f"![R²](figures/cgre_plus_{short}_r2.png)", "",
                   f"![Spearman](figures/cgre_plus_{short}_spearman.png)", "",
                   f"![KL divergence](figures/cgre_plus_{short}_kl_divergence.png)", ""]
+        lines += ["True-versus-predicted frozen-test distributions before target addition and after 1,920 cumulative target training sequences; predictions are pooled across the five seeds.", "",
+                  f"![True and predicted distributions](figures/cgre_plus_{short}_mlp_true_vs_pred_distributions.png)", ""]
     lines += ["Machine-readable results: [summary](summary.csv) and [all seeded metrics](all_metrics.csv).", ""]
     (OUTPUT / "REPORT.md").write_text("\n".join(lines))
 

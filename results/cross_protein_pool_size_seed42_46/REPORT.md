@@ -14,7 +14,7 @@ When a model is trained on the complete cgreGFP source pool, how does gradually 
 - Target validation grows proportionally in the original 60/20 train/validation ratio and is used only for early stopping.
 - Models included in this completed result: MLP; seeds 42–46.
 - Both protein-specific test sets remain frozen and never enter training, validation, early stopping or sampling.
-- R² uses a symmetric-log display so the strongly negative source-only target score and the later 0–1 range remain visible on the same panel; the underlying values are unchanged.
+- R² is displayed on an ordinary linear scale. The strongly negative source-only target score therefore compresses the later 0–1 range in the R² panels.
 - KL is D_KL(true || predicted) in bits, using 50 fixed bins over each protein's frozen-test range and a 0.5 pseudocount per bin; lower is better.
 
 ## Figures
@@ -29,6 +29,10 @@ Each figure contains five panels, one for each plate size; the x-axis is round a
 
 ![KL divergence](figures/cgre_plus_pplu_kl_divergence.png)
 
+True-versus-predicted frozen-test distributions before target addition and after 1,920 cumulative target training sequences; predictions are pooled across the five seeds.
+
+![True and predicted distributions](figures/cgre_plus_pplu_mlp_true_vs_pred_distributions.png)
+
 ### cgreGFP + amacGFP
 
 Each figure contains five panels, one for each plate size; the x-axis is round and ends when the cumulative target set reaches approximately 1,920 sequences.
@@ -38,5 +42,9 @@ Each figure contains five panels, one for each plate size; the x-axis is round a
 ![Spearman](figures/cgre_plus_amac_spearman.png)
 
 ![KL divergence](figures/cgre_plus_amac_kl_divergence.png)
+
+True-versus-predicted frozen-test distributions before target addition and after 1,920 cumulative target training sequences; predictions are pooled across the five seeds.
+
+![True and predicted distributions](figures/cgre_plus_amac_mlp_true_vs_pred_distributions.png)
 
 Machine-readable results: [summary](summary.csv) and [all seeded metrics](all_metrics.csv).
