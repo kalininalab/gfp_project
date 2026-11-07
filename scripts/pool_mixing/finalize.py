@@ -1,5 +1,6 @@
-"""Validate all pool-size runs and create six publication-ready plots."""
+"""Validate pool-size runs and create six publication-ready plots."""
 
+import argparse
 import csv
 import json
 from pathlib import Path
@@ -33,37 +34,57 @@ def kl_divergence(y_true, y_pred, edges):
     return float(np.sum(p * np.log2(p / q)))
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--models", nargs="+", choices=MODELS, default=MODELS)
+    parser.add_argument("--reuse-metrics", action="store_true",
+                        help="Replot from an existing all_metrics.csv")
+    return parser.parse_args()
+
+
 def main():
+    args = parse_args()
+    selected_models = args.models
     OUTPUT.mkdir(parents=True, exist_ok=True); (OUTPUT / "figures").mkdir(exist_ok=True)
     protocol = json.loads((RAW / "protocol.json").read_text())
-    stored = {}
-    for target in TARGETS:
-        for n_target in REQUIRED_SIZES:
-            for seed in SEEDS:
-                for model in MODELS:
-                    directory = RAW / "runs" / target / f"n{n_target:04d}" / f"seed{seed}" / model
-                    if not (directory / "complete.json").exists(): raise FileNotFoundError(directory)
-                    for row in read(directory / "predictions.csv"):
-                        key = (target, n_target, seed, model, row["evaluation_gene"])
-                        stored.setdefault(key, []).append(row)
-    edges = {}
-    for gene in ["cgreGFP"] + TARGETS:
-        row_group = next(rows for key, rows in stored.items() if key[-1] == gene)
-        y = np.asarray([float(row["y_true"]) for row in row_group])
-        edges[gene] = np.linspace(float(y.min()), float(y.max()), 51)
-    records = []
-    for key, rows in stored.items():
-        target, n_target, seed, model, gene = key
-        y = np.asarray([float(row["y_true"]) for row in rows]); prediction = np.asarray([float(row["y_pred"]) for row in rows])
-        records.append({"target_pool": target, "n_target_train": n_target, "seed": seed, "model": model,
-                        "evaluation_gene": gene, **metrics(y, prediction),
-                        "kl_true_to_pred_bits": kl_divergence(y, prediction, edges[gene])})
+    # Process one prediction file at a time.  Keeping every seeded prediction
+    # row in memory would require tens of millions of Python dictionaries.
+    if args.reuse_metrics:
+        records = read(OUTPUT / "all_metrics.csv")
+        records = [row for row in records if row["model"] in selected_models]
+        for row in records:
+            row["n_target_train"] = int(row["n_target_train"])
+            row["seed"] = int(row["seed"])
+            for name in ("r2", "pearson", "spearman", "kendall_tau", "kl_true_to_pred_bits"):
+                row[name] = float(row[name])
+    else:
+        records = []
+        edges = {}
+        for target in TARGETS:
+            for n_target in REQUIRED_SIZES:
+                for seed in SEEDS:
+                    for model in selected_models:
+                        directory = RAW / "runs" / target / f"n{n_target:04d}" / f"seed{seed}" / model
+                        if not (directory / "complete.json").exists(): raise FileNotFoundError(directory)
+                        groups = {}
+                        for row in read(directory / "predictions.csv"):
+                            group = groups.setdefault(row["evaluation_gene"], ([], []))
+                            group[0].append(float(row["y_true"]))
+                            group[1].append(float(row["y_pred"]))
+                        for gene, (truth, predicted) in groups.items():
+                            y = np.asarray(truth); prediction = np.asarray(predicted)
+                            if gene not in edges:
+                                edges[gene] = np.linspace(float(y.min()), float(y.max()), 51)
+                            records.append({"target_pool": target, "n_target_train": n_target,
+                                            "seed": seed, "model": model, "evaluation_gene": gene,
+                                            **metrics(y, prediction),
+                                            "kl_true_to_pred_bits": kl_divergence(y, prediction, edges[gene])})
     summary = []
     for target in TARGETS:
         for plate_size in PLATE_SIZES:
             for round_number in range(0, PLATE_ROUNDS[plate_size] + 1):
                 n_target = plate_size * round_number
-                for model in MODELS:
+                for model in selected_models:
                     for gene in ("cgreGFP", target):
                         subset = [row for row in records if row["target_pool"] == target and
                                   row["n_target_train"] == n_target and
@@ -78,7 +99,7 @@ def main():
     write_csv(OUTPUT / "all_metrics.csv", records); write_csv(OUTPUT / "summary.csv", summary)
 
     metric_info = {
-        "r2": ("R²", "r2"),
+        "r2": ("R² (symmetric-log scale)", "r2"),
         "spearman": ("Spearman correlation", "spearman"),
         "kl_divergence": ("KL divergence, true || predicted (bits) ↓", "kl_true_to_pred_bits"),
     }
@@ -89,7 +110,7 @@ def main():
             handles, labels = None, None
             for axis, plate_size in zip(axes.flat, PLATE_SIZES):
                 rounds = list(range(0, PLATE_ROUNDS[plate_size] + 1))
-                for model in MODELS:
+                for model in selected_models:
                     for gene in ("cgreGFP", target):
                         selected = [next(row for row in summary if row["target_pool"] == target and
                                          row["plate_size"] == plate_size and row["round"] == round_number and
@@ -101,7 +122,10 @@ def main():
                         axis.fill_between(rounds, mean - sd, mean + sd, color=COLORS[gene], alpha=.12)
                 axis.set_title(f"Plate size: {plate_size} sequences/round")
                 axis.grid(alpha=.22)
-                if metric == "r2": axis.axhline(0, color="#555555", lw=.8)
+                if metric == "r2":
+                    axis.set_yscale("symlog", linthresh=.25, linscale=1)
+                    axis.set_yticks([-50, -10, -1, -.25, 0, .25, .5, 1])
+                    axis.axhline(0, color="#555555", lw=.8)
                 handles, labels = axis.get_legend_handles_labels()
             for axis in axes.flat[len(PLATE_SIZES):]:
                 axis.set_visible(False)
@@ -120,8 +144,9 @@ def main():
              "- Schedules end near the same cumulative budget: 213 rounds × 9 = 1,917; 40 × 48 = 1,920; 20 × 96 = 1,920; 10 × 192 = 1,920; 5 × 384 = 1,920.",
              "- The cumulative target training size is `plate size × round`; all prefixes are nested within each seed.",
              "- Target validation grows proportionally in the original 60/20 train/validation ratio and is used only for early stopping.",
-             "- Models: MLP on aligned positional OHE and CNN on aligned OHE; seeds 42–46.",
+             f"- Models included in this completed result: {', '.join(LABELS[model] for model in selected_models)}; seeds 42–46.",
              "- Both protein-specific test sets remain frozen and never enter training, validation, early stopping or sampling.",
+             "- R² uses a symmetric-log display so the strongly negative source-only target score and the later 0–1 range remain visible on the same panel; the underlying values are unchanged.",
              "- KL is D_KL(true || predicted) in bits, using 50 fixed bins over each protein's frozen-test range and a 0.5 pseudocount per bin; lower is better.", "", "## Figures", ""]
     for target in TARGETS:
         short = target.replace("GFP", "").lower()

@@ -65,7 +65,7 @@ results and sampling explanation are in the
 
 ![Transfer without AL between natural cgreGFP and artificial peaks](results/transfer_cgreGFP_seed42_46/artificial_peak_transfer_spearman.png)
 
-**Follow-up: [cross-protein plate-size experiment](results/cross_protein_pool_size_seed42_46/STATUS.md).** This keeps the complete cgreGFP pool fixed and cumulatively adds plates containing 9, 48, 96, 192 or 384 ppluGFP/amacGFP sequences until approximately 1,920 target sequences have been added. It tracks R², Spearman and KL divergence on frozen tests of both proteins for MLP and CNN-on-OHE models. The six final figures each contain five plate-size panels and are collected in [`results/cross_protein_pool_size_seed42_46/figures/`](results/cross_protein_pool_size_seed42_46/figures/).
+**Follow-up: [cross-protein plate-size experiment](results/cross_protein_pool_size_seed42_46/REPORT.md).** This keeps the complete cgreGFP pool fixed and cumulatively adds plates containing 9, 48, 96, 192 or 384 ppluGFP/amacGFP sequences until approximately 1,920 target sequences have been added. It tracks R², Spearman and KL divergence on frozen tests of both proteins for MLP across five seeds. The six final figures each contain five plate-size panels and are collected in [`results/cross_protein_pool_size_seed42_46/figures/`](results/cross_protein_pool_size_seed42_46/figures/). [Workflow status and the cancelled CNN arm](results/cross_protein_pool_size_seed42_46/STATUS.md).
 
 ### 2. Ask whether active selection improves source-only transfer
 
