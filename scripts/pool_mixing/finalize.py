@@ -186,6 +186,7 @@ def main():
                 axis.set_title(f"Plate size: {plate_size} sequences/round")
                 axis.grid(alpha=.22)
                 if metric == "r2":
+                    axis.set_ylim(-1, 1)
                     axis.axhline(0, color="#555555", lw=.8)
                 handles, labels = axis.get_legend_handles_labels()
             for axis in axes.flat[len(PLATE_SIZES):]:
@@ -209,7 +210,7 @@ def main():
              "- Target validation grows proportionally in the original 60/20 train/validation ratio and is used only for early stopping.",
              f"- Models included in this completed result: {', '.join(LABELS[model] for model in selected_models)}; seeds 42–46.",
              "- Both protein-specific test sets remain frozen and never enter training, validation, early stopping or sampling.",
-             "- R² is displayed on an ordinary linear scale. The strongly negative source-only target score therefore compresses the later 0–1 range in the R² panels.",
+             "- R² is displayed on an ordinary linear scale limited to [−1, 1] for readability. More negative source-only target scores are clipped only in the figure; their complete values remain in the CSV tables.",
              "- KL is D_KL(true || predicted) in bits, using 50 fixed bins over each protein's frozen-test range and a 0.5 pseudocount per bin; lower is better.", "", "## Figures", ""]
     for target in TARGETS:
         short = target.replace("GFP", "").lower()

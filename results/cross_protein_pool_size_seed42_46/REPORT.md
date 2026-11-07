@@ -14,7 +14,7 @@ When a model is trained on the complete cgreGFP source pool, how does gradually 
 - Target validation grows proportionally in the original 60/20 train/validation ratio and is used only for early stopping.
 - Models included in this completed result: MLP; seeds 42–46.
 - Both protein-specific test sets remain frozen and never enter training, validation, early stopping or sampling.
-- R² is displayed on an ordinary linear scale. The strongly negative source-only target score therefore compresses the later 0–1 range in the R² panels.
+- R² is displayed on an ordinary linear scale limited to [−1, 1] for readability. More negative source-only target scores are clipped only in the figure; their complete values remain in the CSV tables.
 - KL is D_KL(true || predicted) in bits, using 50 fixed bins over each protein's frozen-test range and a 0.5 pseudocount per bin; lower is better.
 
 ## Figures
