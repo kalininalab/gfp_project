@@ -82,13 +82,22 @@ def main():
         raise ValueError("Target pool changed")
     all_rows = read_csv(DATA); by_id = {row["record_id"]: row for row in all_rows}
     target_pool = read_csv(pool_path)
+    base_pool_path = args.raw / "base_pools" / f"cgreGFP_seed{args.seed}.csv"
+    if "base_pool_hashes" in protocol:
+        relative = str(base_pool_path.relative_to(args.raw))
+        if digest(base_pool_path) != protocol["base_pool_hashes"][relative]:
+            raise ValueError("Base pool changed")
+        base_train_ids = {row["record_id"] for row in read_csv(base_pool_path)}
+    else:
+        base_train_ids = {row["record_id"] for row in all_rows
+                          if row["gene"] == "cgreGFP" and row["split"] == "train"}
     n_target_train = args.n_target
     n_target_validation = round(protocol["target_validation_pool_n"] / protocol["target_train_pool_n"] * n_target_train)
     chosen_ids = {split: [row["record_id"] for row in target_pool if row["split"] == split and
                           int(row["pool_rank"]) < (n_target_train if split == "train" else n_target_validation)]
                   for split in ("train", "validation")}
     partitions = {
-        "train": [row for row in all_rows if row["gene"] == "cgreGFP" and row["split"] == "train"] +
+        "train": [row for row in all_rows if row["record_id"] in base_train_ids] +
                  [by_id[record_id] for record_id in chosen_ids["train"]],
         "validation": [row for row in all_rows if row["gene"] == "cgreGFP" and row["split"] == "validation"] +
                       [by_id[record_id] for record_id in chosen_ids["validation"]],

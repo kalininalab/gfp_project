@@ -67,6 +67,8 @@ results and sampling explanation are in the
 
 **Follow-up: [cross-protein plate-size experiment](results/cross_protein_pool_size_seed42_46/REPORT.md).** This keeps the complete cgreGFP pool fixed and cumulatively adds plates containing 9, 48, 96, 192 or 384 ppluGFP/amacGFP sequences until approximately 1,920 target sequences have been added. It tracks R², Spearman and KL divergence on frozen tests of both proteins for MLP across five seeds. The six final figures each contain five plate-size panels and are collected in [`results/cross_protein_pool_size_seed42_46/figures/`](results/cross_protein_pool_size_seed42_46/figures/). [Workflow status and the cancelled CNN arm](results/cross_protein_pool_size_seed42_46/STATUS.md).
 
+**Half-size cgreGFP training follow-up: [live status and exact protocol](results/cross_protein_pool_size_cgre7350_seed42_46/STATUS.md).** This repeats the same five-seed MLP plate-size experiment with 7,350 cgreGFP training records. Target-pool order, target-validation schedule and frozen tests are identical to the full-training experiment, so the effect of reducing only the source training pool can be compared directly.
+
 ### 2. Ask whether active selection improves source-only transfer
 
 Here AL selects additional records from the **source training pool**. It does

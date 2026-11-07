@@ -14,6 +14,7 @@ from scripts.transfer_benchmark.common import write_csv
 
 
 OUTPUT = Path("results/cross_protein_pool_size_seed42_46")
+ACTIVE_RAW = RAW
 LABELS = {"CNN_Jannis_OHE": "CNN on OHE", "mlp_small": "MLP"}
 COLORS = {"cgreGFP": "#0072B2", "ppluGFP": "#D55E00", "amacGFP": "#D55E00"}
 LINESTYLES = {"CNN_Jannis_OHE": "-", "mlp_small": "--"}
@@ -39,7 +40,7 @@ def distribution_values(target, n_target, model):
     by_gene = {"cgreGFP": {"truth": None, "predicted": []},
                target: {"truth": None, "predicted": []}}
     for seed in SEEDS:
-        path = RAW / "runs" / target / f"n{n_target:04d}" / f"seed{seed}" / model / "predictions.csv"
+        path = ACTIVE_RAW / "runs" / target / f"n{n_target:04d}" / f"seed{seed}" / model / "predictions.csv"
         groups = {gene: ([], []) for gene in by_gene}
         for row in read(path):
             truth, predicted = groups[row["evaluation_gene"]]
@@ -102,11 +103,16 @@ def parse_args():
     parser.add_argument("--models", nargs="+", choices=MODELS, default=MODELS)
     parser.add_argument("--reuse-metrics", action="store_true",
                         help="Replot from an existing all_metrics.csv")
+    parser.add_argument("--raw", type=Path, default=RAW)
+    parser.add_argument("--output", type=Path, default=OUTPUT)
     return parser.parse_args()
 
 
 def main():
+    global OUTPUT, ACTIVE_RAW
     args = parse_args()
+    OUTPUT = args.output
+    ACTIVE_RAW = args.raw
     selected_models = args.models
     OUTPUT.mkdir(parents=True, exist_ok=True); (OUTPUT / "figures").mkdir(exist_ok=True)
     protocol = json.loads((RAW / "protocol.json").read_text())
@@ -127,7 +133,7 @@ def main():
             for n_target in REQUIRED_SIZES:
                 for seed in SEEDS:
                     for model in selected_models:
-                        directory = RAW / "runs" / target / f"n{n_target:04d}" / f"seed{seed}" / model
+                        directory = ACTIVE_RAW / "runs" / target / f"n{n_target:04d}" / f"seed{seed}" / model
                         if not (directory / "complete.json").exists(): raise FileNotFoundError(directory)
                         groups = {}
                         for row in read(directory / "predictions.csv"):
