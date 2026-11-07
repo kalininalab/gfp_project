@@ -15,3 +15,9 @@ Final report: [`REPORT.md`](REPORT.md)
 - Seeds: 42–46; targets: ppluGFP and amacGFP; frozen tests also include the original cgreGFP base protein.
 - The completed result is MLP-only. No CNN jobs from this workflow remain in the queue.
 - Raw checkpoints, predictions, manifests and Condor logs are stored under `/data/users/akolchina/gfp_project/cross_protein_pool_size_seed42_46_runs`.
+
+## Aubin addition
+
+- Aubin 1-10-1 was registered as an additional base model on 7 November 2026 without changing the frozen source pool, target order, validation schedule or tests.
+- CPU-only DAG **74545** contains 2,410 Aubin fits and has a 25-job concurrency limit.
+- A smoke fit completed successfully before submission.

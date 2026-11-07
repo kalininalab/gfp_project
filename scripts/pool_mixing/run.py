@@ -115,9 +115,9 @@ def main():
     x = encode_aligned(rows, alignment)
     random.seed(args.seed); np.random.seed(args.seed); torch.manual_seed(args.seed); torch.cuda.manual_seed_all(args.seed)
     torch.set_num_threads(1); torch.use_deterministic_algorithms(True)
-    if args.model == "mlp_small":
-        if args.device != "cpu": raise ValueError("MLP must run on CPU")
-        model = AlignedModel(alignment["length"], "mlp_small")
+    if args.model in ("aubin_1_10_1", "mlp_small"):
+        if args.device != "cpu": raise ValueError("Aubin and MLP models must run on CPU")
+        model = AlignedModel(alignment["length"], args.model)
         settings = protocol["mlp_settings"]
         history, best_epoch = train(model, x[ids["train"]], torch.tensor(y[ids["train"]]),
                                     x[ids["validation"]], torch.tensor(y[ids["validation"]]),

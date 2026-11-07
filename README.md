@@ -69,6 +69,8 @@ results and sampling explanation are in the
 
 **Half-size cgreGFP training follow-up: [live status and exact protocol](results/cross_protein_pool_size_cgre7350_seed42_46/STATUS.md).** This repeats the same five-seed MLP plate-size experiment with 7,350 cgreGFP training records. Target-pool order, target-validation schedule and frozen tests are identical to the full-training experiment, so the effect of reducing only the source training pool can be compared directly.
 
+Aubin 1-10-1 is being added to both the 14,709- and 7,350-record scenarios with the same frozen pools and evaluation sets; progress is recorded in the two status pages above.
+
 ### 2. Ask whether active selection improves source-only transfer
 
 Here AL selects additional records from the **source training pool**. It does

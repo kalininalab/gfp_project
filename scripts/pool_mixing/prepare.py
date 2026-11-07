@@ -20,7 +20,7 @@ PLATE_ROUNDS = {9: 213, 48: 40, 96: 20, 192: 10, 384: 5}
 REQUIRED_SIZES = sorted({0} | {plate_size * round_number for plate_size, last_round in PLATE_ROUNDS.items()
                               for round_number in range(1, last_round + 1)})
 SEEDS = list(range(42, 47))
-MODELS = ["mlp_small", "CNN_Jannis_OHE"]
+MODELS = ["aubin_1_10_1", "mlp_small", "CNN_Jannis_OHE"]
 
 
 def parse_args():
@@ -108,14 +108,15 @@ def main():
     for target in TARGETS:
         for n_target in REQUIRED_SIZES:
             for seed in SEEDS:
-                jobs = (("mlp_small", "condor/pool_mixing_cpu_custom.sub", "CPU"),
+                jobs = (("aubin_1_10_1", "condor/pool_mixing_cpu_model.sub", "CPU"),
+                        ("mlp_small", "condor/pool_mixing_cpu_model.sub", "CPU"),
                         ("CNN_Jannis_OHE", "condor/pool_mixing_gpu_custom.sub", "GPU"))
                 for model, submit, category in jobs:
                     if model not in args.models:
                         continue
                     node = f"{category}_{target}_{n_target}_{seed}"
                     dag_lines += [f"JOB {node} {submit}",
-                                  f'VARS {node} target="{target}" n_target="{n_target}" seed="{seed}" raw="{raw}"',
+                                  f'VARS {node} target="{target}" n_target="{n_target}" seed="{seed}" model="{model}" raw="{raw}"',
                                   f"CATEGORY {node} {category}", f"RETRY {node} 1"]
                     (cpu_nodes if category == "CPU" else gpu_nodes).append(node)
     dag_lines += ["MAXJOBS CPU 50", "MAXJOBS GPU 50"]

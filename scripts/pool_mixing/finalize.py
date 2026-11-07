@@ -15,10 +15,10 @@ from scripts.transfer_benchmark.common import write_csv
 
 OUTPUT = Path("results/cross_protein_pool_size_seed42_46")
 ACTIVE_RAW = RAW
-LABELS = {"CNN_Jannis_OHE": "CNN on OHE", "mlp_small": "MLP"}
+LABELS = {"aubin_1_10_1": "Aubin", "CNN_Jannis_OHE": "CNN on OHE", "mlp_small": "MLP"}
 COLORS = {"cgreGFP": "#0072B2", "ppluGFP": "#D55E00", "amacGFP": "#D55E00"}
-LINESTYLES = {"CNN_Jannis_OHE": "-", "mlp_small": "--"}
-MARKERS = {"CNN_Jannis_OHE": "o", "mlp_small": "s"}
+LINESTYLES = {"aubin_1_10_1": ":", "CNN_Jannis_OHE": "-", "mlp_small": "--"}
+MARKERS = {"aubin_1_10_1": "^", "CNN_Jannis_OHE": "o", "mlp_small": "s"}
 
 
 def read(path):
@@ -225,8 +225,11 @@ def main():
                   f"![R²](figures/cgre_plus_{short}_r2.png)", "",
                   f"![Spearman](figures/cgre_plus_{short}_spearman.png)", "",
                   f"![KL divergence](figures/cgre_plus_{short}_kl_divergence.png)", ""]
-        lines += ["True-versus-predicted frozen-test distributions before target addition and after 1,920 cumulative target training sequences; predictions are pooled across the five seeds.", "",
-                  f"![True and predicted distributions](figures/cgre_plus_{short}_mlp_true_vs_pred_distributions.png)", ""]
+        lines += ["True-versus-predicted frozen-test distributions before target addition and after 1,920 cumulative target training sequences; predictions are pooled across the five seeds.", ""]
+        for model in selected_models:
+            model_short = LABELS[model].lower().replace(" ", "_")
+            lines += [f"#### {LABELS[model]}", "",
+                      f"![{LABELS[model]} true and predicted distributions](figures/cgre_plus_{short}_{model_short}_true_vs_pred_distributions.png)", ""]
     lines += ["Machine-readable results: [summary](summary.csv) and [all seeded metrics](all_metrics.csv).", ""]
     (OUTPUT / "REPORT.md").write_text("\n".join(lines))
 
