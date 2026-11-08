@@ -19,5 +19,6 @@ Final report: [`REPORT.md`](REPORT.md)
 ## Aubin addition
 
 - Aubin 1-10-1 was registered as an additional base model on 7 November 2026 without changing the frozen source pool, target order, validation schedule or tests.
-- CPU-only DAG **74545** contains 2,410 Aubin fits and has a 25-job concurrency limit.
+- CPU-only DAG **74545** completed **2,410/2,410 Aubin fits with zero failures**.
 - A smoke fit completed successfully before submission.
+- The final report combines MLP and Aubin across all five seeds: [`REPORT.md`](REPORT.md).

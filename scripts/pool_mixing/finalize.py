@@ -103,6 +103,8 @@ def parse_args():
     parser.add_argument("--models", nargs="+", choices=MODELS, default=MODELS)
     parser.add_argument("--reuse-metrics", action="store_true",
                         help="Replot from an existing all_metrics.csv")
+    parser.add_argument("--append-missing-metrics", action="store_true",
+                        help="Keep existing model metrics and calculate only selected models that are absent")
     parser.add_argument("--raw", type=Path, default=RAW)
     parser.add_argument("--output", type=Path, default=OUTPUT)
     return parser.parse_args()
@@ -115,10 +117,11 @@ def main():
     ACTIVE_RAW = args.raw
     selected_models = args.models
     OUTPUT.mkdir(parents=True, exist_ok=True); (OUTPUT / "figures").mkdir(exist_ok=True)
-    protocol = json.loads((RAW / "protocol.json").read_text())
+    protocol = json.loads((ACTIVE_RAW / "protocol.json").read_text())
     # Process one prediction file at a time.  Keeping every seeded prediction
     # row in memory would require tens of millions of Python dictionaries.
-    if args.reuse_metrics:
+    metrics_path = OUTPUT / "all_metrics.csv"
+    if args.reuse_metrics or (args.append_missing_metrics and metrics_path.exists()):
         records = read(OUTPUT / "all_metrics.csv")
         records = [row for row in records if row["model"] in selected_models]
         for row in records:
@@ -126,13 +129,18 @@ def main():
             row["seed"] = int(row["seed"])
             for name in ("r2", "pearson", "spearman", "kendall_tau", "kl_true_to_pred_bits"):
                 row[name] = float(row[name])
+        models_to_read = ([] if args.reuse_metrics else
+                          [model for model in selected_models
+                           if model not in {row["model"] for row in records}])
     else:
         records = []
+        models_to_read = selected_models
+    if models_to_read:
         edges = {}
         for target in TARGETS:
             for n_target in REQUIRED_SIZES:
                 for seed in SEEDS:
-                    for model in selected_models:
+                    for model in models_to_read:
                         directory = ACTIVE_RAW / "runs" / target / f"n{n_target:04d}" / f"seed{seed}" / model
                         if not (directory / "complete.json").exists(): raise FileNotFoundError(directory)
                         groups = {}
@@ -196,10 +204,12 @@ def main():
                     axis.axhline(0, color="#555555", lw=.8)
                 handles, labels = axis.get_legend_handles_labels()
             for axis in axes.flat[len(PLATE_SIZES):]:
-                axis.set_visible(False)
+                axis.axis("off")
+            axes.flat[-1].legend(handles, labels, loc="center", frameon=False,
+                                 ncol=2, fontsize=11)
             fig.supxlabel("Round"); fig.supylabel(ylabel)
-            fig.suptitle(f"Adding {target} data to a fixed cgreGFP training set", fontsize=16)
-            fig.legend(handles, labels, loc="lower center", bbox_to_anchor=(.5, -.015), frameon=False, ncol=4)
+            fig.suptitle(f"Adding {target} data to a fixed cgreGFP training set "
+                         f"(n = {protocol['base_train_n']:,})", fontsize=16)
             for suffix in ("png", "pdf", "svg"):
                 fig.savefig(OUTPUT / "figures" / f"cgre_plus_{short}_{filename_metric}.{suffix}", dpi=300, bbox_inches="tight")
             plt.close(fig)
@@ -207,7 +217,7 @@ def main():
             plot_distributions(target, model)
 
     lines = ["# Cross-protein labelled-pool size experiment", "", "## Question", "",
-             "When a model is trained on the complete cgreGFP source pool, how does gradually adding an equally sized labelled pool from ppluGFP or amacGFP change prediction on the new protein and on the original cgreGFP protein? This is a supervised pool-size experiment, not active learning: target records are added by a frozen random order, without an acquisition score.", "", "## Design", "",
+             f"When a model is trained on a fixed {protocol['base_train_n']:,}-record cgreGFP source pool, how does gradually adding a labelled pool from ppluGFP or amacGFP change prediction on the new protein and on the original cgreGFP protein? This is a supervised pool-size experiment, not active learning: target records are added by a frozen random order, without an acquisition score.", "", "## Design", "",
              f"- Fixed cgreGFP training/validation: {protocol['base_train_n']:,} / {protocol['base_validation_n']:,} records.",
              f"- Equal target training/validation pools: {protocol['target_train_pool_n']:,} / {protocol['target_validation_pool_n']:,} records.",
              "- Plate sizes: 9, 48, 96, 192 and 384 new target training records per round.",

@@ -16,7 +16,7 @@ This experiment repeats the completed MLP plate-size study while reducing the cg
 
 ## Workflow
 
-- Submitted 7 November 2026 as CPU-only DAG **74194**.
+- Submitted 7 November 2026 as CPU-only DAG **74194**; it completed **2,410/2,410 MLP fits with zero failures**.
 - Unique fits: **2 targets × 241 cumulative sizes × 5 seeds = 2,410 MLP fits**.
 - Concurrency limit: 50 CPU jobs; no GPU jobs are requested.
 - The pre-submission smoke fit completed successfully with exactly 7,350 cgreGFP training records.
@@ -25,5 +25,6 @@ This experiment repeats the completed MLP plate-size study while reducing the cg
 ## Aubin addition
 
 - Aubin 1-10-1 was registered as an additional base model on 7 November 2026 using the same frozen 7,350-record source subset for each seed.
-- CPU-only DAG **74546** contains 2,410 Aubin fits and has a 25-job concurrency limit.
+- CPU-only DAG **74546** completed **2,410/2,410 Aubin fits with zero failures**.
 - A smoke fit completed successfully before submission.
+- Final MLP-versus-Aubin report: [`REPORT.md`](REPORT.md).
