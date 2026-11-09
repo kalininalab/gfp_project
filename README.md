@@ -4,6 +4,21 @@ Reproducible prediction of **log10 fluorescence from protein sequence**. The
 project compares sequence encodings and regression models on frozen test sets,
 then evaluates active selection and target adaptation between GFP landscapes.
 
+## New: random-acquisition target-pool reports
+
+**Start here to see the latest MLP-versus-Aubin experiment:**
+
+| cgreGFP training size | Main report | All figures | Machine-readable results |
+|---:|---|---|---|
+| **14,709** | **[Open full-training report](results/cross_protein_pool_size_seed42_46/REPORT.md)** | [PNG, PDF and SVG panels](results/cross_protein_pool_size_seed42_46/figures/) | [Summary](results/cross_protein_pool_size_seed42_46/summary.csv) · [All seeded metrics](results/cross_protein_pool_size_seed42_46/all_metrics.csv) |
+| **7,350** | **[Open half-training report](results/cross_protein_pool_size_cgre7350_seed42_46/REPORT.md)** | [PNG, PDF and SVG panels](results/cross_protein_pool_size_cgre7350_seed42_46/figures/) | [Summary](results/cross_protein_pool_size_cgre7350_seed42_46/summary.csv) · [All seeded metrics](results/cross_protein_pool_size_cgre7350_seed42_46/all_metrics.csv) |
+
+Both reports compare **MLP and Aubin across five seeds** while cumulatively
+adding randomly sampled ppluGFP or amacGFP plates of 9, 48, 96, 192 or 384
+sequences. They contain R², Spearman, KL-divergence and true-versus-predicted
+distribution panels. This is the random-acquisition baseline for an
+active-learning loop; it does not use the Fancy acquisition score.
+
 **Latest predictor study:** [Gaussian distribution analysis and matched ProteinBERT, ESM-2 and OHE model comparison](results/cgre_predictor_study/REPORT.md). It includes direct and soft-hurdle MLP, XGBoost and CNN results and the completed two-GMM-gated CNN experiment across five seeds, with R², correlation, error and distribution-match metrics.
 
 ## Experimental story
@@ -65,11 +80,10 @@ results and sampling explanation are in the
 
 ![Transfer without AL between natural cgreGFP and artificial peaks](results/transfer_cgreGFP_seed42_46/artificial_peak_transfer_spearman.png)
 
-**Follow-up: [cross-protein plate-size experiment](results/cross_protein_pool_size_seed42_46/REPORT.md).** This keeps the complete cgreGFP pool fixed and cumulatively adds plates containing 9, 48, 96, 192 or 384 ppluGFP/amacGFP sequences until approximately 1,920 target sequences have been added. It tracks R², Spearman and KL divergence on frozen tests of both proteins for MLP and Aubin across five seeds. The metric panels and true-versus-predicted distributions are collected in [`results/cross_protein_pool_size_seed42_46/figures/`](results/cross_protein_pool_size_seed42_46/figures/). [Workflow status and the cancelled CNN arm](results/cross_protein_pool_size_seed42_46/STATUS.md).
-
-**Half-size cgreGFP training follow-up: [final report](results/cross_protein_pool_size_cgre7350_seed42_46/REPORT.md).** This repeats the same five-seed MLP and Aubin plate-size experiment with 7,350 cgreGFP training records. Target-pool order, target-validation schedule and frozen tests are identical to the full-training experiment, so the effect of reducing only the source training pool can be compared directly. [Workflow status](results/cross_protein_pool_size_cgre7350_seed42_46/STATUS.md).
-
-Aubin 1-10-1 is complete for both the 14,709- and 7,350-record scenarios with the same frozen pools and evaluation sets.
+The latest random-acquisition plate-size reports for 14,709 and 7,350 cgreGFP
+training records are indexed in the prominent table at the top of this README.
+Target-pool order, validation schedules and frozen tests are matched between
+the two reports.
 
 ### 2. Ask whether active selection improves source-only transfer
 
