@@ -8,6 +8,16 @@ Can shotgun landscapes from other cgreGFP peaks predict a non-central artificial
 
 The three largest artificial landscapes are tested separately: `cgre1338`, `cgre4111`, and `cgre132`. For each target, the complete target landscape is excluded from training and validation. Its original 20% test partition is the frozen evaluation set.
 
+The artificial sources are explicit below. `cgre9708` is the fourth-largest
+artificial landscape, so it is not one of the three requested targets, but it
+is included as a source in every comparison:
+
+| Held-out target | Artificial source landscapes |
+|---|---|
+| `cgre1338` | `cgre132`, `cgre4111`, `cgre9708` |
+| `cgre4111` | `cgre132`, `cgre1338`, `cgre9708` |
+| `cgre132` | `cgre1338`, `cgre4111`, `cgre9708` |
+
 Both source conditions contain exactly **7,524 training** and **2,508 validation** sequences:
 
 - **No natural cgreGFP:** equal contributions from the other three artificial peaks (2,508 train + 836 validation each).

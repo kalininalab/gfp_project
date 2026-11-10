@@ -106,7 +106,9 @@ each of the three largest artificial landscapes (`cgre1338`, `cgre4111` and
 separate frozen target. It compares the other artificial peaks alone with the
 same fixed source budget containing balanced natural cgreGFP. Natural cgreGFP
 is limited to 25% of the latter source set, so its larger dataset cannot
-dominate the fit.
+dominate the fit. `cgre9708` is the fourth-largest artificial landscape: it is
+not a requested target, but it is included among the artificial sources for all
+three held-out targets.
 
 **[Open the held-out artificial-peak report](results/artificial_peak_holdout_seed42_46/RESULTS.md)**
 
