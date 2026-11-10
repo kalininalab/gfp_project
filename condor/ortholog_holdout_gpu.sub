@@ -1,0 +1,14 @@
+universe = vanilla
+initialdir = /nethome/akolchina/gfp_project
+executable = /nethome/akolchina/gfp_project/condor/run_ortholog_holdout_gpu_worker.sh
+arguments = $(Process)
+should_transfer_files = NO
+request_cpus = 1
+request_memory = 8GB
+request_disk = 2GB
+request_gpus = 1
+requirements = (TARGET.UidDomain == "lsv.uni-saarland.de") && (TARGET.GPUs_GlobalMemoryMb >= 10000)
+output = /data/users/akolchina/gfp_project/ortholog_leave_one_out_v2_seed42_46_runs/condor/gpu_worker_$(Process).$(ClusterId).out
+error = /data/users/akolchina/gfp_project/ortholog_leave_one_out_v2_seed42_46_runs/condor/gpu_worker_$(Process).$(ClusterId).err
+log = /data/users/akolchina/gfp_project/ortholog_leave_one_out_v2_seed42_46_runs/condor/gpu.$(ClusterId).log
+queue 47

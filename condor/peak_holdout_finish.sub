@@ -1,0 +1,14 @@
+universe = vanilla
+initialdir = /nethome/akolchina/gfp_project
+executable = /nethome/akolchina/gfp_project/condor/run_peak_holdout_finish.sh
+should_transfer_files = NO
+request_cpus = 1
+request_memory = 4GB
+request_disk = 2GB
+request_gpus = 0
+requirements = (TARGET.UidDomain == "lsv.uni-saarland.de")
++MaxRuntime = 22000
+output = /data/users/akolchina/gfp_project/artificial_peak_holdout_seed42_46_runs/condor/finalize.$(ClusterId).out
+error = /data/users/akolchina/gfp_project/artificial_peak_holdout_seed42_46_runs/condor/finalize.$(ClusterId).err
+log = /data/users/akolchina/gfp_project/artificial_peak_holdout_seed42_46_runs/condor/finalize.$(ClusterId).log
+queue 1
