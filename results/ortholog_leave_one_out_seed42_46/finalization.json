@@ -565,19 +565,20 @@
     "fits/avGFP/cgreGFP+amacGFP+ppluGFP/seed46/CNN_Jannis_OHE/metrics.json": "73494dbd94e123c49850490bdc8c5a46b7a9762d7520e8db46065edda28e24b1"
   },
   "outputs": {
-    "sample_counts.csv": "702752ac16cb67d2b212a39c135ec3422bac268bf182e66be0f13c7303882434",
-    "test_records.csv": "c6d061e0cf43bee520c301a3c025ed3c1a81b9ea562eb23cd4af6171fff1cc0c",
-    "four_protein_holdout_pearson.svg": "030d4c1c23c54dafd1889fbf6b8f856edd0aef75f924253d1d15896d3c77f466",
-    "four_protein_holdout_spearman.png": "8943270e56c19bcd4a56a4c7cc44a0af0175a6b1618320ddce95c163ef160b93",
-    "summary.csv": "6662dff38519b6d88e16efb48f684da4bee600cd7302179f97d4a5fd0229ad4a",
-    "RESULTS.md": "681c800e7e1bcf7b1d9cde1c1671b99c72eff297eb5781875633153f7673a94c",
-    "four_protein_holdout_spearman.svg": "1a78d868c45b50ec64cc6356d7fa49311d871dbcab73abc45b2c432bb66c91c9",
-    "four_protein_holdout_r2.svg": "2d9b236fbe93a75ccd405ba33ced0cc9033286005f7fa9a728eff012b111bfae",
+    "RESULTS.md": "2da254cebd790a32ba2623250ec657ae56c1f39cfd973cdb707e954165376b04",
     "four_protein_holdout_pearson.pdf": "85142f95494007b2c79bb65e50ae808baa13ea966dca00e05d379cd9c64fc5a3",
-    "four_protein_holdout_spearman.pdf": "b305000acafd0a5ea7576ad1f67486d5beaf0b5f7f2424a3a0596fe61867c31c",
     "four_protein_holdout_pearson.png": "ecb3f3eb8c98d91786fca5299636027598352d90dc0d9483220e91956b8a587f",
-    "per_run_scores.csv": "e3601ff0cba834def61bdb59ec3de6cb3fdc4ad9eed2cf3e839018e66ad2ba0d",
+    "four_protein_holdout_pearson.svg": "030d4c1c23c54dafd1889fbf6b8f856edd0aef75f924253d1d15896d3c77f466",
     "four_protein_holdout_r2.pdf": "685485ecc0e7b5c834bb9143c70c311eab61ed7a2dc1d9d408b0b97223124630",
-    "four_protein_holdout_r2.png": "81e1c7dd8e9f770d15015171188095a8c5d686905dc68518b25158d5df705514"
+    "four_protein_holdout_r2.png": "81e1c7dd8e9f770d15015171188095a8c5d686905dc68518b25158d5df705514",
+    "four_protein_holdout_r2.svg": "2d9b236fbe93a75ccd405ba33ced0cc9033286005f7fa9a728eff012b111bfae",
+    "four_protein_holdout_spearman.pdf": "b305000acafd0a5ea7576ad1f67486d5beaf0b5f7f2424a3a0596fe61867c31c",
+    "four_protein_holdout_spearman.png": "8943270e56c19bcd4a56a4c7cc44a0af0175a6b1618320ddce95c163ef160b93",
+    "four_protein_holdout_spearman.svg": "1a78d868c45b50ec64cc6356d7fa49311d871dbcab73abc45b2c432bb66c91c9",
+    "per_run_scores.csv": "e3601ff0cba834def61bdb59ec3de6cb3fdc4ad9eed2cf3e839018e66ad2ba0d",
+    "sample_counts.csv": "702752ac16cb67d2b212a39c135ec3422bac268bf182e66be0f13c7303882434",
+    "sequence_identity_matrix.csv": "99a561881531f9e456276c128339d32ad0726519968db3a2e973b2993605d4a4",
+    "summary.csv": "6662dff38519b6d88e16efb48f684da4bee600cd7302179f97d4a5fd0229ad4a",
+    "test_records.csv": "c6d061e0cf43bee520c301a3c025ed3c1a81b9ea562eb23cd4af6171fff1cc0c"
   }
 }

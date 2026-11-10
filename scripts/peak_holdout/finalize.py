@@ -10,7 +10,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from scripts.regression_metrics import metrics
-from .common import (DATA, DEFAULT, MODELS, MODES, PUBLISHED, TARGETS, digest,
+from scripts.prepare_data import read_fasta
+from .common import (ROOT, DATA, DEFAULT, MODELS, MODES, PUBLISHED, TARGETS, digest,
                      read_csv, write_csv)
 
 COLORS = {'aubin_1_10_1': '#0072B2', 'aubin_linear': '#E69F00',
@@ -20,6 +21,35 @@ LABELS = {'aubin_1_10_1': 'Aubin', 'aubin_linear': 'Linear',
 MODE_LABELS = {'artificial_only': 'Other artificial peaks',
                'with_natural': 'Other peaks + natural cgreGFP'}
 METRICS = [('spearman', 'Spearman ρ'), ('pearson', 'Pearson r'), ('r2', 'R²')]
+
+
+def plot_landscape_sizes(output):
+    names=['cgreGFP','cgre1338','cgre4111','cgre132','cgre9708']
+    labels=['Natural cgreGFP','cgre1338','cgre4111','cgre132','cgre9708']
+    splits=['train','validation','test']
+    split_labels=['Train','Validation','Test']
+    colors=['#0072B2','#E69F00','#CC79A7']
+    rows=read_csv(DATA)
+    counts={name:{split:sum(row['gene']==name and row['split']==split for row in rows)
+                  for split in splits} for name in names}
+    write_csv(output/'landscape_sizes.csv',[
+        {'landscape':name,**counts[name],'total':sum(counts[name].values())} for name in names])
+    fig,ax=plt.subplots(figsize=(10.5,5.8)); y=np.arange(len(names)); left=np.zeros(len(names))
+    for split,label,color in zip(splits,split_labels,colors):
+        values=np.array([counts[name][split] for name in names])
+        ax.barh(y,values,left=left,color=color,height=.68,label=label,edgecolor='white',linewidth=.7)
+        left+=values
+    for ypos,total in zip(y,left):
+        ax.text(total+420,ypos,f'{int(total):,}',va='center',ha='left',fontsize=11,color='#263344')
+    ax.set_yticks(y,labels);ax.invert_yaxis();ax.set_xlabel('Number of sequence records')
+    ax.set_title('Available sequences in each cgreGFP landscape',fontsize=18,pad=13,color='#202C3C')
+    ax.spines[['top','right']].set_visible(False);ax.spines[['left','bottom']].set_color('#AAB2BF')
+    ax.xaxis.grid(True,color='#DDE2EA',linestyle=':',linewidth=.9);ax.set_axisbelow(True)
+    ax.tick_params(colors='#344052',labelsize=11);ax.legend(frameon=False,ncol=3,loc='lower right')
+    ax.set_xlim(0,max(left)*1.12);fig.tight_layout()
+    for suffix in ['png','pdf','svg']:
+        fig.savefig(output/f'landscape_sequence_counts.{suffix}',dpi=240,facecolor='white')
+    plt.close(fig)
 
 
 def collect(directory):
@@ -133,6 +163,19 @@ def report(protocol, summary, output):
         '| `cgre1338` | `cgre132`, `cgre4111`, `cgre9708` |',
         '| `cgre4111` | `cgre132`, `cgre1338`, `cgre9708` |',
         '| `cgre132` | `cgre1338`, `cgre4111`, `cgre9708` |', '',
+        '## Reference-sequence identity','',
+        'All five reference sequences contain 235 amino acids, so identity is the percentage of positions containing the same amino acid; no alignment gaps are required.','',
+        '| | cgreGFP | cgre132 | cgre1338 | cgre4111 | cgre9708 |',
+        '|---|---:|---:|---:|---:|---:|',
+        '| **cgreGFP** | 100.00% | 97.45% | 97.45% | 94.89% | 94.89% |',
+        '| **cgre132** | 97.45% | 100.00% | 94.89% | 94.89% | 97.45% |',
+        '| **cgre1338** | 97.45% | 94.89% | 100.00% | 92.34% | 92.34% |',
+        '| **cgre4111** | 94.89% | 94.89% | 92.34% | 100.00% | 92.34% |',
+        '| **cgre9708** | 94.89% | 97.45% | 92.34% | 92.34% | 100.00% |','',
+        'The machine-readable matrix is in `sequence_identity_matrix.csv`.','',
+        '## Available sequences by landscape','',
+        '![Sequence counts by landscape](landscape_sequence_counts.png)','',
+        'Bars show the complete processed landscape before experiment-specific subsampling. The much larger natural cgreGFP landscape motivates balancing it rather than allowing it to dominate the source data. Exact counts are in `landscape_sizes.csv`.','',
         f'Both source conditions contain exactly **{protocol["n_train"]:,} training** and **{protocol["n_validation"]:,} validation** sequences:', '',
         '- **No natural cgreGFP:** equal contributions from the other three artificial peaks (2,508 train + 836 validation each).',
         '- **Balanced natural cgreGFP:** equal contributions from the other three artificial peaks and natural cgreGFP (1,881 train + 627 validation each). Natural cgreGFP is therefore 25% of the source data and cannot dominate by sample count.', '',
@@ -164,13 +207,23 @@ def main():
     args.output.mkdir(parents=True, exist_ok=True)
     write_csv(args.output / 'per_run_scores.csv', results)
     write_csv(args.output / 'summary.csv', summary)
+    names=['cgreGFP','cgre132','cgre1338','cgre4111','cgre9708']
+    references={name:sequence.rstrip('*') for name,sequence in
+                read_fasta(ROOT/'data/raw/fasta_sequences/protein_seqs.fa').items() if name in names}
+    assert {len(sequence) for sequence in references.values()}=={235}
+    write_csv(args.output/'sequence_identity_matrix.csv',[
+        {'sequence':name,**{other:f'{100*sum(a==b for a,b in zip(references[name],references[other]))/235:.6f}'
+                            for other in names}} for name in names])
+    plot_landscape_sizes(args.output)
     for name, label in METRICS:
         plot(summary, args.output, name, label)
     report(protocol, summary, args.output)
     (args.output / 'test_records.csv').write_bytes((args.directory / 'test_records.csv').read_bytes())
     (args.output / 'sample_counts.csv').write_bytes((args.directory / 'sample_counts.csv').read_bytes())
     final = dict(status='complete', fits=len(hashes), protocol_sha256=digest(args.directory / 'protocol.json'),
-                 input_metrics=hashes, outputs={path.name: digest(path) for path in args.output.iterdir() if path.is_file()})
+                 input_metrics=hashes,
+                 outputs={path.name: digest(path) for path in args.output.iterdir()
+                          if path.is_file() and path.name != 'finalization.json'})
     (args.output / 'finalization.json').write_text(json.dumps(final, indent=2) + '\n')
     print(f'Validated {len(hashes)} fits and wrote {args.output}')
 

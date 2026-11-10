@@ -125,19 +125,24 @@
     "fits/cgre132/with_natural/seed46/CNN_Jannis_OHE/metrics.json": "058b84c4542c9bbf1500763c27599366bddf63ae2961d629718e551348287304"
   },
   "outputs": {
-    "sample_counts.csv": "57cf34d47e17fa397af444844a6b37c933fc6b5cf2dd44c730ef881f1a2d1071",
+    "RESULTS.md": "8409f3e1ded04e7260b2bc342ceedd84c2c2d6c8f042d553b3834a9861a17359",
     "artificial_peak_holdout_pearson.pdf": "6771815082bc924b38f10d306d872d76c479263d2bce553fb56bb8221a7602e3",
-    "test_records.csv": "939a939c3ce9d9b2145e2ab36eff59b4d163d1a53dd20dc590a812a2a7f21a5c",
+    "artificial_peak_holdout_pearson.png": "d121db446510315660d27ccaea1ceb1f6e4c09ae53b9359881e20b42c1f9984c",
     "artificial_peak_holdout_pearson.svg": "221d2cd74535e5457003bf3574c612117c9d1c1b999e7a7b3a7c5dfc17461bc9",
-    "artificial_peak_holdout_spearman.pdf": "645bb64ed2b07d871d71f68129f07128c1490b0ff8739113cb7bf17fb96628ae",
-    "summary.csv": "244fcc218d3ad36c73e622243797210b31736219f489379a9b87aef44c4c7184",
-    "RESULTS.md": "a19b2ee6775dc19467faf116fb1c5464d7fcbdce1f9875ef849394bac2cd9687",
-    "artificial_peak_holdout_spearman.svg": "9a524f49443cd2d0a167aebbfc04035c328f489a62bf28025e16d798f81fba0e",
-    "artificial_peak_holdout_spearman.png": "dbb03a275926a6a6b0776fc78ba270c780fff3b0397151dcdad99581ac5024c8",
-    "artificial_peak_holdout_r2.png": "addf5ba5aad8ba3acbb79f343477137e5e0b38727daeda826201f11f0d2155d5",
     "artificial_peak_holdout_r2.pdf": "c9f94ad7c6b3a4c0edb0ac83cecd93be34aa5ec58301fb7efb6ecc32e625f2d3",
-    "per_run_scores.csv": "c7f7d1da5a8fed0e58b3cc44395dbe3cb1b47e0eb7370abdaa2c10e75e643b0b",
+    "artificial_peak_holdout_r2.png": "addf5ba5aad8ba3acbb79f343477137e5e0b38727daeda826201f11f0d2155d5",
     "artificial_peak_holdout_r2.svg": "8c9a5c57893c1c3da76861eb7dc7255c49c4f554d0c545b3e04210b699c735fe",
-    "artificial_peak_holdout_pearson.png": "d121db446510315660d27ccaea1ceb1f6e4c09ae53b9359881e20b42c1f9984c"
+    "artificial_peak_holdout_spearman.pdf": "645bb64ed2b07d871d71f68129f07128c1490b0ff8739113cb7bf17fb96628ae",
+    "artificial_peak_holdout_spearman.png": "dbb03a275926a6a6b0776fc78ba270c780fff3b0397151dcdad99581ac5024c8",
+    "artificial_peak_holdout_spearman.svg": "9a524f49443cd2d0a167aebbfc04035c328f489a62bf28025e16d798f81fba0e",
+    "landscape_sequence_counts.pdf": "d8891da7060c02275c228746c63358f9ea00d3b86887dd5faa28547cc70f5a05",
+    "landscape_sequence_counts.png": "233bdeb10d58d23d091649368f9ab66007ba8f3706ada15adc958f515561c406",
+    "landscape_sequence_counts.svg": "9cc75112f919586d07c90590c7d8f46d7df55cc918b5b9a8301cb6c16aa4f229",
+    "landscape_sizes.csv": "f0c29c6199d539ae4f1c426d58c4ee7b36e55c21d6322b2dedb15d5e1cefed02",
+    "per_run_scores.csv": "c7f7d1da5a8fed0e58b3cc44395dbe3cb1b47e0eb7370abdaa2c10e75e643b0b",
+    "sample_counts.csv": "57cf34d47e17fa397af444844a6b37c933fc6b5cf2dd44c730ef881f1a2d1071",
+    "sequence_identity_matrix.csv": "f275a92e89e4ec193555c348bced57a992405a5f928defb39064d8c7447fba8d",
+    "summary.csv": "244fcc218d3ad36c73e622243797210b31736219f489379a9b87aef44c4c7184",
+    "test_records.csv": "939a939c3ce9d9b2145e2ab36eff59b4d163d1a53dd20dc590a812a2a7f21a5c"
   }
 }

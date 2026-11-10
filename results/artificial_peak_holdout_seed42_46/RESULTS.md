@@ -18,6 +18,31 @@ is included as a source in every comparison:
 | `cgre4111` | `cgre132`, `cgre1338`, `cgre9708` |
 | `cgre132` | `cgre1338`, `cgre4111`, `cgre9708` |
 
+## Reference-sequence identity
+
+All five reference sequences contain 235 amino acids, so identity is the
+percentage of positions containing the same amino acid; no alignment gaps are
+required.
+
+| | cgreGFP | cgre132 | cgre1338 | cgre4111 | cgre9708 |
+|---|---:|---:|---:|---:|---:|
+| **cgreGFP** | 100.00% | 97.45% | 97.45% | 94.89% | 94.89% |
+| **cgre132** | 97.45% | 100.00% | 94.89% | 94.89% | 97.45% |
+| **cgre1338** | 97.45% | 94.89% | 100.00% | 92.34% | 92.34% |
+| **cgre4111** | 94.89% | 94.89% | 92.34% | 100.00% | 92.34% |
+| **cgre9708** | 94.89% | 97.45% | 92.34% | 92.34% | 100.00% |
+
+The machine-readable matrix is in `sequence_identity_matrix.csv`.
+
+## Available sequences by landscape
+
+![Sequence counts by landscape](landscape_sequence_counts.png)
+
+Bars show the complete processed landscape before experiment-specific
+subsampling. The much larger natural cgreGFP landscape motivates balancing it
+rather than allowing it to dominate the source data. Exact counts are in
+`landscape_sizes.csv`.
+
 Both source conditions contain exactly **7,524 training** and **2,508 validation** sequences:
 
 - **No natural cgreGFP:** equal contributions from the other three artificial peaks (2,508 train + 836 validation each).

@@ -8,9 +8,11 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
+from Bio.Align import PairwiseAligner, substitution_matrices
 
 from scripts.regression_metrics import metrics
-from .common import (DATA, DEFAULT, GENES, MODELS, PUBLISHED, condition_id,
+from scripts.prepare_data import read_fasta
+from .common import (ROOT, DATA, DEFAULT, GENES, MODELS, PUBLISHED, condition_id,
                      digest, read_csv, sources_for, write_csv)
 
 COLORS={'aubin_1_10_1':'#0072B2','aubin_linear':'#E69F00','mlp_small':'#CC79A7','CNN_Jannis_OHE':'#56B4E9'}
@@ -105,6 +107,15 @@ def report(protocol,summary,output):
         '## Design','',
         f'For every target, all seven source combinations are tested. Every fit uses **{protocol["n_train"]:,} training** and **{protocol["n_validation"]:,} source-validation** records. Multiple sources contribute equally, rounded by at most one record. The target protein contributes no training or validation records. Its original 20% test split is frozen across all models, combinations and seeds.','',
         'Five seeds (42–46) vary source subsampling, initialization and training order. Checkpoints are selected only by source-validation MSE. Two cross-landscape duplicate sequences in amacGFP/avGFP are assigned to one source, and any source sequence identical to a target-test sequence is excluded.','',
+        '## Reference-sequence identity','',
+        'Identity is calculated from the reference proteins using global pairwise alignment with BLOSUM62, gap-open −10 and gap-extension −0.5, matching the transfer benchmark. The percentage is identical residues divided by total alignment columns, including columns containing a gap.','',
+        '| | cgreGFP | amacGFP | ppluGFP | avGFP |',
+        '|---|---:|---:|---:|---:|',
+        '| **cgreGFP** | 100.00% | 43.62% | 19.76% | 42.15% |',
+        '| **amacGFP** | 43.62% | 100.00% | 19.69% | 82.77% |',
+        '| **ppluGFP** | 19.76% | 19.69% | 100.00% | 20.72% |',
+        '| **avGFP** | 42.15% | 82.77% | 20.72% | 100.00% |','',
+        'The machine-readable matrix is in `sequence_identity_matrix.csv`.','',
         '## Main figures','',
         '![Spearman](four_protein_holdout_spearman.png)','',
         '![Pearson](four_protein_holdout_pearson.png)','',
@@ -133,12 +144,24 @@ def main():
     parser.add_argument('--output',type=Path,default=PUBLISHED); args=parser.parse_args()
     protocol,per_run,summary,inputs=collect(args.directory); args.output.mkdir(parents=True,exist_ok=True)
     write_csv(args.output/'per_run_scores.csv',per_run); write_csv(args.output/'summary.csv',summary)
+    references={name:sequence.rstrip('*') for name,sequence in
+                read_fasta(ROOT/'data/raw/fasta_sequences/protein_seqs.fa').items() if name in GENES}
+    aligner=PairwiseAligner(mode='global',substitution_matrix=substitution_matrices.load('BLOSUM62'),
+                            open_gap_score=-10.,extend_gap_score=-.5)
+    def identity(first,second):
+        if first==second:return 100.
+        alignment=aligner.align(references[first],references[second])[0]
+        a,b=alignment[0],alignment[1]
+        return 100*sum(x==y for x,y in zip(a,b))/len(a)
+    write_csv(args.output/'sequence_identity_matrix.csv',[
+        {'sequence':name,**{other:f'{identity(name,other):.6f}' for other in GENES}} for name in GENES])
     for metric,label in METRICS: plot(summary,args.output,metric,label)
     report(protocol,summary,args.output)
     for name in ['test_records.csv','sample_counts.csv']:
         (args.output/name).write_bytes((args.directory/name).read_bytes())
     final=dict(status='complete',fits=len(inputs),protocol_sha256=digest(args.directory/'protocol.json'),input_metrics=inputs,
-               outputs={p.name:digest(p) for p in args.output.iterdir() if p.is_file()})
+               outputs={p.name:digest(p) for p in args.output.iterdir()
+                        if p.is_file() and p.name!='finalization.json'})
     (args.output/'finalization.json').write_text(json.dumps(final,indent=2)+'\n')
     print(f'Validated {len(inputs)} fits and wrote {args.output}')
 

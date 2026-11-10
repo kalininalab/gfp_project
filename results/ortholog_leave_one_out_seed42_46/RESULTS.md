@@ -10,6 +10,22 @@ For every target, all seven source combinations are tested. Every fit uses **14,
 
 Five seeds (42–46) vary source subsampling, initialization and training order. Checkpoints are selected only by source-validation MSE. Two cross-landscape duplicate sequences in amacGFP/avGFP are assigned to one source, and any source sequence identical to a target-test sequence is excluded.
 
+## Reference-sequence identity
+
+Identity is calculated from the reference proteins using global pairwise
+alignment with BLOSUM62, gap-open −10 and gap-extension −0.5, matching the
+transfer benchmark. The percentage is identical residues divided by total
+alignment columns, including columns containing a gap.
+
+| | cgreGFP | amacGFP | ppluGFP | avGFP |
+|---|---:|---:|---:|---:|
+| **cgreGFP** | 100.00% | 43.62% | 19.76% | 42.15% |
+| **amacGFP** | 43.62% | 100.00% | 19.69% | 82.77% |
+| **ppluGFP** | 19.76% | 19.69% | 100.00% | 20.72% |
+| **avGFP** | 42.15% | 82.77% | 20.72% | 100.00% |
+
+The machine-readable matrix is in `sequence_identity_matrix.csv`.
+
 ## Main figures
 
 ![Spearman](four_protein_holdout_spearman.png)
