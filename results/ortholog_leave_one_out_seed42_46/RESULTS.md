@@ -34,6 +34,11 @@ The machine-readable matrix is in `sequence_identity_matrix.csv`.
 
 ![R2](four_protein_holdout_r2.png)
 
+Each panel title names the held-out protein being predicted. Filled circles
+below the bars identify the source proteins included in each training
+combination; open circles identify proteins not included. Bar colours identify
+the four predictive models.
+
 R² uses the requested −1 to 1 display range; exact values remain in the table and CSV.
 
 ## Main findings

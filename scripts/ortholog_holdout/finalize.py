@@ -71,11 +71,14 @@ def style(ax):
 
 def plot(summary,output,metric,label):
     plt.rcParams.update({'font.family':'DejaVu Sans','axes.titlesize':16,'axes.labelsize':13})
-    fig,axes=plt.subplots(2,2,figsize=(18,10),sharey=True)
+    fig=plt.figure(figsize=(18,11.5))
+    outer=fig.add_gridspec(2,2,left=.075,right=.99,top=.87,bottom=.09,hspace=.28,wspace=.13)
     width=.19; offsets=np.array([-1.5,-.5,.5,1.5])*width
     all_values=[row[metric+'_mean'] for row in summary]
     lower=-1 if metric=='r2' else max(-1,min(-.1,np.floor((min(all_values)-.08)*10)/10))
-    for ax,target in zip(axes.flat,GENES):
+    for panel,target in enumerate(GENES):
+        cell=outer[panel//2,panel%2].subgridspec(2,1,height_ratios=[4.5,1.25],hspace=.01)
+        ax=fig.add_subplot(cell[0]); matrix=fig.add_subplot(cell[1],sharex=ax)
         conditions=[condition_id(x) for x in sources_for(target)]
         for model,offset in zip(MODELS,offsets):
             lookup={row['condition']:row for row in summary if row['target']==target and row['model']==model}
@@ -85,17 +88,29 @@ def plot(summary,output,metric,label):
             ax.errorbar(x,values,yerr=errors,fmt='none',ecolor='#414B5A',capsize=2,linewidth=.9,zorder=4)
             for xpos,value in zip(x,values):
                 if metric=='r2' and value < -1: ax.scatter(xpos,-.965,marker='v',s=24,color='#253244',zorder=6,clip_on=False)
-        ax.set_title(f'Predict held-out {target}',color='#233044',pad=8)
-        ax.set_xticks(range(len(conditions)),[' + '.join(SHORT[g] for g in c.split('+')) for c in conditions],rotation=27,ha='right')
+        ax.set_title(f'Predicted protein: {target}',color='#233044',pad=8)
+        ax.tick_params(axis='x',bottom=False,labelbottom=False)
         ax.set_ylim(lower,1); style(ax)
-    axes[0,0].set_ylabel('Held-out test '+label); axes[1,0].set_ylabel('Held-out test '+label)
+        if panel%2==0: ax.set_ylabel('Held-out test '+label)
+        else: ax.tick_params(axis='y',labelleft=False)
+
+        sources=[gene for gene in GENES if gene!=target]
+        for row,gene in enumerate(sources):
+            for column,condition in enumerate(conditions):
+                included=gene in condition.split('+')
+                matrix.scatter(column,row,s=92,facecolor='#344052' if included else 'white',
+                               edgecolor='#344052' if included else '#C4CDD9',linewidth=1.25)
+        matrix.set_yticks(range(len(sources)),[SHORT[gene] for gene in sources],fontsize=10)
+        matrix.set_ylim(len(sources)-.5,-.5);matrix.set_xlim(-.6,len(conditions)-.4)
+        matrix.set_xticks([]);matrix.tick_params(axis='y',length=0,pad=7,colors='#344052')
+        for spine in matrix.spines.values(): spine.set_visible(False)
+        matrix.set_facecolor('white')
     handles=[plt.Rectangle((0,0),1,1,color=COLORS[m]) for m in MODELS]
-    fig.legend(handles,[LABELS[m] for m in MODELS],loc='upper center',ncol=4,frameon=False,bbox_to_anchor=(.5,.94),fontsize=12)
-    fig.suptitle('Predicting each GFP protein from combinations of the other three',fontsize=22,color='#182535',y=.995)
+    fig.legend(handles,[LABELS[m] for m in MODELS],loc='upper center',ncol=4,frameon=False,bbox_to_anchor=(.5,.93),fontsize=12)
+    fig.suptitle('Transferability from combinations of other GFP proteins',fontsize=22,color='#182535',y=.985)
     note='Fixed 14,709-train / 4,903-validation source budget; target protein is absent from fitting.'
     if metric=='r2': note+='  ▼ marks a mean R² below −1.'
-    fig.text(.5,.018,note,ha='center',fontsize=11,color='#4D596A')
-    fig.subplots_adjust(left=.065,right=.99,top=.87,bottom=.15,hspace=.34,wspace=.12)
+    fig.text(.5,.025,note,ha='center',fontsize=11,color='#4D596A')
     for suffix in ['png','pdf','svg']: fig.savefig(output/f'four_protein_holdout_{metric}.{suffix}',dpi=240,facecolor='white')
     plt.close(fig)
 
@@ -120,6 +135,7 @@ def report(protocol,summary,output):
         '![Spearman](four_protein_holdout_spearman.png)','',
         '![Pearson](four_protein_holdout_pearson.png)','',
         '![R2](four_protein_holdout_r2.png)','',
+        'Each panel title names the held-out protein being predicted. Filled circles below the bars identify the source proteins included in each training combination; open circles identify proteins not included. Bar colours identify the four predictive models.','',
         'R² uses the requested −1 to 1 display range; exact values remain in the table and CSV.','',
         '## Main findings','',
         '- Linear gives the strongest mean Spearman and Pearson result for every held-out protein. Its best Spearman values are 0.525 for cgreGFP, 0.450 for amacGFP, 0.195 for ppluGFP and 0.630 for avGFP.',
