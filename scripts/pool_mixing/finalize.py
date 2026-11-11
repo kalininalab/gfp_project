@@ -15,7 +15,7 @@ from scripts.transfer_benchmark.common import write_csv
 
 OUTPUT = Path("results/cross_protein_pool_size_seed42_46")
 ACTIVE_RAW = RAW
-LABELS = {"aubin_1_10_1": "Aubin", "CNN_Jannis_OHE": "CNN on OHE", "mlp_small": "MLP"}
+LABELS = {"aubin_1_10_1": "Aubin 1–10–1", "CNN_Jannis_OHE": "CNN on OHE", "mlp_small": "MLP"}
 COLORS = {"cgreGFP": "#0072B2", "ppluGFP": "#D55E00", "amacGFP": "#D55E00"}
 LINESTYLES = {"aubin_1_10_1": ":", "CNN_Jannis_OHE": "-", "mlp_small": "--"}
 MARKERS = {"aubin_1_10_1": "^", "CNN_Jannis_OHE": "o", "mlp_small": "s"}
@@ -225,9 +225,15 @@ def main():
              "- The cumulative target training size is `plate size × round`; all prefixes are nested within each seed.",
              "- Target validation grows proportionally in the original 60/20 train/validation ratio and is used only for early stopping.",
              f"- Models included in this completed result: {', '.join(LABELS[model] for model in selected_models)}; seeds 42–46.",
-             "- Both protein-specific test sets remain frozen and never enter training, validation, early stopping or sampling.",
+             "- Every round is evaluated on the same frozen test: 4,904 cgreGFP records and either 6,281 ppluGFP or 6,703 amacGFP records. Test records never enter training, validation, early stopping or sampling.",
              "- R² is displayed on an ordinary linear scale limited to [−1, 1] for readability. More negative source-only target scores are clipped only in the figure; their complete values remain in the CSV tables.",
-             "- KL is D_KL(true || predicted) in bits, using 50 fixed bins over each protein's frozen-test range and a 0.5 pseudocount per bin; lower is better.", "", "## Figures", ""]
+             "- KL is D_KL(true || predicted) in bits, using 50 fixed bins over each protein's frozen-test range and a 0.5 pseudocount per bin; lower is better.", "",
+             "| Protein | Available training pool | Available validation pool | Frozen test |",
+             "|---|---:|---:|---:|",
+             "| cgreGFP | 14,709 | 4,903 | 4,904 |",
+             "| ppluGFP | 14,709 | 4,903 | 6,281 |",
+             "| amacGFP | 14,709 | 4,903 | 6,703 |", "",
+             "The full cgreGFP training and validation sets are used throughout. For the target protein, each round uses only the cumulative prefix specified by its plate schedule; the remaining target-pool records are unused, while the complete frozen test remains unchanged.", "", "## Figures", ""]
     for target in TARGETS:
         short = target.replace("GFP", "").lower()
         lines += [f"### cgreGFP + {target}", "",
@@ -237,7 +243,7 @@ def main():
                   f"![KL divergence](figures/cgre_plus_{short}_kl_divergence.png)", ""]
         lines += ["True-versus-predicted frozen-test distributions before target addition and after 1,920 cumulative target training sequences; predictions are pooled across the five seeds.", ""]
         for model in selected_models:
-            model_short = LABELS[model].lower().replace(" ", "_")
+            model_short = "aubin" if model == "aubin_1_10_1" else LABELS[model].lower().replace(" ", "_")
             lines += [f"#### {LABELS[model]}", "",
                       f"![{LABELS[model]} true and predicted distributions](figures/cgre_plus_{short}_{model_short}_true_vs_pred_distributions.png)", ""]
     lines += ["Machine-readable results: [summary](summary.csv) and [all seeded metrics](all_metrics.csv).", ""]

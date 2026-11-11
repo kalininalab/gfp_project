@@ -12,10 +12,21 @@ When a model is trained on a fixed 14,709-record cgreGFP source pool, how does g
 - Schedules end near the same cumulative budget: 213 rounds × 9 = 1,917; 40 × 48 = 1,920; 20 × 96 = 1,920; 10 × 192 = 1,920; 5 × 384 = 1,920.
 - The cumulative target training size is `plate size × round`; all prefixes are nested within each seed.
 - Target validation grows proportionally in the original 60/20 train/validation ratio and is used only for early stopping.
-- Models included in this completed result: MLP, Aubin; seeds 42–46.
-- Both protein-specific test sets remain frozen and never enter training, validation, early stopping or sampling.
+- Models included in this completed result: MLP, Aubin 1–10–1; seeds 42–46.
+- Every round is evaluated on the same frozen test: 4,904 cgreGFP records and either 6,281 ppluGFP or 6,703 amacGFP records. Test records never enter training, validation, early stopping or sampling.
 - R² is displayed on an ordinary linear scale limited to [−1, 1] for readability. More negative source-only target scores are clipped only in the figure; their complete values remain in the CSV tables.
 - KL is D_KL(true || predicted) in bits, using 50 fixed bins over each protein's frozen-test range and a 0.5 pseudocount per bin; lower is better.
+
+| Protein | Available training pool | Available validation pool | Frozen test |
+|---|---:|---:|---:|
+| cgreGFP | 14,709 | 4,903 | 4,904 |
+| ppluGFP | 14,709 | 4,903 | 6,281 |
+| amacGFP | 14,709 | 4,903 | 6,703 |
+
+The full cgreGFP training and validation sets are used throughout. For the
+target protein, each round uses only the cumulative prefix specified by its
+plate schedule; the remaining target-pool records are unused, while the
+complete frozen test remains unchanged.
 
 ## Figures
 
@@ -35,7 +46,7 @@ True-versus-predicted frozen-test distributions before target addition and after
 
 ![MLP true and predicted distributions](figures/cgre_plus_pplu_mlp_true_vs_pred_distributions.png)
 
-#### Aubin
+#### Aubin 1–10–1
 
 ![Aubin true and predicted distributions](figures/cgre_plus_pplu_aubin_true_vs_pred_distributions.png)
 
@@ -55,7 +66,7 @@ True-versus-predicted frozen-test distributions before target addition and after
 
 ![MLP true and predicted distributions](figures/cgre_plus_amac_mlp_true_vs_pred_distributions.png)
 
-#### Aubin
+#### Aubin 1–10–1
 
 ![Aubin true and predicted distributions](figures/cgre_plus_amac_aubin_true_vs_pred_distributions.png)
 
