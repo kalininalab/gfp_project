@@ -19,6 +19,8 @@ sequences. They contain R², Spearman, KL-divergence and true-versus-predicted
 distribution panels. This is the random-acquisition baseline for an
 active-learning loop; it does not use the Fancy acquisition score.
 
+**Code and reuse:** [pool-size experiment guide](docs/POOL_SIZE_EXPERIMENT.md).
+
 **Latest predictor study:** [Gaussian distribution analysis and matched ProteinBERT, ESM-2 and OHE model comparison](results/cgre_predictor_study/REPORT.md). It includes direct and soft-hurdle MLP, XGBoost and CNN results and the completed two-GMM-gated CNN experiment across five seeds, with R², correlation, error and distribution-match metrics.
 
 ## Experimental story
