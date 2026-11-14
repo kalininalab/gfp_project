@@ -1,382 +1,116 @@
 # GFP fluorescence prediction
 
-Reproducible prediction of **log10 fluorescence from protein sequence**. The
-project compares sequence encodings and regression models on frozen test sets,
-then evaluates active selection and target adaptation between GFP landscapes.
-
-## New: random-acquisition target-pool reports
-
-**Start here to see the latest MLP-versus-Aubin experiment:**
-
-| cgreGFP training size | Main report | All figures | Machine-readable results |
-|---:|---|---|---|
-| **14,709** | **[Open full-training report](results/cross_protein_pool_size_seed42_46/REPORT.md)** | [PNG, PDF and SVG panels](results/cross_protein_pool_size_seed42_46/figures/) | [Summary](results/cross_protein_pool_size_seed42_46/summary.csv) · [All seeded metrics](results/cross_protein_pool_size_seed42_46/all_metrics.csv) |
-| **7,350** | **[Open half-training report](results/cross_protein_pool_size_cgre7350_seed42_46/REPORT.md)** | [PNG, PDF and SVG panels](results/cross_protein_pool_size_cgre7350_seed42_46/figures/) | [Summary](results/cross_protein_pool_size_cgre7350_seed42_46/summary.csv) · [All seeded metrics](results/cross_protein_pool_size_cgre7350_seed42_46/all_metrics.csv) |
-
-Both reports compare **MLP and Aubin across five seeds** while cumulatively
-adding randomly sampled ppluGFP or amacGFP plates of 9, 48, 96, 192 or 384
-sequences. They contain R², Spearman, KL-divergence and true-versus-predicted
-distribution panels. This is the random-acquisition baseline for an
-active-learning loop; it does not use the Fancy acquisition score.
-
-**Code and reuse:** [pool-size experiment guide](docs/POOL_SIZE_EXPERIMENT.md).
-
-**Latest predictor study:** [Gaussian distribution analysis and matched ProteinBERT, ESM-2 and OHE model comparison](results/cgre_predictor_study/REPORT.md). It includes direct and soft-hurdle MLP, XGBoost and CNN results and the completed two-GMM-gated CNN experiment across five seeds, with R², correlation, error and distribution-match metrics.
-
-## Experimental story
-
-The experiments answer four questions in sequence. Throughout, the **target
-test set is frozen**, is shared by all compared methods, and is never available
-for training or acquisition.
-
-### Results navigation
-
-- **[Train-only fluorescence distribution analysis for cgreGFP and artificial peaks](results/cgre_peak_mixture_analysis/REPORT.md):** 1–4 component GMM comparison, measurement-floor audit, bootstrap stability and implications for a binary-first predictor.
-- **[Classification–regression predictor pilot](results/hurdle_esm_ridge_seed42_46/REPORT.md):** matched direct versus soft/hard hurdle prediction on all five frozen tests.
-- **[Neural classification–regression experiment](results/hurdle_neural_seed42_46/REPORT.md):** five-seed MLP-on-ESM and CNN-on-OHE matched direct-versus-hurdle comparisons.
-- **[cgreGFP distribution and predictor study](results/cgre_predictor_study/REPORT.md):** two-part report covering Gaussian-mixture evidence and matched ProteinBERT/ESM-2/OHE predictor comparisons with R² and distribution metrics.
-- **[Two-GMM-gated CNN experiment](results/gmm_gated_cnn_seed42_46/REPORT.md):** completed 25/25 train-only low/high Gaussian-boundary fits with two regression experts, compared against direct and measurement-floor-hurdle CNNs on identical frozen tests.
-- **[Two-GMM-gated linear experiment](results/gmm_gated_linear_seed42_46/REPORT.md):** the same train-only split with positional-OHE logistic/Ridge components; gating helps three of five landscapes but remains below the direct CNN.
-- **[Complete target-adaptation report](results/target_adaptation_complete_report/README.md):** R² and other metrics, bar plots and links to prediction diagnostics.
-- [Scenario-by-scenario diagnostic atlas](results/target_adaptation_diagnostic_atlas/README.md)
-- [All 56 true/predicted distribution panels](results/target_adaptation_diagnostic_atlas/distributions/)
-- [All 56 true-vs-predicted dotplot panels](results/target_adaptation_diagnostic_atlas/dotplots/)
-
-The atlas covers all 8 transfer directions, 7 main training/acquisition
-scenarios, 4 models and 5 seeds. Filenames state the source, target, selection
-method, round and number of target sequences added.
-
-| Stage | What enters training after the initial fit? | Target sequences added? |
-|---|---|---|
-| Transfer without AL | Nothing | **No** |
-| Source-pool AL transfer | Sequences selected from the original **source-protein training pool** | **No** |
-| Target adaptation | Sequences selected from a separate labelled pool of the **target protein/domain** | **Yes: 96 per round for 10 rounds** |
-| One-shot target-adaptation control | 960 target-pool sequences added once | **Yes: 960 once, no AL rounds** |
-
-### 1. Establish the base models without active learning
-
-We first compare Aubin, Linear, MLP and CNN on OHE without iterative
-acquisition. These fits establish predictive accuracy on natural cgreGFP and
-the initial transferability between proteins and between natural cgreGFP and
-artificial peaks.
-
-Every fit uses the same fixed budget: **14,709 source-training sequences** and
-**4,903 source-validation sequences**. The frozen evaluation sets contain
-**4,904 natural cgreGFP sequences** and, where applicable, **5,382 sequences
-from the four artificial peaks combined**. No target-test sequence enters
-training or validation. Source composition is:
-
-| Source training condition | Training composition | Validation composition |
-|---|---:|---:|
-| cgreGFP, amacGFP or ppluGFP alone | 14,709 from that protein | 4,903 from that protein |
-| Any two natural proteins | 7,355 + 7,354 | 2,452 + 2,451 |
-| cgreGFP + amacGFP + ppluGFP | 4,903 each | 1,635 cgreGFP + 1,634 amacGFP + 1,634 ppluGFP |
-| Four artificial peaks | 2,333 cgre132 + 5,599 cgre1338 + 4,491 cgre4111 + 2,286 cgre9708 | 777 + 1,867 + 1,497 + 762, respectively |
-
-The exact per-run sizes are retained in the
-[summary CSV](results/transfer_cgreGFP_seed42_46/summary.csv), and the full
-results and sampling explanation are in the
-[transfer report](results/transfer_cgreGFP_seed42_46/RESULTS.md).
-
-![Transfer without AL between GFP proteins](results/transfer_cgreGFP_seed42_46/ortholog_mixtures_spearman.png)
-
-#### Predict each of four GFP proteins from the other three
-
-The four-protein follow-up adds `avGFP` and applies a strict
-leave-one-protein-out design. Each of `cgreGFP`, `amacGFP`, `ppluGFP` and
-`avGFP` becomes the frozen target in turn, while all seven non-empty
-combinations of the other three proteins are tested as sources. The target is
-absent from training and validation; every fit keeps the same 14,709-training
-and 4,903-validation source budget.
-
-**[Open the complete four-protein transfer report](results/ortholog_leave_one_out_seed42_46/RESULTS.md)**
-
-![Four-protein leave-one-out Spearman](results/ortholog_leave_one_out_seed42_46/four_protein_holdout_spearman.png)
-
-![Four-protein leave-one-out Pearson](results/ortholog_leave_one_out_seed42_46/four_protein_holdout_pearson.png)
-
-![Four-protein leave-one-out R2](results/ortholog_leave_one_out_seed42_46/four_protein_holdout_r2.png)
-
-![Transfer without AL between natural cgreGFP and artificial peaks](results/transfer_cgreGFP_seed42_46/artificial_peak_transfer_spearman.png)
-
-#### Predict a completely held-out artificial peak
-
-The pooled artificial-to-artificial result above includes test sequences from
-peaks represented in its training data. The follow-up experiment is stricter:
-each of the three largest artificial landscapes (`cgre1338`, `cgre4111` and
-`cgre132`) is removed completely from training and validation, then used as a
-separate frozen target. It compares the other artificial peaks alone with the
-same fixed source budget containing balanced natural cgreGFP. Natural cgreGFP
-is limited to 25% of the latter source set, so its larger dataset cannot
-dominate the fit. `cgre9708` is the fourth-largest artificial landscape: it is
-not a requested target, but it is included among the artificial sources for all
-three held-out targets.
-
-**[Open the held-out artificial-peak report](results/artificial_peak_holdout_seed42_46/RESULTS.md)**
-
-![Held-out artificial peaks: Spearman](results/artificial_peak_holdout_seed42_46/artificial_peak_holdout_spearman.png)
-
-![Held-out artificial peaks: Pearson](results/artificial_peak_holdout_seed42_46/artificial_peak_holdout_pearson.png)
-
-![Held-out artificial peaks: R2](results/artificial_peak_holdout_seed42_46/artificial_peak_holdout_r2.png)
-
-The latest random-acquisition plate-size reports for 14,709 and 7,350 cgreGFP
-training records are indexed in the prominent table at the top of this README.
-Target-pool order, validation schedules and frozen tests are matched between
-the two reports.
-
-### 2. Ask whether active selection improves source-only transfer
-
-Here AL selects additional records from the **source training pool**. It does
-**not add any sequence from the target protein or target domain**. Each
-trajectory starts at 10% of the 14,709-record source budget and reaches 14,709
-source records over ten rounds. The target test remains untouched.
-
-![Non-AL versus source-pool AL between GFP proteins](results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman_non_al_vs_al.png)
-
-![Non-AL versus source-pool AL between natural and artificial cgreGFP](results/transfer_al_cgreGFP_seed42_46/artificial_peak_transfer_spearman_non_al_vs_al.png)
-
-### 3. Test the acquisition rule and its uncertainty term
-
-Random and Fancy arms use identical initial source records, round budgets and
-frozen tests. Fancy ranks the source pool by
-`0.62 × scaled distance + 0.38 × scaled uncertainty`. For Aubin and Linear,
-uncertainty is variance across a five-member bootstrap ensemble; for MLP it is
-variance across five independently initialized fits. All **120/120**
-ensemble-uncertainty trajectories are complete. This experiment still adds
-**zero target sequences**.
-
-![Ensemble uncertainty between GFP proteins](results/transfer_ensemble_sampling_cpu_seed42_46/sampling_ortholog_transfer_cpu_models.png)
-
-![Ensemble uncertainty between natural cgreGFP and artificial peaks](results/transfer_ensemble_sampling_cpu_seed42_46/sampling_peak_transfer_cpu_models.png)
-
-### 4. Add target sequences: target adaptation
-
-This is the experiment in which target data actually enter training. Starting
-from a source-trained model, the iterative arms add **96 selected target-pool
-sequences after every round for 10 rounds**, for a total of 960. The matched
-one-shot controls add **960 target-pool sequences once** and have no acquisition
-rounds. Random and Fancy use the same initial fit, total target-label budget,
-validation records and frozen target test.
-
-All four models are shown together below. Aubin, Linear and MLP are complete.
-CNN protein-to-protein adaptation is also complete; every row uses all five
-seeds.
-
-![Target adaptation for all four models between GFP proteins](results/target_adaptation_combined_seed42_46/target_adaptation_all_models.png)
-
-All four models are complete for natural cgreGFP ↔ artificial peaks:
-
-![Target adaptation for all four models between natural and artificial cgreGFP](results/target_adaptation_combined_seed42_46/target_adaptation_peaks_all_models.png)
-
-The density panels below show the same `cgreGFP → amacGFP` iterative-Fancy
-trajectory after adding the first 96 target sequences and after all ten rounds
-(960 target sequences). Curves use the frozen amacGFP test; predicted densities
-pool five model seeds, while the true test density is shown once.
-
-![True and predicted densities after adding 96 target sequences](results/target_adaptation_density_panels/cgre_to_amac_round01_96_target_density.png)
-
-![True and predicted densities after adding 960 target sequences](results/target_adaptation_density_panels/cgre_to_amac_round10_960_target_density.png)
-
-For the matched non-AL control, 960 target sequences are sampled randomly and
-added in a single fit. There is no Fancy score and there are no iterative
-refitting/acquisition rounds:
-
-![True and predicted densities after one-shot random addition of 960 target sequences](results/target_adaptation_density_panels/cgre_to_amac_oneshot_random_960_target_density.png)
-
-The same one-shot random control for transfer between natural cgreGFP and its
-artificial peaks:
-
-![Natural cgreGFP to artificial peaks after one-shot random addition](results/target_adaptation_density_panels/cgre_to_artificial_oneshot_random_960_target_density.png)
-
-![Artificial peaks to natural cgreGFP after one-shot random addition](results/target_adaptation_density_panels/artificial_to_cgre_oneshot_random_960_target_density.png)
-
-The complete diagnostic atlas contains every direction and all seven main
-conditions, with densities and dotplots in separate folders:
-
-- [Browse all 56 distribution panels](results/target_adaptation_diagnostic_atlas/distributions/)
-- [Browse all 56 true-vs-predicted dotplot panels](results/target_adaptation_diagnostic_atlas/dotplots/)
-- [Scenario-by-scenario index](results/target_adaptation_diagnostic_atlas/README.md)
-
-## Complete result index
-
-| Experiment | What was done | Tables | Main figures |
-|---|---|---|---|
-| cgreGFP distribution and predictor study | Gaussian-mixture analysis followed by matched ProteinBERT, ESM-2 and OHE comparisons using MLP, XGBoost and CNN; direct and soft-hurdle prediction; 5 seeds | [Report](results/cgre_predictor_study/REPORT.md) · [Summary CSV](results/cgre_predictor_study/summary.csv) · [All seeded metrics](results/cgre_predictor_study/all_metrics.csv) | [Model comparison](results/cgre_predictor_study/model_comparison.png) · [Distributions and dot plots](results/cgre_predictor_study/best_model_diagnostics.png) |
-| Two-GMM-gated CNN | Train-only GMM low/high boundary, probabilistic gate and separate low/high regression experts; direct and exact-floor-hurdle controls; 5 landscapes × 5 seeds | [Report](results/gmm_gated_cnn_seed42_46/REPORT.md) · [Summary CSV](results/gmm_gated_cnn_seed42_46/summary.csv) · [All seeded metrics](results/gmm_gated_cnn_seed42_46/all_metrics.csv) | [CNN comparison](results/gmm_gated_cnn_seed42_46/comparison.png) |
-| Two-GMM-gated linear predictor | Positional OHE with logistic low/high gate and separate Ridge experts; direct and exact-floor-hurdle controls; 5 landscapes × 5 GMM seeds | [Report](results/gmm_gated_linear_seed42_46/REPORT.md) · [Summary CSV](results/gmm_gated_linear_seed42_46/summary.csv) · [All seeded metrics](results/gmm_gated_linear_seed42_46/all_metrics.csv) | [Linear comparison](results/gmm_gated_linear_seed42_46/comparison.png) |
-| cgreGFP benchmark | Fixed 60/20/20 holdout and 10-fold CV; 24,516 sequences; 121 ESM fits + 11 Jannis OHE fits + sequence baselines | [Report](docs/BENCHMARK_RESULTS.md) · [CSV](results/esm_cgreGFP/comparison.csv) | [CNN predictions](results/esm_cgreGFP/cv_cnn_true_vs_predicted.png) · [Mean-ESM predictions](results/esm_cgreGFP/cv_mean_true_vs_predicted.png) · [Accuracy/runtime](results/esm_cgreGFP/accuracy_vs_runtime.png) |
-| Transfer before AL | Aubin, Linear, MLP and CNN on OHE; seven ortholog mixtures and four natural/artificial directions; 5 seeds | [Report](results/transfer_cgreGFP_seed42_46/RESULTS.md) · [CSV](results/transfer_cgreGFP_seed42_46/summary.csv) | [GFP proteins](results/transfer_cgreGFP_seed42_46/ortholog_mixtures_spearman.png) · [Artificial peaks](results/transfer_cgreGFP_seed42_46/artificial_peak_transfer_spearman.png) |
-| Four-protein leave-one-out transfer | cgreGFP, amacGFP, ppluGFP and avGFP each become the frozen target; all 7 combinations of the other 3 proteins; 4 models × 5 seeds | [Report](results/ortholog_leave_one_out_seed42_46/RESULTS.md) · [Summary CSV](results/ortholog_leave_one_out_seed42_46/summary.csv) · [All seeded metrics](results/ortholog_leave_one_out_seed42_46/per_run_scores.csv) | [Spearman](results/ortholog_leave_one_out_seed42_46/four_protein_holdout_spearman.png) · [Pearson](results/ortholog_leave_one_out_seed42_46/four_protein_holdout_pearson.png) · [R²](results/ortholog_leave_one_out_seed42_46/four_protein_holdout_r2.png) |
-| Held-out artificial-peak transfer | Each of the three largest artificial cgreGFP peaks is excluded from fitting and tested separately; other artificial peaks with/without balanced natural cgreGFP; 4 models × 5 seeds | [Report](results/artificial_peak_holdout_seed42_46/RESULTS.md) · [Summary CSV](results/artificial_peak_holdout_seed42_46/summary.csv) · [All seeded metrics](results/artificial_peak_holdout_seed42_46/per_run_scores.csv) | [Spearman](results/artificial_peak_holdout_seed42_46/artificial_peak_holdout_spearman.png) · [Pearson](results/artificial_peak_holdout_seed42_46/artificial_peak_holdout_pearson.png) · [R²](results/artificial_peak_holdout_seed42_46/artificial_peak_holdout_r2.png) |
-| Transfer with AL | Same models, seeds, budgets and frozen tests; 10 acquisition rounds; 160/160 trajectories | [Results](results/transfer_al_cgreGFP_seed42_46/RESULTS.md) · [CSV](results/transfer_al_cgreGFP_seed42_46/summary.csv) · [Protocol](docs/TRANSFER_ACTIVE_LEARNING.md) | [GFP proteins](results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman.png) · [Non-AL vs AL](results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman_non_al_vs_al.png) · [Artificial peaks](results/transfer_al_cgreGFP_seed42_46/artificial_peak_transfer_spearman.png) |
-| Random vs acquisition score ("Fancy") transfer | CNN on OHE; matched initial sets, budgets, seeds and frozen tests | [Live status and exact method](results/transfer_random_cgreGFP_seed42_46/STATUS.md) · [Frozen protocol](results/transfer_random_cgreGFP_seed42_46/protocol.json) | [GFP proteins — available after completion](results/transfer_random_cgreGFP_seed42_46/sampling_ortholog_transfer.png) · [Natural/artificial peaks — available after completion](results/transfer_random_cgreGFP_seed42_46/sampling_peak_transfer.png) |
-| Random vs acquisition score transfer — Linear | 40 acquisition-score and 40 matched random CPU trajectories; 5 seeds | [Status](results/transfer_random_linear_cgreGFP_seed42_46/STATUS.md) · [Frozen protocol](results/transfer_random_linear_cgreGFP_seed42_46/protocol.json) | [GFP proteins](results/transfer_random_linear_cgreGFP_seed42_46/sampling_ortholog_transfer.png) · [Natural/artificial peaks](results/transfer_random_linear_cgreGFP_seed42_46/sampling_peak_transfer.png) |
-| Ensemble uncertainty for non-CNN models | Aubin, Linear and MLP; 5-member ensembles; matched Random/Fancy comparison; 120/120 trajectories | [Results and method](results/transfer_ensemble_sampling_cpu_seed42_46/RESULTS.md) · [Protocol](results/transfer_al_ensemble_cpu_seed42_46/protocol.json) | [GFP proteins](results/transfer_ensemble_sampling_cpu_seed42_46/sampling_ortholog_transfer_cpu_models.png) · [Natural/artificial peaks](results/transfer_ensemble_sampling_cpu_seed42_46/sampling_peak_transfer_cpu_models.png) |
-| Target-protein adaptation | 96 target sequences × 10 or 960 once; fancy/random; 6 directed protein pairs; 3 CPU models; 5 seeds; 90/90 jobs | [Results](results/target_adaptation_seed42_46/RESULTS.md) · [CSV](results/target_adaptation_seed42_46/summary.csv) · [Design](docs/TARGET_ADAPTATION.md) | [Four-arm comparison](results/target_adaptation_seed42_46/target_adaptation_comparison.png) |
-| Natural cgreGFP/artificial-peak adaptation | Same 96 × 10 versus 960-once design in both directions; 3 CPU models; 5 seeds; 30/30 jobs | [Results](results/target_adaptation_peaks_seed42_46/RESULTS.md) · [CSV](results/target_adaptation_peaks_seed42_46/summary.csv) · [Design](docs/TARGET_ADAPTATION.md) | [Four-arm comparison](results/target_adaptation_peaks_seed42_46/target_adaptation_comparison.png) |
-| CNN target-protein adaptation | CNN on OHE; 96 × 10 versus 960 once; fancy/random; 6 directed protein pairs; 5 seeds; 30/30 complete | [Results](results/target_adaptation_cnn_seed42_46/RESULTS.md) · [CSV](results/target_adaptation_cnn_seed42_46/summary.csv) | [Four-arm comparison](results/target_adaptation_cnn_seed42_46/target_adaptation_comparison.png) |
-| CNN natural/artificial adaptation | CNN on OHE; same four arms in both directions; 5 seeds; 10/10 complete | [Results](results/target_adaptation_peaks_cnn_seed42_46/RESULTS.md) · [CSV](results/target_adaptation_peaks_cnn_seed42_46/summary.csv) | [Four-arm comparison](results/target_adaptation_peaks_cnn_seed42_46/target_adaptation_comparison.png) |
-
-<details>
-<summary>Detailed result notes and archived intermediate figures</summary>
-
-[Selected models: cgre → cgre scatter panel](results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/cgre_test_all_seeds.png)
-shows individual saved predictions from all three cgre-only control fits.
-[PDF](results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/cgre_test_seed42.pdf) ·
-[All seeds and formats](results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/) ·
-[Metrics](results/transfer_cgreGFP_seed42_44/cgre_true_vs_predicted/metrics.csv).
-
-[amacGFP + ppluGFP → cgreGFP scatter panel](results/transfer_cgreGFP_seed42_44/amac_pplu_to_cgre_true_vs_predicted/amac_pplu_to_cgre_all_seeds.png)
-shows the four selected models across all three seeds on the same 4,904 held-out
-cgreGFP sequences ([metrics](results/transfer_cgreGFP_seed42_44/amac_pplu_to_cgre_true_vs_predicted/metrics.csv)).
-
-**Best measured accuracy: Jannis CNN on OHE** (CV RMSE 0.227, R² 0.912,
-Spearman 0.900). **Efficient default: Aubin 1–10–1 on OHE** (RMSE 0.234,
-R² 0.908): its holdout fit takes 65 seconds on CPU versus 20.7 minutes on GPU
-for Jannis OHE. Deep MLP has nearly the same ranking score (0.899) at lower cost.
-Small differences are descriptive, not claims of statistical significance.
-
-The transfer experiment compares Aubin, Linear, MLP and CNN on OHE over five
-seeds. All models use aligned one-hot inputs and identical source budgets.
-
-![Transferability of models between GFP proteins](results/transfer_cgreGFP_seed42_46/ortholog_mixtures_spearman.png)
-
-![Transferability between natural cgreGFP and artificial peaks](results/transfer_cgreGFP_seed42_46/artificial_peak_transfer_spearman.png)
-
-Transfer uses **14,709 train / 4,903 validation** records per fit, with fixed
-**20% target holdouts**: 4,904 natural or 5,382 artificial sequences. Sources
-contribute equally in ortholog mixtures. Error bars show SD across five seeds;
-validation uses training sources only. Artificial → artificial tests within the
-four represented peaks, not an unseen peak. The natural test was used in earlier
-comparisons, so these transfer results are exploratory.
-
-### Active-learning transfer
-
-All **160 five-seed trajectories** for Aubin, Linear, MLP and CNN on OHE are
-complete. Each trajectory has an initial fit plus ten acquisition rounds and ends
-at the same 14,709-label budget as the non-AL transfer benchmark. AL and non-AL
-use the exact same frozen test records. Bars show the mean and error bars show
-sample SD across seeds 42–46.
-
-**Matched model selection without and with AL on frozen natural cgreGFP test:**
-
-![Non-AL versus AL model comparison](results/transfer_al_cgreGFP_seed42_46/model_comparison_al.png)
-
-**Transfer between GFP proteins after AL:**
-
-![AL transfer between GFP proteins](results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman.png)
-
-**Matched non-AL and AL transfer between GFP proteins:**
-
-![Non-AL versus AL transfer between GFP proteins](results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman_non_al_vs_al.png)
-
-**Transfer between natural cgreGFP and artificial peaks after AL:**
-
-![AL transfer between natural cgreGFP and artificial peaks](results/transfer_al_cgreGFP_seed42_46/artificial_peak_transfer_spearman.png)
-
-**Matched non-AL and AL transfer between natural cgreGFP and artificial peaks:**
-
-![Non-AL versus AL peak transfer](results/transfer_al_cgreGFP_seed42_46/artificial_peak_transfer_spearman_non_al_vs_al.png)
-
-### Target-protein adaptation
-
-The next experiment adds 96 labelled target sequences over ten iterative rounds
-or adds 960 sequences once. It compares random and acquisition-score selection
-for all six directed natural-protein pairs and both natural/artificial directions.
-
-![Natural-protein target adaptation](results/target_adaptation_seed42_46/target_adaptation_comparison.png)
-
-![Natural/artificial target adaptation](results/target_adaptation_peaks_seed42_46/target_adaptation_comparison.png)
-
-### Random versus acquisition score ("Fancy") transfer
-
-This is a separate five-seed CNN-on-OHE experiment for both GFP-protein transfer
-and natural cgreGFP/artificial-peak transfer. Random and acquisition-score arms
-share the initial labelled records, label budgets, validation sets and frozen
-tests. [Current status and exact method](results/transfer_random_cgreGFP_seed42_46/STATUS.md).
-
-The acquisition arm uses `0.62 × scaled hidden-space distance + 0.38 × scaled
-MC-dropout variance`, followed by global descending-score selection. It does not
-run the student's dense SpectralClustering/3-mer stage, whose pool affinity
-matrix is quadratic at this scale. The labels and documentation state this
-explicitly.
-
-The following links will resolve to the final figures immediately after all 40
-random trajectories finish and the finalizer validates both arms:
-
-- [Random vs acquisition score between GFP proteins](results/transfer_random_cgreGFP_seed42_46/sampling_ortholog_transfer.png)
-- [Random vs acquisition score between natural cgreGFP and artificial peaks](results/transfer_random_cgreGFP_seed42_46/sampling_peak_transfer.png)
-
-### Random versus acquisition score transfer — CPU models
-
-This five-seed CPU experiment repeats the same comparison for **Aubin, Linear
-and MLP** for GFP-protein transfer and natural cgreGFP/artificial-peak transfer.
-The acquisition-score and matched random trajectories are complete for all
-three models. Every arm shares initial labelled records, label budgets,
-validation sets and frozen tests.
-
-Aubin, Linear and MLP contain no dropout, so their uncertainty term is zero.
-Their acquisition score is therefore the scaled distance from the labelled
-training set in each model's projected hidden representation. As in the CNN
-experiment, selection uses global descending scores and does not run the dense
-SpectralClustering/3-mer stage.
-
-We retain those completed distance-only trajectories as the reproducible first
-version. A versioned five-member ensemble experiment recalculates the
-three CPU models with uncertainty included. Aubin and Linear use bootstrap
-ensembles; MLP uses independent initializations. In each case the pool score is
-`0.62 × scaled distance + 0.38 × scaled ensemble prediction variance`, while
-the primary model alone evaluates the unchanged frozen test. See the
-[exact method and reproduction commands](docs/TRANSFER_ACTIVE_LEARNING.md#ensemble-uncertainty-extension-for-cpu-models).
-
-Final ensemble-uncertainty comparisons:
-
-![Aubin, Linear and MLP between GFP proteins](results/transfer_ensemble_sampling_cpu_seed42_46/sampling_ortholog_transfer_cpu_models.png)
-
-![Aubin, Linear and MLP between natural cgreGFP and artificial peaks](results/transfer_ensemble_sampling_cpu_seed42_46/sampling_peak_transfer_cpu_models.png)
-
-The earlier Linear-only figures remain available for provenance:
-
-![Linear Random versus acquisition score between GFP proteins](results/transfer_random_linear_cgreGFP_seed42_46/sampling_ortholog_transfer.png)
-
-**Random versus acquisition-score sampling between natural cgreGFP and artificial peaks:**
-
-![Linear Random versus acquisition score between natural cgreGFP and artificial peaks](results/transfer_random_linear_cgreGFP_seed42_46/sampling_peak_transfer.png)
-
-Distance-only three-model figure paths:
-
-- [Aubin, Linear and MLP between GFP proteins](results/transfer_random_cpu_models_cgreGFP_seed42_46/sampling_ortholog_transfer_cpu_models.png)
-- [Aubin, Linear and MLP between natural cgreGFP and artificial peaks](results/transfer_random_cpu_models_cgreGFP_seed42_46/sampling_peak_transfer_cpu_models.png)
-
-R² is reported in the result tables alongside correlations: 1 is perfect, 0
-matches the test-mean predictor, and negative values indicate worse squared error.
-
-</details>
+This repository contains reproducible datasets and models for predicting
+**log10 fluorescence from GFP protein sequence**. The project studies natural
+GFP orthologs, natural cgreGFP and four artificial cgreGFP fitness peaks. It
+also tests how prediction changes when labelled sequences from a new protein
+are added to training.
+
+The repository is organized for two audiences:
+
+- **New users:** start with the dataset and quick-start sections below.
+- **Project collaborators:** use the [complete experiment catalog](docs/EXPERIMENT_CATALOG.md)
+  for every report, figure, protocol and intermediate result.
+
+## Start here
+
+| If you want to… | Open this |
+|---|---|
+| Understand or share the experimental data | [Data and preprocessing](docs/DATA_AND_BASELINES.md) |
+| Reproduce the standard cgreGFP benchmark | [Benchmark results](docs/BENCHMARK_RESULTS.md) |
+| Compare transfer among cgreGFP, amacGFP, ppluGFP and avGFP | [Four-protein leave-one-out report](results/ortholog_leave_one_out_seed42_46/RESULTS.md) |
+| Predict a completely held-out artificial cgreGFP peak | [Artificial-peak holdout report](results/artificial_peak_holdout_seed42_46/RESULTS.md) |
+| Add labelled target-protein sequences iteratively | [Target-adaptation report](results/target_adaptation_complete_report/README.md) |
+| Simulate laboratory plates of target sequences | [Full cgreGFP pool-size report](results/cross_protein_pool_size_seed42_46/REPORT.md) · [7,350-source report](results/cross_protein_pool_size_cgre7350_seed42_46/REPORT.md) |
+| Reuse the pool-size code | [Pool-size implementation guide](docs/POOL_SIZE_EXPERIMENT.md) |
+| Inspect fluorescence distributions and distribution-aware predictors | [cgreGFP predictor study](results/cgre_predictor_study/REPORT.md) |
+| Browse every completed and archived experiment | [Complete experiment catalog](docs/EXPERIMENT_CATALOG.md) |
+
+## Data
+
+### Raw experimental inputs
+
+The versioned input files are in [`data/raw/`](data/raw/). They contain the
+original amino-acid and nucleotide genotype tables, fluorescence measurements
+and reference FASTA sequences. Files retain their source-specific schemas,
+replicates and measurement scales.
+
+Use the raw folder when sharing the original experimental records or auditing
+provenance.
+
+### Model-ready dataset
+
+All current benchmarks use the deterministic processed table:
+
+```text
+data/processed/baseline_v1/sequences.csv
+```
+
+Each row contains the protein background, canonical genotype, complete protein
+sequence, log10 fluorescence target, provenance, stable identifiers and a
+frozen `train`, `validation` or `test` assignment. Duplicate measurements are
+aggregated and rejected source rows are recorded separately.
+
+`baseline_v1` is generated locally and is not committed because the main CSV is
+approximately 88 MB. Recreate it from the versioned raw inputs with:
+
+```bash
+python scripts/prepare_data.py
+```
+
+The generated directory contains:
+
+- `sequences.csv`: 168,046 retained model-ready records;
+- `exclusions.csv`: rejected rows and explicit reasons;
+- `manifest.json`: input/output hashes, software versions, counts and overlap checks.
+
+The older tables already visible under `data/processed/` are retained for
+provenance and legacy analyses. They are not the canonical input for current
+models. See [Data and baselines](docs/DATA_AND_BASELINES.md) for column
+definitions, landscape counts, scaling and preprocessing validation.
+
+## Experimental design in one page
+
+The project uses several related designs. Their names indicate what is added to
+training:
+
+| Design | What changes after the initial fit? | Target sequences added? |
+|---|---|---:|
+| Supervised baseline | Nothing; one fit on a fixed training set | No |
+| Source-pool active learning | The acquisition rule selects more records from the source pool | No |
+| Target adaptation | 96 labelled target records are selected and added per round | Yes |
+| One-shot target control | 960 randomly sampled target records are added once | Yes |
+| Pool-size experiment | Independent models are trained on nested random target subsets of increasing size | Yes |
+
+The pool-size experiment is **not active learning**: target order is randomly
+frozen before training and no acquisition score is used. Each plotted point is
+a new model trained from scratch on the fixed source data plus the cumulative
+target subset.
+
+Unless a report explicitly states otherwise:
+
+- test records are frozen before fitting and never enter training, validation
+  or acquisition;
+- compared methods share the same test records and label budgets;
+- multi-seed reports use seeds 42–46;
+- plots show mean performance and variability across those seeds;
+- machine-readable per-run and summary CSVs accompany the report.
+
+## Main model families
+
+| Display name | Implementation |
+|---|---|
+| Aubin 1–10–1 | Positional one-hot model with the published 1–10–1 head |
+| Linear | Additive positional one-hot regression |
+| MLP | Fully connected nonlinear positional one-hot model |
+| CNN on OHE | Convolutional model operating on positional one-hot sequences |
+| Embedding models | MLP, Ridge or XGBoost on ESM-2 or ProteinBERT representations |
+
+Cross-protein positional models use an explicit reference alignment; alignment
+gaps are represented by zero feature vectors. Exact architectures and training
+settings are documented in the report linked to each experiment.
 
 ## Quick start
-
-**Experiment 1 — base-model comparison without active learning:** the supplied draft describes a random 80/20 cgre
-split but omits several parameters and its promised appendix. The
-[reproduction audit and exact commands](docs/PAPER_REPRODUCTION.md) distinguish
-published facts, legacy-code assumptions, the existing ten-fold validation and
-the new five-model 80/20 comparison. Do not present the 1%-initial-label AL pilot
-as reproduction of the manuscript's fully supervised Pearson 0.943 result.
-[Results](results/paper_reproduction_cgre_80_20/RESULTS.md) ·
-[CSV](results/paper_reproduction_cgre_80_20/summary.csv) ·
-[Figure](results/paper_reproduction_cgre_80_20/model_comparison.png).
-
-The initial seed-42 result is retained as an important no-AL baseline; seeds
-42–46 quantify its variation.
-
-**Experiment 2 — acquisition versus random sampling:** matched seeds compare
-the manuscript acquisition score with nested random subsets at equal label
-budgets. Both use fixed 20% tests and report R², Pearson, Spearman and Kendall
-tau. See the
-[protocol and reproduction commands](docs/JANNIS_EXPERIMENTS.md).
-[Results](results/experiment_2_sampling/RESULTS.md) ·
-[CSV](results/experiment_2_sampling/summary.csv) ·
-[Figure](results/experiment_2_sampling/sampling_comparison.png).
 
 ```bash
 git clone https://github.com/kalininalab/gfp_project.git
@@ -385,44 +119,41 @@ conda env create -f environment.yml
 conda activate gfp-benchmark
 python -m unittest discover -s tests -v
 python scripts/prepare_data.py
-python scripts/train_aubin.py --gene cgreGFP --output results/aubin_cgreGFP_seed42
+python scripts/train_aubin.py \
+  --gene cgreGFP \
+  --output results/aubin_cgreGFP_seed42
 ```
 
-Run from the repository root. Create the environment and prepared data once;
-the preparer refuses to overwrite existing data. The required experimental input
-files are included. Training and plotting do not require the foreign repositories.
-The architecture comparison against Jannis's original source is an optional test
-and skips when that repository is absent.
+Run commands from the repository root. `prepare_data.py` refuses to overwrite a
+non-empty processed directory, protecting an existing frozen dataset.
 
-| To reproduce… | Instructions |
+| Workflow | Instructions |
 |---|---|
-| One-hot baselines, 10-fold splits, ESM embeddings, CNNs, tables and prediction plots | [Running models](docs/RUNNING_MODELS.md) |
-| Training mixtures and natural/artificial transfer figures | [Transfer procedure and commands](docs/TRANSFER_EXPERIMENTS.md) |
-| Transfer with active learning, round diagnostics and paired figures | [Transfer active-learning protocol](docs/TRANSFER_ACTIVE_LEARNING.md) |
-| Iterative and one-shot target-protein adaptation | [Target-adaptation protocol](docs/TARGET_ADAPTATION.md) |
-| Mutation indexing, target scaling, exclusions and Aubin reference audit | [Data and baselines](docs/DATA_AND_BASELINES.md) |
-| CNN architectures and fixes to the original training code | [CNN differences and bug fixes](docs/RUNNING_MODELS.md#what-are-the-three-cnns) |
+| Data generation and baseline definitions | [Data and baselines](docs/DATA_AND_BASELINES.md) |
+| One-hot, ESM and CNN benchmarks | [Running models](docs/RUNNING_MODELS.md) |
+| Non-AL transfer experiments | [Transfer experiments](docs/TRANSFER_EXPERIMENTS.md) |
+| Source-pool active learning | [Transfer active learning](docs/TRANSFER_ACTIVE_LEARNING.md) |
+| Iterative and one-shot target adaptation | [Target adaptation](docs/TARGET_ADAPTATION.md) |
+| Random target-pool size experiments | [Pool-size experiment](docs/POOL_SIZE_EXPERIMENT.md) |
+| Manuscript-described 80/20 comparison | [Paper reproduction](docs/PAPER_REPRODUCTION.md) |
 
-The environment is pinned in [environment.yml](environment.yml). ESM uses the
-frozen `facebook/esm2_t30_150M_UR50D` checkpoint; full CNN workloads need an NVIDIA
-GPU. Use the documented HTCondor jobs for expensive runs. Condor wrappers contain
-our cluster paths and interpreter: adjust them for another installation.
+The environment is pinned in [`environment.yml`](environment.yml). Full CNN
+workloads require an NVIDIA GPU. HTCondor wrappers contain paths for the LSV
+cluster and must be adjusted for another installation.
 
 ## Repository layout
 
-- `scripts/`: preparation, models, evaluation, ESM and transfer pipelines.
-- `tests/`: indexing, splits, label alignment, architecture and checkpoint checks.
-- `condor/`: job wrappers, queue lists and the transfer completion workflow.
-- `data/`: experimental inputs; generated `data/processed/baseline_v1/` is ignored.
-- `results/`: selected reports, CSV tables and PNG/PDF/SVG figures are committed;
-  generated per-fit predictions, checkpoints and logs remain local.
-- `esm_embeddings/`: generated feature caches, ignored because of their size.
+| Path | Contents |
+|---|---|
+| `data/raw/` | Versioned experimental inputs and reference sequences |
+| `data/processed/baseline_v1/` | Generated canonical model table, exclusions and manifest |
+| `scripts/` | Preprocessing, models, training, evaluation and plotting |
+| `docs/` | Methods, reproduction instructions and the experiment catalog |
+| `results/` | Selected reports, summary tables and publication figures |
+| `tests/` | Split, indexing, label-alignment and architecture checks |
+| `condor/` | LSV-cluster job descriptions and wrappers |
+| `esm_embeddings/` | Generated embedding caches; ignored because of their size |
 
-On this installation, ignored large artifacts belong under
-`/data/users/akolchina/gfp_project_artifacts`; compatibility symlinks may keep
-the paths above usable. They are never repository inputs.
-
-`master_thesis_jaca00001/` and `Orthologous_GFP_Fitness_Peaks/` are external
-reference repositories and are deliberately excluded. The reusable Jannis
-architecture is implemented in our model module; the original CNN script is
-preserved as `CNN/model_legacy.py` for reference, not as a training entry point.
+Large checkpoints, per-fit predictions, Condor logs and generated embeddings
+are kept outside Git. Published result directories contain the reports and
+machine-readable summaries needed to interpret each figure.
