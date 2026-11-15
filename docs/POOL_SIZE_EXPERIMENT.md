@@ -6,6 +6,10 @@ every fit on unchanged held-out tests for cgreGFP and the target protein. It is
 a supervised pool-size experiment and does not use an active-learning
 acquisition function.
 
+The matched acquisition extension keeps this entire protocol fixed and changes
+only how target-training records are chosen. Its publication figures overlay
+the random curves with acquisition curves on the same axes.
+
 ## Code map
 
 - [`scripts/pool_mixing/prepare.py`](../scripts/pool_mixing/prepare.py) freezes
@@ -16,6 +20,13 @@ acquisition function.
 - [`scripts/pool_mixing/finalize.py`](../scripts/pool_mixing/finalize.py)
   validates completed fits and creates metric tables, curves, distributions and
   the report.
+- [`scripts/pool_mixing_acquisition/prepare.py`](../scripts/pool_mixing_acquisition/prepare.py)
+  creates dependent round-by-round DAGs for the matched acquisition arm.
+- [`scripts/pool_mixing_acquisition/run_round.py`](../scripts/pool_mixing_acquisition/run_round.py)
+  retrains one primary model, evaluates the frozen tests, estimates uncertainty
+  and selects the next target plate.
+- [`scripts/pool_mixing_acquisition/finalize.py`](../scripts/pool_mixing_acquisition/finalize.py)
+  overlays random and acquisition results in the existing publication figures.
 - [`scripts/transfer_benchmark/models.py`](../scripts/transfer_benchmark/models.py)
   defines the aligned positional-OHE wrappers.
 - [`scripts/aubin_model.py`](../scripts/aubin_model.py) defines Aubin 1–10–1;
@@ -99,3 +110,30 @@ python -m scripts.pool_mixing.finalize \
 
 Published reference results are in
 [`results/cross_protein_pool_size_cgre7350_seed42_46/`](../results/cross_protein_pool_size_cgre7350_seed42_46/).
+
+## Matched acquisition experiment
+
+The acquisition extension is run for both source sizes (14,709 and 7,350
+cgreGFP training records), both target proteins, plate sizes 9, 48, 96, 192 and
+384, seeds 42–46, and Aubin, MLP and CNN on OHE. At every round the primary
+model is newly initialized and fitted on the complete cumulative labelled set,
+exactly as in the random experiment.
+
+The next plate is the highest-scoring set from the remaining frozen target
+training pool:
+
+```text
+score = 0.62 × scaled hidden-space distance
+      + 0.38 × scaled predictive variance
+```
+
+Aubin and MLP predictive variance comes from five fitted ensemble members.
+CNN predictive variance comes from 25 MC-dropout predictions. Target
+validation grows by the same frozen rule as in the random arm. Both
+protein-specific tests are identical between arms and are never available to
+training, early stopping or acquisition.
+
+One acquisition round depends on the selected records from the preceding
+round, so the generated DAG uses a separate dependency chain for each
+`(source size, target, plate size, seed, model)` trajectory. Raw outputs and
+Condor logs belong under `/data/users/USERNAME/`, outside the Git checkout.

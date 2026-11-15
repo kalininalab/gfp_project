@@ -22,3 +22,20 @@ Final report: [`REPORT.md`](REPORT.md)
 - CPU-only DAG **74545** completed **2,410/2,410 Aubin fits with zero failures**.
 - A smoke fit completed successfully before submission.
 - The final report combines MLP and Aubin across all five seeds: [`REPORT.md`](REPORT.md).
+
+## Random versus acquisition extension
+
+- Submitted 15 November 2026 as DAG **82312**.
+- Adds matched acquisition trajectories for Aubin, MLP and CNN on OHE across
+  both targets, all five plate sizes and seeds 42–46.
+- Because the earlier CNN grid was cancelled, the same DAG also completes the
+  missing random CNN comparator on the frozen random prefixes.
+- Acquisition score: `0.62 × scaled hidden-space distance + 0.38 × scaled
+  predictive variance`; Aubin/MLP use five-member ensembles and CNN uses 25
+  MC-dropout predictions.
+- Every primary fit is reinitialized and trained on the complete cumulative
+  labelled set. Frozen validation and test records are unchanged.
+- When the DAG completes, the existing R², Spearman and KL figures will be
+  replaced by overlays: random cgreGFP/target in blue/orange and acquisition
+  cgreGFP/target in pink/violet.
+- Raw output: `/data/users/akolchina/gfp_project/cross_protein_pool_size_acquisition_seed42_46_runs`.

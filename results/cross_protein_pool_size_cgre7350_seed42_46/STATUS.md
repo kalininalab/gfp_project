@@ -28,3 +28,20 @@ This experiment repeats the completed MLP plate-size study while reducing the cg
 - CPU-only DAG **74546** completed **2,410/2,410 Aubin fits with zero failures**.
 - A smoke fit completed successfully before submission.
 - Final MLP-versus-Aubin report: [`REPORT.md`](REPORT.md).
+
+## Random versus acquisition extension
+
+- Submitted 15 November 2026 as DAG **82313**.
+- Repeats the matched acquisition comparison with 7,350 fixed cgreGFP
+  training records for Aubin, MLP and CNN on OHE, targets ppluGFP/amacGFP,
+  all five plate sizes and seeds 42–46.
+- The DAG also computes the missing random CNN comparator using this report's
+  frozen target order, validation policy and tests.
+- Acquisition score: `0.62 × scaled hidden-space distance + 0.38 × scaled
+  predictive variance`; Aubin/MLP use five-member ensembles and CNN uses 25
+  MC-dropout predictions.
+- Primary models are reinitialized and trained on all cumulative labelled
+  records at each round. Test data never enter fitting or selection.
+- Final overlays use pink for acquisition results on cgreGFP and violet for
+  acquisition results on the target protein.
+- Raw output: `/data/users/akolchina/gfp_project/cross_protein_pool_size_cgre7350_acquisition_seed42_46_runs`.

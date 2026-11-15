@@ -21,7 +21,7 @@ The repository is organized for two audiences:
 | Compare transfer among cgreGFP, amacGFP, ppluGFP and avGFP | [Four-protein leave-one-out report](results/ortholog_leave_one_out_seed42_46/RESULTS.md) |
 | Predict a completely held-out artificial cgreGFP peak | [Artificial-peak holdout report](results/artificial_peak_holdout_seed42_46/RESULTS.md) |
 | Add labelled target-protein sequences iteratively | [Target-adaptation report](results/target_adaptation_complete_report/README.md) |
-| Simulate laboratory plates of target sequences | [Full cgreGFP pool-size report](results/cross_protein_pool_size_seed42_46/REPORT.md) · [7,350-source report](results/cross_protein_pool_size_cgre7350_seed42_46/REPORT.md) |
+| Simulate random or acquisition-selected laboratory plates | [Full cgreGFP pool-size report](results/cross_protein_pool_size_seed42_46/REPORT.md) ([acquisition status](results/cross_protein_pool_size_seed42_46/STATUS.md)) · [7,350-source report](results/cross_protein_pool_size_cgre7350_seed42_46/REPORT.md) ([acquisition status](results/cross_protein_pool_size_cgre7350_seed42_46/STATUS.md)) |
 | Reuse the pool-size code | [Pool-size implementation guide](docs/POOL_SIZE_EXPERIMENT.md) |
 | Inspect fluorescence distributions and distribution-aware predictors | [cgreGFP predictor study](results/cgre_predictor_study/REPORT.md) |
 | Browse every completed and archived experiment | [Complete experiment catalog](docs/EXPERIMENT_CATALOG.md) |
@@ -81,6 +81,7 @@ training:
 | Target adaptation | 96 labelled target records are selected and added per round | Yes |
 | One-shot target control | 960 randomly sampled target records are added once | Yes |
 | Pool-size experiment | Independent models are trained on nested random target subsets of increasing size | Yes |
+| Acquisition pool-size experiment | Independent models are trained on cumulative target subsets selected by distance and uncertainty | Yes |
 
 The pool-size experiment is **not active learning**: target order is randomly
 frozen before training and no acquisition score is used. Each plotted point is
