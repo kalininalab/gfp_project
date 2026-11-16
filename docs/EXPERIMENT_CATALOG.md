@@ -1,8 +1,11 @@
-# Complete experiment catalog
+# Experiment catalog by scientific question
 
-This page contains the detailed experimental story, result tables, figures and
-archived intermediate analyses. For the project overview, dataset description
-and first reproduction steps, start with the [main README](../README.md).
+This page organizes the scientific story by question, so it is not
+chronological. To find the newest experiment, remember what was plotted last,
+or inspect every result folder including archives, open the
+**[experiment timeline and figure finder](EXPERIMENT_TIMELINE.md)**. For the
+project overview, dataset description and first reproduction steps, start with
+the [main README](../README.md).
 
 ## Experimental story
 

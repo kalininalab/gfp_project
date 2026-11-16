@@ -16,6 +16,7 @@ The repository is organized for two audiences:
 
 | If you want to… | Open this |
 |---|---|
+| Find the latest experiment or the pictures plotted most recently | **[Experiment timeline and figure finder](docs/EXPERIMENT_TIMELINE.md)** |
 | Understand or share the experimental data | [Data and preprocessing](docs/DATA_AND_BASELINES.md) |
 | Reproduce the standard cgreGFP benchmark | [Benchmark results](docs/BENCHMARK_RESULTS.md) |
 | Compare transfer among cgreGFP, amacGFP, ppluGFP and avGFP | [Four-protein leave-one-out report](results/ortholog_leave_one_out_seed42_46/RESULTS.md) |
@@ -24,7 +25,8 @@ The repository is organized for two audiences:
 | Simulate random or acquisition-selected laboratory plates | [Full cgreGFP pool-size report](results/cross_protein_pool_size_seed42_46/REPORT.md) ([acquisition status](results/cross_protein_pool_size_seed42_46/STATUS.md)) · [7,350-source report](results/cross_protein_pool_size_cgre7350_seed42_46/REPORT.md) ([acquisition status](results/cross_protein_pool_size_cgre7350_seed42_46/STATUS.md)) |
 | Reuse the pool-size code | [Pool-size implementation guide](docs/POOL_SIZE_EXPERIMENT.md) |
 | Inspect fluorescence distributions and distribution-aware predictors | [cgreGFP predictor study](results/cgre_predictor_study/REPORT.md) |
-| Browse every completed and archived experiment | [Complete experiment catalog](docs/EXPERIMENT_CATALOG.md) |
+| Follow the experiments by scientific question | [Experiment catalog](docs/EXPERIMENT_CATALOG.md) |
+| Browse every result folder, including archives and incomplete runs | [Complete chronological inventory](docs/EXPERIMENT_TIMELINE.md#complete-result-folder-inventory) |
 
 ## Data
 
