@@ -31,10 +31,12 @@ This experiment repeats the completed MLP plate-size study while reducing the cg
 
 ## Random versus acquisition extension
 
-- Submitted 15 November 2026 as DAG **82313**.
+- Submitted 15 November 2026 as DAG **82313**. On 16 November that DAG was
+  replaced by reduced resume DAG **92330**, preserving all completed results.
 - Repeats the matched acquisition comparison with 7,350 fixed cgreGFP
-  training records for Aubin, MLP and CNN on OHE, targets ppluGFP/amacGFP,
-  all five plate sizes and seeds 42–46.
+  training records for Aubin, MLP and CNN on OHE and seeds 42–46. Aubin and
+  MLP retain all five plate sizes. CNN uses 48, 96, 192 and 384; its plate-9
+  trajectories were removed on 16 November.
 - The DAG also computes the missing random CNN comparator using this report's
   frozen target order, validation policy and tests.
 - Acquisition score: `0.62 × scaled hidden-space distance + 0.38 × scaled
@@ -45,3 +47,5 @@ This experiment repeats the completed MLP plate-size study while reducing the cg
 - Final overlays use pink for acquisition results on cgreGFP and violet for
   acquisition results on the target protein.
 - Raw output: `/data/users/akolchina/gfp_project/cross_protein_pool_size_cgre7350_acquisition_seed42_46_runs`.
+- The resume snapshot contained 1,759 unfinished jobs before finalization:
+  1,379 acquisition rounds and 380 matched-random CNN fits.

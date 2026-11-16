@@ -10,6 +10,11 @@ from scripts.transfer_benchmark.common import ROOT, digest
 MODELS = ("aubin_1_10_1", "mlp_small", "CNN_Jannis_OHE")
 
 
+def models_for_plate(plate_size):
+    """CNN plate 9 is excluded: its 214 dependent GPU fits dominate runtime."""
+    return MODELS[:-1] if plate_size == 9 else MODELS
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--reference-raw", type=Path, required=True)
@@ -43,8 +48,9 @@ def main():
     # The published random arm contains Aubin and MLP.  Fit its missing CNN arm
     # on the same frozen prefixes so every acquisition curve has a matched
     # random comparator.
+    cnn_random_sizes = list(range(0, 1921, 48))
     for target in TARGETS:
-        for n_target in REQUIRED_SIZES:
+        for n_target in cnn_random_sizes:
             for seed in SEEDS:
                 node = f"RANDOM_GPU_{target}_{n_target}_{seed}"
                 lines += [f"JOB {node} condor/pool_mixing_gpu_custom.sub",
@@ -55,7 +61,7 @@ def main():
         for plate_size in PLATE_SIZES:
             last_round = PLATE_ROUNDS[plate_size]
             for seed in SEEDS:
-                for model in MODELS:
+                for model in models_for_plate(plate_size):
                     previous = None
                     category = "GPU" if model == "CNN_Jannis_OHE" else "CPU"
                     submit = "condor/pool_mixing_acquisition_gpu.sub" if category == "GPU" else "condor/pool_mixing_acquisition_cpu.sub"

@@ -114,10 +114,12 @@ Published reference results are in
 ## Matched acquisition experiment
 
 The acquisition extension is run for both source sizes (14,709 and 7,350
-cgreGFP training records), both target proteins, plate sizes 9, 48, 96, 192 and
-384, seeds 42–46, and Aubin, MLP and CNN on OHE. At every round the primary
-model is newly initialized and fitted on the complete cumulative labelled set,
-exactly as in the random experiment.
+cgreGFP training records), both target proteins and seeds 42–46. Aubin and MLP
+use plate sizes 9, 48, 96, 192 and 384. CNN on OHE uses plate sizes 48, 96, 192
+and 384; its 214-round plate-9 trajectories were removed on 16 November 2026
+because they dominated GPU runtime. At every round the primary model is newly
+initialized and fitted on the complete cumulative labelled set, exactly as in
+the random experiment.
 
 The next plate is the highest-scoring set from the remaining frozen target
 training pool:

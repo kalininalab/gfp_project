@@ -20,6 +20,10 @@ COLORS = {("random", "cgreGFP"): "#0072B2", ("random", "target"): "#D55E00",
           ("acquisition", "cgreGFP"): "#CC79A7", ("acquisition", "target"): "#6A51A3"}
 
 
+def models_for_plate(plate_size):
+    return MODELS[:-1] if plate_size == 9 else MODELS
+
+
 def read(path):
     with Path(path).open() as stream:
         return list(csv.DictReader(stream))
@@ -30,7 +34,7 @@ def acquisition_records(raw):
     for target in TARGETS:
         for plate_size in PLATE_SIZES:
             for seed in SEEDS:
-                for model in MODELS:
+                for model in models_for_plate(plate_size):
                     directory = raw / "runs" / target / f"plate{plate_size:03d}" / f"seed{seed}" / model
                     if not (directory / "complete.json").exists():
                         raise FileNotFoundError(f"Incomplete acquisition trajectory: {directory}")
@@ -44,7 +48,7 @@ def summarize_acquisition(records):
     for target in TARGETS:
         for plate_size in PLATE_SIZES:
             for round_number in range(PLATE_ROUNDS[plate_size] + 1):
-                for model in MODELS:
+                for model in models_for_plate(plate_size):
                     for gene in ("cgreGFP", target):
                         subset = [row for row in records if row["target_pool"] == target and
                                   int(row["plate_size"]) == plate_size and int(row["round"]) == round_number and
@@ -90,8 +94,7 @@ def kl_divergence(y_true, y_predicted):
 def random_cnn_seeded(reference_raw):
     """Read the matched CNN random fits at each unique cumulative size."""
     records = []
-    sizes = sorted({plate * round_number for plate in PLATE_SIZES
-                    for round_number in range(PLATE_ROUNDS[plate] + 1)})
+    sizes = list(range(0, 1921, 48))
     for target in TARGETS:
         for n_target in sizes:
             for seed in SEEDS:
@@ -116,6 +119,8 @@ def expand_random_cnn(records):
     result = []
     for target in TARGETS:
         for plate_size in PLATE_SIZES:
+            if plate_size == 9:
+                continue
             for round_number in range(PLATE_ROUNDS[plate_size] + 1):
                 n_target = plate_size * round_number
                 for gene in ("cgreGFP", target):
@@ -159,7 +164,7 @@ def main():
             handles = labels = None
             for axis, plate_size in zip(axes.flat, PLATE_SIZES):
                 rounds = list(range(PLATE_ROUNDS[plate_size] + 1))
-                for model in MODELS:
+                for model in models_for_plate(plate_size):
                     for method in ("random", "acquisition"):
                         for gene in ("cgreGFP", target):
                             selected = [next(row for row in combined if row["method"] == method and
@@ -199,7 +204,8 @@ def main():
                "score is `0.62 × scaled hidden-space distance + 0.38 × scaled predictive variance`. Aubin and "
                "MLP use five-member ensembles for variance; CNN on OHE uses 25 MC-dropout predictions. All "
                "three primary models are reinitialized and retrained on the complete cumulative labelled set "
-               "at every round. Validation and frozen tests are identical to the random arm, and test labels "
+               "at every round. CNN on OHE is evaluated for plate sizes 48, 96, 192 and 384; plate size 9 is "
+               "retained for Aubin and MLP only. Validation and frozen tests are identical to the random arm, and test labels "
                "never enter acquisition.\n\nMachine-readable comparison: "
                "[summary_random_vs_acquisition.csv](summary_random_vs_acquisition.csv) and "
                "[acquisition_all_seeded_metrics.csv](acquisition_all_seeded_metrics.csv).\n")

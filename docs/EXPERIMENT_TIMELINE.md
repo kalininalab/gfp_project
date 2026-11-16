@@ -10,7 +10,9 @@ use the [experiment catalog](EXPERIMENT_CATALOG.md).
 
 The newest work is still running, so it has **no final figures yet**. It repeats
 the cross-protein plate-size experiment with acquisition-selected target
-sequences and adds CNN on OHE to both the random and acquisition arms.
+sequences and adds CNN on OHE to both the random and acquisition arms. CNN uses
+plates 48–384; the 214-round plate-9 CNN trajectories were removed on 16
+November. Aubin and MLP retain plate 9.
 
 - [14,709-cgreGFP status](../results/cross_protein_pool_size_seed42_46/STATUS.md)
 - [7,350-cgreGFP status](../results/cross_protein_pool_size_cgre7350_seed42_46/STATUS.md)

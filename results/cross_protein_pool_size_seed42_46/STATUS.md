@@ -25,9 +25,12 @@ Final report: [`REPORT.md`](REPORT.md)
 
 ## Random versus acquisition extension
 
-- Submitted 15 November 2026 as DAG **82312**.
-- Adds matched acquisition trajectories for Aubin, MLP and CNN on OHE across
-  both targets, all five plate sizes and seeds 42–46.
+- Submitted 15 November 2026 as DAG **82312**. On 16 November that DAG was
+  replaced by reduced resume DAG **92329**, preserving all completed results.
+- Adds matched acquisition trajectories across both targets and seeds 42–46.
+  Aubin and MLP retain all five plate sizes. CNN on OHE uses 48, 96, 192 and
+  384; plate 9 was removed because its 214 sequential GPU fits dominated the
+  completion time.
 - Because the earlier CNN grid was cancelled, the same DAG also completes the
   missing random CNN comparator on the frozen random prefixes.
 - Acquisition score: `0.62 × scaled hidden-space distance + 0.38 × scaled
@@ -39,3 +42,5 @@ Final report: [`REPORT.md`](REPORT.md)
   replaced by overlays: random cgreGFP/target in blue/orange and acquisition
   cgreGFP/target in pink/violet.
 - Raw output: `/data/users/akolchina/gfp_project/cross_protein_pool_size_acquisition_seed42_46_runs`.
+- The resume snapshot contained 3,017 unfinished jobs before finalization:
+  2,642 acquisition rounds and 375 matched-random CNN fits.
