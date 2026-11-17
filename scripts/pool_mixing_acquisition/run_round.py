@@ -45,7 +45,9 @@ def fit_model(model_name, x, y, train_ids, validation_ids, seed, device, protoco
         prediction = lambda indexes: predict_cnn(model, x, np.asarray(indexes), device, center, scale)
     else:
         model = AlignedModel(x.shape[1], model_name)
-        settings = protocol["mlp_settings"]
+        settings = protocol.get("model_settings", {}).get(model_name, protocol.get("mlp_settings"))
+        if settings is None:
+            raise ValueError(f"No training settings for {model_name}")
         if settings.get("checkpoint_policy", "early_stopping") == "last_epoch":
             history, best_epoch = train_fixed(
                 model, x[ids["train"]], torch.tensor(y[ids["train"]]),

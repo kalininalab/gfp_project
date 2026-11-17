@@ -145,7 +145,9 @@ def main():
     if args.model in ("aubin_1_10_1", "mlp_small"):
         if args.device != "cpu": raise ValueError("Aubin and MLP models must run on CPU")
         model = AlignedModel(alignment["length"], args.model)
-        settings = protocol["mlp_settings"]
+        settings = protocol.get("model_settings", {}).get(args.model, protocol.get("mlp_settings"))
+        if settings is None:
+            raise ValueError(f"No training settings for {args.model}")
         if settings.get("checkpoint_policy", "early_stopping") == "last_epoch":
             history, best_epoch = train_fixed(
                 model, x[ids["train"]], torch.tensor(y[ids["train"]]),

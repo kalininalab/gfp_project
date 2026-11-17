@@ -26,7 +26,8 @@ def main():
         "base_protocol": str(protocol_path),
         "base_protocol_sha256": digest(protocol_path),
         "dataset_sha256": protocol["dataset_sha256"],
-        "training_settings": protocol["mlp_settings"],
+        "training_settings": protocol.get("model_settings", {}).get(
+            args.model, protocol.get("mlp_settings")),
         "note": "Uses the frozen source subset, target order, validation schedule and tests from the base protocol.",
     }
     addition_path = args.raw / "model_additions" / f"{args.model}.json"

@@ -8,14 +8,15 @@ be interpreted as the final laboratory simulation.
 
 The corrected protocol uses **no target validation sequences**. Every target
 label produced by a plate enters training, so a plate of 96 means exactly 96
-new measurements. Aubin and MLP train for 30 fixed epochs and CNN on OHE for 60
-fixed epochs. The fixed 4,903-record cgreGFP validation split is diagnostic
+new measurements. Aubin trains for 60 fixed epochs, MLP for 40 and CNN on OHE
+for 60 fixed epochs. The fixed 4,903-record cgreGFP validation split is diagnostic
 only and never selects a checkpoint. Frozen tests remain unchanged.
 
 The fresh matched rerun contains Random and acquisition-score sampling for
 Aubin, MLP and CNN on OHE over seeds 42–46. CNN retains plate sizes 48–384;
-plate size 9 remains excluded. The new DAG **95871** contains 11,881 nodes and
-replaces the stopped DAG 92330. Its GPU cap is 25, paired with the full-source
+plate size 9 remains excluded. DAG **98973** contains 11,881 nodes and replaces
+DAG 95871, whose 30-epoch CPU fits were archived after the epoch-budget audit.
+Completed CNN artifacts from DAG 95871 are retained and reused. Its GPU cap is 25, paired with the full-source
 DAG for a total limit of 50 GPU jobs.
 
 Raw output:

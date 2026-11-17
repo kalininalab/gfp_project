@@ -234,7 +234,7 @@ def main():
               "the plate size is therefore the complete target-label budget."
               if protocol.get("laboratory_budget") else
               "- Target validation grows proportionally in the original 60/20 train/validation ratio and is used only for early stopping."),
-             ("- Models train for prespecified fixed epoch counts (30 for Aubin/MLP; 60 for CNN). "
+             ("- Models train for prespecified fixed epoch counts (60 for Aubin, 40 for MLP and 60 for CNN). "
               "The fixed cgreGFP validation split is diagnostic only and does not select checkpoints."
               if protocol.get("laboratory_budget") else
               "- Validation MSE selects checkpoints by early stopping."),
