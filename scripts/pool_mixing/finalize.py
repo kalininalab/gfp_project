@@ -21,9 +21,9 @@ LINESTYLES = {"aubin_1_10_1": ":", "CNN_Jannis_OHE": "-", "mlp_small": "--"}
 MARKERS = {"aubin_1_10_1": "^", "CNN_Jannis_OHE": "o", "mlp_small": "s"}
 
 
-def models_for_plate(plate_size, selected_models):
+def models_for_plate(plate_size, selected_models, cnn_plate_sizes):
     return [model for model in selected_models
-            if not (plate_size == 9 and model == "CNN_Jannis_OHE")]
+            if model != "CNN_Jannis_OHE" or plate_size in cnn_plate_sizes]
 
 
 def read(path):
@@ -123,6 +123,8 @@ def main():
     selected_models = args.models
     OUTPUT.mkdir(parents=True, exist_ok=True); (OUTPUT / "figures").mkdir(exist_ok=True)
     protocol = json.loads((ACTIVE_RAW / "protocol.json").read_text())
+    cnn_plate_sizes = set(protocol.get("cnn_plate_sizes", [48, 96, 192, 384]))
+    cnn_random_sizes = set(protocol.get("cnn_random_sizes", range(0, 1921, 48)))
     # Process one prediction file at a time.  Keeping every seeded prediction
     # row in memory would require tens of millions of Python dictionaries.
     metrics_path = OUTPUT / "all_metrics.csv"
@@ -146,7 +148,7 @@ def main():
             for n_target in REQUIRED_SIZES:
                 for seed in SEEDS:
                     for model in models_to_read:
-                        if model == "CNN_Jannis_OHE" and n_target % 48:
+                        if model == "CNN_Jannis_OHE" and n_target not in cnn_random_sizes:
                             continue
                         directory = ACTIVE_RAW / "runs" / target / f"n{n_target:04d}" / f"seed{seed}" / model
                         if not (directory / "complete.json").exists(): raise FileNotFoundError(directory)
@@ -168,7 +170,7 @@ def main():
         for plate_size in PLATE_SIZES:
             for round_number in range(0, PLATE_ROUNDS[plate_size] + 1):
                 n_target = plate_size * round_number
-                for model in models_for_plate(plate_size, selected_models):
+                for model in models_for_plate(plate_size, selected_models, cnn_plate_sizes):
                     for gene in ("cgreGFP", target):
                         subset = [row for row in records if row["target_pool"] == target and
                                   row["n_target_train"] == n_target and
@@ -194,7 +196,7 @@ def main():
             handles, labels = None, None
             for axis, plate_size in zip(axes.flat, PLATE_SIZES):
                 rounds = list(range(0, PLATE_ROUNDS[plate_size] + 1))
-                for model in models_for_plate(plate_size, selected_models):
+                for model in models_for_plate(plate_size, selected_models, cnn_plate_sizes):
                     for gene in ("cgreGFP", target):
                         selected = [next(row for row in summary if row["target_pool"] == target and
                                          row["plate_size"] == plate_size and row["round"] == round_number and

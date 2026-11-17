@@ -28,6 +28,9 @@ def parse_args():
     parser.add_argument("--raw", type=Path, default=RAW)
     parser.add_argument("--base-train-n", type=int, default=14709)
     parser.add_argument("--models", nargs="+", choices=MODELS, default=MODELS)
+    parser.add_argument("--cnn-plate-sizes", nargs="+", type=int, choices=PLATE_SIZES,
+                        default=[96, 384],
+                        help="Plate schedules retained for CNN; CPU models keep every plate size")
     parser.add_argument("--dag", type=Path, default=ROOT / "condor/pool_mixing.dag")
     parser.add_argument("--laboratory-budget", action="store_true",
                         help="Use no target validation labels and retain the last fixed-epoch checkpoint")
@@ -86,12 +89,17 @@ def main():
             hashes[str(path.relative_to(raw))] = digest(path)
             manifests.append({"target": target, "seed": seed, "path": str(path)})
 
+    cnn_plate_sizes = sorted(set(args.cnn_plate_sizes))
+    cnn_random_sizes = sorted({plate_size * round_number
+                               for plate_size in cnn_plate_sizes
+                               for round_number in range(PLATE_ROUNDS[plate_size] + 1)})
     protocol = {
         "question": "How does adding a labelled second-protein pool affect prediction on the new protein and the fixed cgreGFP base protein?",
         "dataset": str(DATA), "dataset_sha256": digest(DATA),
         "raw_output": str(raw), "targets": TARGETS, "plate_sizes": PLATE_SIZES,
         "plate_rounds": PLATE_ROUNDS, "required_cumulative_sizes": REQUIRED_SIZES,
         "seeds": SEEDS, "models": args.models,
+        "cnn_plate_sizes": cnn_plate_sizes, "cnn_random_sizes": cnn_random_sizes,
         "base_gene": "cgreGFP", "base_train_n": args.base_train_n, "base_validation_n": n_validation,
         "base_source_train_n": source_train_n,
         "base_pool_hashes": base_hashes,
@@ -140,7 +148,7 @@ def main():
                 for model, submit, category in jobs:
                     if model not in args.models:
                         continue
-                    if args.laboratory_budget and model == "CNN_Jannis_OHE" and n_target % 48:
+                    if model == "CNN_Jannis_OHE" and n_target not in cnn_random_sizes:
                         continue
                     node = f"{category}_{target}_{n_target}_{seed}"
                     dag_lines += [f"JOB {node} {submit}",

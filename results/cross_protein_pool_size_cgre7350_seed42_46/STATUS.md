@@ -13,10 +13,11 @@ for 60 fixed epochs. The fixed 4,903-record cgreGFP validation split is diagnost
 only and never selects a checkpoint. Frozen tests remain unchanged.
 
 The fresh matched rerun contains Random and acquisition-score sampling for
-Aubin, MLP and CNN on OHE over seeds 42–46. CNN retains plate sizes 48–384;
-plate size 9 remains excluded. DAG **98973** contains 11,881 nodes and replaces
-DAG 95871, whose 30-epoch CPU fits were archived after the epoch-budget audit.
-Completed CNN artifacts from DAG 95871 are retained and reused. Its GPU cap is 25, paired with the full-source
+Aubin, MLP and CNN on OHE over seeds 42–46. Following a runtime audit, CNN is
+restricted to plate sizes 96 and 384; Aubin and MLP retain all five schedules.
+Random CNN fits use the matching 96-sequence budget grid. DAG **99904** contains
+11,161 nodes and replaces exhaustive DAG 98973. Completed compatible artifacts
+are retained and reused. Its GPU cap is 25, paired with the full-source
 DAG for a total limit of 50 GPU jobs.
 
 Raw output:
