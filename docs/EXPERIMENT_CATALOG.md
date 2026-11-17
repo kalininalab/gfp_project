@@ -83,20 +83,17 @@ and 4,903-validation source budget.
 
 ![Transfer without AL between natural cgreGFP and artificial peaks](../results/transfer_cgreGFP_seed42_46/artificial_peak_transfer_spearman.png)
 
-#### Predict a completely held-out artificial peak
+#### Rotate the central role among four artificial peaks
 
-The pooled artificial-to-artificial result above includes test sequences from
-peaks represented in its training data. The follow-up experiment is stricter:
-each of the three largest artificial landscapes (`cgre1338`, `cgre4111` and
-`cgre132`) is removed completely from training and validation, then used as a
-separate frozen target. It compares the other artificial peaks alone with the
-same fixed source budget containing balanced natural cgreGFP. Natural cgreGFP
-is limited to 25% of the latter source set, so its larger dataset cannot
-dominate the fit. `cgre9708` is the fourth-largest artificial landscape: it is
-not a requested target, but it is included among the artificial sources for all
-three held-out targets.
+Natural `cgreGFP` is excluded. Each of the four largest artificial landscapes
+(`cgre1338`, `cgre4111`, `cgre132`, `cgre9708`) becomes the pseudo-natural
+central peak in turn; the remaining three form its pooled other-peaks domain.
+Each panel tests central→central, central→other peaks, other peaks→other peaks
+and other peaks→central using equal source budgets and frozen tests. The
+corrected 160-fit benchmark completed as Condor DAG `92517`; the earlier
+interpretation is archived inside the result folder.
 
-**[Open the held-out artificial-peak report](../results/artificial_peak_holdout_seed42_46/RESULTS.md)**
+**[Open the rotating-central artificial-peak report](../results/artificial_peak_holdout_seed42_46/RESULTS.md)**
 
 ![Held-out artificial peaks: Spearman](../results/artificial_peak_holdout_seed42_46/artificial_peak_holdout_spearman.png)
 
@@ -193,7 +190,7 @@ conditions, with densities and dotplots in separate folders:
 | cgreGFP benchmark | Fixed 60/20/20 holdout and 10-fold CV; 24,516 sequences; 121 ESM fits + 11 Jannis OHE fits + sequence baselines | [Report](BENCHMARK_RESULTS.md) · [CSV](../results/esm_cgreGFP/comparison.csv) | [CNN predictions](../results/esm_cgreGFP/cv_cnn_true_vs_predicted.png) · [Mean-ESM predictions](../results/esm_cgreGFP/cv_mean_true_vs_predicted.png) · [Accuracy/runtime](../results/esm_cgreGFP/accuracy_vs_runtime.png) |
 | Transfer before AL | Aubin, Linear, MLP and CNN on OHE; seven ortholog mixtures and four natural/artificial directions; 5 seeds | [Report](../results/transfer_cgreGFP_seed42_46/RESULTS.md) · [CSV](../results/transfer_cgreGFP_seed42_46/summary.csv) | [GFP proteins](../results/transfer_cgreGFP_seed42_46/ortholog_mixtures_spearman.png) · [Artificial peaks](../results/transfer_cgreGFP_seed42_46/artificial_peak_transfer_spearman.png) |
 | Four-protein leave-one-out transfer | cgreGFP, amacGFP, ppluGFP and avGFP each become the frozen target; all 7 combinations of the other 3 proteins; 4 models × 5 seeds | [Report](../results/ortholog_leave_one_out_seed42_46/RESULTS.md) · [Summary CSV](../results/ortholog_leave_one_out_seed42_46/summary.csv) · [All seeded metrics](../results/ortholog_leave_one_out_seed42_46/per_run_scores.csv) | [Spearman](../results/ortholog_leave_one_out_seed42_46/four_protein_holdout_spearman.png) · [Pearson](../results/ortholog_leave_one_out_seed42_46/four_protein_holdout_pearson.png) · [R²](../results/ortholog_leave_one_out_seed42_46/four_protein_holdout_r2.png) |
-| Held-out artificial-peak transfer | Each of the three largest artificial cgreGFP peaks is excluded from fitting and tested separately; other artificial peaks with/without balanced natural cgreGFP; 4 models × 5 seeds | [Report](../results/artificial_peak_holdout_seed42_46/RESULTS.md) · [Summary CSV](../results/artificial_peak_holdout_seed42_46/summary.csv) · [All seeded metrics](../results/artificial_peak_holdout_seed42_46/per_run_scores.csv) | [Spearman](../results/artificial_peak_holdout_seed42_46/artificial_peak_holdout_spearman.png) · [Pearson](../results/artificial_peak_holdout_seed42_46/artificial_peak_holdout_pearson.png) · [R²](../results/artificial_peak_holdout_seed42_46/artificial_peak_holdout_r2.png) |
+| Rotating-central artificial-peak transfer | Natural cgreGFP excluded; each of four artificial peaks becomes central; four within/transfer directions; 4 models × 5 seeds; 160/160 fits complete | [Report](../results/artificial_peak_holdout_seed42_46/RESULTS.md) · [Summary CSV](../results/artificial_peak_holdout_seed42_46/summary.csv) · [All seeded metrics](../results/artificial_peak_holdout_seed42_46/per_run_scores.csv) · [Archived prior result](../results/artificial_peak_holdout_seed42_46/archive_previous_interpretation/) | [Spearman](../results/artificial_peak_holdout_seed42_46/artificial_peak_holdout_spearman.png) · [Pearson](../results/artificial_peak_holdout_seed42_46/artificial_peak_holdout_pearson.png) · [R²](../results/artificial_peak_holdout_seed42_46/artificial_peak_holdout_r2.png) |
 | Transfer with AL | Same models, seeds, budgets and frozen tests; 10 acquisition rounds; 160/160 trajectories | [Results](../results/transfer_al_cgreGFP_seed42_46/RESULTS.md) · [CSV](../results/transfer_al_cgreGFP_seed42_46/summary.csv) · [Protocol](TRANSFER_ACTIVE_LEARNING.md) | [GFP proteins](../results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman.png) · [Non-AL vs AL](../results/transfer_al_cgreGFP_seed42_46/ortholog_mixtures_spearman_non_al_vs_al.png) · [Artificial peaks](../results/transfer_al_cgreGFP_seed42_46/artificial_peak_transfer_spearman.png) |
 | Random vs acquisition score ("Fancy") transfer | CNN on OHE; matched initial sets, budgets, seeds and frozen tests | [Live status and exact method](../results/transfer_random_cgreGFP_seed42_46/STATUS.md) · [Frozen protocol](../results/transfer_random_cgreGFP_seed42_46/protocol.json) | Final CNN figures are not published; use the status page |
 | Random vs acquisition score transfer — Linear | 40 acquisition-score and 40 matched random CPU trajectories; 5 seeds | [Status](../results/transfer_random_linear_cgreGFP_seed42_46/STATUS.md) · [Frozen protocol](../results/transfer_random_linear_cgreGFP_seed42_46/protocol.json) | [GFP proteins](../results/transfer_random_linear_cgreGFP_seed42_46/sampling_ortholog_transfer.png) · [Natural/artificial peaks](../results/transfer_random_linear_cgreGFP_seed42_46/sampling_peak_transfer.png) |

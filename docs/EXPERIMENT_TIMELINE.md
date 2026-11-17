@@ -36,17 +36,20 @@ the other three proteins. The target protein is named in each panel title.
 - [Report](../results/ortholog_leave_one_out_seed42_46/RESULTS.md)
 - [Archived older layout](../results/ortholog_leave_one_out_seed42_46/archive_text_labels/)
 
-### 10 November 2026 — held-out artificial-peak transfer
+### 16 November 2026 — rotating-central artificial-peak transfer completed
 
-Each of the three largest artificial cgreGFP peaks is removed completely from
-training and then predicted from the other artificial peaks, with or without a
-balanced contribution from natural cgreGFP.
+The 10 November interpretation was incorrect and is being replaced. Natural
+`cgreGFP` is excluded. Each of `cgre1338`, `cgre4111`, `cgre132` and `cgre9708`
+becomes the pseudo-natural central peak in turn, while the other three form its
+artificial domain. Four directions are evaluated per panel on frozen tests.
+All 160 fits completed successfully in Condor DAG `92517`; the old result is
+archived.
 
 - [Spearman figure](../results/artificial_peak_holdout_seed42_46/artificial_peak_holdout_spearman.png)
 - [Pearson figure](../results/artificial_peak_holdout_seed42_46/artificial_peak_holdout_pearson.png)
 - [R² figure](../results/artificial_peak_holdout_seed42_46/artificial_peak_holdout_r2.png)
-- [Sequence-count figure](../results/artificial_peak_holdout_seed42_46/landscape_sequence_counts.png)
-- [Report and sequence-identity matrices](../results/artificial_peak_holdout_seed42_46/RESULTS.md)
+- [Report](../results/artificial_peak_holdout_seed42_46/RESULTS.md)
+- [Superseded interpretation](../results/artificial_peak_holdout_seed42_46/archive_previous_interpretation/)
 
 ### 8 November 2026 — random cross-protein plate-size curves
 
@@ -63,7 +66,7 @@ distribution figures for Aubin and MLP.
 |---|---|---|---|
 | 2026-11-15 | Acquisition-sampled plate sizes | Added matched random/acquisition arms and CNN for both cgreGFP source sizes; running | [Full-source status](../results/cross_protein_pool_size_seed42_46/STATUS.md) · [Half-source status](../results/cross_protein_pool_size_cgre7350_seed42_46/STATUS.md) |
 | 2026-11-10 | Four-protein leave-one-out | Added avGFP; predict each protein from all combinations of the other three; improved panel layout | [Report](../results/ortholog_leave_one_out_seed42_46/RESULTS.md) · [figures](../results/ortholog_leave_one_out_seed42_46/) |
-| 2026-11-10 | Artificial-peak leave-one-out | Predict each of the three largest artificial peaks after excluding the whole target landscape; added identity and sample-count summaries | [Report](../results/artificial_peak_holdout_seed42_46/RESULTS.md) · [figures](../results/artificial_peak_holdout_seed42_46/) |
+| 2026-11-16 | Rotating-central artificial peaks | Exclude natural cgreGFP; rotate four artificial peaks through the central role and test all four within/transfer directions; 160/160 fits complete | [Report](../results/artificial_peak_holdout_seed42_46/RESULTS.md) · [archived prior interpretation](../results/artificial_peak_holdout_seed42_46/archive_previous_interpretation/) |
 | 2026-11-08 | Plate-size experiment, two source sizes | Completed random nested target additions for Aubin and MLP with plate sizes 9–384 | [14,709 source](../results/cross_protein_pool_size_seed42_46/REPORT.md) · [7,350 source](../results/cross_protein_pool_size_cgre7350_seed42_46/REPORT.md) |
 | 2026-10-23 | Two-GMM-gated predictors | Compared probabilistic low/high gates with direct and hurdle prediction for CNN and linear OHE models | [CNN](../results/gmm_gated_cnn_seed42_46/REPORT.md) · [Linear](../results/gmm_gated_linear_seed42_46/REPORT.md) |
 | 2026-10-21 | Distribution-aware predictor study | GMM/AIC/BIC analysis, hurdle models, ProteinBERT, ESM-2, XGBoost, MLP and CNN comparisons | [Combined report](../results/cgre_predictor_study/REPORT.md) · [mixture analysis](../results/cgre_peak_mixture_analysis/REPORT.md) · [neural hurdle](../results/hurdle_neural_seed42_46/REPORT.md) |
@@ -87,7 +90,7 @@ for provenance and should not be mistaken for the latest result.
 |---|---|---|
 | [`active_learning_cgre`](../results/active_learning_cgre/) | Archive | First AL prototype; [results](../results/active_learning_cgre/RESULTS.md) |
 | [`active_learning_cgre_fixed_test`](../results/active_learning_cgre_fixed_test/) | Archive | Fixed-test correction of the first prototype; [results](../results/active_learning_cgre_fixed_test/RESULTS.md) |
-| [`artificial_peak_holdout_seed42_46`](../results/artificial_peak_holdout_seed42_46/) | Current | Strict leave-one-peak-out transfer, identities and sequence counts; [report](../results/artificial_peak_holdout_seed42_46/RESULTS.md) |
+| [`artificial_peak_holdout_seed42_46`](../results/artificial_peak_holdout_seed42_46/) | Current | Four artificial peaks rotate through the central role; natural cgreGFP excluded; 160/160 fits complete; [report](../results/artificial_peak_holdout_seed42_46/RESULTS.md) |
 | [`aubin_cgreGFP_seed42`](../results/aubin_cgreGFP_seed42/) | Supporting | Single-seed Aubin fit artifact |
 | [`baselines_cgreGFP_seed42`](../results/baselines_cgreGFP_seed42/) | Supporting | Single-seed baseline artifacts |
 | [`cgre_peak_mixture_analysis`](../results/cgre_peak_mixture_analysis/) | Current | GMM, AIC/BIC and measurement-floor analysis; [report](../results/cgre_peak_mixture_analysis/REPORT.md) |

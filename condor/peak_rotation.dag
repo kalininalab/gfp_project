@@ -1,0 +1,8 @@
+JOB CPU /nethome/akolchina/gfp_project/condor/peak_rotation_cpu.sub
+JOB GPU /nethome/akolchina/gfp_project/condor/peak_rotation_gpu.sub
+JOB FINISH /nethome/akolchina/gfp_project/condor/peak_rotation_finish.sub
+PARENT CPU GPU CHILD FINISH
+RETRY CPU 1
+RETRY GPU 1
+MAXJOBS CPU 50
+MAXJOBS GPU 40
