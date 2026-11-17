@@ -21,6 +21,11 @@ LINESTYLES = {"aubin_1_10_1": ":", "CNN_Jannis_OHE": "-", "mlp_small": "--"}
 MARKERS = {"aubin_1_10_1": "^", "CNN_Jannis_OHE": "o", "mlp_small": "s"}
 
 
+def models_for_plate(plate_size, selected_models):
+    return [model for model in selected_models
+            if not (plate_size == 9 and model == "CNN_Jannis_OHE")]
+
+
 def read(path):
     with path.open() as handle: return list(csv.DictReader(handle))
 
@@ -141,6 +146,8 @@ def main():
             for n_target in REQUIRED_SIZES:
                 for seed in SEEDS:
                     for model in models_to_read:
+                        if model == "CNN_Jannis_OHE" and n_target % 48:
+                            continue
                         directory = ACTIVE_RAW / "runs" / target / f"n{n_target:04d}" / f"seed{seed}" / model
                         if not (directory / "complete.json").exists(): raise FileNotFoundError(directory)
                         groups = {}
@@ -161,7 +168,7 @@ def main():
         for plate_size in PLATE_SIZES:
             for round_number in range(0, PLATE_ROUNDS[plate_size] + 1):
                 n_target = plate_size * round_number
-                for model in selected_models:
+                for model in models_for_plate(plate_size, selected_models):
                     for gene in ("cgreGFP", target):
                         subset = [row for row in records if row["target_pool"] == target and
                                   row["n_target_train"] == n_target and
@@ -187,7 +194,7 @@ def main():
             handles, labels = None, None
             for axis, plate_size in zip(axes.flat, PLATE_SIZES):
                 rounds = list(range(0, PLATE_ROUNDS[plate_size] + 1))
-                for model in selected_models:
+                for model in models_for_plate(plate_size, selected_models):
                     for gene in ("cgreGFP", target):
                         selected = [next(row for row in summary if row["target_pool"] == target and
                                          row["plate_size"] == plate_size and row["round"] == round_number and
@@ -219,21 +226,28 @@ def main():
     lines = ["# Cross-protein labelled-pool size experiment", "", "## Question", "",
              f"When a model is trained on a fixed {protocol['base_train_n']:,}-record cgreGFP source pool, how does gradually adding a labelled pool from ppluGFP or amacGFP change prediction on the new protein and on the original cgreGFP protein? This is a supervised pool-size experiment, not active learning: target records are added by a frozen random order, without an acquisition score.", "", "## Design", "",
              f"- Fixed cgreGFP training/validation: {protocol['base_train_n']:,} / {protocol['base_validation_n']:,} records.",
-             f"- Equal target training/validation pools: {protocol['target_train_pool_n']:,} / {protocol['target_validation_pool_n']:,} records.",
+             f"- Available target training pool: {protocol['target_train_pool_n']:,} records.",
              "- Plate sizes: 9, 48, 96, 192 and 384 new target training records per round.",
              "- Schedules end near the same cumulative budget: 213 rounds × 9 = 1,917; 40 × 48 = 1,920; 20 × 96 = 1,920; 10 × 192 = 1,920; 5 × 384 = 1,920.",
              "- The cumulative target training size is `plate size × round`; all prefixes are nested within each seed.",
-             "- Target validation grows proportionally in the original 60/20 train/validation ratio and is used only for early stopping.",
+             ("- No target validation labels are used. Every target sequence from each plate enters training; "
+              "the plate size is therefore the complete target-label budget."
+              if protocol.get("laboratory_budget") else
+              "- Target validation grows proportionally in the original 60/20 train/validation ratio and is used only for early stopping."),
+             ("- Models train for prespecified fixed epoch counts (30 for Aubin/MLP; 60 for CNN). "
+              "The fixed cgreGFP validation split is diagnostic only and does not select checkpoints."
+              if protocol.get("laboratory_budget") else
+              "- Validation MSE selects checkpoints by early stopping."),
              f"- Models included in this completed result: {', '.join(LABELS[model] for model in selected_models)}; seeds 42–46.",
              "- Every round is evaluated on the same frozen test: 4,904 cgreGFP records and either 6,281 ppluGFP or 6,703 amacGFP records. Test records never enter training, validation, early stopping or sampling.",
              "- R² is displayed on an ordinary linear scale limited to [−1, 1] for readability. More negative source-only target scores are clipped only in the figure; their complete values remain in the CSV tables.",
              "- KL is D_KL(true || predicted) in bits, using 50 fixed bins over each protein's frozen-test range and a 0.5 pseudocount per bin; lower is better.", "",
-             "| Protein | Available training pool | Available validation pool | Frozen test |",
+             "| Protein | Available target-training pool | Target validation used | Frozen test |",
              "|---|---:|---:|---:|",
-             "| cgreGFP | 14,709 | 4,903 | 4,904 |",
-             "| ppluGFP | 14,709 | 4,903 | 6,281 |",
-             "| amacGFP | 14,709 | 4,903 | 6,703 |", "",
-             "The full cgreGFP training and validation sets are used throughout. For the target protein, each round uses only the cumulative prefix specified by its plate schedule; the remaining target-pool records are unused, while the complete frozen test remains unchanged.", "", "## Figures", ""]
+             "| cgreGFP | — | — | 4,904 |",
+             f"| ppluGFP | 14,709 | {protocol['target_validation_pool_n']:,} | 6,281 |",
+             f"| amacGFP | 14,709 | {protocol['target_validation_pool_n']:,} | 6,703 |", "",
+             "The fixed cgreGFP source training set is used throughout. Its 4,903 validation records are only monitored in the laboratory-budget protocol. For the target protein, each round uses only the cumulative prefix specified by its plate schedule; the remaining target-pool records are unlabelled, while the complete frozen test remains unchanged.", "", "## Figures", ""]
     for target in TARGETS:
         short = target.replace("GFP", "").lower()
         lines += [f"### cgreGFP + {target}", "",

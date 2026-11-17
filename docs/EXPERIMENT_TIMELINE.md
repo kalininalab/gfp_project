@@ -6,13 +6,14 @@ use the [experiment catalog](EXPERIMENT_CATALOG.md).
 
 ## Latest activity
 
-### 15 November 2026 — acquisition-sampled plate-size experiment submitted
+### 17 November 2026 — laboratory-budget plate-size rerun submitted
 
-The newest work is still running, so it has **no final figures yet**. It repeats
-the cross-protein plate-size experiment with acquisition-selected target
-sequences and adds CNN on OHE to both the random and acquisition arms. CNN uses
-plates 48–384; the 214-round plate-9 CNN trajectories were removed on 16
-November. Aubin and MLP retain plate 9.
+The previous extension was stopped because it added target-validation labels
+outside the stated plate budget. The corrected experiment uses no target
+validation: every plate label enters training, models use fixed epoch counts,
+and cgreGFP validation is diagnostic only. It repeats matched Random and
+acquisition sampling for Aubin, MLP and CNN on OHE. CNN uses plates 48–384;
+Aubin and MLP retain plate 9.
 
 - [14,709-cgreGFP status](../results/cross_protein_pool_size_seed42_46/STATUS.md)
 - [7,350-cgreGFP status](../results/cross_protein_pool_size_cgre7350_seed42_46/STATUS.md)
@@ -64,7 +65,7 @@ distribution figures for Aubin and MLP.
 
 | Date | Experiment | What changed | Report and figures |
 |---|---|---|---|
-| 2026-11-15 | Acquisition-sampled plate sizes | Added matched random/acquisition arms and CNN for both cgreGFP source sizes; running | [Full-source status](../results/cross_protein_pool_size_seed42_46/STATUS.md) · [Half-source status](../results/cross_protein_pool_size_cgre7350_seed42_46/STATUS.md) |
+| 2026-11-17 | Laboratory-budget plate sizes | Removed extra target-validation labels; fixed epoch counts; fresh Random/Acquisition rerun for all models and both cgreGFP source sizes | [Full-source status](../results/cross_protein_pool_size_seed42_46/STATUS.md) · [Half-source status](../results/cross_protein_pool_size_cgre7350_seed42_46/STATUS.md) |
 | 2026-11-10 | Four-protein leave-one-out | Added avGFP; predict each protein from all combinations of the other three; improved panel layout | [Report](../results/ortholog_leave_one_out_seed42_46/RESULTS.md) · [figures](../results/ortholog_leave_one_out_seed42_46/) |
 | 2026-11-16 | Rotating-central artificial peaks | Exclude natural cgreGFP; rotate four artificial peaks through the central role and test all four within/transfer directions; 160/160 fits complete | [Report](../results/artificial_peak_holdout_seed42_46/RESULTS.md) · [archived prior interpretation](../results/artificial_peak_holdout_seed42_46/archive_previous_interpretation/) |
 | 2026-11-08 | Plate-size experiment, two source sizes | Completed random nested target additions for Aubin and MLP with plate sizes 9–384 | [14,709 source](../results/cross_protein_pool_size_seed42_46/REPORT.md) · [7,350 source](../results/cross_protein_pool_size_cgre7350_seed42_46/REPORT.md) |

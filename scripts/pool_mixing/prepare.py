@@ -29,6 +29,8 @@ def parse_args():
     parser.add_argument("--base-train-n", type=int, default=14709)
     parser.add_argument("--models", nargs="+", choices=MODELS, default=MODELS)
     parser.add_argument("--dag", type=Path, default=ROOT / "condor/pool_mixing.dag")
+    parser.add_argument("--laboratory-budget", action="store_true",
+                        help="Use no target validation labels and retain the last fixed-epoch checkpoint")
     return parser.parse_args()
 
 
@@ -67,7 +69,10 @@ def main():
     for target_index, target in enumerate(TARGETS):
         for seed in SEEDS:
             selected = []
-            for split, budget in (("train", source_train_n), ("validation", n_validation)):
+            splits = [("train", source_train_n)]
+            if not args.laboratory_budget:
+                splits.append(("validation", n_validation))
+            for split, budget in splits:
                 available = pools[target, split]
                 if len(available) < budget:
                     raise ValueError(f"Insufficient {target} {split} records")
@@ -90,15 +95,30 @@ def main():
         "base_gene": "cgreGFP", "base_train_n": args.base_train_n, "base_validation_n": n_validation,
         "base_source_train_n": source_train_n,
         "base_pool_hashes": base_hashes,
-        "target_train_pool_n": source_train_n, "target_validation_pool_n": n_validation,
+        "target_train_pool_n": source_train_n,
+        "target_validation_pool_n": 0 if args.laboratory_budget else n_validation,
         "pool_definition": "A seeded cgreGFP training subset is fixed per trajectory. For plate sizes 9, 48, 96, 192 and 384, each round adds one new plate to all previous plates; cumulative target size is plate_size times round. Every schedule ends near 1,920 target records.",
-        "validation_definition": "Target validation grows proportionally in the original 60/20 train/validation ratio and is used only for early stopping.",
+        "laboratory_budget": args.laboratory_budget,
+        "validation_definition": (
+            "No target validation labels are used. The fixed 4,903-record cgreGFP validation split is "
+            "monitored for diagnostics only and does not select checkpoints."
+            if args.laboratory_budget else
+            "Target validation grows proportionally in the original 60/20 train/validation ratio and is used only for early stopping."),
+        "checkpoint_policy": "last fixed epoch" if args.laboratory_budget else "minimum validation MSE with early stopping",
+        "label_budget_policy": (
+            "The target plate size is the complete target-label budget: every acquired target label enters training."
+            if args.laboratory_budget else
+            "Target training labels are supplemented by separately sampled target validation labels."),
         "test_definition": {gene: len(pools[gene, "test"]) for gene in ["cgreGFP"] + TARGETS},
         "test_policy": "Both protein-specific tests are frozen and never enter training, validation, checkpoint selection, or pool sampling.",
         "alignment_sha256": digest(raw / "alignment.json"), "target_pool_hashes": hashes,
-        "mlp_settings": {"epochs": 30, "patience": 10, "batch_size": 32, "learning_rate": 0.001,
+        "mlp_settings": {"epochs": 30, "patience": None if args.laboratory_budget else 10,
+                         "checkpoint_policy": "last_epoch" if args.laboratory_budget else "early_stopping",
+                         "batch_size": 32, "learning_rate": 0.001,
                          "optimizer": "Adam", "loss": "MSE"},
-        "cnn_settings": {"epochs": 60, "patience": 10, "batch_size": 64, "learning_rate": 0.0003,
+        "cnn_settings": {"epochs": 60, "patience": None if args.laboratory_budget else 10,
+                         "checkpoint_policy": "last_epoch" if args.laboratory_budget else "early_stopping",
+                         "batch_size": 64, "learning_rate": 0.0003,
                          "weight_decay": 0.0001, "optimizer": "AdamW", "loss": "MSE",
                          "target_scaling": "combined training mean/std"},
     }
@@ -113,6 +133,8 @@ def main():
                         ("CNN_Jannis_OHE", "condor/pool_mixing_gpu_custom.sub", "GPU"))
                 for model, submit, category in jobs:
                     if model not in args.models:
+                        continue
+                    if args.laboratory_budget and model == "CNN_Jannis_OHE" and n_target % 48:
                         continue
                     node = f"{category}_{target}_{n_target}_{seed}"
                     dag_lines += [f"JOB {node} {submit}",

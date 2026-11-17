@@ -1,5 +1,34 @@
 # Cross-protein labelled-pool size experiment
 
+## Corrected laboratory-budget rerun — 17 November 2026
+
+The earlier Random/Acquisition extension was stopped because it used additional
+target-validation labels outside the stated plate budget. Its figures must not
+be interpreted as the final laboratory simulation.
+
+The corrected protocol uses **no target validation sequences**. Every target
+label produced by a plate enters training, so a plate of 96 means exactly 96
+new measurements. Aubin and MLP train for 30 fixed epochs and CNN on OHE for 60
+fixed epochs. The fixed 4,903-record cgreGFP validation split is recorded only
+as a diagnostic and never selects a checkpoint. Frozen protein-specific tests
+remain unchanged.
+
+The fresh matched rerun contains Random and acquisition-score sampling for
+Aubin, MLP and CNN on OHE over seeds 42–46. CNN retains plate sizes 48–384;
+plate size 9 remains excluded. The new DAG **95870** contains 11,881 nodes and
+replaces the stopped DAG 92329. Its GPU cap is 25, paired with the second
+source-size DAG for a total limit of 50 GPU jobs.
+
+Raw output:
+
+- Random fits: `/data/users/akolchina/gfp_project/cross_protein_pool_size_lab_seed42_46_runs`
+- Acquisition fits: `/data/users/akolchina/gfp_project/cross_protein_pool_size_lab_acquisition_seed42_46_runs`
+
+## Superseded historical workflow
+
+The material below documents the older runs retained for provenance. It does
+not describe the corrected laboratory-budget rerun above.
+
 This experiment keeps the full cgreGFP training pool fixed and simulates laboratory plates of **9, 48, 96, 192 or 384 new target sequences per round**. Cumulative target data equal `plate size × round`, and every schedule ends near 1,920 target sequences: 213, 40, 20, 10 or 5 rounds, respectively. Each round retains all sequences from previous plates. MLP is evaluated on frozen tests of both participating proteins across seeds 42–46.
 
 This is supervised random pool-size addition, not active learning. The final folder will contain six main figures: R², Spearman and KL divergence for cgreGFP+ppluGFP and cgreGFP+amacGFP. Each figure contains five panels, one per plate size, with round on the x-axis.

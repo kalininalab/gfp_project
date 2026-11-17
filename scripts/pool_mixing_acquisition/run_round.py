@@ -17,7 +17,7 @@ import numpy as np
 import torch
 
 from scripts.active_learning.acquisition import acquisition_scores
-from scripts.pool_mixing.run import fit_cnn, predict_cnn
+from scripts.pool_mixing.run import fit_cnn, predict_cnn, train_fixed
 from scripts.regression_metrics import metrics
 from scripts.train_aubin import predict_encoded, train
 from scripts.transfer_benchmark.common import DATA, digest, read_csv, write_csv
@@ -46,11 +46,17 @@ def fit_model(model_name, x, y, train_ids, validation_ids, seed, device, protoco
     else:
         model = AlignedModel(x.shape[1], model_name)
         settings = protocol["mlp_settings"]
-        history, best_epoch = train(
-            model, x[ids["train"]], torch.tensor(y[ids["train"]]),
-            x[ids["validation"]], torch.tensor(y[ids["validation"]]), seed,
-            settings["epochs"], settings["patience"], settings["batch_size"],
-            settings["learning_rate"])
+        if settings.get("checkpoint_policy", "early_stopping") == "last_epoch":
+            history, best_epoch = train_fixed(
+                model, x[ids["train"]], torch.tensor(y[ids["train"]]),
+                x[ids["validation"]], torch.tensor(y[ids["validation"]]), seed,
+                settings["epochs"], settings["batch_size"], settings["learning_rate"])
+        else:
+            history, best_epoch = train(
+                model, x[ids["train"]], torch.tensor(y[ids["train"]]),
+                x[ids["validation"]], torch.tensor(y[ids["validation"]]), seed,
+                settings["epochs"], settings["patience"], settings["batch_size"],
+                settings["learning_rate"])
         prediction = lambda indexes: predict_encoded(model, x[np.asarray(indexes)]).numpy()
         center, scale = 0.0, 1.0
     return model, prediction, history, best_epoch, center, scale

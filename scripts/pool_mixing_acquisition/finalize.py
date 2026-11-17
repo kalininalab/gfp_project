@@ -205,8 +205,10 @@ def main():
                "MLP use five-member ensembles for variance; CNN on OHE uses 25 MC-dropout predictions. All "
                "three primary models are reinitialized and retrained on the complete cumulative labelled set "
                "at every round. CNN on OHE is evaluated for plate sizes 48, 96, 192 and 384; plate size 9 is "
-               "retained for Aubin and MLP only. Validation and frozen tests are identical to the random arm, and test labels "
-               "never enter acquisition.\n\nMachine-readable comparison: "
+               "retained for Aubin and MLP only. No target validation labels are used: each plate is the complete "
+               "target-label budget and every acquired sequence enters training. Models use fixed epoch counts; "
+               "the fixed cgreGFP validation split is diagnostic only. Frozen tests are identical between arms and "
+               "never enter fitting or acquisition.\n\nMachine-readable comparison: "
                "[summary_random_vs_acquisition.csv](summary_random_vs_acquisition.csv) and "
                "[acquisition_all_seeded_metrics.csv](acquisition_all_seeded_metrics.csv).\n")
     report_path.write_text(report)

@@ -21,6 +21,10 @@ def main():
     parser.add_argument("--raw", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--dag", type=Path, required=True)
+    parser.add_argument("--rerun-random-all", action="store_true",
+                        help="Schedule fresh random Aubin, MLP and CNN comparators under the reference protocol")
+    parser.add_argument("--max-cpu-jobs", type=int, default=50)
+    parser.add_argument("--max-gpu-jobs", type=int, default=50)
     args = parser.parse_args()
     if (args.raw / "protocol.json").exists():
         raise FileExistsError(args.raw / "protocol.json")
@@ -41,22 +45,42 @@ def main():
         "cnn_uncertainty": "Variance of 25 stochastic MC-dropout predictions from the current fitted CNN.",
         "selection": "Global descending acquisition score within the frozen target-training pool.",
         "retraining": "At every round, the primary model and acquisition uncertainty estimator are fitted from new initialization on the complete cumulative labelled set.",
-        "validation_and_test": "Exactly the reference experiment's growing target validation prefix and frozen protein-specific tests; test labels never enter fitting or acquisition.",
+        "laboratory_budget": reference.get("laboratory_budget", False),
+        "validation_and_test": (
+            "No target validation labels are used. The fixed cgreGFP validation split is diagnostic only; "
+            "fixed epoch counts determine checkpoints. Frozen tests never enter fitting or acquisition."
+            if reference.get("laboratory_budget", False) else
+            "Exactly the reference experiment's growing target validation prefix and frozen protein-specific tests; test labels never enter fitting or acquisition."),
+        "label_budget_policy": reference.get("label_budget_policy"),
+        "checkpoint_policy": reference.get("checkpoint_policy"),
     }
     (args.raw / "protocol.json").write_text(json.dumps(protocol, indent=2) + "\n")
     lines, final_nodes = [], []
-    # The published random arm contains Aubin and MLP.  Fit its missing CNN arm
-    # on the same frozen prefixes so every acquisition curve has a matched
-    # random comparator.
-    cnn_random_sizes = list(range(0, 1921, 48))
-    for target in TARGETS:
-        for n_target in cnn_random_sizes:
-            for seed in SEEDS:
-                node = f"RANDOM_GPU_{target}_{n_target}_{seed}"
-                lines += [f"JOB {node} condor/pool_mixing_gpu_custom.sub",
-                          f'VARS {node} target="{target}" n_target="{n_target}" seed="{seed}" raw="{args.reference_raw}"',
-                          f"CATEGORY {node} GPU", f"RETRY {node} 2"]
-                final_nodes.append(node)
+    if args.rerun_random_all:
+        random_jobs = [
+            ("aubin_1_10_1", REQUIRED_SIZES, "condor/pool_mixing_cpu_model.sub", "CPU"),
+            ("mlp_small", REQUIRED_SIZES, "condor/pool_mixing_cpu_model.sub", "CPU"),
+            ("CNN_Jannis_OHE", list(range(0, 1921, 48)), "condor/pool_mixing_gpu_custom.sub", "GPU")]
+        for model, sizes, submit, category in random_jobs:
+            for target in TARGETS:
+                for n_target in sizes:
+                    for seed in SEEDS:
+                        node = f"RANDOM_{category}_{model}_{target}_{n_target}_{seed}"
+                        variables = (f'target="{target}" n_target="{n_target}" seed="{seed}" '
+                                     f'model="{model}" raw="{args.reference_raw}"')
+                        lines += [f"JOB {node} {submit}", f"VARS {node} {variables}",
+                                  f"CATEGORY {node} {category}", f"RETRY {node} 2"]
+                        final_nodes.append(node)
+    else:
+        # Legacy extension: CPU comparators already exist; add only missing CNN.
+        for target in TARGETS:
+            for n_target in range(0, 1921, 48):
+                for seed in SEEDS:
+                    node = f"RANDOM_GPU_{target}_{n_target}_{seed}"
+                    lines += [f"JOB {node} condor/pool_mixing_gpu_custom.sub",
+                              f'VARS {node} target="{target}" n_target="{n_target}" seed="{seed}" raw="{args.reference_raw}"',
+                              f"CATEGORY {node} GPU", f"RETRY {node} 2"]
+                    final_nodes.append(node)
     for target in TARGETS:
         for plate_size in PLATE_SIZES:
             last_round = PLATE_ROUNDS[plate_size]
@@ -78,7 +102,7 @@ def main():
     lines += [f"JOB {finish} condor/pool_mixing_acquisition_finalize.sub",
               f'VARS {finish} reference_raw="{args.reference_raw}" acquisition_raw="{args.raw}" output="{args.output}"',
               f"PARENT {' '.join(final_nodes)} CHILD {finish}",
-              "MAXJOBS CPU 50", "MAXJOBS GPU 50"]
+              f"MAXJOBS CPU {args.max_cpu_jobs}", f"MAXJOBS GPU {args.max_gpu_jobs}"]
     args.dag.write_text("\n".join(lines) + "\n")
     print(json.dumps({"dag": str(args.dag), "nodes": sum(1 for line in lines if line.startswith("JOB ")),
                       "protocol": protocol}, indent=2))

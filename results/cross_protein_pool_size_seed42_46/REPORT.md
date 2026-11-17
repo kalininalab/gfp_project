@@ -1,5 +1,10 @@
 # Cross-protein labelled-pool size experiment
 
+> **Superseded while the corrected laboratory-budget rerun is running.**
+> The earlier curves used additional target-validation labels. The corrected
+> experiment uses only the sequences on each stated plate; see
+> [STATUS.md](STATUS.md).
+
 ## Question
 
 When a model is trained on a fixed 14,709-record cgreGFP source pool, how does gradually adding a labelled pool from ppluGFP or amacGFP change prediction on the new protein and on the original cgreGFP protein? This is a supervised pool-size experiment, not active learning: target records are added by a frozen random order, without an acquisition score.

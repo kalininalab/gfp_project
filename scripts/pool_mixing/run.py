@@ -25,6 +25,30 @@ def predict_cnn(model, x, indexes, device, center, scale, batch_size=128):
                            for start in range(0, len(indexes), batch_size)])
 
 
+def train_fixed(model, x_train, y_train, x_validation, y_validation, seed,
+                epochs, batch_size, learning_rate):
+    """Train for a prespecified epoch count; validation never selects weights."""
+    optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate,
+                                 betas=(0.9, 0.999), eps=1e-7)
+    generator = torch.Generator().manual_seed(seed)
+    history = []
+    for epoch in range(1, epochs + 1):
+        model.train()
+        order = torch.randperm(len(x_train), generator=generator)
+        for indexes in order.split(batch_size):
+            optimizer.zero_grad(set_to_none=True)
+            loss = torch.nn.functional.mse_loss(model(x_train[indexes]), y_train[indexes])
+            if not torch.isfinite(loss):
+                raise ValueError("Non-finite training loss")
+            loss.backward(); optimizer.step()
+        train_mse = float(torch.mean((predict_encoded(model, x_train) - y_train) ** 2))
+        validation_mse = float(torch.mean((predict_encoded(model, x_validation) - y_validation) ** 2))
+        history.append({"epoch": epoch, "train_mse": train_mse, "validation_mse": validation_mse})
+        print(f"{model.architecture} epoch={epoch} train_mse={train_mse:.6f} "
+              f"diagnostic_validation_mse={validation_mse:.6f}", flush=True)
+    return history, epochs
+
+
 def fit_cnn(x, y, ids, seed, device, settings):
     model = AlignedOHECNN(x.shape[1]).to(device)
     center, scale = float(y[ids["train"]].mean()), max(float(y[ids["train"]].std()), 1e-8)
@@ -50,7 +74,10 @@ def fit_cnn(x, y, ids, seed, device, settings):
         history.append({"epoch": epoch, "train_mse": total / len(order) * scale ** 2,
                         "validation_mse": validation_mse})
         print(f"CNN epoch={epoch} validation_mse={validation_mse:.6f}", flush=True)
-        if validation_mse < best:
+        if settings.get("checkpoint_policy", "early_stopping") == "last_epoch":
+            best, best_epoch = validation_mse, epoch
+            best_state = {key: value.detach().cpu().clone() for key, value in model.state_dict().items()}
+        elif validation_mse < best:
             best, best_epoch, stale = validation_mse, epoch, 0
             best_state = {key: value.detach().cpu().clone() for key, value in model.state_dict().items()}
         else:
@@ -119,10 +146,16 @@ def main():
         if args.device != "cpu": raise ValueError("Aubin and MLP models must run on CPU")
         model = AlignedModel(alignment["length"], args.model)
         settings = protocol["mlp_settings"]
-        history, best_epoch = train(model, x[ids["train"]], torch.tensor(y[ids["train"]]),
-                                    x[ids["validation"]], torch.tensor(y[ids["validation"]]),
-                                    args.seed, settings["epochs"], settings["patience"],
-                                    settings["batch_size"], settings["learning_rate"])
+        if settings.get("checkpoint_policy", "early_stopping") == "last_epoch":
+            history, best_epoch = train_fixed(
+                model, x[ids["train"]], torch.tensor(y[ids["train"]]),
+                x[ids["validation"]], torch.tensor(y[ids["validation"]]),
+                args.seed, settings["epochs"], settings["batch_size"], settings["learning_rate"])
+        else:
+            history, best_epoch = train(model, x[ids["train"]], torch.tensor(y[ids["train"]]),
+                                        x[ids["validation"]], torch.tensor(y[ids["validation"]]),
+                                        args.seed, settings["epochs"], settings["patience"],
+                                        settings["batch_size"], settings["learning_rate"])
         prediction = lambda indexes: predict_encoded(model, x[indexes]).numpy()
         center, scale = 0.0, 1.0
     else:
@@ -150,7 +183,8 @@ def main():
         "target_pool": args.target, "n_target_train": args.n_target, "seed": args.seed, "model": args.model,
         "n_cgre_train": protocol["base_train_n"], "n_target_train": n_target_train,
         "n_cgre_validation": protocol["base_validation_n"], "n_target_validation": n_target_validation,
-        "best_epoch": best_epoch, "frozen_tests_used_for_fitting": False,
+        "selected_epoch": best_epoch, "checkpoint_policy": protocol.get("checkpoint_policy"),
+        "frozen_tests_used_for_fitting": False,
     }, indent=2) + "\n")
 
 
