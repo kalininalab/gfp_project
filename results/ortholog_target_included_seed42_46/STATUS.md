@@ -12,6 +12,9 @@ of the seven non-empty combinations of the other three GFP proteins.
   leave-one-out experiment. Test records never enter training, validation,
   subsampling or checkpoint selection.
 - Planned fits: 560 total (420 CPU and 140 GPU).
+- Submitted 19 November 2026 as HTCondor DAG **120055** (561 nodes including
+  the strict finalizer). The DAG limits concurrent fits to 50 CPU and 40 GPU
+  jobs. One validated CPU smoke fit is already present and will be reused.
 - Final outputs: Spearman, Pearson and R² panels in the same visual format as
   the leave-one-out figure, plus per-run and summarized CSV tables.
 
