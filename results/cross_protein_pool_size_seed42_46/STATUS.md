@@ -1,6 +1,12 @@
 # Cross-protein labelled-pool size experiment
 
-**18 November 2026: [preliminary corrected laboratory-budget figures](preliminary/README.md).** Available random/acquisition rounds for Aubin, MLP and CNN; incomplete seed counts are marked. The experiment is still running.
+## Stopped partial run — 19 November 2026
+
+The corrected laboratory-budget DAG **99903** was stopped at the user's
+request after 9,259/11,161 nodes completed, with zero failed nodes. Completed
+raw fits and the [clearly labelled preliminary figures](preliminary/README.md)
+are retained. No jobs from this DAG remain in the queue; the missing
+acquisition rounds will not be filled by this run.
 
 ## Corrected laboratory-budget rerun — 17 November 2026
 
