@@ -1,5 +1,7 @@
 # Cross-protein labelled-pool size experiment
 
+**18 November 2026: [preliminary corrected laboratory-budget figures](preliminary/README.md).** Available random/acquisition rounds for Aubin, MLP and CNN; incomplete seed counts are marked. The experiment is still running.
+
 > **Superseded while the corrected laboratory-budget rerun is running.**
 > The earlier curves used additional target-validation labels. The corrected
 > experiment uses only the sequences on each stated plate; see

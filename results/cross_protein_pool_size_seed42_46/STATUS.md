@@ -1,5 +1,7 @@
 # Cross-protein labelled-pool size experiment
 
+**18 November 2026: [preliminary corrected laboratory-budget figures](preliminary/README.md).** Available random/acquisition rounds for Aubin, MLP and CNN; incomplete seed counts are marked. The experiment is still running.
+
 ## Corrected laboratory-budget rerun — 17 November 2026
 
 The earlier Random/Acquisition extension was stopped because it used additional

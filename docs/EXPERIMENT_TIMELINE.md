@@ -6,13 +6,23 @@ use the [experiment catalog](EXPERIMENT_CATALOG.md).
 
 ## Latest activity
 
+### 18 November 2026 — preliminary laboratory plate figures
+
+Available completed rounds from the corrected laboratory-budget rerun:
+[14,709-source preview](../results/cross_protein_pool_size_seed42_46/preliminary/README.md) ·
+[7,350-source preview](../results/cross_protein_pool_size_cgre7350_seed42_46/preliminary/README.md).
+R², Spearman and KL panels include random and acquisition sampling, both frozen
+protein tests, and separate rows for Aubin, MLP and CNN. Hollow markers identify
+points with fewer than five seeds; missing rounds remain gaps. These are partial
+results, stored separately from the historical complete reports.
+
 ### 17 November 2026 — laboratory-budget plate-size rerun submitted
 
 The previous extension was stopped because it added target-validation labels
 outside the stated plate budget. The corrected experiment uses no target
 validation: every plate label enters training, models use fixed epoch counts,
 and cgreGFP validation is diagnostic only. It repeats matched Random and
-acquisition sampling for Aubin, MLP and CNN on OHE. CNN uses plates 48–384;
+acquisition sampling for Aubin, MLP and CNN on OHE. CNN uses plates 96 and 384;
 Aubin and MLP retain plate 9.
 
 - [14,709-cgreGFP status](../results/cross_protein_pool_size_seed42_46/STATUS.md)

@@ -14,6 +14,12 @@ The repository is organized for two audiences:
 
 ## Start here
 
+**Latest plate-experiment previews (incomplete, 18 November 2026):**
+[14,709 cgreGFP training sequences](results/cross_protein_pool_size_seed42_46/preliminary/README.md) ·
+[7,350 cgreGFP training sequences](results/cross_protein_pool_size_cgre7350_seed42_46/preliminary/README.md).
+These show available random and acquisition results for Aubin, MLP and CNN;
+missing rounds and incomplete seed averages are marked explicitly.
+
 | If you want to… | Open this |
 |---|---|
 | Find the latest experiment or the pictures plotted most recently | **[Experiment timeline and figure finder](docs/EXPERIMENT_TIMELINE.md)** |
