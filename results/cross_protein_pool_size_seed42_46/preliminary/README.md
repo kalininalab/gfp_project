@@ -1,6 +1,6 @@
 # Preliminary laboratory plate results
 
-Snapshot: 19 November 2026, 10:57 CET. Source training size: 14,709.
+Snapshot: 2026-11-19T13:42:14+01:00. Source training size: 14,709.
 
 **Incomplete experiment.** Each point averages only its available seeds (1–5); hollow points have fewer than five. Shading is ±1 sample SD where at least two seeds exist. Missing rounds are gaps. Changing seed composition can affect the curves; do not treat these as final matched five-seed comparisons. Exact seed counts are in [summary.csv](summary.csv).
 
@@ -9,9 +9,9 @@ Each plate adds target training sequences cumulatively. Models are retrained fro
 | Sampling | Model | Completed fits/rounds | Total |
 |---|---|---:|---:|
 | random | Aubin | 2410 | 2410 |
-| acquisition | Aubin | 2047 | 2930 |
+| acquisition | Aubin | 2140 | 2930 |
 | random | MLP | 2410 | 2410 |
-| acquisition | MLP | 1698 | 2930 |
+| acquisition | MLP | 1769 | 2930 |
 | random | CNN on OHE | 210 | 210 |
 | acquisition | CNN on OHE | 270 | 270 |
 
