@@ -26,6 +26,7 @@ missing rounds and incomplete seed averages are marked explicitly.
 | Understand or share the experimental data | [Data and preprocessing](docs/DATA_AND_BASELINES.md) |
 | Reproduce the standard cgreGFP benchmark | [Benchmark results](docs/BENCHMARK_RESULTS.md) |
 | Compare transfer among cgreGFP, amacGFP, ppluGFP and avGFP | [Four-protein leave-one-out report](results/ortholog_leave_one_out_seed42_46/RESULTS.md) |
+| Predict each GFP after adding its own labelled records to mixtures of the other proteins | [Target-included four-protein experiment](results/ortholog_target_included_seed42_46/STATUS.md) |
 | Rotate each of four artificial cgreGFP peaks through the central role | [Artificial-peak transfer report and live status](results/artificial_peak_holdout_seed42_46/RESULTS.md) |
 | Add labelled target-protein sequences iteratively | [Target-adaptation report](results/target_adaptation_complete_report/README.md) |
 | Simulate random or acquisition-selected laboratory plates | [Full cgreGFP pool-size report](results/cross_protein_pool_size_seed42_46/REPORT.md) ([acquisition status](results/cross_protein_pool_size_seed42_46/STATUS.md)) · [7,350-source report](results/cross_protein_pool_size_cgre7350_seed42_46/REPORT.md) ([acquisition status](results/cross_protein_pool_size_cgre7350_seed42_46/STATUS.md)) |

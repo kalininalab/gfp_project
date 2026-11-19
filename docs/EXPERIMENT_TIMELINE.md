@@ -6,6 +6,18 @@ use the [experiment catalog](EXPERIMENT_CATALOG.md).
 
 ## Latest activity
 
+### 19 November 2026 — target-included four-protein mixtures submitted
+
+This matched counterpart to the leave-one-out figure always includes the
+predicted protein in training, then adds each of the seven non-empty
+combinations of the other three GFP proteins. The fixed total budget remains
+14,709 train and 4,903 validation records, balanced equally among included
+proteins. The original protein-specific tests remain frozen. Aubin, Linear,
+MLP and CNN on OHE are evaluated over seeds 42–46.
+
+- [Protocol and live status](../results/ortholog_target_included_seed42_46/STATUS.md)
+- Planned fits: 560 (420 CPU, 140 GPU)
+
 ### 18 November 2026 — preliminary laboratory plate figures
 
 Available completed rounds from the corrected laboratory-budget rerun:

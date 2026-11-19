@@ -1,0 +1,21 @@
+# Four-protein mixtures with the target included
+
+This is the target-included counterpart to the four-protein leave-one-out figure.
+For each predicted protein, every training mixture contains that protein plus one
+of the seven non-empty combinations of the other three GFP proteins.
+
+- Models: Aubin, Linear, MLP and CNN on OHE.
+- Seeds: 42–46.
+- Fixed total budget: 14,709 training and 4,903 validation sequences per fit,
+  balanced equally among the included proteins.
+- Evaluation: the same frozen protein-specific test splits used by the
+  leave-one-out experiment. Test records never enter training, validation,
+  subsampling or checkpoint selection.
+- Planned fits: 560 total (420 CPU and 140 GPU).
+- Final outputs: Spearman, Pearson and R² panels in the same visual format as
+  the leave-one-out figure, plus per-run and summarized CSV tables.
+
+Raw output: `/data/users/akolchina/gfp_project/ortholog_target_included_seed42_46_runs`.
+
+The final figures and report will replace this status page only after all fits
+finish and the finalizer validates every frozen test prediction.
