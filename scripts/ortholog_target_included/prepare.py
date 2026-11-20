@@ -119,7 +119,7 @@ def main():
                   f"CATEGORY {node} {'GPU' if gpu else 'CPU'}"]
         fit_nodes.append(node)
     lines += ["JOB FINAL condor/ortholog_target_included_finalize.sub",
-              f'VARS FINAL directory="{out}" output="{ROOT / "results/ortholog_target_included_seed42_46"}"',
+              f'VARS FINAL directory="{out}" published="{ROOT / "results/ortholog_target_included_seed42_46"}"',
               "PARENT " + " ".join(fit_nodes) + " CHILD FINAL",
               "MAXJOBS CPU 50", "MAXJOBS GPU 40"]
     dag = ROOT / args.dag

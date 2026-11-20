@@ -1,5 +1,16 @@
 # Four-protein mixtures with the target included
 
+## Complete — 20 November 2026
+
+All **560/560 fits** completed successfully. The strict finalizer validated
+all frozen-test predictions and generated the publication figures, report and
+machine-readable tables: **[open the completed results](RESULTS.md)**.
+
+The original DAG's 560 fit nodes succeeded; its finalizer node initially
+failed because an HTCondor macro name collided with the report-output variable.
+The macro was renamed and the same 560 completed fits were finalized without
+rerunning any model.
+
 This is the target-included counterpart to the four-protein leave-one-out figure.
 For each predicted protein, every training mixture contains that protein plus one
 of the seven non-empty combinations of the other three GFP proteins.

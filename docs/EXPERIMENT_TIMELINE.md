@@ -15,8 +15,8 @@ combinations of the other three GFP proteins. The fixed total budget remains
 proteins. The original protein-specific tests remain frozen. Aubin, Linear,
 MLP and CNN on OHE are evaluated over seeds 42–46.
 
-- [Protocol and live status](../results/ortholog_target_included_seed42_46/STATUS.md)
-- Planned fits: 560 (420 CPU, 140 GPU)
+- [Completed report and figures](../results/ortholog_target_included_seed42_46/RESULTS.md)
+- Completed fits: 560/560 (420 CPU, 140 GPU), five seeds, zero model-fit failures
 
 ### 18 November 2026 — preliminary laboratory plate figures
 
