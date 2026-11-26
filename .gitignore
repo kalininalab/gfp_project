@@ -4,6 +4,26 @@ data/processed/baseline_v1/
 # Keep compact, publication-facing summaries and figures in Git. Model weights,
 # predictions, logs, split files, and per-run artifacts remain local.
 results/*
+!results/amac_active_learning_seed42_44/
+results/amac_active_learning_seed42_44/*
+!results/amac_active_learning_seed42_44/protocol.json
+!results/amac_active_learning_seed42_44/benchmark.dag
+!results/amac_active_learning_seed42_44/STATUS.md
+!results/amac_active_learning_seed42_44/REPORT.md
+!results/amac_active_learning_seed42_44/*.csv
+!results/amac_active_learning_seed42_44/*.csv.gz
+!results/amac_active_learning_seed42_44/finalization.json
+!results/amac_active_learning_seed42_44/figures/
+!results/amac_active_learning_seed42_44/figures/**
+!results/protein_train_size_saturation_seed42_46/
+results/protein_train_size_saturation_seed42_46/*
+!results/protein_train_size_saturation_seed42_46/STATUS.md
+!results/protein_train_size_saturation_seed42_46/REPORT.md
+!results/protein_train_size_saturation_seed42_46/*.csv
+!results/protein_train_size_saturation_seed42_46/*.json
+!results/protein_train_size_saturation_seed42_46/*.png
+!results/protein_train_size_saturation_seed42_46/*.pdf
+!results/protein_train_size_saturation_seed42_46/*.svg
 !results/paper_reproduction_cgre_80_20/
 results/paper_reproduction_cgre_80_20/*
 !results/paper_reproduction_cgre_80_20/RESULTS.md

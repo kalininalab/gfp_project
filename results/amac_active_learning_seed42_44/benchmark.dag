@@ -1,0 +1,98 @@
+JOB RUN_CNNJannisOHE_42_random condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_42_random model="CNN_Jannis_OHE" seed="42" strategy="random"
+JOB RUN_CNNJannisOHE_42_uncertainty condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_42_uncertainty model="CNN_Jannis_OHE" seed="42" strategy="uncertainty"
+JOB RUN_CNNJannisOHE_42_distance condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_42_distance model="CNN_Jannis_OHE" seed="42" strategy="distance"
+JOB RUN_CNNJannisOHE_42_fitness_high condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_42_fitness_high model="CNN_Jannis_OHE" seed="42" strategy="fitness_high"
+JOB RUN_CNNJannisOHE_42_fitness_low condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_42_fitness_low model="CNN_Jannis_OHE" seed="42" strategy="fitness_low"
+JOB RUN_CNNJannisOHE_42_uncertainty_fitness_high condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_42_uncertainty_fitness_high model="CNN_Jannis_OHE" seed="42" strategy="uncertainty_fitness_high"
+JOB RUN_CNNJannisOHE_42_uncertainty_fitness_low condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_42_uncertainty_fitness_low model="CNN_Jannis_OHE" seed="42" strategy="uncertainty_fitness_low"
+JOB RUN_CNNJannisOHE_42_uncertainty_distance condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_42_uncertainty_distance model="CNN_Jannis_OHE" seed="42" strategy="uncertainty_distance"
+JOB RUN_CNNJannisOHE_43_random condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_43_random model="CNN_Jannis_OHE" seed="43" strategy="random"
+JOB RUN_CNNJannisOHE_43_uncertainty condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_43_uncertainty model="CNN_Jannis_OHE" seed="43" strategy="uncertainty"
+JOB RUN_CNNJannisOHE_43_distance condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_43_distance model="CNN_Jannis_OHE" seed="43" strategy="distance"
+JOB RUN_CNNJannisOHE_43_fitness_high condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_43_fitness_high model="CNN_Jannis_OHE" seed="43" strategy="fitness_high"
+JOB RUN_CNNJannisOHE_43_fitness_low condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_43_fitness_low model="CNN_Jannis_OHE" seed="43" strategy="fitness_low"
+JOB RUN_CNNJannisOHE_43_uncertainty_fitness_high condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_43_uncertainty_fitness_high model="CNN_Jannis_OHE" seed="43" strategy="uncertainty_fitness_high"
+JOB RUN_CNNJannisOHE_43_uncertainty_fitness_low condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_43_uncertainty_fitness_low model="CNN_Jannis_OHE" seed="43" strategy="uncertainty_fitness_low"
+JOB RUN_CNNJannisOHE_43_uncertainty_distance condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_43_uncertainty_distance model="CNN_Jannis_OHE" seed="43" strategy="uncertainty_distance"
+JOB RUN_CNNJannisOHE_44_random condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_44_random model="CNN_Jannis_OHE" seed="44" strategy="random"
+JOB RUN_CNNJannisOHE_44_uncertainty condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_44_uncertainty model="CNN_Jannis_OHE" seed="44" strategy="uncertainty"
+JOB RUN_CNNJannisOHE_44_distance condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_44_distance model="CNN_Jannis_OHE" seed="44" strategy="distance"
+JOB RUN_CNNJannisOHE_44_fitness_high condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_44_fitness_high model="CNN_Jannis_OHE" seed="44" strategy="fitness_high"
+JOB RUN_CNNJannisOHE_44_fitness_low condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_44_fitness_low model="CNN_Jannis_OHE" seed="44" strategy="fitness_low"
+JOB RUN_CNNJannisOHE_44_uncertainty_fitness_high condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_44_uncertainty_fitness_high model="CNN_Jannis_OHE" seed="44" strategy="uncertainty_fitness_high"
+JOB RUN_CNNJannisOHE_44_uncertainty_fitness_low condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_44_uncertainty_fitness_low model="CNN_Jannis_OHE" seed="44" strategy="uncertainty_fitness_low"
+JOB RUN_CNNJannisOHE_44_uncertainty_distance condor/amac_al_cnn.sub
+VARS RUN_CNNJannisOHE_44_uncertainty_distance model="CNN_Jannis_OHE" seed="44" strategy="uncertainty_distance"
+JOB RUN_mlpsmall_42_random condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_42_random model="mlp_small" seed="42" strategy="random"
+JOB RUN_mlpsmall_42_uncertainty condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_42_uncertainty model="mlp_small" seed="42" strategy="uncertainty"
+JOB RUN_mlpsmall_42_distance condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_42_distance model="mlp_small" seed="42" strategy="distance"
+JOB RUN_mlpsmall_42_fitness_high condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_42_fitness_high model="mlp_small" seed="42" strategy="fitness_high"
+JOB RUN_mlpsmall_42_fitness_low condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_42_fitness_low model="mlp_small" seed="42" strategy="fitness_low"
+JOB RUN_mlpsmall_42_uncertainty_fitness_high condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_42_uncertainty_fitness_high model="mlp_small" seed="42" strategy="uncertainty_fitness_high"
+JOB RUN_mlpsmall_42_uncertainty_fitness_low condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_42_uncertainty_fitness_low model="mlp_small" seed="42" strategy="uncertainty_fitness_low"
+JOB RUN_mlpsmall_42_uncertainty_distance condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_42_uncertainty_distance model="mlp_small" seed="42" strategy="uncertainty_distance"
+JOB RUN_mlpsmall_43_random condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_43_random model="mlp_small" seed="43" strategy="random"
+JOB RUN_mlpsmall_43_uncertainty condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_43_uncertainty model="mlp_small" seed="43" strategy="uncertainty"
+JOB RUN_mlpsmall_43_distance condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_43_distance model="mlp_small" seed="43" strategy="distance"
+JOB RUN_mlpsmall_43_fitness_high condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_43_fitness_high model="mlp_small" seed="43" strategy="fitness_high"
+JOB RUN_mlpsmall_43_fitness_low condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_43_fitness_low model="mlp_small" seed="43" strategy="fitness_low"
+JOB RUN_mlpsmall_43_uncertainty_fitness_high condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_43_uncertainty_fitness_high model="mlp_small" seed="43" strategy="uncertainty_fitness_high"
+JOB RUN_mlpsmall_43_uncertainty_fitness_low condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_43_uncertainty_fitness_low model="mlp_small" seed="43" strategy="uncertainty_fitness_low"
+JOB RUN_mlpsmall_43_uncertainty_distance condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_43_uncertainty_distance model="mlp_small" seed="43" strategy="uncertainty_distance"
+JOB RUN_mlpsmall_44_random condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_44_random model="mlp_small" seed="44" strategy="random"
+JOB RUN_mlpsmall_44_uncertainty condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_44_uncertainty model="mlp_small" seed="44" strategy="uncertainty"
+JOB RUN_mlpsmall_44_distance condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_44_distance model="mlp_small" seed="44" strategy="distance"
+JOB RUN_mlpsmall_44_fitness_high condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_44_fitness_high model="mlp_small" seed="44" strategy="fitness_high"
+JOB RUN_mlpsmall_44_fitness_low condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_44_fitness_low model="mlp_small" seed="44" strategy="fitness_low"
+JOB RUN_mlpsmall_44_uncertainty_fitness_high condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_44_uncertainty_fitness_high model="mlp_small" seed="44" strategy="uncertainty_fitness_high"
+JOB RUN_mlpsmall_44_uncertainty_fitness_low condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_44_uncertainty_fitness_low model="mlp_small" seed="44" strategy="uncertainty_fitness_low"
+JOB RUN_mlpsmall_44_uncertainty_distance condor/amac_al_mlp.sub
+VARS RUN_mlpsmall_44_uncertainty_distance model="mlp_small" seed="44" strategy="uncertainty_distance"
+JOB FINALIZE condor/amac_al_finalize.sub
+PARENT RUN_CNNJannisOHE_42_random RUN_CNNJannisOHE_42_uncertainty RUN_CNNJannisOHE_42_distance RUN_CNNJannisOHE_42_fitness_high RUN_CNNJannisOHE_42_fitness_low RUN_CNNJannisOHE_42_uncertainty_fitness_high RUN_CNNJannisOHE_42_uncertainty_fitness_low RUN_CNNJannisOHE_42_uncertainty_distance RUN_CNNJannisOHE_43_random RUN_CNNJannisOHE_43_uncertainty RUN_CNNJannisOHE_43_distance RUN_CNNJannisOHE_43_fitness_high RUN_CNNJannisOHE_43_fitness_low RUN_CNNJannisOHE_43_uncertainty_fitness_high RUN_CNNJannisOHE_43_uncertainty_fitness_low RUN_CNNJannisOHE_43_uncertainty_distance RUN_CNNJannisOHE_44_random RUN_CNNJannisOHE_44_uncertainty RUN_CNNJannisOHE_44_distance RUN_CNNJannisOHE_44_fitness_high RUN_CNNJannisOHE_44_fitness_low RUN_CNNJannisOHE_44_uncertainty_fitness_high RUN_CNNJannisOHE_44_uncertainty_fitness_low RUN_CNNJannisOHE_44_uncertainty_distance RUN_mlpsmall_42_random RUN_mlpsmall_42_uncertainty RUN_mlpsmall_42_distance RUN_mlpsmall_42_fitness_high RUN_mlpsmall_42_fitness_low RUN_mlpsmall_42_uncertainty_fitness_high RUN_mlpsmall_42_uncertainty_fitness_low RUN_mlpsmall_42_uncertainty_distance RUN_mlpsmall_43_random RUN_mlpsmall_43_uncertainty RUN_mlpsmall_43_distance RUN_mlpsmall_43_fitness_high RUN_mlpsmall_43_fitness_low RUN_mlpsmall_43_uncertainty_fitness_high RUN_mlpsmall_43_uncertainty_fitness_low RUN_mlpsmall_43_uncertainty_distance RUN_mlpsmall_44_random RUN_mlpsmall_44_uncertainty RUN_mlpsmall_44_distance RUN_mlpsmall_44_fitness_high RUN_mlpsmall_44_fitness_low RUN_mlpsmall_44_uncertainty_fitness_high RUN_mlpsmall_44_uncertainty_fitness_low RUN_mlpsmall_44_uncertainty_distance CHILD FINALIZE
