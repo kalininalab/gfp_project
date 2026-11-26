@@ -35,6 +35,7 @@ missing rounds and incomplete seed averages are marked explicitly.
 | Test where same-protein training data saturate | [Four-protein MLP/CNN training-size benchmark](results/protein_train_size_saturation_seed42_46/STATUS.md) |
 | Reuse the pool-size code | [Pool-size implementation guide](docs/POOL_SIZE_EXPERIMENT.md) |
 | Inspect fluorescence distributions and distribution-aware predictors | [cgreGFP predictor study](results/cgre_predictor_study/REPORT.md) |
+| Compare epistatic fractions by mutation count | [cgreGFP, ppluGFP and amacGFP epistasis plot](results/epistasis_by_mutation_count/REPORT.md) |
 | Follow the experiments by scientific question | [Experiment catalog](docs/EXPERIMENT_CATALOG.md) |
 | Browse every result folder, including archives and incomplete runs | [Complete chronological inventory](docs/EXPERIMENT_TIMELINE.md#complete-result-folder-inventory) |
 

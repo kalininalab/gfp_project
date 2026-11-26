@@ -35,6 +35,8 @@ results/protein_train_size_saturation_seed42_46/*
 !results/protein_train_size_saturation_seed42_46/*.png
 !results/protein_train_size_saturation_seed42_46/*.pdf
 !results/protein_train_size_saturation_seed42_46/*.svg
+!results/epistasis_by_mutation_count/
+!results/epistasis_by_mutation_count/**
 !results/paper_reproduction_cgre_80_20/
 results/paper_reproduction_cgre_80_20/*
 !results/paper_reproduction_cgre_80_20/RESULTS.md
