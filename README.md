@@ -31,6 +31,7 @@ missing rounds and incomplete seed averages are marked explicitly.
 | Add labelled target-protein sequences iteratively | [Target-adaptation report](results/target_adaptation_complete_report/README.md) |
 | Simulate random or acquisition-selected laboratory plates | [Full cgreGFP pool-size report](results/cross_protein_pool_size_seed42_46/REPORT.md) ([acquisition status](results/cross_protein_pool_size_seed42_46/STATUS.md)) · [7,350-source report](results/cross_protein_pool_size_cgre7350_seed42_46/REPORT.md) ([acquisition status](results/cross_protein_pool_size_cgre7350_seed42_46/STATUS.md)) |
 | Compare acquisition strategies on amacGFP | [Preliminary amacGFP AL benchmark status and protocol](results/amac_active_learning_seed42_44/STATUS.md) |
+| Compare acquisition strategies on cgreGFP | [Preliminary cgreGFP AL benchmark status and protocol](results/cgre_active_learning_seed42_44/STATUS.md) |
 | Test where same-protein training data saturate | [Four-protein MLP/CNN training-size benchmark](results/protein_train_size_saturation_seed42_46/STATUS.md) |
 | Reuse the pool-size code | [Pool-size implementation guide](docs/POOL_SIZE_EXPERIMENT.md) |
 | Inspect fluorescence distributions and distribution-aware predictors | [cgreGFP predictor study](results/cgre_predictor_study/REPORT.md) |

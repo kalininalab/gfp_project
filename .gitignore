@@ -15,6 +15,17 @@ results/amac_active_learning_seed42_44/*
 !results/amac_active_learning_seed42_44/finalization.json
 !results/amac_active_learning_seed42_44/figures/
 !results/amac_active_learning_seed42_44/figures/**
+!results/cgre_active_learning_seed42_44/
+results/cgre_active_learning_seed42_44/*
+!results/cgre_active_learning_seed42_44/protocol.json
+!results/cgre_active_learning_seed42_44/benchmark.dag
+!results/cgre_active_learning_seed42_44/STATUS.md
+!results/cgre_active_learning_seed42_44/REPORT.md
+!results/cgre_active_learning_seed42_44/*.csv
+!results/cgre_active_learning_seed42_44/*.csv.gz
+!results/cgre_active_learning_seed42_44/finalization.json
+!results/cgre_active_learning_seed42_44/figures/
+!results/cgre_active_learning_seed42_44/figures/**
 !results/protein_train_size_saturation_seed42_46/
 results/protein_train_size_saturation_seed42_46/*
 !results/protein_train_size_saturation_seed42_46/STATUS.md

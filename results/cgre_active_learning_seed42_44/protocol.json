@@ -1,0 +1,70 @@
+{
+  "created_utc": "2026-11-26T06:43:51.734704+00:00",
+  "status": "preliminary exploratory benchmark",
+  "data": "/nethome/akolchina/gfp_project/data/processed/baseline_v1/sequences.csv",
+  "data_sha256": "1add5e456287d39909954b2af9bbda3e2cd83ff9476e1b5c9a7804cd60cd980a",
+  "gene": "cgreGFP",
+  "n_records": 24516,
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "models": [
+    "CNN_Jannis_OHE",
+    "mlp_small"
+  ],
+  "strategies": [
+    "random",
+    "uncertainty",
+    "distance",
+    "fitness_high",
+    "fitness_low",
+    "uncertainty_fitness_high",
+    "uncertainty_fitness_low",
+    "uncertainty_distance"
+  ],
+  "rounds": 10,
+  "batch_size": 96,
+  "total_acquisition_budget": 960,
+  "split": "seeded paper-style 20% fixed test; 1% initial labels, 10% fixed validation, 10% candidate pool; remainder unused",
+  "fairness": "within each seed every model and strategy shares exact record IDs for initial labels, validation, pool, test and unused data",
+  "cnn": {
+    "uncertainty": "SD of 25 MC-dropout predictions",
+    "prediction": "mean of the same 25 predictions"
+  },
+  "mlp": {
+    "members": 10,
+    "uncertainty": "SD across independently initialized members",
+    "prediction": "ensemble mean"
+  },
+  "distance": "Euclidean distance in the primary model's penultimate representation to the nearest currently labelled record; the primary MLP ensemble member defines this coherent hidden coordinate system",
+  "score_normalization": "within-round percentile ranks; equal 0.5/0.5 weights for combined strategies; low fitness is one minus high-fitness percentile",
+  "selection": "global descending score; stable record-ID tie break; no true candidate labels",
+  "training": "fresh initialization each round; complete cumulative labelled set; existing Adam/AdamW, MSE, validation early stopping and epoch limits",
+  "model_settings": {
+    "mlp_small": {
+      "epochs": 30,
+      "patience": 10,
+      "batch_size": 32,
+      "learning_rate": 0.001
+    },
+    "CNN_Jannis_OHE": {
+      "epochs": 60,
+      "patience": 10,
+      "batch_size": 64,
+      "learning_rate": 0.0003,
+      "weight_decay": 0.0001
+    }
+  },
+  "distribution_metrics": {
+    "bins": 50,
+    "edges": "fixed global cgreGFP min/max",
+    "pseudocount": 0.5,
+    "kl_units": "bits"
+  },
+  "bright_fraction": "retrospective operational dark/bright boundary from a two-component GMM fitted to initial labels only; not asserted as biological ground truth",
+  "raw_directory": "/data/users/akolchina/gfp_project/cgre_active_learning_seed42_44",
+  "summary_directory": "/nethome/akolchina/gfp_project/results/cgre_active_learning_seed42_44",
+  "leakage_policy": "true pool fitness is written only after selection for retrospective diagnostics and never enters scores"
+}
