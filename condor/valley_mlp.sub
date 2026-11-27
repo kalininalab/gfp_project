@@ -1,0 +1,14 @@
+universe = vanilla
+initialdir = /nethome/akolchina/gfp_project
+executable = /nethome/akolchina/miniconda3/envs/combi/bin/python
+arguments = -m scripts.hurdle_predictor.valley_mlp run --seed $(seed)
+should_transfer_files = NO
+request_cpus = 1
+request_memory = 6GB
+request_disk = 2GB
+request_gpus = 0
+requirements = (TARGET.UidDomain == "lsv.uni-saarland.de")
+output = /data/users/akolchina/gfp_project/valley_mlp_cgre_seed42_46/condor/seed$(seed).$(ClusterId).out
+error = /data/users/akolchina/gfp_project/valley_mlp_cgre_seed42_46/condor/seed$(seed).$(ClusterId).err
+log = /data/users/akolchina/gfp_project/valley_mlp_cgre_seed42_46/condor/jobs.$(ClusterId).log
+queue

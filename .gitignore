@@ -228,3 +228,6 @@ results/target_adaptation_complete_report/*
 
 !results/extended_peak_transfer_seed42_46/
 !results/extended_peak_transfer_seed42_46/**
+
+!results/valley_mlp_cgre_seed42_46/
+!results/valley_mlp_cgre_seed42_46/**

@@ -1,0 +1,12 @@
+universe = vanilla
+initialdir = /nethome/akolchina/gfp_project
+executable = /nethome/akolchina/miniconda3/envs/combi/bin/python
+arguments = -m scripts.hurdle_predictor.valley_mlp finalize
+should_transfer_files = NO
+request_cpus = 1
+request_memory = 6GB
+request_disk = 2GB
+output = /data/users/akolchina/gfp_project/valley_mlp_cgre_seed42_46/condor/finalize.$(ClusterId).out
+error = /data/users/akolchina/gfp_project/valley_mlp_cgre_seed42_46/condor/finalize.$(ClusterId).err
+log = /data/users/akolchina/gfp_project/valley_mlp_cgre_seed42_46/condor/finalize.$(ClusterId).log
+queue

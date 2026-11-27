@@ -17,6 +17,7 @@ for training or acquisition.
 
 ### Results navigation
 
+- [cgreGFP MLP classification and regression](../results/valley_mlp_cgre_seed42_46/REPORT.md): hard/soft routing with separate MLPs, KDE valley boundary, direct comparator and true-class routing diagnostic; five seeds, results pending.
 - [Extended artificial-peak transferability](../results/extended_peak_transfer_seed42_46/REPORT.md): WT/central/other directions, source-only validation, MLP/CNN, five seeds and three matched training budgets; results pending.
 - **[Train-only fluorescence distribution analysis for cgreGFP and artificial peaks](../results/cgre_peak_mixture_analysis/REPORT.md):** 1–4 component GMM comparison, measurement-floor audit, bootstrap stability and implications for a binary-first predictor.
 - **[Classification–regression predictor pilot](../results/hurdle_esm_ridge_seed42_46/REPORT.md):** matched direct versus soft/hard hurdle prediction on all five frozen tests.

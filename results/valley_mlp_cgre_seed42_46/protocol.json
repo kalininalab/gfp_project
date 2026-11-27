@@ -1,0 +1,51 @@
+{
+  "gene": "cgreGFP",
+  "threshold": 3.6606648235013557,
+  "threshold_method": "Scott-bandwidth Gaussian KDE; minimum between two highest prominent modes; training labels only",
+  "sensitivity": [
+    {
+      "bandwidth_multiplier": 0.8,
+      "threshold": 3.662842271522481,
+      "valley_to_smaller_mode": 0.04137513313660045
+    },
+    {
+      "bandwidth_multiplier": 1.0,
+      "threshold": 3.6606648235013557,
+      "valley_to_smaller_mode": 0.05083800046465673
+    },
+    {
+      "bandwidth_multiplier": 1.2,
+      "threshold": 3.651955031416855,
+      "valley_to_smaller_mode": 0.0616156375359598
+    }
+  ],
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "dataset_sha256": "1add5e456287d39909954b2af9bbda3e2cd83ff9476e1b5c9a7804cd60cd980a",
+  "source_hashes": {
+    "hurdle_predictor/valley_mlp.py": "588b1d0f2b080cb58e18c6c44b5e9f71310eb2fe753c52424f189d3ce1015f9f",
+    "baseline_models.py": "daa1275494e0f726612f820864644a2e1fc69e53fa0578ed55b148023f2fdefe",
+    "aubin_model.py": "0b7e22c90f8c54c85e70b92dd7f603499e54043c86e69b0e0ec93ac1b0c703a4",
+    "train_aubin.py": "b2dc80882e141e192ffe413b43c67562cbc31b5651d0822bb0d2b7729ac47419",
+    "regression_metrics.py": "01460f1e41cb8809ff44f08536832a3ac1cc94088f0365df8d3f41e29cf9893c"
+  },
+  "counts": {
+    "train": 14709,
+    "validation": 4903,
+    "test": 4904
+  },
+  "train_low_fraction": 0.46930450744442176,
+  "architecture": "Separate OHE \u2192 64 ReLU \u2192 1 MLPs for classifier, low expert, high expert and direct comparator",
+  "epochs": 30,
+  "patience": 10,
+  "batch_size": 32,
+  "learning_rate": 0.001,
+  "validation": "Classifier: all validation records, BCE. Experts: respective true validation group, MSE. Direct: all validation records, MSE.",
+  "prediction": "No clipping. Hard selects high expert iff p >= 0.5; soft weights same experts. Oracle uses true test class only as diagnostic, never deployable.",
+  "target": "Original log10 fluorescence, no target normalization; matches existing small MLP recipe"
+}

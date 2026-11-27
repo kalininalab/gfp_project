@@ -15,6 +15,7 @@ The repository is organized for two audiences:
 ## Latest results and data statistics
 
 - **[Data statistics and presentation figures](docs/DATA_STATISTICS.md):** sequence counts, reference-sequence identity, fluorescence distributions, and exploratory WT-control rescaling.
+- [cgreGFP MLP classification + regression — results pending](results/valley_mlp_cgre_seed42_46/REPORT.md): separate low/high experts, hard versus soft routing, training-only valley threshold, five seeds, CPU only.
 - [Extended artificial-peak transferability — results pending](results/extended_peak_transfer_seed42_46/REPORT.md): WT/central/other directions, source-only validation, MLP/CNN, five seeds, three matched training budgets.
 - **[Prediction versus training-set size — complete](results/protein_train_size_saturation_seed42_46/REPORT.md):** four proteins, MLP and CNN, five seeds; all 280 fits completed.
 - **[cgreGFP acquisition benchmark — complete](results/cgre_active_learning_seed42_44/REPORT.md):** eight sampling strategies, CNN and MLP ensemble, three seeds; all 48 trajectories completed.
