@@ -1,0 +1,139 @@
+{
+  "created_utc": "2026-11-26T06:29:34.344740+00:00",
+  "question": "Within each GFP, where does held-out predictive performance saturate as same-protein training labels increase?",
+  "dataset_sha256": "1add5e456287d39909954b2af9bbda3e2cd83ff9476e1b5c9a7804cd60cd980a",
+  "genes": [
+    "cgreGFP",
+    "amacGFP",
+    "ppluGFP",
+    "avGFP"
+  ],
+  "models": [
+    "mlp_small",
+    "CNN_Jannis_OHE"
+  ],
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "sizes": {
+    "cgreGFP": [
+      500,
+      1000,
+      2000,
+      4000,
+      8000,
+      12000,
+      14709
+    ],
+    "amacGFP": [
+      500,
+      1000,
+      2000,
+      4000,
+      8000,
+      12000,
+      20106
+    ],
+    "ppluGFP": [
+      500,
+      1000,
+      2000,
+      4000,
+      8000,
+      12000,
+      18841
+    ],
+    "avGFP": [
+      500,
+      1000,
+      2000,
+      4000,
+      8000,
+      12000,
+      31029
+    ]
+  },
+  "counts": {
+    "cgreGFP": {
+      "train": 14709,
+      "validation": 4903,
+      "test": 4904
+    },
+    "amacGFP": {
+      "train": 20106,
+      "validation": 6702,
+      "test": 6703
+    },
+    "ppluGFP": {
+      "train": 18841,
+      "validation": 6280,
+      "test": 6281
+    },
+    "avGFP": {
+      "train": 31029,
+      "validation": 10343,
+      "test": 10343
+    }
+  },
+  "nested_subsets": true,
+  "validation_policy": "complete original protein-specific validation split fixed at every training size",
+  "test_policy": "complete original protein-specific test split fixed and unavailable to fitting or checkpoint selection",
+  "onehot_settings": {
+    "epochs": 30,
+    "patience": 10,
+    "batch_size": 32,
+    "lr": 0.001
+  },
+  "cnn_settings": {
+    "epochs": 60,
+    "patience": 10,
+    "batch_size": 64,
+    "lr": 0.0003,
+    "weight_decay": 0.0001
+  },
+  "distribution_metrics": {
+    "bins": 50,
+    "pseudocount": 0.5,
+    "kl_units": "bits"
+  },
+  "alignment_sha256": "11d6afa9d7a284fa0bfe37a1057790e904bec3fc7a0717b02d36135036b70d6d",
+  "subset_hashes": {
+    "subsets/cgreGFP/seed42.csv": "2b52e46e8fc07baf228f061229afced879c2aa99c119a7dcf537e13f1484b0c6",
+    "subsets/cgreGFP/seed43.csv": "3d7fcf78d0a2b314dc07ea2d71632b5eca6053d1a27c5adc4d06bf32ca41d673",
+    "subsets/cgreGFP/seed44.csv": "d61f93a39cb8fb14cb7e9cf587a5b1fb3f8e80165d79a92e2602a865f72f94b7",
+    "subsets/cgreGFP/seed45.csv": "d02b120859ff6fe2dfe605a8bad1248325178863cb513347600b72bd09ab6684",
+    "subsets/cgreGFP/seed46.csv": "e71c992ec0682a6b4db265790a3307c90d51ee89459812bd2c0c572ec173ff19",
+    "subsets/amacGFP/seed42.csv": "480fc7d8ca0920f6d11d0a8e79e834401aadcd503ba62231b719a2538340738f",
+    "subsets/amacGFP/seed43.csv": "763db09c798f17e0c9d8f050c8a74dd616e3b3beff418920440fff19da4e3a18",
+    "subsets/amacGFP/seed44.csv": "0c9bf943267af00a34d11484d0e9c1ba9b63e55e7fa81527753c787262772beb",
+    "subsets/amacGFP/seed45.csv": "4030df406d411ce39a67e92b6deb22f2fc15edf8a7e69cd8ce45e46043d190c2",
+    "subsets/amacGFP/seed46.csv": "7e4acc0a67a5e7bc15fcfd83d9ceedd1d348c8a38d7b72b75922150791379376",
+    "subsets/ppluGFP/seed42.csv": "13daf584793a97bfda48645283d8921cb04b33364610079f3a3ca245ac801e77",
+    "subsets/ppluGFP/seed43.csv": "5be197c3c64b33cc56b7975675d2d88f8127ab2f54d02a5a07bebb114de8b036",
+    "subsets/ppluGFP/seed44.csv": "341bbb3ceb1f294a5df7b02c490b46da703f91d7c6bd97d9666facab235ff306",
+    "subsets/ppluGFP/seed45.csv": "70c4b44fa7417d180299dad23151491c8359a841e2fcbbae4cfcf75f3cd6a19b",
+    "subsets/ppluGFP/seed46.csv": "2395ca74d7b84b98a24c2fe32a64c2518131874ddfcfeed0f5e47a92faa5bafe",
+    "subsets/avGFP/seed42.csv": "48d633394ab92c1a0467c4036e6fede54ada05fa2bef24671afbb543b19348f4",
+    "subsets/avGFP/seed43.csv": "87c9edcb2100d9eccd8c06f16085b6088130e57cc10eac75baa102d29acb4aa1",
+    "subsets/avGFP/seed44.csv": "f394e7479dc4717b2348ceff5c5fd5ca2968a8291d1307605c1eb116af476511",
+    "subsets/avGFP/seed45.csv": "66ef7a5dfae2e4ff0b19430387c56595f23e3822da094e50e5af08bef9a5e7b3",
+    "subsets/avGFP/seed46.csv": "7350b357ae1dacec8dc6138d7256eb5a2495e07ba916be914ce9e26ac6037a14"
+  },
+  "source_hashes": {
+    "scripts/protein_saturation/common.py": "ecab11aadf0aa949c29800e1c412947f3298c2d0c7944d5997e12d4edc03a893",
+    "scripts/protein_saturation/prepare.py": "0361ec7c41d75fea5d2badce42f066f159ad2646147628fff362faa9dc36051c",
+    "scripts/protein_saturation/run.py": "7c1da183a18ee9d86a94d9313a6b315445d46580c493fa5454ea960d143b10cd",
+    "scripts/ortholog_holdout/prepare.py": "25133edae3f9a0db087d0bd730133d90389f0caf60b050cfbe48f972bbdfbc3a",
+    "scripts/peak_holdout/run.py": "68d31a101aade016505f9583c5206b1709c296406057ad04711ba6ef0c85d6b9",
+    "scripts/transfer_benchmark/models.py": "3b56f505baa4b675ad365ec04d0c53eae7604a8e826fe682db3d0f808fb3512e",
+    "scripts/train_aubin.py": "b2dc80882e141e192ffe413b43c67562cbc31b5651d0822bb0d2b7729ac47419",
+    "scripts/regression_metrics.py": "01460f1e41cb8809ff44f08536832a3ac1cc94088f0365df8d3f41e29cf9893c",
+    "scripts/baseline_models.py": "daa1275494e0f726612f820864644a2e1fc69e53fa0578ed55b148023f2fdefe",
+    "scripts/esm_benchmark/models.py": "ca73a9d82558c30c83be9fdf58e99b1d4a06a2535c6fdaa58ac3e4151675da5f"
+  },
+  "published_directory": "/nethome/akolchina/gfp_project/results/protein_train_size_saturation_seed42_46"
+}

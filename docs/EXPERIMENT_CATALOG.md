@@ -9,6 +9,8 @@ the [main README](../README.md).
 
 ## Experimental story
 
+Proposed follow-up (not launched): [Library-level active learning for GFP landscape mapping](LIBRARY_LEVEL_ACTIVE_LEARNING.md) — adaptively choose parental peaks and error-prone PCR conditions for the next measured batch.
+
 The experiments answer four questions in sequence. Throughout, the **target
 test set is frozen**, is shared by all compared methods, and is never available
 for training or acquisition.

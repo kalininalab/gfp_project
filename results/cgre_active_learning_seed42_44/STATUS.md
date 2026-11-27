@@ -1,5 +1,7 @@
 # Preliminary cgreGFP acquisition benchmark
 
+**Complete: 48/48 trajectories. [Open the results and figures](REPORT.md).** Status updated 27 November 2026. Submission details below are historical.
+
 This is the direct cgreGFP counterpart to the completed amacGFP acquisition benchmark.
 
 ## Design

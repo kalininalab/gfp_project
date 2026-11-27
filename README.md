@@ -12,9 +12,19 @@ The repository is organized for two audiences:
 - **Project collaborators:** use the [complete experiment catalog](docs/EXPERIMENT_CATALOG.md)
   for every report, figure, protocol and intermediate result.
 
+## Latest results and data statistics
+
+- **[Data statistics and presentation figures](docs/DATA_STATISTICS.md):** sequence counts, reference-sequence identity, fluorescence distributions, and exploratory WT-control rescaling.
+- **[Prediction versus training-set size — complete](results/protein_train_size_saturation_seed42_46/REPORT.md):** four proteins, MLP and CNN, five seeds; all 280 fits completed.
+- **[cgreGFP acquisition benchmark — complete](results/cgre_active_learning_seed42_44/REPORT.md):** eight sampling strategies, CNN and MLP ensemble, three seeds; all 48 trajectories completed.
+- [Joint neural hurdle models](results/hurdle_neural_seed42_46/REPORT.md): existing shared-encoder classifier/regressor results, with matched direct regressors.
+- [Proposed library-level AL](docs/LIBRARY_LEVEL_ACTIVE_LEARNING.md): selecting parents and erPCR conditions; a research proposal, not a completed experiment.
+
+[![Sequence counts across GFP landscapes](results/dataset_sequence_counts/sequence_counts_slide.png)](docs/DATA_STATISTICS.md)
+
 ## Start here
 
-**Latest plate-experiment previews (incomplete, 18 November 2026):**
+**Earlier plate-experiment previews (incomplete, 18 November 2026):**
 [14,709 cgreGFP training sequences](results/cross_protein_pool_size_seed42_46/preliminary/README.md) ·
 [7,350 cgreGFP training sequences](results/cross_protein_pool_size_cgre7350_seed42_46/preliminary/README.md).
 These show available random and acquisition results for Aubin, MLP and CNN;
@@ -31,8 +41,8 @@ missing rounds and incomplete seed averages are marked explicitly.
 | Add labelled target-protein sequences iteratively | [Target-adaptation report](results/target_adaptation_complete_report/README.md) |
 | Simulate random or acquisition-selected laboratory plates | [Full cgreGFP pool-size report](results/cross_protein_pool_size_seed42_46/REPORT.md) ([acquisition status](results/cross_protein_pool_size_seed42_46/STATUS.md)) · [7,350-source report](results/cross_protein_pool_size_cgre7350_seed42_46/REPORT.md) ([acquisition status](results/cross_protein_pool_size_cgre7350_seed42_46/STATUS.md)) |
 | Compare acquisition strategies on amacGFP | [Preliminary amacGFP AL benchmark status and protocol](results/amac_active_learning_seed42_44/STATUS.md) |
-| Compare acquisition strategies on cgreGFP | [Preliminary cgreGFP AL benchmark status and protocol](results/cgre_active_learning_seed42_44/STATUS.md) |
-| Test where same-protein training data saturate | [Four-protein MLP/CNN training-size benchmark](results/protein_train_size_saturation_seed42_46/STATUS.md) |
+| Compare acquisition strategies on cgreGFP | [Completed cgreGFP AL benchmark](results/cgre_active_learning_seed42_44/REPORT.md) |
+| Test where same-protein training data saturate | [Completed four-protein MLP/CNN training-size benchmark](results/protein_train_size_saturation_seed42_46/REPORT.md) |
 | Reuse the pool-size code | [Pool-size implementation guide](docs/POOL_SIZE_EXPERIMENT.md) |
 | Inspect fluorescence distributions and distribution-aware predictors | [cgreGFP predictor study](results/cgre_predictor_study/REPORT.md) |
 | Compare epistatic fractions by mutation count | [cgreGFP, ppluGFP and amacGFP epistasis plot](results/epistasis_by_mutation_count/REPORT.md) |

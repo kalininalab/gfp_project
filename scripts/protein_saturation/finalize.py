@@ -32,7 +32,13 @@ def main():
                 for n in protocol["sizes"][gene]:
                     path=args.directory/"fits"/gene/f"seed{seed}"/model/f"n{n:05d}"/"complete.json"
                     if not path.exists(): raise FileNotFoundError(path)
-                    report=json.loads(path.read_text()); rows.append({"gene":gene,"model":model,"seed":seed,"n_train":n,"n_validation":report["n_validation"],"n_test":report["n_test"],**report["metrics"]})
+                    report=json.loads(path.read_text()); measured=dict(report["metrics"])
+                    if "mae" not in measured:
+                        with (path.parent/"predictions.csv").open(newline="") as handle:
+                            predictions=list(csv.DictReader(handle))
+                        measured["mae"]=float(np.mean([
+                            abs(float(row["y_true"])-float(row["y_pred"])) for row in predictions]))
+                    rows.append({"gene":gene,"model":model,"seed":seed,"n_train":n,"n_validation":report["n_validation"],"n_test":report["n_test"],**measured})
     args.published.mkdir(parents=True,exist_ok=True); write_csv(args.published/"all_seeded_metrics.csv",rows)
     summaries=[]
     for gene in GENES:

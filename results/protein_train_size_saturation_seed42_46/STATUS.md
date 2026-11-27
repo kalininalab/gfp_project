@@ -1,5 +1,7 @@
 # Four-protein training-size saturation
 
+**Complete: 280/280 fits. [Open the results and figures](REPORT.md).** Status updated 27 November 2026. Submission details below are historical.
+
 This experiment tests whether prediction saturates as more labelled sequences from the **same protein** are added. It runs separately for cgreGFP, amacGFP, ppluGFP and avGFP with MLP and CNN on OHE.
 
 ## Design

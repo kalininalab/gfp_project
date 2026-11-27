@@ -6,6 +6,14 @@ use the [experiment catalog](EXPERIMENT_CATALOG.md).
 
 ## Latest activity
 
+### 27 November 2026 — completed benchmarks and data-statistics figures published
+
+- [Training-size saturation](../results/protein_train_size_saturation_seed42_46/REPORT.md): 280 fits, four proteins, two models, five seeds.
+- [cgreGFP acquisition benchmark](../results/cgre_active_learning_seed42_44/REPORT.md): 48 completed trajectories, eight strategies, two architectures, three seeds.
+- [Data statistics](DATA_STATISTICS.md): counts, reference identity and original/WT-aligned fluorescence plots.
+- [Library-level active learning](LIBRARY_LEVEL_ACTIVE_LEARNING.md): proposed next experiment only.
+
+
 ### 19 November 2026 — target-included four-protein mixtures submitted
 
 This matched counterpart to the leave-one-out figure always includes the

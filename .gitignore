@@ -216,3 +216,12 @@ results/target_adaptation_complete_report/*
 # Local tooling and caches.
 .pytest_cache/
 *.pyc
+
+!results/dataset_sequence_counts/
+!results/dataset_sequence_counts/**
+
+!results/sequence_identity_all_gfps/
+!results/sequence_identity_all_gfps/**
+
+!results/cgre_peak_fluorescence_distributions/
+!results/cgre_peak_fluorescence_distributions/**
