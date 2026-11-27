@@ -1,0 +1,14 @@
+universe = vanilla
+initialdir = /nethome/akolchina/gfp_project
+executable = /nethome/akolchina/miniconda3/envs/combi/bin/python
+arguments = -m scripts.extended_peak_transfer run --directory $(directory) --source $(source) --model $(model) --seed $(seed) --device $(device)
+should_transfer_files = NO
+request_cpus = 1
+request_memory = $(memory)
+request_disk = 4GB
+request_gpus = $(gpu)
+requirements = (TARGET.UidDomain == "lsv.uni-saarland.de") && (($(gpu) == 0) || (TARGET.GPUs_GlobalMemoryMb >= 10000))
+output = $(directory)/condor/$(source)_$(model)_$(seed).$(ClusterId).out
+error = $(directory)/condor/$(source)_$(model)_$(seed).$(ClusterId).err
+log = $(directory)/condor/jobs.$(ClusterId).log
+queue

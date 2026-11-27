@@ -225,3 +225,6 @@ results/target_adaptation_complete_report/*
 
 !results/cgre_peak_fluorescence_distributions/
 !results/cgre_peak_fluorescence_distributions/**
+
+!results/extended_peak_transfer_seed42_46/
+!results/extended_peak_transfer_seed42_46/**

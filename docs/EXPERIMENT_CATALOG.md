@@ -17,6 +17,7 @@ for training or acquisition.
 
 ### Results navigation
 
+- [Extended artificial-peak transferability](../results/extended_peak_transfer_seed42_46/REPORT.md): WT/central/other directions, source-only validation, MLP/CNN, five seeds and three matched training budgets; results pending.
 - **[Train-only fluorescence distribution analysis for cgreGFP and artificial peaks](../results/cgre_peak_mixture_analysis/REPORT.md):** 1–4 component GMM comparison, measurement-floor audit, bootstrap stability and implications for a binary-first predictor.
 - **[Classification–regression predictor pilot](../results/hurdle_esm_ridge_seed42_46/REPORT.md):** matched direct versus soft/hard hurdle prediction on all five frozen tests.
 - **[Neural classification–regression experiment](../results/hurdle_neural_seed42_46/REPORT.md):** five-seed MLP-on-ESM and CNN-on-OHE matched direct-versus-hurdle comparisons.
