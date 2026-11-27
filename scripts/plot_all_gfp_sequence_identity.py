@@ -4,6 +4,7 @@ import csv
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap
 from Bio.Align import PairwiseAligner, substitution_matrices
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -36,7 +37,9 @@ def save_csv(path, names, matrix):
 
 def heatmap(names, matrix, stem, title, figsize, annotation_size, tick_size):
     fig, ax = plt.subplots(figsize=figsize)
-    palette = plt.get_cmap("Spectral")
+    palette = LinearSegmentedColormap.from_list(
+        "pink_blue", ["#E8A0BF", "#315A9E"]
+    )
     image = ax.imshow(matrix, cmap=palette, vmin=0, vmax=100, aspect="equal")
     ax.set_xticks(range(len(names)), names, rotation=42, ha="right", fontsize=tick_size)
     ax.set_yticks(range(len(names)), names, fontsize=tick_size)
