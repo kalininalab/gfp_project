@@ -4,7 +4,6 @@ import csv
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.colors import LinearSegmentedColormap
 from Bio.Align import PairwiseAligner, substitution_matrices
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -37,17 +36,19 @@ def save_csv(path, names, matrix):
 
 def heatmap(names, matrix, stem, title, figsize, annotation_size, tick_size):
     fig, ax = plt.subplots(figsize=figsize)
-    palette = LinearSegmentedColormap.from_list(
-        "blue_violet_pink", ["#243B70", "#57529B", "#9578BB", "#CFABCF", "#FBE3ED"])
+    palette = plt.get_cmap("Spectral")
     image = ax.imshow(matrix, cmap=palette, vmin=0, vmax=100, aspect="equal")
     ax.set_xticks(range(len(names)), names, rotation=42, ha="right", fontsize=tick_size)
     ax.set_yticks(range(len(names)), names, fontsize=tick_size)
     ax.set_title(title, fontsize=tick_size + 8, fontweight="bold", pad=22)
-    threshold = 55
     for i in range(len(names)):
         for j in range(len(names)):
+            rgb = np.asarray(palette(image.norm(matrix[i, j]))[:3])
+            linear_rgb = np.where(rgb <= 0.04045, rgb / 12.92, ((rgb + 0.055) / 1.055) ** 2.4)
+            luminance = linear_rgb @ np.array([0.2126, 0.7152, 0.0722])
+            text_color = "black" if luminance > 0.179 else "white"
             ax.text(j, i, f"{matrix[i,j]:.1f}", ha="center", va="center",
-                    fontsize=annotation_size, color="white" if matrix[i,j] < threshold else "black",
+                    fontsize=annotation_size, color=text_color,
                     fontweight="bold" if i == j else "normal")
     cbar = fig.colorbar(image, ax=ax, fraction=.035, pad=.035)
     cbar.set_label("Sequence identity (%)", fontsize=tick_size)
