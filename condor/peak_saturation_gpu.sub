@@ -1,0 +1,14 @@
+universe = vanilla
+initialdir = /nethome/akolchina/gfp_project
+executable = /bin/bash
+arguments = condor/run_peak_saturation.sh $(directory) $(peak) $(seed) $(model) cuda
+should_transfer_files = NO
+request_cpus = 1
+request_memory = 10GB
+request_disk = 4GB
+request_gpus = 1
+requirements = (TARGET.UidDomain == "lsv.uni-saarland.de") && (TARGET.GPUs_GlobalMemoryMb >= 10000)
+output = $(directory)/condor/gpu_$(peak)_$(seed).$(ClusterId).out
+error = $(directory)/condor/gpu_$(peak)_$(seed).$(ClusterId).err
+log = $(directory)/condor/gpu.$(ClusterId).log
+queue
